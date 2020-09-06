@@ -14,7 +14,7 @@ public class MailHandler {
     
     private JavaMailSender mailSender;
     private MimeMessage message;
-    private MimeMessageHelper messageHelper123124;
+    private MimeMessageHelper messageHelper;
  
  
     public MailHandler(JavaMailSender mailSender) throws MessagingException {

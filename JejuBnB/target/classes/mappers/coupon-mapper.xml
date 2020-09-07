@@ -18,7 +18,7 @@
 	</resultMap>
 	
 	
-	<select id="selectList" >
+	<select id="selectList" parameterType="com.jeju.JejuBnB.coupon.model.vo.Coupon" resultMap="resultList">
 	</select>
 	
 	<insert id="">

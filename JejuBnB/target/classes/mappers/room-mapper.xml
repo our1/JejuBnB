@@ -8,6 +8,7 @@
 		<result property="user_id" column="user_id" />	
 		<result property="room_name" column="room_name" />	
 		<result property="room_content" column="room_content" />	
+<<<<<<< HEAD
 		<result property="room_address" column="room_address" />
 		<result property="st_num_people" column="st_num_people" />		
 		<result property="max_people" column="max_people" />	
@@ -66,5 +67,66 @@
 	
 	<delete id="deleteRoom" parameterType="int">
 		delete from room where room_no = #{ room_no }
+=======
+		<result property="room_address" column="room_address" />	
+		<result property="max_people" column="max_people" />	
+		<result property="checkin_time" column="checkin_time" />	
+		<result property="checkout_time" column="checkout_time" />	
+		<result property="num_bed" column="num_bed" />	
+		<result property="num_bedroom" column="num_bedroom" />	
+		<result property="num_bathroom" column="num_bathroom" />	
+		<result property="amenity" column="amenity" />	
+		<result property="facility" column="facility" />	
+		<result property="build_type" column="build_type" />	
+		<result property="room_type" column="room_type" />	
+		<result property="rule" column="rule" />	
+		<result property="pass_or_not" column="pass_or_not" />	
+		<result property="st_num_people" column="st_num_people" />	
+		<result property="plus_charge" column="plus_charge" />	
+		<result property="room_original_file" column="room_original_file" />	
+		<result property="room_renmae_file" column="room_renmae_file" />	
+	</resultMap>
+	
+	<resultMap type="Room" id="resultList">
+		<id property="room_no" column="room_no" />
+		<result property="user_id" column="user_id" />	
+		<result property="room_name" column="room_name" />	
+		<result property="room_content" column="room_content" />	
+		<result property="room_address" column="room_address" />	
+		<result property="max_people" column="max_people" />	
+		<result property="checkin_time" column="checkin_time" />	
+		<result property="checkout_time" column="checkout_time" />	
+		<result property="num_bed" column="num_bed" />	
+		<result property="num_bedroom" column="num_bedroom" />	
+		<result property="num_bathroom" column="num_bathroom" />	
+		<result property="amenity" column="amenity" />	
+		<result property="facility" column="facility" />	
+		<result property="build_type" column="build_type" />	
+		<result property="room_type" column="room_type" />	
+		<result property="rule" column="rule" />	
+		<result property="pass_or_not" column="pass_or_not" />	
+		<result property="st_num_people" column="st_num_people" />	
+		<result property="plus_charge" column="plus_charge" />	
+		<result property="room_original_file" column="room_original_file" />	
+		<result property="room_renmae_file" column="room_renmae_file" />	
+	</resultMap>
+	
+	
+	<select id="selectList" parameterType="com.kh.second.board.model.vo.PageCount" resultMap="resultList">
+	<![CDATA[
+		select * from(select rownum rnum, room_no, user_id, room_name, room_content, room_address, max_people, checkin_time, checkout_time, num_bed, num_bedroom, 
+		num_bathroom, amenity, facility, build_type, room_type, rule, pass_or_not, st_num_people, plus_charge, room_original_file, room_renmae_file from room order by room_name)
+		where rnum > #{startPage} and rnum < #{endPage}
+		]]>
+	</select>
+	
+	<insert id="">
+	</insert>
+	
+	<update id="">
+	</update>
+	
+	<delete id="">
+>>>>>>> refs/remotes/origin/oss
 	</delete>
 </mapper>

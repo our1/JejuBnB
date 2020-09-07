@@ -22,12 +22,8 @@
 	
 	<insert id="insertPolicy" parameterType="Policy">
 	insert into policy
-	values (#{policy_no),#{policy_content},#{policy_type})
+	values (#{policy_no},#{policy_content},#{policy_type})
 	</insert>
 	
-	<update id="">
-	</update>
 	
-	<delete id="">
-	</delete>
 </mapper>

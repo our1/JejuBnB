@@ -14,16 +14,18 @@
 		<typeAlias type="com.jeju.JejuBnB.faq.model.vo.Faq" alias="Faq"/>
 		<typeAlias type="com.jeju.JejuBnB.policy.model.vo.Policy" alias="Policy"/>
 		<typeAlias type="com.jeju.JejuBnB.question.model.vo.Question" alias="Question"/>
+		<typeAlias type="com.jeju.JejuBnB.reservation.model.vo.Reservation" alias="Reservation" />
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml" />
 		<mapper resource="mappers/room-mapper.xml" />
 		<mapper resource="mappers/tour-mapper.xml" />
-		<mapper resource="mappers/coupon-mpaaper.xml"/>
+		<mapper resource="mappers/coupon-mapper.xml"/>
 		<mapper resource="mappers/event-mapper.xml"/>
 		<mapper resource="mappers/faq-mapper.xml"/>
 		<mapper resource="mappers/policy-mapper.xml"/>
 		<mapper resource="mappers/question-mapper.xml"/>
+		<mapper resource="mappers/reservation-mapper.xml" />
 	</mappers>
 </configuration>

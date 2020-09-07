@@ -9,6 +9,7 @@
 		<typeAlias type="com.jeju.JejuBnB.room.model.vo.Room" alias="Room" />
 		<typeAlias type="com.jeju.JejuBnB.room.model.vo.Room_File" alias="Room_File" />
 
+
 	</typeAliases>
 
 	<mappers>

@@ -2,9 +2,8 @@ package com.jeju.JejuBnB.tour.model.vo;
 
 import java.sql.Date;
 
-public class Tour implements java.io.Serializable{
-	private static final long serialVersionUID = 5111L;
-	
+public class Tour {
+
 	private int tour_no;
 	private String tour_name;
 	private String tour_content;

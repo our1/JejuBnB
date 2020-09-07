@@ -8,7 +8,6 @@
 		<typeAlias type="com.jeju.JejuBnB.member.model.vo.Member" alias="Member" />
 		<typeAlias type="com.jeju.JejuBnB.room.model.vo.Room" alias="Room" />
 		<typeAlias type="com.jeju.JejuBnB.room.model.vo.Room_File" alias="Room_File" />
-		<typeAlias type="com.jeju.JejuBnb.tour.model.vo.Tour" alias="Tour" />
 
 	</typeAliases>
 
@@ -16,7 +15,5 @@
 		<mapper resource="mappers/member-mapper.xml" />
 		<mapper resource="mappers/room-mapper.xml" />
 		<mapper resource="mappers/room_file-mapper.xml" />
-		<mapper resource="mappers/tour-mapper.xml" />
-
 	</mappers>
 </configuration>

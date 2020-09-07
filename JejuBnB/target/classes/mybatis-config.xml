@@ -6,13 +6,15 @@
 	<typeAliases>
 		
 		<typeAlias type="com.jeju.JejuBnB.member.model.vo.Member" alias="Member" />
-		<!-- <typeAlias type="com.kh.second.notice.model.vo.Notice" alias="Notice" />
-		<typeAlias type="com.kh.second.board.model.vo.Board" alias="Board" /> -->
+		<typeAlias type="com.jeju.JejuBnB.membe.room.model.vo.Room" alias="Room" />
+		<typeAlias type="com.jeju.JejuBnB.membe.room.model.vo.Room_File" alias="Room_File" />
+
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml" />
-<!-- 		<mapper resource="mappers/notice-mapper.xml" />
-		<mapper resource="mappers/board-mapper.xml" /> -->
+		<mapper resource="mappers/room-mapper.xml" />
+		<mapper resource="mappers/room_file-mapper.xml" />
+
 	</mappers>
 </configuration>

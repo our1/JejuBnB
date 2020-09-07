@@ -13,5 +13,5 @@ public interface MemberService {
 	ArrayList<Member> selectList();
 	Member selectMember(String userid);
 	Member selectFacebookLogin(Member member);
-	int selectIdCheck(String user_id);
+	int selectInfoCheck(Member member);
 }

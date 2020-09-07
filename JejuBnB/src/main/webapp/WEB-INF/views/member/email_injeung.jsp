@@ -22,8 +22,7 @@
                     <center>
                         <br>
                         <div>
-                            인증번호 입력 : <input type="number" name="email_injeung"
-                                placeholder="  인증번호를 입력하세요. ">
+                            인증번호 입력 : <input type="number" name="email_injeung" placeholder="  인증번호를 입력하세요. ">
                         </div>                                        
  								<input type="hidden" name="dice" value="${dice }">
  								<input type="hidden" name="user_id" value="${user_id }">

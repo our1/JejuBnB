@@ -27,8 +27,5 @@
 		<mapper resource="mappers/policy-mapper.xml"/>
 		<mapper resource="mappers/question-mapper.xml"/>
 		<mapper resource="mappers/reservation-mapper.xml" />
-</mappers>
-
-
-	
+	</mappers>
 </configuration>

@@ -52,7 +52,12 @@
 	</resultMap>
 	
 	
-	<select id="">
+	<select id="selectList" parameterType="com.kh.second.board.model.vo.PageCount" resultMap="resultList">
+	<![CDATA[
+		select * from(select rownum rnum, room_no, user_id, room_name, room_content, room_address, max_people, checkin_time, checkout_time, num_bed, num_bedroom, 
+		num_bathroom, amenity, facility, build_type, room_type, rule, pass_or_not, st_num_people, plus_charge, room_original_file, room_renmae_file from room order by room_name)
+		where rnum > #{startPage} and rnum < #{endPage}
+		]]>
 	</select>
 	
 	<insert id="">

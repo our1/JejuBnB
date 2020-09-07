@@ -15,13 +15,13 @@ public class RoomServiceImpl implements RoomService{
 	private RoomDao roomDao;
 	
 	@Override
-	public ArrayList<Room> selectList() {
-		return roomDao.selectList();
+	public ArrayList<Room> selectList(int currentPage, int limit) {
+		return roomDao.selectList(currentPage, limit);
 	}
 
 	@Override
-	public ArrayList<Room> selectBList() {
-		return roomDao.selectBList();
+	public ArrayList<Room> selectBList(int currentPage, int limit) {
+		return roomDao.selectBList(currentPage, limit);
 	}
 
 }

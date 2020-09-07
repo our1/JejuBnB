@@ -5,6 +5,6 @@ import java.util.ArrayList;
 import com.jeju.JejuBnB.room.model.vo.Room;
 
 public interface RoomService {
-	ArrayList<Room> selectList();
-	ArrayList<Room> selectBList();
+	ArrayList<Room> selectList(int currentPage, int limit);
+	ArrayList<Room> selectBList(int currentPage, int limit);
 }

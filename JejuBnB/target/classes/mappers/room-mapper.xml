@@ -46,15 +46,15 @@
 		<result property="pass_or_not" column="pass_or_not" />	
 		<result property="plus_charge" column="plus_charge" />	
 		<result property="room_thumbnail_file" column="room_thumbnail_file" />	
-		<result property="room_renmae_file" column="room_renmae_file" />	
+		<result property="room_rename_file" column="room_rename_file" />	
 	</resultMap>
 	
 	
 	<select id="selectList" parameterType="com.jeju.JejuBnB.room.model.vo.PageCount" resultMap="resultList">
 	<![CDATA[
 		select * from(select rownum rnum, room_no, user_id, room_name, room_content, room_address, max_people, checkin_time, checkout_time, bed, bedroom, 
-		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_renmae_file from room order by room_name)
-		where rnum > #{startPage} and rnum < #{endPage}
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file from room order by room_name)
+		where rnum >= #{startRow} and rnum <= #{endRow}
 		]]>
 	</select>
 	

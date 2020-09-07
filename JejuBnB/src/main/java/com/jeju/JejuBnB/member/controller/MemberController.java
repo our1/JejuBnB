@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,11 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jeju.JejuBnB.member.model.service.MemberService;
@@ -163,16 +166,19 @@ public class MemberController {
 		}
 		
 	}
-	@RequestMapping("idchk.do")
+	
+	
+	
+	@RequestMapping("infocheck.do")
 	public void idCheckMethod(
-			@RequestParam("user_id") String user_id, Model model, HttpServletResponse response
+			Member member,Model model, HttpServletResponse response
 			) {
-		int idcount = memberService.selectIdCheck(user_id);
+		int idcount = memberService.selectInfoCheck(member);
 		String returnValue= null;
 		if(idcount == 0) {
-			returnValue= "ok";
-		}else {
 			returnValue= "no";
+		}else {
+			returnValue= "ok";
 		}
 		response.setContentType("text/html; chatset=utf-8");
 		PrintWriter out;
@@ -305,8 +311,124 @@ public class MemberController {
         return mv;
         
     }
+    
+        @RequestMapping( value = "sendEmail.do" , method=RequestMethod.POST )
+        @ResponseBody
+        public String pwdmailSending(HttpServletRequest request, @RequestParam ("e_mail") String e_mail, HttpServletResponse response) throws IOException {
 
-	
+            Random r = new Random();
+            int dice = r.nextInt(4589362) + 49311; 
+            
+            String setfrom = "8135123@gmail.com";
+            String tomail = e_mail ;             
+            String title = "비밀번호 인증 이메일 입니다."; 
+            String content =
+            
+            System.getProperty("line.separator")+ 
+            
+            System.getProperty("line.separator")+
+                    
+            "안녕하세요 회원님 저희 홈페이지를 찾아주셔서 감사합니다"
+            
+            +System.getProperty("line.separator")+
+            
+            System.getProperty("line.separator")+
+
+            " 인증번호는 " +dice+ " 입니다. "
+            
+            +System.getProperty("line.separator")+
+            
+            System.getProperty("line.separator")+
+            
+            "받으신 인증번호를 홈페이지에 입력해 주시면 다음으로 넘어갑니다."; 
+            
+            
+            try {
+                MimeMessage message = mailSender.createMimeMessage();
+                MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+                messageHelper.setFrom(setfrom); 
+                messageHelper.setTo(tomail); 
+                messageHelper.setSubject(title); 
+                messageHelper.setText(content); 
+                
+                mailSender.send(message);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+            
+            
+            response.setContentType("application/json; charset=utf-8");
+    		JSONObject job = new JSONObject();
+    		job.put("no", dice);
+    		
+    		
+    		
+    		
+    		return job.toJSONString();
+    		
+            
+            
+        }
+        
+         
+            @RequestMapping(value = "searchPwd.do", method = RequestMethod.POST)
+        public ModelAndView searchPwd(@RequestParam("email_injeung") String email_injeung, @RequestParam ("dice") String dice, @RequestParam ("user_id") String user_id, HttpServletResponse response_equals) throws IOException {
+     
+            
+            
+            
+            System.out.println("마지막 : email_injeung : "+email_injeung);
+            
+            System.out.println("마지막 : dice : "+dice);
+            
+            
+             
+            ModelAndView mv = new ModelAndView();
+            
+            mv.setViewName("/member/join.do");
+            
+            mv.addObject("e_mail",email_injeung);
+            
+            if (email_injeung.equals(dice)) {
+                
+                
+                
+                
+                mv.setViewName("member/searchChangePwd");
+                
+                mv.addObject("user_id",user_id);
+                
+
+                
+                response_equals.setContentType("text/html; charset=UTF-8");
+                PrintWriter out_equals = response_equals.getWriter();
+                out_equals.println("<script>alert('인증번호가 일치하였습니다. 비밀번호 변경 페이지로 이동합니다.');</script>");
+                out_equals.flush();
+        
+                return mv;
+                
+                
+            }else if (email_injeung != dice) {
+                
+                
+                ModelAndView mv2 = new ModelAndView(); 
+                
+                mv2.setViewName("member/searchPwdPage");
+                
+                
+                response_equals.setContentType("text/html; charset=UTF-8");
+                PrintWriter out_equals = response_equals.getWriter();
+                out_equals.println("<script>alert('인증번호가 일치하지않습니다. 인증번호를 다시 입력해주세요.'); history.go(-1);</script>");
+                out_equals.flush();
+                
+        
+                return mv2;
+                
+            }    
+        
+            return mv;
+            
+        }
 	
 	
 	/* view 이동 */
@@ -349,6 +471,12 @@ public class MemberController {
     public String email() {
         return "member/email";
     }
+	
+	@RequestMapping("searchpwdPage.do")
+	 public String searchPwdPage() {
+        return "member/searchPwdPage";
+    }
+	
 	
 	
 }

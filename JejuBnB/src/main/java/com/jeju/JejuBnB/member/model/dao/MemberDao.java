@@ -80,6 +80,10 @@ public Member selectFacebookLogin(Member member) {
 public int selectIdCheck(String user_id) {
 	return session.selectOne("memberMapper.selectIdCheck", user_id);
 }
+
+public int selectInfoCheck(Member member) {
+	return session.selectOne("memberMapper.selectInfoCheck", member);
+}
 }
 
 

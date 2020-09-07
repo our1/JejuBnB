@@ -39,6 +39,12 @@
    top : 480px;
   
    }
+    #searchpwdPage {
+   position : fixed;
+   left : 140px;
+   top : 480px;
+  
+   }
    
    div#loginForm form input.pos {
    	position : fixed; /* 절대좌표 */
@@ -139,6 +145,10 @@ Facebook으로 로그인
  </form>
  
  </div>
+
+ <div id="searchpwdPage">
+<a href="searchpwdPage.do">비밀번호 찾기</a>
+</div> 
 
  <div id="enrollbutton">
 <a href="email.do">이메일로 회원 가입</a>

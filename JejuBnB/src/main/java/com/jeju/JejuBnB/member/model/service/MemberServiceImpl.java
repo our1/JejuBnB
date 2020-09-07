@@ -50,9 +50,10 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.selectFacebookLogin(member);
 	}
 
+
 	@Override
-	public int selectIdCheck(String user_id) {
-		return memberDao.selectIdCheck(user_id);
+	public int selectInfoCheck(Member member) {
+		return memberDao.selectInfoCheck(member);
 	}
 
 }

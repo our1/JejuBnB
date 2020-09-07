@@ -18,15 +18,5 @@
 	</resultMap>
 	
 	
-	<select id="selectList" >
-	</select>
 	
-	<insert id="">
-	</insert>
-	
-	<update id="">
-	</update>
-	
-	<delete id="">
-	</delete>
 </mapper>

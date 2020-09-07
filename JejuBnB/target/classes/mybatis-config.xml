@@ -21,7 +21,7 @@
 		<mapper resource="mappers/member-mapper.xml" />
 		<mapper resource="mappers/room-mapper.xml" />
 		<mapper resource="mappers/tour-mapper.xml" />
-		<mapper resource="mappers/coupon-mpapper.xml"/>
+		<mapper resource="mappers/coupon-mapper.xml"/>
 		<mapper resource="mappers/event-mapper.xml"/>
 		<mapper resource="mappers/faq-mapper.xml"/>
 		<mapper resource="mappers/policy-mapper.xml"/>

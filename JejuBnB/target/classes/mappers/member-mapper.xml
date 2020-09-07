@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberMapper">
+
+	<resultMap id="resultMember" type="Member">
+		<id property="user_id" column="user_id" />
+		<result property="user_pwd" column="user_pwd" />
+		<result property="user_name" column="user_name" />
+		<result property="birthday" column="birthday" />
+		<result property="phone" column="phone" />
+		<result property="facebook_id" column="facebook_id" />
+		<result property="host_check" column="host_check" />
+		<result property="admin_check" column="admin_check" />
+	</resultMap>
+	
+		<resultMap id="resultList" type="Member">
+		<id property="user_id" column="user_id" />
+		<result property="user_pwd" column="user_pwd" />
+		<result property="user_name" column="user_name" />
+		<result property="birthday" column="birthday" />
+		<result property="phone" column="phone" />
+		<result property="facebook_id" column="facebook_id" />
+		<result property="host_check" column="host_check" />
+		<result property="admin_check" column="admin_check" />
+	</resultMap>
+	
+
+	<insert id="insertMember" parameterType="Member">
+	insert into member
+	values (#{ user_id },#{ user_pwd }, #{user_name}, #{birthday}, #{phone},
+	<if test="facebook_id != null">
+	 #{facebook_id}, null, null) 
+	 </if>
+	 <if test="facebook_id == null">
+	  null, null, null) 
+	  </if>
+	</insert>
+	<select id="loginCheck" parameterType="Member"  resultType="Member">
+		select * from member 
+		where user_id = #{user_id}
+	</select>
+	
+	<select id="facebookLoginCheck" parameterType="Member"  resultType="Member">
+		select * from member 
+		where user_id = #{user_id}  
+	</select>
+	
+	<delete id="deleteMember" parameterType="string">
+	delete from member where user_id = #{uid}
+	</delete> 
+	
+	
+	<select id="selectMember" parameterType="string" resultType="Member">
+	select * from member where user_id = #{user_id}
+	</select>
+	
+	<select id="selectIdCheck" parameterType="String" resultType="int">
+	select count(user_id) from member where user_id = #{user_id}
+	</select>
+	
+	
+	
+<!-- 	
+	
+	
+	<select id="selectList" resultMap="resultList">
+	select * from member
+	</select>
+	
+	<select id="selectSearchUserid" parameterType="string" resultMap="resultList">
+	select * from member where userid like '%' || #{keyword} || '%'
+	</select>
+	
+	<select id="selectSearchGender" parameterType="string" resultMap="resultList">
+	select * from member where gender = #{keyword}
+	</select>
+	
+	<select id="selectSearchAge" parameterType="int" resultMap="resultList">
+	select * from member
+	
+	<if test="keyword == 60 " >
+		where age == #{ value}
+	</if>
+	
+	<if test="keyword != 60 ">
+	where age between #{value} and #{value +9}
+	</if>
+	
+
+	</select>
+	
+	<select id="selectSearchEnrollDate" parameterType="com.jeju.JejuBnB.member.model.vo.SearchDate" resultMap="resultList">
+	select * from member where enroll_date between #{begin) and #{end}
+	</select>
+	
+	<select id="selectSearchLoginok" parameterType="string" resultMap="resultList">
+	select * from member where login_ok = #{keyword}
+	</select>
+	
+	<select id="selectCheckId" parameterType="string" resultType="int">
+	select count(userid) from member where userid = #{userid}
+	</select>
+	
+	
+	
+	<update id="updateMember" parameterType="Member">
+	update member set userpwd = #{userpwd} , age =#{age} , phone =#{phone}, email=#{email} , 
+	hobby =#{hobby} , etc =#{etc} where userid = #{userid}
+	</update>
+	
+	<update id="updateLoginok" parameterType="Member">
+	update member set login_ok = #{login_ok} where userid = #{userid}
+	</update>
+	
+	-->
+	
+</mapper>

@@ -63,4 +63,8 @@
 		 #{ checkin_time}, #{checkout_time }, #{ bed}, #{bedroom }, #{bathroom }, #{ amenity}, #{ facility}, 
 		#{build_type }, #{rule }, default,  #{plus_charge }, #{room_thumbnail_file }, #{room_renmae_file })
 	</insert>
+	
+	<delete id="deleteRoom" parameterType="int">
+		delete from room where room_no = #{ room_no }
+	</delete>
 </mapper>

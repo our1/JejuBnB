@@ -94,7 +94,7 @@ hr { clear: both; }
 <li><a href="/testm/blist?page=1"> 게시글</a></li></li>
 <li><a href="#">Q&A</a></li></li>
 <li><a href="${ pageContext.servletContext.contextPath}/moveCrypto.do">암호화회원관리</a></li></li>
-<li><a href="${ pageContext.servletContext.contextPath}/moveAjax.do">Ajax테스트</a></li>
+<li><a href="${ pageContext.servletContext.contextPath}/roomlist.do">룸 리트스</a></li>
 <li><a href="/testm/index.jsp">Home</a></li></li>
 </ul>
 </c:if>

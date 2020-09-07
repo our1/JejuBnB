@@ -1,5 +1,5 @@
 package com.jeju.JejuBnB.reservation.model.service;
 
-public class ReservationService {
+public interface ReservationService {
 
 }

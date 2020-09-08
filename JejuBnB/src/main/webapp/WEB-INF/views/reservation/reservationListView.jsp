@@ -71,7 +71,7 @@
 	침실수 ${ room.num_bedroom } 개, 욕실수  ${ num_bathroom } 개
 </h4> <br><hr>
 
-
+<h4></h4>
 
 </div>
 

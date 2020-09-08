@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +8,8 @@
 <title>JejuBnB</title>
 </head>
 <body>
+<c:import url="/WEB-INF/views/common/header.jsp"/>
+<hr>
 <h1 align="center">숙소 리스트 페이지</h1>
 <c:forEach items="${list }" var="room">
 <table align="center" border="1" cellspacing="0" width="700">

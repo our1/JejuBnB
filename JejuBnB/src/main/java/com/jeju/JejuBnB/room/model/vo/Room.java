@@ -1,5 +1,8 @@
 package com.jeju.JejuBnB.room.model.vo;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Room implements java.io.Serializable {
 	
 	private static final long serialVersionUID = 6001L;

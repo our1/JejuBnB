@@ -24,4 +24,19 @@ public class RoomServiceImpl implements RoomService{
 		return roomDao.selectBList(currentPage, limit);
 	}
 
+	@Override
+	public int insertRoom(Room room) {
+		return roomDao.insertRoom(room);
+	}
+
+	@Override
+	public int updateRoom(Room room) {
+		return roomDao.updateRoom(room);
+	}
+
+	@Override
+	public int deleteRoom(int room_no) {
+		return roomDao.deleteRoom(room_no);
+	}
+
 }

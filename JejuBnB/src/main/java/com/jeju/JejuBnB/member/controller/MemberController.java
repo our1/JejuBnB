@@ -45,7 +45,6 @@ public class MemberController {
 	
 	@RequestMapping(value="login.do", method= RequestMethod.POST)
 	public String loginMethod(Member member, HttpSession session, Model model) {
-		logger.info("login.do user_id :   " + member.getUser_id() + "   password : " + member.getUser_pwd());
 		
 		Member loginMember = memberService.selectLogin(member);
 		model.addAttribute("loginMember", loginMember);
@@ -111,9 +110,7 @@ public class MemberController {
 	
 	
 	@RequestMapping(value= "enroll.do", method= RequestMethod.POST)
-	public String memberinsert(Member member, Model model) {
-		logger.info("enroll : " + member);
-		
+	public String memberinsert(Member member, Model model) {	
 		member.setUser_pwd(bcryptPasswordEncoder.encode(member.getUser_pwd()));
 		
 		if(memberService.insertMember(member)> 0) {
@@ -127,8 +124,6 @@ public class MemberController {
 	
 	@RequestMapping("myinfo.do")
 	public ModelAndView myInfoMethod(@RequestParam("user_id") String user_id, ModelAndView mv) {
-
-		/*String user_id = request.getParameter("user_id");*/
 		
 		Member member = memberService.selectMember(user_id);
 		if(member != null) {

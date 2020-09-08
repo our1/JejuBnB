@@ -31,4 +31,16 @@ public class RoomDao {
 		return (ArrayList<Room>) list;
 	}
 
+	public int insertRoom(Room room) {
+		return session.insert("roomMapper.insertRoom", room);
+	}
+
+	public int updateRoom(Room room) {
+		return session.update("roomMapper.updateRoom", room);
+	}
+
+	public int deleteRoom(int room_no) {
+		return session.delete("roomMapper.deleteRoom", room_no);
+	}
+
 }

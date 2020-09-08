@@ -61,7 +61,7 @@ hr { clear: both; }
 
 <body>
 <header>
-<h1 id="logo"><a href="mian.do"> JejuBnB </a></h1>
+<h1 id="logo"><a href="main.do"> JejuBnB </a></h1>
 <c:if test= "${ !empty loginMember and loginMember.user_id eq 'admin'}">
 	<%// 관리자가 로그인 했을때	%>
 <ul id="menubar">
@@ -89,12 +89,13 @@ hr { clear: both; }
 </c:if>
 <c:if test="${ empty loginMember }">
 <ul id="menubar">
-<li><a href="/testm/views/member/enrollPage.html"> 회원가입</a></li></li>
+<li><a href="${pageContext.servletContext.contextPath }/enrollPage.do"> 회원가입</a></li></li>
 <li><a href="${ pageContext.servletContext.contextPath}/moveFile.do"> 파일 업로드 테스트</a></li>
 <li><a href="/testm/blist?page=1"> 게시글</a></li></li>
 <li><a href="#">Q&A</a></li></li>
 <li><a href="${ pageContext.servletContext.contextPath}/moveCrypto.do">암호화회원관리</a></li></li>
 <li><a href="${ pageContext.servletContext.contextPath}/roomlist.do">룸 리트스</a></li>
+<li><a href="${ pageContext.servletContext.contextPath}/moveroomwrite.do">사장님 신청하기</a></li>
 <li><a href="/testm/index.jsp">Home</a></li></li>
 </ul>
 </c:if>

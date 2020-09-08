@@ -21,7 +21,7 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping("main.do")
+	@RequestMapping(value = "main.do", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		
 		Date date = new Date();

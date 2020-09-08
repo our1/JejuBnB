@@ -79,7 +79,7 @@ hr { clear: both; }
 <ul id="menubar">
 <li><a href="/testm/mlist"> 암호화회원관리</a></li></li>
 <li><a href="/testm/nlist"> 공지사항</a></li></li>
-<li><a href="/testm/blist?page=1"> 게시글</a></li></li>
+<li><a href="${ pageContext.servletContext.contextPath}/roomlist.do"> 게시글</a></li></li>
 <li><a href="#">Q&A</a></li></li>
 <li><a href="#">사진게시판</a></li></li>
 <li><a href="${ pageContext.servletContext.contextPath}/moveFile.do"> 파일 업로드 테스트</a></li>
@@ -91,7 +91,7 @@ hr { clear: both; }
 <ul id="menubar">
 <li><a href="/testm/views/member/enrollPage.html"> 회원가입</a></li></li>
 <li><a href="${ pageContext.servletContext.contextPath}/moveFile.do"> 파일 업로드 테스트</a></li>
-<li><a href="/testm/blist?page=1"> 게시글</a></li></li>
+<li><a href="${ pageContext.servletContext.contextPath}/roomlist.do""> 숙소 </a></li></li>
 <li><a href="#">Q&A</a></li></li>
 <li><a href="${ pageContext.servletContext.contextPath}/moveCrypto.do">암호화회원관리</a></li></li>
 <li><a href="${ pageContext.servletContext.contextPath}/roomlist.do">룸 리트스</a></li>

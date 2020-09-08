@@ -18,15 +18,5 @@
 	</resultMap>
 	
 	
-	<select id="selectList" parameterType="com.jeju.JejuBnB.coupon.model.vo.Coupon" resultMap="resultList">
-	</select>
 	
-	<insert id="">
-	</insert>
-	
-	<update id="">
-	</update>
-	
-	<delete id="">
-	</delete>
 </mapper>

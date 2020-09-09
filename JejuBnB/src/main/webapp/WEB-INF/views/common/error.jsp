@@ -15,6 +15,10 @@ function closeWindow(){
 	
 }
 
+function moveMain(){
+	location.href="main.do";
+}
+
 
 </script>
 
@@ -39,6 +43,8 @@ function closeWindow(){
  	</c:if>
    <br>
    <button onclick="closeWindow()">시작페이지로 이동</button>
+      <button onclick="moveMain()">시작페이지로 이동</button>
+   
    </fieldset>
 </body>
 </html>

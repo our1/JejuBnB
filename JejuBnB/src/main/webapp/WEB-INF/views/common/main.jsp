@@ -4,204 +4,409 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>JejuBnB</title>
-<style type="text/css">
-div.lineA { 
-   height : 100px; 
-   border : 1px solid gray;
-   float: left;
-   position : relative;
-   left : 120px;
-   margin : 5px;
-   padding : 5px;
-}
+  <head>
+    <meta charset="utf-8">
+    <title>JejuBnB</title>
+      <style>
+        @font-face {
+           font-family: 'Cafe24Oneprettynight';
+           src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff');
+           font-weight: normal;
+           font-style: normal;
+         }
 
-div#banner {
-   width : 750px;
-   padding : 0;   
-}
+        body {
+          margin: 0;
+          padding: 0;
+          background-color: #EEF1F1;
+        }
+        .mainhead {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 500px;
+          padding: 0;
+          z-index: 10000;
+          transition: all 0.2s ease-in-out;
+          height: 100px;
+          background: transparent;
+        }
+        .logo {
+          position: absolute;
+          top : 50%;
+          left : 50%;
+        }
+        .logo img{
+           width : 80%;
+        }
+        .mainimg {
+          position: absolute;
+          width: 1900px;
+          height: 930px;
+          background: url('resources/images/09.jpg');
+          background-repeat: no-repeat;
+          background-size: 100% 100%;
+        }
 
-div#loginBox {
-   width : 274px;
-   font-size : 9pt;
-   text-align : left;
-   padding-left : 20px;
-}
+        .res {
+          width: 500px;
+          height: 60px;
+          -webkit-border-top-left-radius: 120px 120px;
+          -webkit-border-bottom-left-radius: 120px 120px;
+          -webkit-border-top-right-radius: 120px 120px;
+          -webkit-border-bottom-right-radius: 120px 120px;
+          background-color: white;
+          position: absolute;
+          left : 140%;
+          top : 60%;
+        }
+        .dropdown {
+          background: #fff;
+          display: inline-block;
+          padding: 12px 20px;
+          border-radius: 10px;
+          width: 100px;
+          box-sizing: border-box;
+          height: 50px;
+          line-height: 25px;
+          position: absolute;
+          left : 1500px;
+          top : 65px;
+          cursor: pointer;
+          color: #74809d;
+          font-weight: bold;
+        }
+        .dropdown:after {
+          content: "";
+          display: block;
+          width: 8px;
+          height: 8px;
+          position: absolute;
+          transform: rotate(45deg);
+          top: 17px;
+          border-bottom: 2px solid #74809d;
+          border-right: 2px solid #74809d;
+          transition: 0.4s;
+        }
+        .dropdown-list  {
+          width: 200px;
+          box-sizing: border-box;
+          padding: 0;
+          position: absolute;
+          border-radius: 10px;
+          margin-top: 140px;
+          left : 1400px;
+          opacity: 0;
+          transition: opacity 0.2s linear;
+        }
 
-div#loginBox button {
-   width : 250px;
-   height : 35px;
-   background-color : navy;
-   color : white;
-   margin-top : 10px;
-   margin-bottom : 15px;   
-   font-size : 14pt;
-   font-weight : bold;
-}
-div#banner img { 
-   margin : 0; 
-   padding : 0;
-   width : 750px;
-   height : 110px;
-}
-section {
-   position: relative;
-   left: 120px;
-}
-section > div { width: 360px; background: #ccffff; }
-section div table { width: 350px; background: white; }
-</style>
-<script type="text/javascript" src="/resources/js/jquery-3.5.1.min.js"></script>
-<script type="text/javascript">
-$(function(){
-   /*
-      주기적으로 반복 요청하려면
-      setInterval(function(){ $.ajax(); }, 시간);
-      시간은 밀리세컨드임 : 1000 이 1초임
-   */
-   /* setInterval(function(){
-      console.log("setInterval() 에 의해 자동 실행 확인");
-   }, 100); */
-   
-   //최근 등록한 공지글 3개 출력되게 함
-   $.ajax({
-      url: "/ntop3",
-      type: "post",
-      dataType : "json",
-      success: function(data){
-         console.log("success : " + data);
-         
-         //object ==> string 으로 변환
-         var jsonStr = JSON.stringify(data);
-         //string ==> json 객체로 바꿈
-         var json = JSON.parse(jsonStr);
-         
-         var values = "";
-         for(var i in json.list){
-            values += "<tr><td>" + json.list[i].no 
-               + "</td><td><a href='/ndetail?noticeno="
-               + json.list[i].no + "'>" 
-               + decodeURIComponent(json.list[i].title).replace(/\+/gi, " ")
-               + "</a></td><td>" + json.list[i].date + "</td></tr>";
-         } //for in
-         
-         $("#newnotice").html($("#newnotice").html() + values);
-      },
-      error: function(jqXHR, textstatus, errorthrown){
-         console.log("error : " + jqXHR + ", " + textstatus
-               + ", " + errorthrown);
-      }
-   });  //ajax
-   
-   //조회수 많은 인기 게시 원글 상위 3개 조회 출력 처리
-   $.ajax({
-      url: "/btop3",
-      type: "post",
-      dataType: "json",
-      success: function(data){
-         console.log("success : " + data);
-         
-         //object ==> string 으로 변환
-         var jsonStr = JSON.stringify(data);
-         //string ==> json 객체로 바꿈
-         var json = JSON.parse(jsonStr);
-         
-         var values = "";
-         for(var i in json.list){
-            values += "<tr><td>" + json.list[i].bnum 
-               + "</td><td><a href='/bdetail?bnum="
-               + json.list[i].bnum + "'>" 
-               + decodeURIComponent(json.list[i].btitle).replace(/\+/gi, " ")
-               + "</a></td><td>" + json.list[i].rcount + "</td></tr>";
-         } //for in
-         
-         $("#toplist").html($("#toplist").html() + values);
-      },
-      error: function(jqXHR, textstatus, errorthrown){
-         console.log("error : " + jqXHR + ", " + textstatus
-               + ", " + errorthrown);
-      }
-   });
-   
-});  //document.ready
+        .dropdown-list li {
+          list-style: none;
+          background: #fff;
+          padding: 12px 16px;
+          border-left: 4px solid #fff;
+          font-family: 'Cafe24Oneprettynight';
+          font-weight: bold;
+          color: #74809d;
+          height: 50px;
+          line-height: 25px;
+          box-sizing: border-box;
+        }
+        ul li:first-child {
+          border-radius: 5px 5px 0 0;
+        }
+        ul li:last-child {
+          border-bottom: none;
+          border-radius: 0 0 5px 5px;
+        }
+        ul li:hover {
+          transition: 0.2s;
+          cursor: pointer;
+          border-left: 4px solid #FFC19E;
+          color: #526187;
+          background: #f5f5f5;
+        }
+        .active {
+          transition: 0.2s;
+          background: #fff;
+          color: #fff;
+        }
+        .active:after {
+          border-bottom: 2px solid #74809d;
+          border-right: 2px solid #74809d;
+          transform: rotate(-135deg);
+          top: 20px;
+          transition: 0.4s;
+        }
+        .opened {
+          opacity: 1 !important;
+        }
+        .lnr {
+          font-size: 1.4em;
+          margin-right: 10px;
+          position: relative;
+          top: 2px;
+        }
+        .myimg {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background-image: url('resources/images/프로필.jfif');
+          background-size: cover;
+          position: absolute;
+          right: 10px;
+          top : 5px;
+        }
+        .chkin{
+          position: absolute;
+          left : 8%;
+          top : 20%;
+          font-family: 'Cafe24Oneprettynight';
+          font-size: 17px;
+        }
+        .chkinsub {
+          color: #ADAFB6;
+        }
+        .chkout {
+          position: absolute;
+          left : 35%;
+          top : 20%;
+          font-family: 'Cafe24Oneprettynight';
+          font-size: 17px;
+        }
+        .chkoutsub {
+          color: #ADAFB6;
+        }
+        .people {
+          position: absolute;
+          left : 62%;
+          top : 20%;
+          font-family: 'Cafe24Oneprettynight';
+          font-size: 17px;
+          display: inline-block;
+          cursor: pointer;
+        }
+        .people:after {
+          content: "";
+          display: block;
+          width: 8px;
+          height: 8px;
+          position: absolute;
+          transform: rotate(45deg);
+          transition: 0.4s;
+        }
+        .peoplelist {
+          width: 300px;
+          box-sizing: border-box;
+          font-family: 'Cafe24Oneprettynight';
+          padding: 0;
+          position: relative;
+          margin-top: 80px;
+          left : 300px;
+          opacity: 0;
+          transition: opacity 0.2s linear;
+        }
 
-function movePage(){
-	 window.open("loginPage.do", "로그인", 
-		"width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
-}
+        .peoplelist li {
+          list-style: none;
+          background: #fff;
+          padding: 12px 16px;
+          border-bottom: 1px solid rgba(0,0,0,0.1);
+          border-left: 4px solid #fff;
+          font-weight: bold;
+          color: #74809d;
+          height: 50px;
+          line-height: 25px;
+          box-sizing: border-box;
+        }
+        .peoplesub {
+          color: #ADAFB6;
+        }
+        .searchbut {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          background-color: #FFC19E;
+          position: absolute;
+          left : 88.5%;
+          top : 9%;
+        }
+        .searchbut i{
+         color : white;
+         position: absolute;
+         left : 18%;
+         top : 15%;
+        }
+        .slist {
+          font-family: 'Cafe24Oneprettynight';
+          position: absolute;
+          top : 127%;
+          left : 10%;
+          color : gray;
+          font-size: 30px;
+        }
+        .tlist {
+          font-family: 'Cafe24Oneprettynight';
+          position: absolute;
+          top : 127%;
+          left : 20%;
+          color : gray;
+          font-size: 30px;
+        }
+        .onelisthr {
+          position: absolute;
+          top : 130%;
+          left : 9%;
+          border : 1px solid gray;
+          width: 130px;
+        }
+        #onelist {
+          display: grid;
+          grid-template-columns: 300px 300px 300px 300px 300px;
+          grid-template-rows: 500px ;
+          position: absolute;
+          top : 140%;
+          left : 10%;
+        }
+        .one {
+          border: 1px solid gray;
+          box-shadow: 2px 2px gray;
+          border-radius: 5px;
+        }
+        .two {
+          margin-left: 10%;
+          border: 1px solid gray;
+          box-shadow: 2px 2px gray;
+          border-radius: 5px;
+        }
+        .three {
+          margin-left: 10%;
+          border: 1px solid gray;
+          box-shadow: 2px 2px gray;
+          border-radius: 5px;
+        }
+        .four {
+          margin-left:10%;
+          border: 1px solid gray;
+          box-shadow: 2px 2px gray;
+          border-radius: 5px;
+        }
+        .five {
+          margin-left: 10%;
+          border: 1px solid gray;
+          box-shadow: 2px 2px gray;
+          border-radius: 5px;
+        }
+        .block {
+          border: 1px solid gray;
+          border-radius: 5px;
+          box-shadow: 2px 2px gray;
+          position: absolute;
+          top : 105%;
+          height: 150px;
+          width: 298px;
+        }
+        .block2{
+          border: 1px solid gray;
+          border-radius: 5px;
+          box-shadow: 2px 2px gray;
+          position: absolute;
+          top : 105%;
+          height: 150px;
+          width: 268.5px;
+        }
+        .moreview {
+          position: absolute;
+          top : 215%;
+          left : 90%;
+        }
+        .moreview a{
+          text-decoration: none;
+          font-family: 'Cafe24Oneprettynight';
+          color : gray;
+          font-size: 25px;
+        }
+      </style>
+  </head>
+  <body>
+     <div class="mainhead">
+          <div class="logo">
+            <img src="resources/images/로고.png" >
+          </div>
+     <div class="res">
+        <div class="chkin">
+            체크인<br>
+            <div class="chkinsub">날짜 추가</div>
+        </div>
+        <div class="chkout">
+            체크아웃<br>
+            <div class="chkoutsub">날짜 추가</div>
+        </div>
+        <div class="people">
+            인원<br>
+            <div class="peoplesub">게스트 추가</div>
+        </div>
+        <ul class="peoplelist">
+           <li> 인원 수 <span class="peoplus"></span></li>
+        </ul>
+        <script type="text/javascript">
+        var people = document.querySelector('.people');
+        var peoplelist = document.querySelector('.peoplelist');
 
+        people.onclick = function openList(){
+        people.classList.toggle('active');
+        peoplelist.classList.toggle('opened');
+    }
+        </script>
+        <div class="searchbut">
+          <i class="fas fa-search fa-2x"></i>
+        </div>
+     </div>
+     <div class="dropdown"><span class="lnr lnr-menu"></span><span class="myimg"></span></div>
+     <ul class="dropdown-list">
+       <li><span class="lnr lnr-home"></span> 마이페이지</li>
+       <li><span class="lnr lnr-envelope"></span> 내 쿠폰</li>
+       <li><span class="lnr lnr-cog"></span> 내가 정한 숙소</li>
+       <li><span class="lnr lnr-cog"></span> 사장님 신청</li>
+       <li><span class="lnr lnr-cog"></span> 알림</li>
+       <li><span class="lnr lnr-cog"></span> 고객센터</li>
+       <li><span class="lnr lnr-cog"></span> 로그아웃</li>
+     </ul>
+          </div>
+     <script type="text/javascript">
+     var dropdown = document.querySelector('.dropdown');
+     var dropdownList = document.querySelector('.dropdown-list');
 
-</script>
-</head>
-<body>
-<c:import url="/WEB-INF/views/common/header.jsp" />
-<hr style="clear:both;">
-<center>
-<div id="banner" class="lineA">
-<img src="resources/images/photo2.jpg">
+     dropdown.onclick = function openList(){
+     dropdown.classList.toggle('active');
+     dropdownList.classList.toggle('opened');
+ }
+     </script>
+     <div class="mainimg">
+     </div>
+     <div class="slist">hotel list</div>
+     <div class="tlist">tour list</div>
+     <hr class="onelisthr">
+ <div id="onelist">
+   <div class="one">
+      <div class="block"></div>
+   </div>
+   <div class="two">
+     <div class="block2"></div>
+   </div>
+   <div class="three">
+     <div class="block2"></div>
+   </div>
+   <div class="four">
+     <div class="block2"></div>
+   </div>
+   <div class="five">
+     <div class="block2"></div>
+   </div>
+ </div>
+ <div class="moreview">
+    <a href="#"> 더 보기 </a>
 </div>
-<c:if test="${ empty loginMember }">
-<div id="loginBox" class="lineA">
-JejuBnB 사이트 방문을 환영합니다.<br>
-<!-- <button onclick="javascript:location.href='views/member/loginPage.html';">로그인 하세요.</button><br> --> 
-<button onclick="movePage();">로그인 하세요</button><br>
-<a>아이디/비밀번호 조회</a>
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 
-</div>
-</c:if>
-
-
-<c:if test="${ !empty loginMember and  loginMember.user_id eq 'admin' }">
-<div id="loginBox" class="lineA">
-${ sessionScope.loginMember.user_name } 님<br>
-<button onclick="javascript:location.href='logout.do';">로그아웃</button><br>
-<c:url var="callMyinfo" value="myinfo.do">
-     <c:param name="user_id" value="${ loginMember.user_id }"></c:param>
-</c:url>
-<a href="${ callMyinfo }">My Page</a>
-<!-- 쿼리스트링(Query String) : ?이름=전송값&이름=전송값 -->
-</div>
-</c:if>
-
-
-<c:if test="${ !empty sessionScope.loginMember and ! (loginMember.user_id eq 'admin')}">
-<div id="loginBox" class="lineA">
-${ sessionScope.loginMember.user_name } 님<br>
-<button onclick="javascript:location.href='logout.do';">로그아웃</button><br>
-<a>쪽지</a> &nbsp; &nbsp; 
-<a>메일</a> 
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-<c:url var="callMyinfo2" value="myinfo.do">
-     <c:param name="user_id" value="${ sessionScope.loginMember.user_id }" />
-</c:url>
-<a href="${ callMyinfo2 }">My Page</a>
-<!-- 쿼리스트링(Query String) : ?이름=전송값&이름=전송값 -->
-</div>
-</c:if>
-<hr style="clear:left;">
-</center>
-<section>
-<!-- 최근 등록 공지글 3개 조회 출력  -->
-<div style="float:left;border:1px solid navy;padding:5px;margin:5px">
-<h4>최근 공지글</h4>
-<table id="newnotice" border="1" cellspacing="0">
-<tr><th>번호</th><th>제목</th><th>날짜</th></tr>
-</table>
-</div>
-<!-- 조회수 많은 게시글 3개 조회 출력 -->
-<div style="float:left;border:1px solid navy;padding:5px;margin:5px">
-<h4>인기 게시글</h4>
-<table id="toplist" border="1" cellspacing="0">
-<tr><th>번호</th><th>제목</th><th>조회수</th></tr>
-</table>
-</div>
-</section>
-<hr style="clear:both;">
-<!-- 상대경로만 사용 가능함 -->
-<%-- <%@ include file="views/common/footer.jsp" %> --%>
-<c:import url="/WEB-INF/views/common/footer.jsp" />
-</body>
+  </body>
 </html>

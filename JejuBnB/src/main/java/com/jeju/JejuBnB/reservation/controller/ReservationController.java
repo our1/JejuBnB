@@ -27,6 +27,5 @@ public class ReservationController {
 		return "reservation/reservationListView";
 	}
 	
-	
-	
+
 }

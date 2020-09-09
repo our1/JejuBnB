@@ -35,7 +35,7 @@ public class Rule implements java.io.Serializable{
 
 	@Override
 	public String toString() {
-		return "Rule [rule_no=" + rule_no + ", rule_name=" + rule_name + "]";
+		return rule_name;
 	}
 	
 	

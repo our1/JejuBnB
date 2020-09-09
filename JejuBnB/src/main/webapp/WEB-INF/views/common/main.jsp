@@ -55,77 +55,6 @@ section div table { width: 350px; background: white; }
 </style>
 <script type="text/javascript" src="/resources/js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
-$(function(){
-   /*
-      주기적으로 반복 요청하려면
-      setInterval(function(){ $.ajax(); }, 시간);
-      시간은 밀리세컨드임 : 1000 이 1초임
-   */
-   /* setInterval(function(){
-      console.log("setInterval() 에 의해 자동 실행 확인");
-   }, 100); */
-   
-   //최근 등록한 공지글 3개 출력되게 함
-   $.ajax({
-      url: "/ntop3",
-      type: "post",
-      dataType : "json",
-      success: function(data){
-         console.log("success : " + data);
-         
-         //object ==> string 으로 변환
-         var jsonStr = JSON.stringify(data);
-         //string ==> json 객체로 바꿈
-         var json = JSON.parse(jsonStr);
-         
-         var values = "";
-         for(var i in json.list){
-            values += "<tr><td>" + json.list[i].no 
-               + "</td><td><a href='/ndetail?noticeno="
-               + json.list[i].no + "'>" 
-               + decodeURIComponent(json.list[i].title).replace(/\+/gi, " ")
-               + "</a></td><td>" + json.list[i].date + "</td></tr>";
-         } //for in
-         
-         $("#newnotice").html($("#newnotice").html() + values);
-      },
-      error: function(jqXHR, textstatus, errorthrown){
-         console.log("error : " + jqXHR + ", " + textstatus
-               + ", " + errorthrown);
-      }
-   });  //ajax
-   
-   //조회수 많은 인기 게시 원글 상위 3개 조회 출력 처리
-   $.ajax({
-      url: "/btop3",
-      type: "post",
-      dataType: "json",
-      success: function(data){
-         console.log("success : " + data);
-         
-         //object ==> string 으로 변환
-         var jsonStr = JSON.stringify(data);
-         //string ==> json 객체로 바꿈
-         var json = JSON.parse(jsonStr);
-         
-         var values = "";
-         for(var i in json.list){
-            values += "<tr><td>" + json.list[i].bnum 
-               + "</td><td><a href='/bdetail?bnum="
-               + json.list[i].bnum + "'>" 
-               + decodeURIComponent(json.list[i].btitle).replace(/\+/gi, " ")
-               + "</a></td><td>" + json.list[i].rcount + "</td></tr>";
-         } //for in
-         
-         $("#toplist").html($("#toplist").html() + values);
-      },
-      error: function(jqXHR, textstatus, errorthrown){
-         console.log("error : " + jqXHR + ", " + textstatus
-               + ", " + errorthrown);
-      }
-   });
-   
-});  //document.ready
 
 function movePage(){
 	 window.open("loginPage.do", "로그인", 
@@ -138,7 +67,6 @@ function movePage(){
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp" />
 <hr style="clear:both;">
-<center>
 <div id="banner" class="lineA">
 <img src="resources/images/photo2.jpg">
 </div>
@@ -182,7 +110,6 @@ ${ sessionScope.loginMember.user_name } 님<br>
 </div>
 </c:if>
 <hr style="clear:left;">
-</center>
 <section>
 <!-- 최근 등록 공지글 3개 조회 출력  -->
 <div style="float:left;border:1px solid navy;padding:5px;margin:5px">

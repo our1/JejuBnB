@@ -58,13 +58,39 @@
 		]]>
 	</select>
 	
+	<select id="selectUserRoom" parameterType="string" resultMap="resultList">
+		select * from room where user_id = #{uid}
+	</select>
+	
+	<select id="selectRoom" parameterType="int" resultMap="resultRoom">
+		select * from room where room_no = #{roomno}
+	</select>
+	
+	<select id="selectReviewCount" parameterType="int" resultType="_int">
+		select count(reply_no) from review where room_no = #{ room_no }
+	</select> 
+	
 	<insert id="insertRoom" parameterType="Room">
 		insert into room values((select max(room_no) from room) + 1, #{user_id}, #{room_name }, #{room_content }, #{room_address }, #{st_num_people }, #{ max_people},
 		 #{ checkin_time}, #{checkout_time }, #{ bed}, #{bedroom }, #{bathroom }, #{ amenity}, #{ facility}, 
 		#{build_type }, #{rule }, default,  #{plus_charge }, #{room_thumbnail_file }, #{room_rename_file })
 	</insert>
 	
+	<update id="updateRoom" parameterType="Room">
+		update room set room_name = #{room_name}, room_content = #{room_content}, room_address={room_address}, st_num_people = #{ st_num_people }, 
+		max_people = #{ max_people }, checkin_time = #{checkin_time}, checkout_time= #{checkout_time}, bed = #{ bed}, bedroom=#{bedroom}, bathroom = #{bathroom},
+		amenity = # { amenity }, facility = # { facility }, build_type = #{ build_type }, rule = #{ rule }, plus_chaarge = #{plus_chaarge}, room_thumbnail_file = #{room_thumbnail_file },room_rename_file= #{room_rename_file }
+	</update>
+	
 	<delete id="deleteRoom" parameterType="int">
 		delete from room where room_no = #{ room_no }
+	</delete>
+	
+	<delete id="deleteRoomFile" parameterType="int">
+		delete from room_file where room_no = #{ room_no}
+	</delete>
+	
+	<delete id="deleteRoomRivew" parameterType="int">
+		delete from review where room_no = #{ room_no}
 	</delete>
 </mapper>

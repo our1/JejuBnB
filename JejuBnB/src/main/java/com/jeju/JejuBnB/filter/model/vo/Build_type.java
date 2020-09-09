@@ -35,7 +35,7 @@ public class Build_type implements java.io.Serializable{
 
 	@Override
 	public String toString() {
-		return "Build_type [bu_type_no=" + bu_type_no + ", bu_type_name=" + bu_type_name + "]";
+		return bu_type_name;
 	}
 	
 	

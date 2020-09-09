@@ -39,4 +39,14 @@ public class RoomServiceImpl implements RoomService{
 		return roomDao.deleteRoom(room_no);
 	}
 
+	@Override
+	public ArrayList<Room> selectUserRoom(String userid) {
+		return roomDao.selectUserRoom(userid);
+	}
+
+	@Override
+	public Room selectRoom(int roomno) {
+		return roomDao.selectRoom(roomno);
+	}
+
 }

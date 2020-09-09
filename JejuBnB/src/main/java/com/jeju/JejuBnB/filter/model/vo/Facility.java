@@ -35,7 +35,7 @@ public class Facility implements java.io.Serializable{
 
 	@Override
 	public String toString() {
-		return "Facility [facility_no=" + facility_no + ", facility_name=" + facility_name + "]";
+		return facility_name;
 	}
 	
 	

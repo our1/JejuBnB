@@ -35,7 +35,7 @@ public class Amenity implements java.io.Serializable{
 
 	@Override
 	public String toString() {
-		return "Amenity [amenity_no=" + amenity_no + ", amenity_name=" + amenity_name + "]";
+		return amenity_name;
 	}
 	
 	

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="User_NoticeMapper">
+	<resultMap type="User_Notice" id="resultUNotice">
+		<id property="notice_no" column="notice_no"/>
+		<result property="notice_content" column="notice_content" />	
+		<result property="notice_date" column="notice_date" />	
+		<result property="read_check" column="read_check" />	
+		<result property="to_user" column="to_user" />	
+		<result property="from_user" column="from_user" />	
+	</resultMap>
+	
+	<select id="selectUNotice" parameterType="string" resultMap="resultUNotice">
+		select * from user_notice where to_user = #{userid}
+	</select>
+</mapper>

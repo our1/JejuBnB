@@ -58,6 +58,14 @@
 		]]>
 	</select>
 	
+	<select id="selectBList" parameterType="com.jeju.JejuBnB.room.model.vo.PageCount" resultMap="resultList">
+	<![CDATA[
+		select * from(select rownum rnum, room_no, user_id, room_name, room_content, room_address, max_people, checkin_time, checkout_time, bed, bedroom, 
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file from room order by room_name)
+		where rnum >= #{startRow} and rnum <= #{endRow}
+		]]>
+	</select>
+	
 	<select id="selectUserRoom" parameterType="string" resultMap="resultList">
 		select * from room where user_id = #{uid}
 	</select>

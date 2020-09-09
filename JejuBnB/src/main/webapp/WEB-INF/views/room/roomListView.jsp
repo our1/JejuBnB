@@ -30,6 +30,7 @@
 <hr>
 <h1 align="center">숙소 리스트 페이지</h1>
 <div id="roomList">
+<button onclick="javascipt:location.href='moveRoomBList.do'">리스트로 보기</button>
 <c:forEach items="${list }" var="room">
 <table align="center" border="1" cellspacing="0" width="700">
 <tr><th colspan="3"><img src="${ pageContext.servletContext.contextPath}/resources/roomThumbnail/${ room.room_rename_file }" /></th></tr>

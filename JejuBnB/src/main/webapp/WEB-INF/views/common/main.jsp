@@ -329,6 +329,8 @@
       </style>
   </head>
   <body>
+  <c:import url="/WEB-INF/views/common/header.jsp"/>
+  <hr>
      <div class="mainhead">
           <div class="logo">
             <img src="resources/images/로고.png" >

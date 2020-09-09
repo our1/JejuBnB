@@ -38,7 +38,7 @@ public class RoomController {
 	
 	@RequestMapping("roomlist.do")
 	public String SelectList(HttpServletRequest request, Model model) {
-		int limit = 10;
+		int limit = 8;
 		int currentPage = 1;
 		if(request.getParameter("page") != null) {
 			currentPage = Integer.parseInt(request.getParameter("page"));
@@ -189,6 +189,36 @@ public class RoomController {
 		}
 	}
 	
+	@RequestMapping("moveRoomBList.do")
+	public String moveRoomBList(Model model, HttpServletRequest request) {
+		int limit = 10;
+		int currentPage = 1;
+		if(request.getParameter("page") != null) {
+			currentPage = Integer.parseInt(request.getParameter("page"));
+		}
+		ArrayList<Room> list = roomService.selectBList(currentPage, limit);
+		
+		if(list.size()>0) {
+			model.addAttribute("list", list);
+			return "room/roomBListView";
+		}else {
+			model.addAttribute("message", "게시르 형태로 조회 실패");
+			return "common/error";
+		}
+	}
+	
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
  

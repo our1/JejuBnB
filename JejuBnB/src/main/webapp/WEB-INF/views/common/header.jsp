@@ -9,9 +9,14 @@
 <script type="text/javascript">
 	
 	
-	function winOpen()
+	function winOpen1()
 	{
 	window.open("moveFilterList.do","필터","width=900,height=1000");
+	}
+	
+	function winOpen2()
+	{
+	window.open("moveNoticeList.do?userid="+${loginMember.user_id},"알림","width=500,height=500");
 	}
 
 </script>
@@ -100,8 +105,8 @@ hr { clear: both; }
 <ul id="menubar">
 <li><a href="email.do"> 회원가입</a></li>
 <li><a href="${ pageContext.servletContext.contextPath}/moveFile.do"> 파일 업로드 테스트</a></li>
-<li><a href="#"> 게시글</a></li>
-<li><a onclick="winOpen()">관리자 필터 관리</a></li>
+<li><a onclick="winOpen2()">내 알림 글 보기</a></li>
+<li><a onclick="winOpen1()">관리자 필터 관리</a></li>
 <li><a href="${ pageContext.servletContext.contextPath}/movemyroom.do?userid="${loginMember.user_id }>내 숙소 보기</a></li>
 <li><a href="${ pageContext.servletContext.contextPath}/roomlist.do">룸 리스트</a></li>
 <li><a href="${ pageContext.servletContext.contextPath}/moveroomwrite.do">사장님 신청하기</a></li>

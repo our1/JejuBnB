@@ -6,6 +6,15 @@
 <head>
 <meta charset="UTF-8">
 <title>JejuBnB</title>
+<script type="text/javascript">
+	
+	
+	function winOpen()
+	{
+	window.open("moveFilterList.do","필터","width=900,height=1000");
+	}
+
+</script>
 <style type="text/css">
 header { margin : 0; padding : 0;}
 header h1#logo {
@@ -61,43 +70,45 @@ hr { clear: both; }
 
 <body>
 <header>
-<h1 id="logo"><a href="mian.do"> JejuBnB </a></h1>
+<h1 id="logo"><a href="main.do"> JejuBnB </a></h1>
 <c:if test= "${ !empty loginMember and loginMember.user_id eq 'admin'}">
 	<%// 관리자가 로그인 했을때	%>
 <ul id="menubar">
-<li><a href="/testm/mlist"> 회원관리</a></li></li>
-<li><a href="/testm/nlist.ad"> 공지글관리</a></li></li>
-<li><a href="/testm/blist"> 게시글관리</a></li></li>
-<li><a href="#">Q&A관리</a></li></li>
-<li><a href="#">사진게시판관리</a></li></li>
+<li><a href="/testm/mlist"> 회원관리</a></li>
+<li><a href="/testm/nlist.ad"> 공지글관리</a></li>
+<li><a href="/testm/blist"> 게시글관리</a></li>
+<li><a href="#">Q&A관리</a></li>
+<li><a href="#">사진게시판관리</a></li>
 <li><a href="${ pageContext.servletContext.contextPath} }/moveAjax.do">Ajax테스트</a></li>
 <li><a href="${ pageContext.servletContext.contextPath}/moveFile.do"> 파일 업로드 테스트</a></li>
-<li><a href="/testm/index.jsp">Home</a></li></li>
+<li><a href="/testm/index.jsp">Home</a></li>
 </ul>
 </c:if>
 <c:if test="${ !empty sessionScope.loginMember and ! (loginMember.user_id eq 'admin') }">
 <ul id="menubar">
-<li><a href="/testm/mlist"> 암호화회원관리</a></li></li>
-<li><a href="/testm/nlist"> 공지사항</a></li></li>
-<li><a href="/testm/blist?page=1"> 게시글</a></li></li>
-<li><a href="#">Q&A</a></li></li>
-<li><a href="#">사진게시판</a></li></li>
+<li><a href="${pageContext.servletContext.contextPath }/enrollPage.do"> 회원가입</a></li>
 <li><a href="${ pageContext.servletContext.contextPath}/moveFile.do"> 파일 업로드 테스트</a></li>
-<li><a href="${ pageContext.servletContext.contextPath}/moveAjax.do">Ajax테스트</a></li>
-<li><a href="/testm/index.jsp">Home</a></li></li>
+<li><a href="/testm/blist?page=1"> 게시글</a></li>
+<li><a href="#">Q&A</a></li>
+<li><a href="${ pageContext.servletContext.contextPath}/movemyroom.do?userid=admin">내 숙소 보기</a></li>
+<li><a href="${ pageContext.servletContext.contextPath}/roomlist.do">룸 리스트</a></li>
+<li><a href="${ pageContext.servletContext.contextPath}/moveroomwrite.do">사장님 신청하기</a></li>
+<li><a href="main.do">Home</a></li>
 </ul>
 </c:if>
 <c:if test="${ empty loginMember }">
 <ul id="menubar">
-<li><a href="/testm/views/member/enrollPage.html"> 회원가입</a></li></li>
+<li><a href="email.do"> 회원가입</a></li>
 <li><a href="${ pageContext.servletContext.contextPath}/moveFile.do"> 파일 업로드 테스트</a></li>
-<li><a href="/testm/blist?page=1"> 게시글</a></li></li>
-<li><a href="#">Q&A</a></li></li>
-<li><a href="${ pageContext.servletContext.contextPath}/moveCrypto.do">암호화회원관리</a></li></li>
-<li><a href="${ pageContext.servletContext.contextPath}/roomlist.do">룸 리트스</a></li>
-<li><a href="/testm/index.jsp">Home</a></li></li>
+<li><a href="#"> 게시글</a></li>
+<li><a onclick="winOpen()">관리자 필터 관리</a></li>
+<li><a href="${ pageContext.servletContext.contextPath}/movemyroom.do?userid="${loginMember.user_id }>내 숙소 보기</a></li>
+<li><a href="${ pageContext.servletContext.contextPath}/roomlist.do">룸 리스트</a></li>
+<li><a href="${ pageContext.servletContext.contextPath}/moveroomwrite.do">사장님 신청하기</a></li>
+<li><a href="main.do">Home</a></li>
 </ul>
 </c:if>
+
 </header>
 </body>
 </html>

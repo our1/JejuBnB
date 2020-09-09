@@ -16,17 +16,4 @@
 		<result property="coupon_begin" column="coupon_begin" />	
 		<result property="coupon_end" column="coupon_end" />
 	</resultMap>
-	
-	
-	<select id="selectList" >
-	</select>
-	
-	<insert id="">
-	</insert>
-	
-	<update id="">
-	</update>
-	
-	<delete id="">
-	</delete>
 </mapper>

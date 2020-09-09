@@ -14,26 +14,22 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public Room selectOne(int room_no) {
-		// TODO Auto-generated method stub
-		return null;
+		return reservationDao.selectOne(room_no);
 	}
 
 	@Override
 	public int insertReserv(Reservation reserv) {
-		// TODO Auto-generated method stub
-		return 0;
+		return reservationDao.insertReserv(reserv);
 	}
 
 	@Override
 	public Reservation selectReserv(int room_no) {
-		// TODO Auto-generated method stub
-		return null;
+		return reservationDao.selectReserv(room_no);
 	}
 
 	@Override
 	public Room selectReservWait(int room_no) {
-		// TODO Auto-generated method stub
-		return null;
+		return reservationDao.selectReservWait(room_no);
 	}
 
 }

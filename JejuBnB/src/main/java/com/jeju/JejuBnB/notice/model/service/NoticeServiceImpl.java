@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.jeju.JejuBnB.notice.model.dao.NoticeDao;
 import com.jeju.JejuBnB.notice.model.vo.Notice;
+import com.jeju.JejuBnB.notice.model.vo.Notice_Type;
 import com.jeju.JejuBnB.notice.model.vo.User_Notice;
 
 @Service("noticeService")
@@ -15,11 +16,7 @@ public class NoticeServiceImpl implements NoticeService{
 	@Autowired
 	private NoticeDao noticeDao;
 	
-	@Override
-	public ArrayList<Notice> selectUser(String userid) {
-		return noticeDao.selectUser(userid);
-	}
-
+	
 	@Override
 	public int insertUNotice(User_Notice unotice) {
 		return noticeDao.insertUNotice(unotice);
@@ -38,6 +35,27 @@ public class NoticeServiceImpl implements NoticeService{
 	@Override
 	public int deleteNotice(int noticeno) {
 		return noticeDao.deleteNotice(noticeno);
+	}
+
+	@Override
+	public ArrayList<Notice_Type> selectNType() {
+		return noticeDao.selectNType();
+	}
+
+	@Override
+	public ArrayList<Notice> selectNotice() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<User_Notice> selectUserNotice(String userid) {
+		return noticeDao.selectUserNotice(userid);
+	}
+
+	@Override
+	public int deleteUserNotice(int noticeno) {
+		return noticeDao.deleteUserNotice(noticeno);
 	}
 
 }

@@ -329,8 +329,7 @@
       </style>
   </head>
   <body>
-  <c:import url="/WEB-INF/views/common/header.jsp"/>
-  <hr>
+  
      <div class="mainhead">
           <div class="logo">
             <img src="resources/images/로고.png" >
@@ -359,12 +358,34 @@
         people.classList.toggle('active');
         peoplelist.classList.toggle('opened');
     }
+        
+        function winOpen1()
+    	{
+    	window.open("moveFilterList.do","필터","width=900,height=1000");
+    	}
+    	
+    	function winOpen2()
+    	{
+    	window.open("myNoticeList.do?userid=${loginMember.user_id}","알림","width=800,height=500");
+    	}
         </script>
         <div class="searchbut">
           <i class="fas fa-search fa-2x"></i>
         </div>
      </div>
      <div class="dropdown"><span class="lnr lnr-menu"></span><span class="myimg"></span></div>
+     <c:if test="${empty loginMember }">
+     	<ul class="dropdown-list">
+       <li><span class="lnr lnr-home"></span> 마이페이지</li>
+       <li><span class="lnr lnr-envelope"></span> 내 쿠폰</li>
+       <li><span class="lnr lnr-cog"></span> 내가 정한 숙소</li>
+       <li><span class="lnr lnr-cog"></span> 사장님 신청</li>
+       <li><span class="lnr lnr-cog"></span> 알림</li>
+       <li><span class="lnr lnr-cog"></span> 고객센터</li>
+       <li><a href="loginPage.do">로그인</a></li>
+     </ul>
+     </c:if>
+     <c:if test="${!empty loginMember }">
      <ul class="dropdown-list">
        <li><span class="lnr lnr-home"></span> 마이페이지</li>
        <li><span class="lnr lnr-envelope"></span> 내 쿠폰</li>
@@ -372,8 +393,16 @@
        <li><span class="lnr lnr-cog"></span> 사장님 신청</li>
        <li><span class="lnr lnr-cog"></span> 알림</li>
        <li><span class="lnr lnr-cog"></span> 고객센터</li>
-       <li><span class="lnr lnr-cog"></span> 로그아웃</li>
+       <li><a href="logout.do">로그아웃</a></li>
+       <li><a onclick="winOpen2()">내 알림 글 보기</a></li>
+<li><a onclick="winOpen1()">관리자 필터 관리</a></li>
+<li><a href="${ pageContext.servletContext.contextPath}/movemyroom.do?userid="${loginMember.user_id }>내 숙소 보기</a></li>
+<li><a href="${ pageContext.servletContext.contextPath}/roomlist.do">룸 리스트</a></li>
+<li><a href="${ pageContext.servletContext.contextPath}/moveroomwrite.do">사장님 신청하기</a></li>
+<li><a href="moveNoticeTest.do">알림 테스트 창</a></li>
+<li><a href="main.do">Home</a></li>
      </ul>
+     </c:if>
           </div>
      <script type="text/javascript">
      var dropdown = document.querySelector('.dropdown');

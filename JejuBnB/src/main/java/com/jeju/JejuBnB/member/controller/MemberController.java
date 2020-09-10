@@ -49,22 +49,22 @@ public class MemberController {
 		Member loginMember = memberService.selectLogin(member);
 		model.addAttribute("loginMember", loginMember);
 		
-		if(loginMember != null && bcryptPasswordEncoder.matches(member.getUser_pwd(), loginMember.getUser_pwd())) {
-			
+/*		if(loginMember != null && bcryptPasswordEncoder.matches(member.getUser_pwd(), loginMember.getUser_pwd())) {
+*/			
 			String facebookid = loginMember.getFacebook_id();
 			if(facebookid != null) {
 				model.addAttribute("message" , "페이스북 아이디 입니다.");
 				return "common/error" ;
 			}else {
 			session.setAttribute("loginMember", loginMember);
-			return "member/tempPage";
+			return "common/main";
 			}
 			
-		}else {
-			
-			model.addAttribute("message", "회원 정보와 일치하지 않습니다.");
-			return "common/error";
-		}
+		/*
+		 * }else {
+		 * 
+		 * model.addAttribute("message", "회원 정보와 일치하지 않습니다."); return "common/error"; }
+		 */
 	}
 	@RequestMapping(value="facebooklogin.do", method= RequestMethod.GET)
 	public String facebookLoginMethod(Member member, HttpSession session, Model model, @RequestParam("email") String email, @RequestParam("name") String name) {

@@ -30,7 +30,10 @@
 		left : 50%;
 		top : 30%;
 	}
-      
+    img {
+    	width : 300px;
+    	height : 300px;
+    }
     </style>
 
 </head>

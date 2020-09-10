@@ -6,6 +6,30 @@
 <head>
 <meta charset="UTF-8">
 <title>JejuBnB</title>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
+<!-- !!중요. - autoload=false 를 반드시 붙혀주셔야 합니다.-->
+<script>
+    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+    function PostCall() {
+    	daum.postcode.load(function(){
+            new daum.Postcode({
+            	 oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+               
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById("PostNumber").value = data.zonecode;
+                document.getElementById("roadAddress").value = roadAddr;
+               
+            }
+        }).open();
+    })
+    }
+</script>
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp"/>
@@ -13,12 +37,21 @@
 <h1> 글 쓰기</h1>
 <form action="roominsert.do" method="post" >
 <input type="hidden" name="user_id" value="${loginMember.user_id }" >
+
 <div id="first">
 숙소 이름 : <input type="text" name="room_name" placeholder="숙소 이름" required> <br>
 숙소 소개 : <textarea rows="50" cols="50" name="room_content" required placeholder="숙소 소개"></textarea> <br>
-숙소 주소 : <input type="text" name="room_address" placeholder="숙소 주소" required> <br>
+
+숙소 주소 : <button onclick="PostCall()" type="button">주소 검색</button><br>
+
+<input type="text" id="PostNumber" placeholder="우편번호"><br>
+<input type="text" id="RoadAddress" placeholder="도로명주소"><br>
+<input type="text" id="DetailAddress" placeholder="상세주소"><br>
+
 기준 인원 : <input type="number" name="st_num_people" placeholder="기준 인원" required>명 <br>
 최대 인원 : <input type="number" name="max_people" placeholder="최대 인원" required><br>
+
+
 체크인 시간 : <select name="inhour">
 				<option value="12">12</option>
 				<option value="13">13</option>

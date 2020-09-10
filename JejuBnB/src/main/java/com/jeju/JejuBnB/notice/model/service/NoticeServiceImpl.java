@@ -43,9 +43,8 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public ArrayList<Notice> selectNotice() {
-		// TODO Auto-generated method stub
-		return null;
+	public Notice selectNotice(int choice) {
+		return noticeDao.selectNotice(choice);
 	}
 
 	@Override
@@ -56,6 +55,16 @@ public class NoticeServiceImpl implements NoticeService{
 	@Override
 	public int deleteUserNotice(int noticeno) {
 		return noticeDao.deleteUserNotice(noticeno);
+	}
+
+	@Override
+	public ArrayList<Notice> selectNoticeList() {
+		return noticeDao.selectNoticeList();
+	}
+
+	@Override
+	public ArrayList<User_Notice> selectUserNoticeList() {
+		return noticeDao.selectUserNoticeList();
 	}
 
 }

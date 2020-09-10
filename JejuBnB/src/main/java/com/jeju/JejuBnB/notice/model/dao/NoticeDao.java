@@ -53,4 +53,18 @@ public class NoticeDao {
 		return session.delete("noticeMapper.deleteUserNotice", noticeno);
 	}
 
+	public Notice selectNotice(int choice) {
+		return session.selectOne("noticeMapper.selectNotice", choice);
+	}
+
+	public ArrayList<Notice> selectNoticeList() {
+		List<Notice> list = session.selectList("noticeMapper.selectNoticeList");
+		return (ArrayList<Notice>) list;
+	}
+
+	public ArrayList<User_Notice> selectUserNoticeList() {
+		List<User_Notice> list = session.selectList("noticeMapper.selectUserNoticeList");
+		return (ArrayList<User_Notice>) list;
+	}
+
 }

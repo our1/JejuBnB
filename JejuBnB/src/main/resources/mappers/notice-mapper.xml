@@ -4,8 +4,9 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="noticeMapper">
 	<resultMap type="Notice" id="resultNotice">
-		<id column="notice_type" property="notice_type" />
-		<result property="notice_content" column="notice_content" />
+		<id column="notice_type_no" property="notice_type_no" />
+		<result property="notice_content1" column="notice_content1" />
+		<result property="notice_content2" column="notice_content2" />
 	</resultMap>	
 	
 	<resultMap type="User_Notice" id="resultUNotice">
@@ -28,6 +29,18 @@
 	
 	<select id="selectNType" resultMap="resultNType">
 		select * from notice_type
+	</select>
+	
+	<select id="selectNotice" parameterType="int" resultMap="resultNotice">
+		select * from notice where notice_type_no = #{choice}
+	</select>
+	
+	<select id="selectNoticeList" resultMap="resultNotice">
+		select * from notice
+	</select>
+	
+	<select id="selectUserNoticeList" resultMap="resultUNotice">
+		select * from user_notice
 	</select>
 	
 	<insert id="insertUserNotice" parameterType="User_Notice">

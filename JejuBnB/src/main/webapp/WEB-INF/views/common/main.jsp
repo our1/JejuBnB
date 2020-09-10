@@ -368,6 +368,11 @@
     	{
     	window.open("myNoticeList.do?userid=${loginMember.user_id}","알림","width=800,height=500");
     	}
+    	
+    	function winOpen3()
+    	{
+    	window.open("adUNoticeList.do","알림","width=1000,height=500");
+    	}
         </script>
         <div class="searchbut">
           <i class="fas fa-search fa-2x"></i>
@@ -393,14 +398,14 @@
        <li><span class="lnr lnr-cog"></span> 사장님 신청</li>
        <li><span class="lnr lnr-cog"></span> 알림</li>
        <li><span class="lnr lnr-cog"></span> 고객센터</li>
-       <li><a href="logout.do">로그아웃</a></li>
-       <li><a onclick="winOpen2()">내 알림 글 보기</a></li>
-<li><a onclick="winOpen1()">관리자 필터 관리</a></li>
-<li><a href="${ pageContext.servletContext.contextPath}/movemyroom.do?userid="${loginMember.user_id }>내 숙소 보기</a></li>
-<li><a href="${ pageContext.servletContext.contextPath}/roomlist.do">룸 리스트</a></li>
-<li><a href="${ pageContext.servletContext.contextPath}/moveroomwrite.do">사장님 신청하기</a></li>
-<li><a href="moveNoticeTest.do">알림 테스트 창</a></li>
-<li><a href="main.do">Home</a></li>
+       <li onclick="winOpen2()"><span class="lnr lnr-cog"></span> 내 알림 글 보기</li>
+       <li onclick="winOpen1()"><span class="lnr lnr-cog"></span> 관리자 필터 관리</li>
+       <li onclick="winOpen3()"><span class="lnr lnr-cog"></span> 관리자 알림 관리</li>
+       <li onclick="javascript:location.href='logout.do'"><span class="lnr lnr-cog"></span> 로그아웃</li>
+       <li onclick="javascript:location.href='movemyroom.do?userid=${loginMember.user_id }'"><span class="lnr lnr-cog"></span> 내 숙소 보기</li>
+       <li onclick="javascript:location.href='roomlist.do'"><span class="lnr lnr-cog"></span> 룸 리스트</li>
+       <li onclick="javascript:location.href='moveroomwrite.do'"><span class="lnr lnr-cog"></span> 사장님 신청하기</li>
+       <li onclick="javascript:location.href='main.do'"><span class="lnr lnr-cog"></span> Home</li>
      </ul>
      </c:if>
           </div>

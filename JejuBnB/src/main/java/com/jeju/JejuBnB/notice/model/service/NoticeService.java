@@ -8,7 +8,7 @@ import com.jeju.JejuBnB.notice.model.vo.User_Notice;
 
 public interface NoticeService {
 
-	ArrayList<Notice> selectNotice();
+	Notice selectNotice(int choice);
 	
 	ArrayList<Notice_Type> selectNType();
 	
@@ -23,5 +23,9 @@ public interface NoticeService {
 	int deleteNotice(int noticeno);
 
 	int deleteUserNotice(int noticeno);
+
+	ArrayList<Notice> selectNoticeList();
+
+	ArrayList<User_Notice> selectUserNoticeList();
 
 }

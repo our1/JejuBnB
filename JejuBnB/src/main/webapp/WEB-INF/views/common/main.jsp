@@ -4,79 +4,208 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>JejuBnB</title>
-<style type="text/css">
-div.lineA { 
-   height : 100px; 
-   border : 1px solid gray;
-   float: left;
-   position : relative;
-   left : 120px;
-   margin : 5px;
-   padding : 5px;
-}
+  <head>
+    <meta charset="utf-8">
+    <title>JejuBnB</title>
+      <style>
+        @font-face {
+           font-family: 'Cafe24Oneprettynight';
+           src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff');
+           font-weight: normal;
+           font-style: normal;
+         }
 
-div#banner {
-   width : 750px;
-   padding : 0;   
-}
+        body {
+          margin: 0;
+          padding: 0;
+          background-color: #EEF1F1;
+        }
+        .mainhead {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 500px;
+          padding: 0;
+          z-index: 10000;
+          transition: all 0.2s ease-in-out;
+          height: 100px;
+          background: transparent;
+        }
+        .logo {
+          position: absolute;
+          top : 50%;
+          left : 50%;
+        }
+        .logo img{
+           width : 80%;
+        }
+        .mainimg {
+          position: absolute;
+          width: 1900px;
+          height: 930px;
+          background: url('resources/images/09.jpg');
+          background-repeat: no-repeat;
+          background-size: 100% 100%;
+        }
 
-div#loginBox {
-   width : 274px;
-   font-size : 9pt;
-   text-align : left;
-   padding-left : 20px;
-}
+        .res {
+          width: 500px;
+          height: 60px;
+          -webkit-border-top-left-radius: 120px 120px;
+          -webkit-border-bottom-left-radius: 120px 120px;
+          -webkit-border-top-right-radius: 120px 120px;
+          -webkit-border-bottom-right-radius: 120px 120px;
+          background-color: white;
+          position: absolute;
+          left : 140%;
+          top : 60%;
+        }
+        .dropdown {
+          background: #fff;
+          display: inline-block;
+          padding: 12px 20px;
+          border-radius: 10px;
+          width: 100px;
+          box-sizing: border-box;
+          height: 50px;
+          line-height: 25px;
+          position: absolute;
+          left : 1500px;
+          top : 65px;
+          cursor: pointer;
+          color: #74809d;
+          font-weight: bold;
+        }
+        .dropdown:after {
+          content: "";
+          display: block;
+          width: 8px;
+          height: 8px;
+          position: absolute;
+          transform: rotate(45deg);
+          top: 17px;
+          border-bottom: 2px solid #74809d;
+          border-right: 2px solid #74809d;
+          transition: 0.4s;
+        }
+        .dropdown-list  {
+          width: 200px;
+          box-sizing: border-box;
+          padding: 0;
+          position: absolute;
+          border-radius: 10px;
+          margin-top: 140px;
+          left : 1400px;
+          opacity: 0;
+          transition: opacity 0.2s linear;
+        }
 
-div#loginBox button {
-   width : 250px;
-   height : 35px;
-   background-color : navy;
-   color : white;
-   margin-top : 10px;
-   margin-bottom : 15px;   
-   font-size : 14pt;
-   font-weight : bold;
-}
-div#banner img { 
-   margin : 0; 
-   padding : 0;
-   width : 750px;
-   height : 110px;
-}
-section {
-   position: relative;
-   left: 120px;
-}
-section > div { width: 360px; background: #ccffff; }
-section div table { width: 350px; background: white; }
-</style>
-<script type="text/javascript" src="/resources/js/jquery-3.5.1.min.js"></script>
-<script type="text/javascript">
-
-function movePage(){
-	 window.open("loginPage.do", "로그인", 
-		"width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
-}
-
-
-</script>
-</head>
-<body>
-<c:import url="/WEB-INF/views/common/header.jsp" />
-<hr style="clear:both;">
-<div id="banner" class="lineA">
-<img src="resources/images/photo2.jpg">
-</div>
-<c:if test="${ empty loginMember }">
-<div id="loginBox" class="lineA">
-JejuBnB 사이트 방문을 환영합니다.<br>
-<!-- <button onclick="javascript:location.href='views/member/loginPage.html';">로그인 하세요.</button><br> --> 
-<button onclick="movePage();">로그인 하세요</button><br>
-<a>아이디/비밀번호 조회</a>
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        .dropdown-list li {
+          list-style: none;
+          background: #fff;
+          padding: 12px 16px;
+          border-left: 4px solid #fff;
+          font-family: 'Cafe24Oneprettynight';
+          font-weight: bold;
+          color: #74809d;
+          height: 50px;
+          line-height: 25px;
+          box-sizing: border-box;
+        }
+        ul li:first-child {
+          border-radius: 5px 5px 0 0;
+        }
+        ul li:last-child {
+          border-bottom: none;
+          border-radius: 0 0 5px 5px;
+        }
+        ul li:hover {
+          transition: 0.2s;
+          cursor: pointer;
+          border-left: 4px solid #FFC19E;
+          color: #526187;
+          background: #f5f5f5;
+        }
+        .active {
+          transition: 0.2s;
+          background: #fff;
+          color: #fff;
+        }
+        .active:after {
+          border-bottom: 2px solid #74809d;
+          border-right: 2px solid #74809d;
+          transform: rotate(-135deg);
+          top: 20px;
+          transition: 0.4s;
+        }
+        .opened {
+          opacity: 1 !important;
+        }
+        .lnr {
+          font-size: 1.4em;
+          margin-right: 10px;
+          position: relative;
+          top: 2px;
+        }
+        .myimg {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background-image: url('resources/images/프로필.jfif');
+          background-size: cover;
+          position: absolute;
+          right: 10px;
+          top : 5px;
+        }
+        .chkin{
+          position: absolute;
+          left : 8%;
+          top : 20%;
+          font-family: 'Cafe24Oneprettynight';
+          font-size: 17px;
+        }
+        .chkinsub {
+          color: #ADAFB6;
+        }
+        .chkout {
+          position: absolute;
+          left : 35%;
+          top : 20%;
+          font-family: 'Cafe24Oneprettynight';
+          font-size: 17px;
+        }
+        .chkoutsub {
+          color: #ADAFB6;
+        }
+        .people {
+          position: absolute;
+          left : 62%;
+          top : 20%;
+          font-family: 'Cafe24Oneprettynight';
+          font-size: 17px;
+          display: inline-block;
+          cursor: pointer;
+        }
+        .people:after {
+          content: "";
+          display: block;
+          width: 8px;
+          height: 8px;
+          position: absolute;
+          transform: rotate(45deg);
+          transition: 0.4s;
+        }
+        .peoplelist {
+          width: 300px;
+          box-sizing: border-box;
+          font-family: 'Cafe24Oneprettynight';
+          padding: 0;
+          position: relative;
+          margin-top: 80px;
+          left : 300px;
+          opacity: 0;
+          transition: opacity 0.2s linear;
+        }
 
         .peoplelist li {
           list-style: none;
@@ -224,8 +353,6 @@ JejuBnB 사이트 방문을 환영합니다.<br>
         <script type="text/javascript">
         var people = document.querySelector('.people');
         var peoplelist = document.querySelector('.peoplelist');
-</div>
-</c:if>
 
         people.onclick = function openList(){
         people.classList.toggle('active');
@@ -286,53 +413,36 @@ JejuBnB 사이트 방문을 환영합니다.<br>
      var dropdown = document.querySelector('.dropdown');
      var dropdownList = document.querySelector('.dropdown-list');
 
-<c:if test="${ !empty loginMember and  loginMember.user_id eq 'admin' }">
-<div id="loginBox" class="lineA">
-${ sessionScope.loginMember.user_name } 님<br>
-<button onclick="javascript:location.href='logout.do';">로그아웃</button><br>
-<c:url var="callMyinfo" value="myinfo.do">
-     <c:param name="user_id" value="${ loginMember.user_id }"></c:param>
-</c:url>
-<a href="${ callMyinfo }">My Page</a>
-<!-- 쿼리스트링(Query String) : ?이름=전송값&이름=전송값 -->
+     dropdown.onclick = function openList(){
+     dropdown.classList.toggle('active');
+     dropdownList.classList.toggle('opened');
+ }
+     </script>
+     <div class="mainimg">
+     </div>
+     <div class="slist">hotel list</div>
+     <div class="tlist">tour list</div>
+     <hr class="onelisthr">
+ <div id="onelist">
+   <div class="one">
+      <div class="block"></div>
+   </div>
+   <div class="two">
+     <div class="block2"></div>
+   </div>
+   <div class="three">
+     <div class="block2"></div>
+   </div>
+   <div class="four">
+     <div class="block2"></div>
+   </div>
+   <div class="five">
+     <div class="block2"></div>
+   </div>
+ </div>
+ <div class="moreview">
+    <a href="#"> 더 보기 </a>
 </div>
-</c:if>
 
-
-<c:if test="${ !empty sessionScope.loginMember and ! (loginMember.user_id eq 'admin')}">
-<div id="loginBox" class="lineA">
-${ sessionScope.loginMember.user_name } 님<br>
-<button onclick="javascript:location.href='logout.do';">로그아웃</button><br>
-<a>쪽지</a> &nbsp; &nbsp; 
-<a>메일</a> 
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-<c:url var="callMyinfo2" value="myinfo.do">
-     <c:param name="user_id" value="${ sessionScope.loginMember.user_id }" />
-</c:url>
-<a href="${ callMyinfo2 }">My Page</a>
-<!-- 쿼리스트링(Query String) : ?이름=전송값&이름=전송값 -->
-</div>
-</c:if>
-<hr style="clear:left;">
-<section>
-<!-- 최근 등록 공지글 3개 조회 출력  -->
-<div style="float:left;border:1px solid navy;padding:5px;margin:5px">
-<h4>최근 공지글</h4>
-<table id="newnotice" border="1" cellspacing="0">
-<tr><th>번호</th><th>제목</th><th>날짜</th></tr>
-</table>
-</div>
-<!-- 조회수 많은 게시글 3개 조회 출력 -->
-<div style="float:left;border:1px solid navy;padding:5px;margin:5px">
-<h4>인기 게시글</h4>
-<table id="toplist" border="1" cellspacing="0">
-<tr><th>번호</th><th>제목</th><th>조회수</th></tr>
-</table>
-</div>
-</section>
-<hr style="clear:both;">
-<!-- 상대경로만 사용 가능함 -->
-<%-- <%@ include file="views/common/footer.jsp" %> --%>
-<c:import url="/WEB-INF/views/common/footer.jsp" />
-</body>
+  </body>
 </html>

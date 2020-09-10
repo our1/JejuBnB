@@ -175,7 +175,7 @@
 <button onclick="javascript:location.href='redetail.do';">예약 진행하기</button>
 </div>
 
-<div><form></form></div>
+<div></div>
 
 
 <c:import url="/WEB-INF/views/common/footer.jsp" />

@@ -60,7 +60,7 @@ public class MemberController {
 			return "common/main";
 			}
 			
-		/*
+		/* if문만 주석 풀면 암호화 진행
 		 * }else {
 		 * 
 		 * model.addAttribute("message", "회원 정보와 일치하지 않습니다."); return "common/error"; }

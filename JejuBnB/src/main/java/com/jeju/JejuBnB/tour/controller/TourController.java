@@ -17,7 +17,13 @@ public class TourController {
 	
 	@RequestMapping("tlist.do")
 	public String Tourlist() {
-		return "tour/tourListVeiw";
+		return "tour/tourListView";
 	}
+	
+	@RequestMapping("tdetail.do")
+	public String TourDetail() {
+		return "tour/tourDetailView";
+	}
+
 
 }

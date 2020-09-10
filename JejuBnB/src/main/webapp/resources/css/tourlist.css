@@ -1,15 +1,12 @@
-@charset "UTF-8";
 @font-face {
    font-family: 'Cafe24Oneprettynight';
    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff');
    font-weight: normal;
    font-style: normal;
  }
-
 body {
   margin: 0;
   padding: 0;
-  background-color: #EEF1F1;
 }
 .mainhead {
 position: fixed;
@@ -17,10 +14,13 @@ top: 0;
 left: 0;
 width: 100%;
 padding: 0;
-z-index: 10000;
+z-index: 1;
 transition: all 0.2s ease-in-out;
-height: 100px;
+height: 80px;
 background: white;
+box-shadow: rgba(0, 0, 0, 0.18) 0px 1px 2px;
+-webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+-moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
 }
 .logo {
 position: absolute;
@@ -28,7 +28,7 @@ top : -13%;
 left : 5%;
 }
 .logo img{
-width : 78%;
+width : 60%;
 }
 .dropdown {
 background: #fff;
@@ -41,7 +41,7 @@ height: 50px;
 line-height: 25px;
 position: absolute;
 left : 85%;
-top : 28%;
+top : 17%;
 cursor: pointer;
 color: #74809d;
 font-weight: bold;
@@ -65,16 +65,16 @@ box-sizing: border-box;
 padding: 0;
 position: absolute;
 border-radius: 10px;
-margin-top: 110px;
+margin-top: 90px;
 left : 79.9%;
 opacity: 0;
+background: white;
 transition: opacity 0.2s linear;
+box-shadow: 0px 0px 3px 0px gray;
 }
 .dropdown-list li {
 list-style: none;
-background: #fff;
 padding: 12px 16px;
-border-left: 4px solid #fff;
 font-family: 'Cafe24Oneprettynight';
 font-weight: bold;
 height: 50px;
@@ -124,102 +124,150 @@ position: absolute;
 right: 10px;
 top : 5px;
 }
-
+.thead{
+  width: 100%;
+  height: 350px;
+  background: linear-gradient( to right,
+                     rgba(20, 20, 20, 0.85) 0%,
+                     rgba(20, 20, 20, 0.75) 25%,
+                     rgba(20, 20, 20, 0.5) 50%,
+                     rgba(20, 20, 20, 0.25) 75%,
+                     rgba(20, 20, 20, 0) 100%
+               ),
+               url('../images/29.jpg');
+ background-size: cover;
+ background-repeat: no-repeat;
+}
 .tour {
   position: absolute;
   font-family: 'Cafe24Oneprettynight';
   top : 20%;
-  left : 1.5%;
+  left : 5%;
+  color : white;
 }
 .live {
   font-family: 'Cafe24Oneprettynight';
   position: absolute;
-  top : 35%;
+  top : 50%;
   left: 1.5%;
   width: 90px;
   height: 50px;
-
+  background: none;
+  border-radius: 5px;
+  border: 1px solid gray;
+  font-size: 20px;
 }
 
 .cook {
   font-family: 'Cafe24Oneprettynight';
   position: absolute;
-  top : 35%;
-  left : 10%;
+  top : 50%;
+  left : 9.5%;
   width: 90px;
   height: 50px;
+  background: none;
+  border-radius: 5px;
+  border: 1px solid gray;
+  font-size: 20px;
 }
 
 .act {
   font-family: 'Cafe24Oneprettynight';
   position: absolute;
-  top : 35%;
-  left : 20%;
+  top : 50%;
+  left : 17.3%;
   width: 90px;
   height: 50px;
+  background: none;
+  border-radius: 5px;
+  border: 1px solid gray;
+  font-size: 20px;
 }
 
 .tourlist {
   display: grid;
-  grid-template-columns: 250px 250px 250px 250px 250px;
-  grid-template-rows: 350px ;
+  grid-template-columns: 240px 240px 240px 240px 240px;
+  grid-template-rows: 350px 350px 350px;
   position: absolute;
-  top : 45%;
+  top : 60%;
   left : 1.5%;
+  font-family: 'Cafe24Oneprettynight';
 }
-.one {
+
+.tourlist img {
   border-radius: 5px;
-  background-image: url('../images/01.jpg');
-  background-size: cover;
+}
+.tourlist span{
+  color: #FF9999;
+}
+.tourlist a {
+  text-decoration: none;
+  color : black;
 }
 
 .two {
-  margin-left: 7%;
-  border-radius: 5px;
-  background-image: url('../images/10.jpg');
-  background-size: cover;
-
+  margin-left: 5%;
 }
 .three {
-  margin-left: 7%;
-  border-radius: 5px;
-  background-image: url('../images/21.jpg');
-  background-size: cover;
+  margin-left: 10%;
 }
 .four {
-  margin-left: 7%;
-  border-radius: 5px;
-  background-image: url('../images/12.jpg');
-  background-size: cover;
-
+  margin-left: 15%;
 }
 .five {
-  margin-left: 7%;
-  border-radius: 5px;
-  background-image: url('../images/22.jpg');
-  background-size: cover;
+  margin-left: 20%;
 }
-.block {
+.six{
+  margin-top: 100px;
+}
+
+.seven {
+  margin-top: 100px;
+  margin-left: 5%;
+}
+
+.eight {
+  margin-top: 100px;
+  margin-left: 10%;
+}
+
+.nine {
+  margin-top: 100px;
+  margin-left: 15%;
+}
+
+.ten {
+  margin-top: 100px;
+  margin-left: 20%;
+}
+.ele{
+  margin-top: 200px;
+}
+
+.twl {
+  margin-top: 200px;
+  margin-left: 5%;
+}
+
+.thr {
+  margin-top: 200px;
+  margin-left: 10%;
+}
+
+.for {
+  margin-top: 200px;
+  margin-left: 15%;
+}
+
+.fift {
+  margin-top: 200px;
+  margin-left: 20%;
+}
+.map {
+  position: absolute;
+  top : 50%;
+  left : 68.39%;
   border: 1px solid gray;
-  border-radius: 5px;
-  position: absolute;
-  top : 105%;
-  height: 70px;
-  width: 250px;
-}
-.block2{
-  border: 1px solid gray;
-  border-radius: 5px;
-  position: absolute;
-  top : 105%;
-  height: 70px;
-  width: 230px;
-}
-.tourlist2 {
-  display: grid;
-  grid-template-columns: 250px 250px 250px 250px 250px;
-  grid-template-rows: 350px ;
-  position: absolute;
-  top : 45%;
-  left : 1.5%;
+  width: 600px;
+  height: 1430px;
 }

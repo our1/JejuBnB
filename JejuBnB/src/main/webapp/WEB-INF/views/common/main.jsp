@@ -364,13 +364,13 @@
      </div>
      <div class="dropdown"><span class="lnr lnr-menu"></span><span class="myimg"></span></div>
      <ul class="dropdown-list">
-       <li><span class="lnr lnr-home"></span> 마이페이지</li>
-       <li><span class="lnr lnr-envelope"></span> 내 쿠폰</li>
-       <li><span class="lnr lnr-cog"></span> 내가 정한 숙소</li>
-       <li><span class="lnr lnr-cog"></span> 사장님 신청</li>
-       <li><span class="lnr lnr-cog"></span> 알림</li>
-       <li><span class="lnr lnr-cog"></span> 고객센터</li>
-       <li><span class="lnr lnr-cog"></span> 로그아웃</li>
+       <li>마이페이지</li>
+       <li>내 쿠폰</li>
+       <li>내가 정한 숙소</li>
+       <li>사장님 신청</li>
+       <li>알림</li>
+       <li>고객센터</li>
+       <li>로그아웃</li>
      </ul>
           </div>
      <script type="text/javascript">
@@ -405,7 +405,7 @@
    </div>
  </div>
  <div class="moreview">
-    <a href="#"> 더 보기 </a>
+    <a href="tlist.do"> 더 보기 </a>
 </div>
 
   </body>

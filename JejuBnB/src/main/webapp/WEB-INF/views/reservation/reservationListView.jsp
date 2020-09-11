@@ -8,11 +8,10 @@
 <meta charset="UTF-8">
 <title>JejuBnB</title>
 <link rel="stylesheet" href="resources/css/header.css">
-<link rel="stylesheet"
-	href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
-<link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
+<link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
 <style>
+
 /*datepicker에서 사용한 이미지 버튼 style적용*/
 img.ui-datepicker-trigger {
 	margin-left: 5px;
@@ -23,182 +22,166 @@ img.ui-datepicker-trigger {
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <!-- datepicker 한국어로 -->
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/datepicker-ko.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/datepicker-ko.js"></script>
 <script>
-            $(function() {
-                //오늘 날짜를 출력
-                $("#today").text(new Date().toLocaleDateString());
+	$(function() {
+		//오늘 날짜를 출력
+		$("#today").text(new Date().toLocaleDateString());
 
-                //datepicker 한국어로 사용하기 위한 언어설정
-                $.datepicker.setDefaults($.datepicker.regional['ko']);
+		//datepicker 한국어로 사용하기 위한 언어설정
+		$.datepicker.setDefaults($.datepicker.regional['ko']);
 
-                // 시작일(fromDate)은 종료일(toDate) 이후 날짜 선택 불가
-                // 종료일(toDate)은 시작일(fromDate) 이전 날짜 선택 불가
+		// 시작일(fromDate)은 종료일(toDate) 이후 날짜 선택 불가
+		// 종료일(toDate)은 시작일(fromDate) 이전 날짜 선택 불가
 
-                //시작일.
-                $('#fromDate').datepicker({
-                    //showOn: "both",                     // 달력을 표시할 타이밍 (both: focus or button)
-                    //buttonImage: "images/calendar.gif", // 버튼 이미지
-                    buttonImageOnly : true,             // 버튼 이미지만 표시할지 여부
-                    //buttonText: "날짜선택",             // 버튼의 대체 텍스트
-                    dateFormat: "yy.mm.dd",             // 날짜의 형식
-                    changeMonth: true,                  // 월을 이동하기 위한 선택상자 표시여부
-                    minDate: 0,                       // 선택할수있는 최소날짜, ( 0 : 오늘 이전 날짜 선택 불가)
-                    onClose: function( selectedDate ) {
-                        // 시작일(fromDate) datepicker가 닫힐때
-                        // 종료일(toDate)의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
-                        $("#toDate").datepicker( "option", "minDate", selectedDate );
-                    }
+		//시작일.
+		$('#fromDate').datepicker({
+			//showOn: "both",                     // 달력을 표시할 타이밍 (both: focus or button)
+			//buttonImage: "images/calendar.gif", // 버튼 이미지
+			buttonImageOnly : true, // 버튼 이미지만 표시할지 여부
+			//buttonText: "날짜선택",             // 버튼의 대체 텍스트
+			dateFormat : "yy.mm.dd", // 날짜의 형식
+			changeMonth : true, // 월을 이동하기 위한 선택상자 표시여부
+			minDate : 0, // 선택할수있는 최소날짜, ( 0 : 오늘 이전 날짜 선택 불가)
+			onClose : function(selectedDate) {
+				// 시작일(fromDate) datepicker가 닫힐때
+				// 종료일(toDate)의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
+				$("#toDate").datepicker("option", "minDate", selectedDate);
+			}
+		});
+
+		//종료일
+		$('#toDate').datepicker({
+			//showOn: "both",
+			//buttonImage: "images/calendar.gif",
+			buttonImageOnly : true,
+			//buttonText: "날짜선택",
+			dateFormat : "yy.mm.dd",
+			changeMonth : true,
+			minDate : 0, // 오늘 이전 날짜 선택 불가
+			onClose : function(selectedDate) {
+				// 종료일(toDate) datepicker가 닫힐때
+				// 시작일(fromDate)의 선택할수있는 최대 날짜(maxDate)를 선택한 종료일로 지정
+				$("#fromDate").datepicker("option", "maxDate", selectedDate);
+			}
+		});
+	});
+</script>
+  <script type="text/javascript">
+            $(function(){
+              var num=1; //성인 수
+              var num1=0; //어린이 수
+              var num2=0; //유아 수
+              var sum; //성인 + 어린이 수
+              var sum1; //성인 + 어린이 수
+              var sum2; //성인 + 어린이 수
+              $('#decreaseQuantity').click(function(e){
+                e.preventDefault();
+                var stat = $('#numberUpDown').text();
+                num = parseInt(stat,10);
+                num--;
+                sum=num+num1;
+                if(num<=0){
+                  alert('최소인원을 선택해주세요.');
+                  num = num +1;
+                }
+                $('#numberUpDown').text(num);
                 });
 
-                //종료일
-                $('#toDate').datepicker({
-                    //showOn: "both",
-                    //buttonImage: "images/calendar.gif",
-                    buttonImageOnly : true,
-                    //buttonText: "날짜선택",
-                    dateFormat: "yy.mm.dd",
-                    changeMonth: true,
-                    minDate: 0, // 오늘 이전 날짜 선택 불가
-                    onClose: function( selectedDate ) {
-                        // 종료일(toDate) datepicker가 닫힐때
-                        // 시작일(fromDate)의 선택할수있는 최대 날짜(maxDate)를 선택한 종료일로 지정
-                        $("#fromDate").datepicker( "option", "maxDate", selectedDate );
-                    }
+                $('#increaseQuantity').click(function(e){
+                  e.preventDefault();
+                  var stat = $('#numberUpDown').text();
+                  num = parseInt(stat,10);
+                  num++;
+                  sum = num + num1;
+                  if(sum+num2>10){
+                    alert('최대인원을 초과하였습니다.');
+                    sum3;
+                  }
+                  $('#numberUpDown').text(num);
                 });
+
+            $('#decreaseQuantity2').click(function(e){
+              e.preventDefault();
+              var stat = $('#numberUpDown2').text();
+              num1 = parseInt(stat,10);
+              num1--;
+              sum1 = num + num1;
+              if(num1<0){
+                alert('최소인원을 선택해주세요.');
+                sum3;
+              }
+            $('#numberUpDown2').text(num1);
             });
-									//성인 수, 증가 감소
-									$(function() {
-										$('#decreaseQuantity')
-												.click(
-														function(e) {
-															e.preventDefault();
-															var stat = $(
-																	'#numberUpDown')
-																	.text();
-															var num = parseInt(
-																	stat, 10);
-															num--;
-															if (num <= 0) {
-																alert('최소인원을 선택해주세요.');
-																num = 1;
-															}
-															$('#numberUpDown')
-																	.text(num);
-														});
-										$('#increaseQuantity')
-												.click(
-														function(e) {
-															e.preventDefault();
-															var stat = $(
-																	'#numberUpDown')
-																	.text();
-															var num = parseInt(
-																	stat, 10);
-															num++;
-															if (num > 10) {
-																alert('최대인원을 초과하였습니다.');
-																num = 10;
-															}
-															$('#numberUpDown')
-																	.text(num);
-														});
 
-									});
-									//어린이 수, 증가 감소
-									$(function() {
-										$('#decreaseQuantity2')
-												.click(
-														function(e) {
-															e.preventDefault();
-															var stat = $(
-																	'#numberUpDown2')
-																	.text();
-															var num = parseInt(
-																	stat, 10);
-															num--;
-															if (num < 0) {
-																alert('최소인원을 선택해주세요.');
-																num = 0;
-															}
-															$('#numberUpDown2')
-																	.text(num);
-														});
-										$('#increaseQuantity2')
-												.click(
-														function(e) {
-															e.preventDefault();
-															var stat = $(
-																	'#numberUpDown2')
-																	.text();
-															var num = parseInt(
-																	stat, 10);
-															num++;
-															if (num > 10) {
-																alert('최대인원을 초과하였습니다.');
-																num = 10;
-															}
-															$('#numberUpDown2')
-																	.text(num);
-														});
-									});
-									//유아 수, 증가 감소
-									$(function() {
-										$('#decreaseQuantity3')
-												.click(
-														function(e) {
-															e.preventDefault();
-															var stat = $(
-																	'#numberUpDown3')
-																	.text();
-															var num = parseInt(
-																	stat, 10);
-															num--;
-															if (num < 0) {
-																alert('최소인원을 선택해주세요.');
-																num = 0;
-															}
-															$('#numberUpDown3')
-																	.text(num);
-														});
-										$('#increaseQuantity3')
-												.click(
-														function(e) {
-															e.preventDefault();
-															var stat = $(
-																	'#numberUpDown3')
-																	.text();
-															var num = parseInt(
-																	stat, 10);
-															num++;
-															if (num > 10) {
-																alert('최대인원을 초과하였습니다.');
-																num = 10;
-															}
-															$('#numberUpDown3')
-																	.text(num);
-														});
-									});
+            $('#increaseQuantity2').click(function(e){
+              e.preventDefault();
+              var stat = $('#numberUpDown2').text();
+              num1 = parseInt(stat,10);
+              num1++;
+              sum1 = num + num1;
+              if(sum1+num2>10){
+                alert('최대인원을 초과하였습니다.');
+                sum3;
+              }
+              $('#numberUpDown2').text(num1);
+              });
 
-									$(document).ready(function() {
-										$('#increaseQuantity').val('num');
-									});
-								</script>
+            $('#decreaseQuantity3').click(function(e){
+              e.preventDefault();
+              var stat = $('#numberUpDown3').text();
+              num2 = parseInt(stat,10);
+              num2--;
+              if(num2<0){
+                alert('최소인원을 선택해주세요.');
+                num2=0;
+              }
+            $('#numberUpDown3').text(num2);
+            });
+            $('#increaseQuantity3').click(function(e){
+              e.preventDefault();
+              var stat = $('#numberUpDown3').text();
+              num2 = parseInt(stat,10);
+              num2++;
+              sum2 = num + num1;
+              if(sum2+num2>10){
+                alert('최대인원을 초과하였습니다.');
+                sum3;
+              }
+            $('#numberUpDown3').text(num2);
+            });
+
+            $('button').on('click', function(){
+              if($('button#increaseQuantity').on('click', function(){
+                $('#nu').val('게스트' + sum  + '명' + ', ' + '유아' + num2  + '명');
+              }))
+              if($('button#increaseQuantity2').on('click', function(){
+                $('#nu').val('게스트' + sum1  + '명' + ', ' + '유아' + num2  + '명');
+              }))
+              if($('button#increaseQuantity3').on('click', function(){
+                $('#nu').val('게스트' + sum2  + '명' + ', ' + '유아' + num2  + '명');
+              }))
+              $('#nu').val('게스트' + num  + '명' + ', ' + '유아' + num2  + '명');
+            });
+            });
+        </script>
+
+<script type="text/javascript">
+function moveReservPage(){
+	location.href="redetail.do?roomno=" + ${room.room_no};
+}	
+</script>
 <style type="text/css">
 ._1044tk8 {
 	display: flex !important;
 	margin-bottom: 24px !important;
 }
-
 ._fz3zdn {
 	flex-shrink: 0 !important;
 }
-
 ._1mqc21n {
 	margin-left: 16px !important;
 }
-
 ._1qsawv5 {
 	color: rgb(34, 34, 34) !important;
 	font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
@@ -208,7 +191,6 @@ img.ui-datepicker-trigger {
 	line-height: 20px !important;
 	margin-bottom: 4px !important;
 }
-
 ._1jlr81g {
 	color: rgb(113, 113, 113) !important;
 	font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
@@ -217,13 +199,11 @@ img.ui-datepicker-trigger {
 	font-size: 14px !important;
 	line-height: 20px !important;
 }
-
 * {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
 }
-
 .main-form {
 	background-color: white;
 	margin-left: 60%;
@@ -234,13 +214,11 @@ img.ui-datepicker-trigger {
 	overflow: visible;
 	height: 350px;
 }
-
 .form-title2 {
 	font-size: 12px;
 	padding-top: 20px;
 	font-weight: 400;
 }
-
 .form>input {
 	padding: 10px;
 	font-size: 15px;
@@ -248,19 +226,15 @@ img.ui-datepicker-trigger {
 	border: solid 1px #ccc;
 	border-radius: 5px;
 }
-
 .form-1>input {
 	width: 375px;
 }
-
 .form-2>input {
 	width: 185px;
 }
-
 .inline-block {
 	display: inline-block;
 }
-
 .search-button {
 	background-color: #FF5A5F;
 	padding: 10px 22px;
@@ -272,7 +246,6 @@ img.ui-datepicker-trigger {
 	color: white;
 	float: right;
 }
-
 .bottom-text {
 	color: white;
 	font-weight: 800;
@@ -283,7 +256,7 @@ img.ui-datepicker-trigger {
 /* Style The Dropdown Button */
 .dropbtn {
 	background-color: white;
-	color: white;
+	color: black;
 	padding: 16px;
 	font-size: 16px;
 	border: none;
@@ -316,17 +289,14 @@ img.ui-datepicker-trigger {
 .dropdown-content a:hover {
 	background-color: white
 }
-
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
 	display: block;
 }
-
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
 	background-color: white;
 }
-
 ._svr7sj {
 	color: rgb(34, 34, 34) !important;
 	font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
@@ -335,7 +305,6 @@ img.ui-datepicker-trigger {
 	font-size: 22px !important;
 	line-height: 26px !important;
 }
-
 ._14i3z6h {
 	color: inherit !important;
 	font-size: 1em !important;
@@ -344,19 +313,16 @@ img.ui-datepicker-trigger {
 	margin: 0px !important;
 	padding: 0px !important;
 }
-
 ._1byskwn {
 	margin-left: -8px !important;
 	margin-right: -8px !important;
 	width: calc(100% + 16px) !important;
 }
-
 ._1byskwn {
 	margin-left: -6px !important;
 	margin-right: -6px !important;
 	width: calc(100% + 12px) !important;
 }
-
 ._1byskwn {
 	-webkit-box-pack: start !important;
 	-webkit-box-align: stretch !important;
@@ -368,17 +334,14 @@ img.ui-datepicker-trigger {
 	margin-left: -6px !important;
 	margin-right: -6px !important;
 }
-
 ._19xnuo97 {
 	padding-left: 8px !important;
 	padding-right: 8px !important;
 }
-
 ._19xnuo97 {
 	padding-left: 6px !important;
 	padding-right: 6px !important;
 }
-
 ._19xnuo97 {
 	position: relative !important;
 	width: 100% !important;
@@ -387,7 +350,6 @@ img.ui-datepicker-trigger {
 	padding-left: 6px !important;
 	padding-right: 6px !important;
 }
-
 ._1nlbjeu {
 	-webkit-box-direction: reverse !important;
 	-webkit-box-orient: horizontal !important;
@@ -396,7 +358,6 @@ img.ui-datepicker-trigger {
 	flex-direction: row-reverse !important;
 	max-width: 83.3333% !important;
 }
-
 ._1nlbjeu {
 	-webkit-box-pack: justify !important;
 	-webkit-box-align: center !important;
@@ -405,12 +366,10 @@ img.ui-datepicker-trigger {
 	justify-content: space-between !important;
 	padding-bottom: 16px !important;
 }
-
 ._yp1t7a {
 	margin-right: 16px !important;
 	margin-left: 0px !important;
 }
-
 ._yp1t7a {
 	min-width: 24px !important;
 	margin-left: 16px !important;
@@ -505,27 +464,27 @@ ul, li {
 	text-align: center;
 }
 
-#pos1:checked ~ul{
+#pos1:checked ~ul {
 	margin-left: 0%;
 }
 
-#pos2:checked ~ul{
+#pos2:checked ~ul {
 	margin-left: -100%;
 }
 
-#pos3:checked ~ul{
+#pos3:checked ~ul {
 	margin-left: -200%;
 }
 
-#pos4:checked ~ul{
+#pos4:checked ~ul {
 	margin-left: -300%;
 }
 
-#pos5:checked ~ul{
+#pos5:checked ~ul {
 	margin-left: -400%;
 }
 
-#pos6:checked ~ul{
+#pos6:checked ~ul {
 	margin-left: -500%;
 }
 
@@ -575,9 +534,9 @@ ul, li {
 		</div>
 		<br>
 
-		<h3>${ room.user_id }님의 JejuBnB</h3>
+		<h3>${ room.user_id }님의JejuBnB</h3>
 		<br>
-		<h4>최대 인원 ${ room.max_people } 명, 침대수 ${ room.num_bed } 개, 침실수 ${ room.num_bedroom }
+		<h4>최대 인원 ${ room.max_people } 명, 침대수 ${ room.bed } 개, 침실수 ${ room.bedroom }
 			개, 욕실수 ${ num_bathroom } 개</h4>
 		<br>
 		<hr>
@@ -590,8 +549,7 @@ ul, li {
 					<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"
 						aria-hidden="true" role="presentation" focusable="false"
 						style="display: block; height: 24px; width: 24px; fill: currentcolor;">
-						<path
-							d="M17.954 2.781l.175.164 13.072 12.842-1.402 1.426-1.8-1.768L28 29a2 2 0 0 1-1.85 1.994L26 31H6a2 2 0 0 1-1.995-1.85L4 29V15.446l-1.8 1.767-1.4-1.426L13.856 2.958a3 3 0 0 1 4.097-.177zm-2.586 1.503l-.096.088L6 13.48 6 29l5-.001V19a2 2 0 0 1 1.85-1.995L13 17h6a2 2 0 0 1 1.995 1.85L21 19v9.999h5V13.48l-9.3-9.135a1.001 1.001 0 0 0-1.332-.06zM19 19h-6v9.999h6z"></path></svg>
+						<path d="M17.954 2.781l.175.164 13.072 12.842-1.402 1.426-1.8-1.768L28 29a2 2 0 0 1-1.85 1.994L26 31H6a2 2 0 0 1-1.995-1.85L4 29V15.446l-1.8 1.767-1.4-1.426L13.856 2.958a3 3 0 0 1 4.097-.177zm-2.586 1.503l-.096.088L6 13.48 6 29l5-.001V19a2 2 0 0 1 1.85-1.995L13 17h6a2 2 0 0 1 1.995 1.85L21 19v9.999h5V13.48l-9.3-9.135a1.001 1.001 0 0 0-1.332-.06zM19 19h-6v9.999h6z"></path></svg>
 				</div>
 				<div class="_1mqc21n">
 					<div class="_1qsawv5">집 전체</div>
@@ -642,7 +600,6 @@ ul, li {
 		<hr>
 		<br>
 
-<<<<<<< HEAD
 		<div class="_1gw6tte">
 			<div class="_12xcxtl"></div>
 			<div data-plugin-in-point-id="AMENITIES_DEFAULT"
@@ -655,10 +612,13 @@ ul, li {
 						</section>
 					</div>
 				</div>
+				<c:if test="${ amenity.amenity_no eq '7' }">
 				<div class="_1byskwn">
 					<div class="_19xnuo97">
 						<div class="_1nlbjeu">
-							<div>무선 인터넷</div>
+							<div>
+								무선인터넷					
+							</div>
 							<div class="_yp1t7a">
 								<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"
 									aria-hidden="true" role="presentation" focusable="false"
@@ -668,9 +628,13 @@ ul, li {
 							</div>
 						</div>
 					</div>
+					</c:if>	
+					<c:if test="${ amenity.amenity_no eq '17' }">
 					<div class="_19xnuo97">
 						<div class="_1nlbjeu">
-							<div>소화기</div>
+							<div>
+									화재 경보기
+							</div>
 							<div class="_yp1t7a">
 								<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"
 									aria-hidden="true" role="presentation" focusable="false"
@@ -680,9 +644,13 @@ ul, li {
 							</div>
 						</div>
 					</div>
+					</c:if>
+					<c:if test="${ amenity.amenity_no eq '3' }">
 					<div class="_19xnuo97">
 						<div class="_1nlbjeu">
-							<div>난방</div>
+							<div>
+									난방
+							</div>
 							<div class="_yp1t7a">
 								<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"
 									aria-hidden="true" role="presentation" focusable="false"
@@ -692,9 +660,13 @@ ul, li {
 							</div>
 						</div>
 					</div>
+					</c:if>
+					<c:if test="${ amenity.amenity_no eq '' }">
 					<div class="_19xnuo97">
 						<div class="_1nlbjeu">
-							<div>건물 내 무료 주차</div>
+							<div>
+									건물 내 무료 주차
+							</div>
 							<div class="_yp1t7a">
 								<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"
 									aria-hidden="true" role="presentation" focusable="false"
@@ -704,10 +676,13 @@ ul, li {
 							</div>
 						</div>
 					</div>
-
+					</c:if>
+					<c:if test="${ amenity.amenity_no eq '4' }">
 					<div class="_19xnuo97">
 						<div class="_1nlbjeu">
-							<div>에어컨</div>
+							<div>
+									에어컨
+							</div>
 							<div class="_yp1t7a">
 								<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"
 									aria-hidden="true" role="presentation" focusable="false"
@@ -717,9 +692,13 @@ ul, li {
 							</div>
 						</div>
 					</div>
+					</c:if>
+					<c:if test="${ amenity.amenity_no eq '10' }">
 					<div class="_19xnuo97">
 						<div class="_1nlbjeu">
-							<div>옷걸이</div>
+							<div>
+										옷걸이
+							</div>
 							<div class="_yp1t7a">
 								<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"
 									aria-hidden="true" role="presentation" focusable="false"
@@ -729,9 +708,13 @@ ul, li {
 							</div>
 						</div>
 					</div>
+					</c:if>
+					<c:if test="${ amenity.amenity_no eq '12' }">
 					<div class="_19xnuo97">
 						<div class="_1nlbjeu">
-							<div>헤어드라이어</div>
+							<div>
+									헤어 드라이기
+							</div>
 							<div class="_yp1t7a">
 								<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"
 									aria-hidden="true" role="presentation" focusable="false"
@@ -741,9 +724,13 @@ ul, li {
 							</div>
 						</div>
 					</div>
+					</c:if>
+					<c:if test="${ amenity.amenity_no eq '2' }">
 					<div class="_19xnuo97">
 						<div class="_1nlbjeu">
-							<div>샴푸</div>
+							<div>
+									샴푸
+							</div>
 							<div class="_yp1t7a">
 								<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"
 									aria-hidden="true" role="presentation" focusable="false"
@@ -753,21 +740,18 @@ ul, li {
 							</div>
 						</div>
 					</div>
+					</c:if>
 					<div class="_19xnuo97">
 						<div class="_1nlbjeu"></div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<br>
-		<hr>
-		<br> <br>
-=======
-<div></div>
->>>>>>> refs/heads/master
+		<br><br><hr><br>
 
-
-
+		<h2>호스트의 숙소 소개</h2> <br>
+		<h4>${ room.room_content }</h4>
+			
 		<div class="main-form">
 			<h2 class="form-title1">요금을 확인하려면 날짜를 입력하세요.</h2>
 			<div class="inline-block">
@@ -786,40 +770,36 @@ ul, li {
 			</div>
 			<div class="form-title2">인원</div>
 			<div class="dropdown">
-				<input type="text" class="dropbtn" readonly placeholder="인원"
-					name="nu">
+				<input id="nu" type="text" class="dropbtn" readonly placeholder="인원">
 				<div class="dropdown-content">
 					<div class="number">
 						<form id="test">
 							<h4>성인</h4>
-							<span><a href="#" id="decreaseQuantity"
-								onclick="statusChange(this)">&#8722;</a></span> <span id="numberUpDown">1</span>
-							<span><a href="#" id="increaseQuantity"
-								onclick="statusChange(this)">&#43;</a>
+							<span><button id="decreaseQuantity">&#8722;</button></span> <span
+								id="numberUpDown">1</span> <span><button
+									id="increaseQuantity">&#43;</button></span>
 						</form>
 						<form>
 							<h4>어린이</h4>
-							<span><a href="#" id="decreaseQuantity2"
-								onclick="statusChange(this)">&#8722;</a></span> <span
-								id="numberUpDown2">0</span> <span><a href="#"
-								id="increaseQuantity2" onclick="statusChange(this)">&#43;</a></span>
+							<span><button id="decreaseQuantity2">&#8722;</button></span> <span
+								id="numberUpDown2">0</span> <span><button
+									id="increaseQuantity2">&#43;</button></span>
 						</form>
 						<form>
 							<h4>유아</h4>
-							<span><a href="#" id="decreaseQuantity3">&#8722;</a></span> <span
-								id="numberUpDown3">0</span> <span><a href="#"
-								id="increaseQuantity3">&#43;</a></span>
+							<span><button id="decreaseQuantity3">&#8722;</button></span> <span
+								id="numberUpDown3">0</span> <span><button
+									id="increaseQuantity3">&#43;</button></span>
 						</form>
 					</div>
 				</div>
 			</div>
 			<div>
-				<button class="search-button"
-					onclick="javascript:location.href='redetail.do';">예약 진행하기</button>
+				<button class="search-button" onclick="moveReservPage()">예약 진행하기</button>
 			</div>
 		</div>
 
 
-		<c:import url="/WEB-INF/views/common/footer.jsp" />
+<c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

@@ -6,6 +6,38 @@
 <head>
 <meta charset="UTF-8">
 <title>JejuBnB</title>
+<script type="text/javascript" src="/second/resources/js/jquery-3.5.1.min.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
+<!-- !!중요. - autoload=false 를 반드시 붙혀주셔야 합니다.-->
+<script>
+    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+    function PostCall() {
+    	daum.postcode.load(function(){
+            new daum.Postcode({
+            	 oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+               
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById("PostNumber").value = data.zonecode;
+                document.getElementById("room_roadaddress").value = roadAddr;
+               
+            }
+        }).open();
+    })
+    if($("addressDiv").css('display') == 'none'){
+    	$("addressDiv").show();
+    	$("ShowAddress").hide();
+    }
+    
+    }
+    
+   
+</script>
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp"/>
@@ -14,7 +46,16 @@
 <div id="first">
 숙소 이름 : <input type="text" name="room_name" placeholder="숙소 이름" value="${room.room_name }"> <br>
 숙소 소개 : <textarea rows="50" cols="50" name="room_content" >${room.room_content } </textarea> <br>
-숙소 주소 : <input type="text" name="room_address" placeholder="숙소 주소" value="${room.room_address }"> <br>
+<div id = "addressDiv" style="display:none;">
+<input type="text" id="PostNumber" placeholder="우편번호" required readonly><br>
+<input type="text" id="room_roadaddress" name="room_roadaddress" placeholder="도로명주소" readonly value="${room.room_roadaddress }"><br>
+<input type="text" id="DetailAddress" name="address" placeholder="상세주소" required><br>
+</div>
+<div id="ShowAddress" >
+<input type="text" value="${room.room_address }" readonly>
+숙소 주소 : <button onclick="PostCall()" type="button">우편번호 검색</button><br>
+
+</div>
 기준 인원 : <input type="number" name="st_num_people" value="${room.st_num_people }" >명 <br>
 최대 인원 : <input type="number" name="max_people" placeholder="최대 인원" value="${room.max_people }"><br>
 체크인 시간 : <select name="inhour">

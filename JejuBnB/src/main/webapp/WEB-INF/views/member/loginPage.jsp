@@ -5,66 +5,12 @@
 <html>
 <head>
  <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>JejuBnB</title>
-   <style type="text/css">
-   h1{
-	   font-size : 48pt;
-   	   color : black;
-   }
-   #loginForm{
-   	width : 500px;
-   	height : 200px;
-   	border : 2px solid #96c93d;
-   	position : fixed; /* 본래 표시물 위치 기준 상대위치로 지정한다는 설정임 */
-   	left : 140px;
-   	top : 280px;
-   }
-   div form {
-   	font-size : 16pt;
-   	color : black;
-   	font-weight : bold;
-   	margin : 10px;
-   	padding : 10px;
-   }
-   #facebookbutton {
-   position : fixed;
-   left : 200px;
-   top : 220px;
-   }
-   
-   
-   #enrollbutton {
-   position : fixed;
-   left : 500px;
-   top : 480px;
-  
-   }
-    #searchpwdPage {
-   position : fixed;
-   left : 140px;
-   top : 480px;
-  
-   }
-   
-   div#loginForm form input.pos {
-   	position : fixed; /* 절대좌표 */
-   	left : 330px;
-   }
-   div#loginForm form input[type=submit] {
-   margin :10px;
-   width : 250px;
-   height : 40px;
-   position : fixed;
-   left : 260px;
-   background : #96c93d;
-   color : white;
-   font-size : 16pt;
-   font-weight : bold;
-   }
-   
-   </style>
-
-
+    <link rel="stylesheet" href="resources/css/loginPage.css" >
+    <link rel="stylesheet" href="resources/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+ 
 <script>
 
   function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
@@ -127,46 +73,57 @@
 <!-- Load the JS SDK asynchronously -->
 </head>
 <body>
+    <div class="container-fluid">
+        <div class="row no-gutter">
+            <div class="col-md-6 d-none d-md-flex bg-image"></div>
+            <div class="col-md-6 bg-light">
+                <div class="login d-flex align-items-center py-5">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-10 col-xl-7 mx-auto">
+                              <div class="logo">
+                                <img src="resources/images/무제.png" >
+                              </div>
+                                <form action="login.do" method="post">	
+                                    <div class="form-group mb-3">
+                                        <input id="inputEmail" type="email" placeholder="Email address" required="" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4" name="user_id">
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <input id="inputPassword" type="password" placeholder="Password" required="" class="form-control rounded-pill border-0 shadow-sm px-4 text-primary" name="user_pwd">
+                                    </div>
+                                    <div class="custom-control custom-checkbox mb-3">
+                                        <input id="customCheck1" type="checkbox" checked class="custom-control-input">
+                                        <label for="customCheck1" class="custom-control-label">Remember password</label>
+                                        <a href="searchpwdPage.do" class="findpas">Forgot Password</a>
+                                        <a href="email.do" class="enroll">Sign up</a>
+                                    </div>
+                                    <button type="submit" class="signin__btn">Sign in</button>
+                                    <div class="separator">
+                                      <p>OR</p>
+                                    </div>
+                                    <button class="google__btn">
+                                      <i class="fa fa-facebook"></i>
+                                       Sign in with FaceBook
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
 
- <h1 align= "center"> JejuBnB 로그인</h1>
- <div id="facebookbutton">
-<fb:login-button scope="public_profile,email" onlogin="checkLoginState();" data-size="large" data-button-type="login_with" data-layout="rounded" data-auto-logout-link="false" data-use-continue-as="false" data-width="700">
-Facebook으로 로그인
-</fb:login-button>
-</div>
- <div id="loginForm">
- <!-- <form action="../../login" method= "post"> -->	  <!-- 상대경로 -->
- <form action="login.do" method="post">							 <!-- 절대경로 -->
- 이메일 아이디 : 
-<input type ="text" name="user_id" id="uid" class="pos"> <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  암 호 : <input type ="password" name="user_pwd" id="upwd" class="pos"> <br>
- <input type = "submit" value="로그인"> 
- </form>
- 
- </div>
-
- <div id="searchpwdPage">
-<a href="searchpwdPage.do">비밀번호 찾기</a>
-</div> 
-
- <div id="enrollbutton">
-<a href="email.do">이메일로 회원 가입</a>
-</div> 
- 
-
- 
-
-<div id="status">
-</div>
-
+      <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+      <script src="resources/js/jquery-3.3.1.slim.min.js"></script>
+      <script src="resources/js/bootstrap.bundle.min.js"></script>
+      <!--  <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" data-size="large" data-button-type="login_with" data-layout="rounded" data-auto-logout-link="false" data-use-continue-as="false" class="google__btn">
+          <i class="fa fa-facebook"></i>
+          Sign in with FaceBook
+         </fb:login-button> -->
 <!-- <fb:login-button scope="public_profile,email" onlogin="FB.logout();" data-size="large" data-button-type="login_with" data-layout="rounded" data-auto-logout-link="false" data-use-continue-as="false" data-width="">
 Facebook 로그아웃
 </fb:login-button> 
 -->
-
-<div id="fb-root">
-</div>
-
 </body>
 </html>

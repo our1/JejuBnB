@@ -187,7 +187,7 @@ top : 5px;
   font-family: 'Cafe24Oneprettynight';
   position: absolute;
   top: 47%;
-  left: 63%;
+  left: 95.3%;
   width: 50px;
   height: 50px;
   background: none;
@@ -198,8 +198,8 @@ top : 5px;
 
 .tourlist {
   display: grid;
-  grid-template-columns: 253px 253px 253px 253px 253px;
-  grid-template-rows: 450px 450px 450px;
+  grid-template-columns: 370px 370px 370px 370px 370px;
+  grid-template-rows: 500px 500px 500px;
   position: absolute;
   top : 60%;
   left : 1.5%;
@@ -220,59 +220,4 @@ top : 5px;
   margin-left: 1.5%;
   margin-right : 3%; 
   margin-bottom : 37%;
-}
-#container {
-  overflow:hidden;  
-  position: absolute;
-  top : 40%;
-  left : 68.39%;
-  border: 1px solid gray;
-  width: 600px;
-  height: 1530px;
-}
-#mapWrapper {
-	width:100%;
-	height:100%;
-	z-index:1;
-}
-#rvWrapper {
-	width:50%;
-	height:100%;
-	top:0;
-	right:0;
-	position:absolute;
-	z-index:0;
-}
-#container.view_roadview #mapWrapper {
-	width: 50%;
-}
-#roadviewControl {
-	position:absolute;
-	top:5px;
-	left:5px;
-	width:42px;
-	height:42px;
-	z-index: 1;
-	cursor: pointer; 
-	background: url(https://t1.daumcdn.net/localimg/localimages/07/2018/pc/common/img_search.png) 0 -450px no-repeat;
-}
-#roadviewControl.active {
-	background-position:0 -350px;
-}
-#close {
-	position: absolute;
-	padding: 4px;
-	top: 5px;
-	left: 5px;
-	cursor: pointer;
-	background: #fff;
-	border-radius: 4px;
-	border: 1px solid #c8c8c8;
-	box-shadow: 0px 1px #888;
-}
-#close .img {
-	display: block;
-	background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/rv_close.png) no-repeat;
-	width: 14px;
-	height: 14px;
 }

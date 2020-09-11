@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC
 "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="roomMapper">
 	<resultMap type="Room" id="resultRoom">
 		<id property="room_no" column="room_no" />
@@ -25,6 +26,8 @@
 		<result property="plus_charge" column="plus_charge" />	
 		<result property="room_original_file" column="room_original_file" />	
 		<result property="room_rename_file" column="room_rename_file" />	
+		<result property="room_weekday" column="room_weekday" />	
+		<result property="room_weekend" column="room_weekend" />			
 	</resultMap>
 	
 	<resultMap type="Room" id="resultList">
@@ -49,13 +52,15 @@
 		<result property="plus_charge" column="plus_charge" />	
 		<result property="room_thumbnail_file" column="room_thumbnail_file" />	
 		<result property="room_rename_file" column="room_rename_file" />	
+		<result property="room_weekday" column="room_weekday" />	
+		<result property="room_weekend" column="room_weekend" />	
 	</resultMap>
 	
 	
 	<select id="selectList" parameterType="com.jeju.JejuBnB.room.model.vo.PageCount" resultMap="resultList">
 	<![CDATA[
 		select * from(select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
-		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file from room order by room_name)
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file from room order by room_name, room_weekday, room_weekend)
 		where rnum >= #{startRow} and rnum <= #{endRow}
 		]]>
 	</select>
@@ -63,7 +68,7 @@
 	<select id="selectBList" parameterType="com.jeju.JejuBnB.room.model.vo.PageCount" resultMap="resultList">
 	<![CDATA[
 		select * from(select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
-		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file from room order by room_name)
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file from room order by room_name, room_weekday, room_weekend)
 		where rnum >= #{startRow} and rnum <= #{endRow}
 		]]>
 	</select>
@@ -112,18 +117,49 @@
 		 </if>
 			default,  #{plus_charge }, 
 		<if test="room_thumbnail_file == null">
-			null, null)
+			null, null,
 		</if>
 		<if test="room_thumbnail_file != null">
-			#{room_thumbnail_file }, #{room_rename_file })
+			#{room_thumbnail_file }, #{room_rename_file },
 		</if>
+		#{room_weekday}, #{room_weekend})
 		
 	</insert>
 	
 	<update id="updateRoom" parameterType="Room">
 		update room set room_name = #{room_name}, room_content = #{room_content}, room_address=#{room_address}, room_roadaddress=#{room_roadaddress},st_num_people = #{ st_num_people }, 
 		max_people = #{ max_people }, checkin_time = #{checkin_time}, checkout_time= #{checkout_time}, bed = #{ bed}, bedroom=#{bedroom}, bathroom = #{bathroom},
-		amenity = # { amenity }, facility = # { facility }, build_type = #{ build_type }, rule = #{ rule }, plus_chaarge = #{plus_chaarge}, room_thumbnail_file = #{room_thumbnail_file },room_rename_file= #{room_rename_file }
+		
+		 <if test="amenity != null">
+		 	amenity = #{ amenity},
+		 </if>
+		 
+		 <if test="facility != null">
+		 	facility = #{ facility},
+		 </if>
+		 
+		 <if test="build_type != null">
+		 	build_type = #{build_type },
+		 </if>
+		 
+		 <if test="rule != null">
+		 	rule = #{rule },
+		 </if>
+		
+		plus_charge = #{plus_charge}
+		
+		<if test="room_thumbnail_file != null">
+			,room_thumbnail_file = #{room_thumbnail_file },room_rename_file= #{room_rename_file }
+		</if>
+		
+		<if test="room_weekday != null">
+			, room_weekday = #{room_weekday}
+		</if>
+		
+		<if test="room_weekend != null">
+			, room_weekend = #{room_weekend}
+		</if>
+		
 	</update>
 	
 	<delete id="deleteRoom" parameterType="int">

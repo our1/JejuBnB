@@ -642,6 +642,7 @@ ul, li {
 		<hr>
 		<br>
 
+<<<<<<< HEAD
 		<div class="_1gw6tte">
 			<div class="_12xcxtl"></div>
 			<div data-plugin-in-point-id="AMENITIES_DEFAULT"
@@ -761,6 +762,9 @@ ul, li {
 		<br>
 		<hr>
 		<br> <br>
+=======
+<div></div>
+>>>>>>> refs/heads/master
 
 
 

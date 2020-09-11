@@ -2,6 +2,7 @@ package com.jeju.JejuBnB.room.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jeju.JejuBnB.filter.model.service.FilterService;
@@ -38,7 +40,7 @@ public class RoomController {
 	
 	@RequestMapping("roomlist.do")
 	public String SelectList(HttpServletRequest request, Model model) {
-		int limit = 10;
+		int limit = 8;
 		int currentPage = 1;
 		if(request.getParameter("page") != null) {
 			currentPage = Integer.parseInt(request.getParameter("page"));
@@ -58,27 +60,31 @@ public class RoomController {
 	}
 	
 	@RequestMapping(value="roominsert.do", method=RequestMethod.POST)
-	public String insertRoom(Room room, Model model, CheckTime ct, HttpServletRequest request,@RequestParam("amenity") String amenity,
-			@RequestParam("facility") String facility, @RequestParam("build") String build, @RequestParam("rule") String rule,
-			@RequestParam(name="ofile", required=false) MultipartFile ofile) {
-		if(ofile != null) {
+	public String insertRoom(Room room, Model model, CheckTime ct, HttpServletRequest request, 
+			@RequestParam(value="ofile", required = false) MultipartFile ofile, @RequestParam("address") String address) {
+		String orgname = ofile.getOriginalFilename();
+		if(!orgname.isEmpty()) {
 			String savePath = request.getSession().getServletContext().getRealPath("resources/roomThumbnail");
 			room.setRoom_thumbnail_file(ofile.getOriginalFilename());
+			String rename = null;
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+			rename = sdf.format(new java.sql.Date(System.currentTimeMillis()));
+			
+			rename += "." + ofile.getOriginalFilename().substring(ofile.getOriginalFilename().lastIndexOf(".") + 1);
+			
 			try {
-				ofile.transferTo(new File(savePath + "\\" + ofile.getOriginalFilename()));
+				ofile.transferTo(new File(savePath + "\\" + rename));
 			} catch (IllegalStateException | IOException e) {
 				e.printStackTrace();
 			}
+			room.setRoom_thumbnail_file(ofile.getOriginalFilename());
+			room.setRoom_rename_file(rename);
 		}
+
 		
-		room.setCheckout_time("" + ct.getOuthour() + ct.getOutminute());
-		room.setCheckin_time(""+ct.getInhour() + ct.getInminute());
-		room.setAmenity(amenity);
-		room.setFacility(facility);
-		room.setBuild_type(build);
-		room.setRule(rule);
-		room.setRoom_thumbnail_file("1.jpg");
-		room.setRoom_rename_file("1.jpg");
+		room.setCheckout_time(ct.getOuthour() + ct.getOutminute());
+		room.setCheckin_time(ct.getInhour() + ct.getInminute());
+		room.setRoom_address(room.getRoom_roadaddress() + address);
 		logger.info(room.toString());
 
 		int result = roomService.insertRoom(room);
@@ -116,7 +122,7 @@ public class RoomController {
 		
 		if(list.size() > 0) {
 			model.addAttribute("list", list);
-			return "room/myroomListView";
+			return "room/myRoomListView";
 		}else {
 			model.addAttribute("message", "회원님의 숙소 조회 실패");
 			return "common/error";
@@ -189,6 +195,36 @@ public class RoomController {
 		}
 	}
 	
+	@RequestMapping("moveRoomBList.do")
+	public String moveRoomBList(Model model, HttpServletRequest request) {
+		int limit = 10;
+		int currentPage = 1;
+		if(request.getParameter("page") != null) {
+			currentPage = Integer.parseInt(request.getParameter("page"));
+		}
+		ArrayList<Room> list = roomService.selectBList(currentPage, limit);
+		
+		if(list.size()>0) {
+			model.addAttribute("list", list);
+			return "room/roomBListView";
+		}else {
+			model.addAttribute("message", "게시르 형태로 조회 실패");
+			return "common/error";
+		}
+	}
+	
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
  

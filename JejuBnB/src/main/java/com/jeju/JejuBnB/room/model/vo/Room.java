@@ -13,6 +13,7 @@ public class Room implements java.io.Serializable {
 	private String room_name;
 	private String room_content;
 	private String room_address;
+	private String room_roadaddress;
 	private int st_num_people;
 	private int max_people;
 	private String checkin_time;
@@ -36,15 +37,16 @@ public class Room implements java.io.Serializable {
 
 
 	public Room(int room_no, String user_id, String room_name, String room_content, String room_address,
-			int st_num_people, int max_people, String checkin_time, String checkout_time, int bed, int bedroom,
-			int bathroom, String amenity, String facility, String build_type, String rule, String pass_or_not,
-			int plus_charge, String room_thumbnail_file, String room_rename_file) {
+			String room_roadaddress, int st_num_people, int max_people, String checkin_time, String checkout_time,
+			int bed, int bedroom, int bathroom, String amenity, String facility, String build_type, String rule,
+			String pass_or_not, int plus_charge, String room_thumbnail_file, String room_rename_file) {
 		super();
 		this.room_no = room_no;
 		this.user_id = user_id;
 		this.room_name = room_name;
 		this.room_content = room_content;
 		this.room_address = room_address;
+		this.room_roadaddress = room_roadaddress;
 		this.st_num_people = st_num_people;
 		this.max_people = max_people;
 		this.checkin_time = checkin_time;
@@ -60,6 +62,17 @@ public class Room implements java.io.Serializable {
 		this.plus_charge = plus_charge;
 		this.room_thumbnail_file = room_thumbnail_file;
 		this.room_rename_file = room_rename_file;
+	}
+
+
+
+	public String getRoom_roadaddress() {
+		return room_roadaddress;
+	}
+
+
+	public void setRoom_roadaddress(String room_roadaddress) {
+		this.room_roadaddress = room_roadaddress;
 	}
 
 
@@ -266,16 +279,14 @@ public class Room implements java.io.Serializable {
 	@Override
 	public String toString() {
 		return "Room [room_no=" + room_no + ", user_id=" + user_id + ", room_name=" + room_name + ", room_content="
-				+ room_content + ", room_address=" + room_address + ", st_num_people=" + st_num_people + ", max_people="
-				+ max_people + ", checkin_time=" + checkin_time + ", checkout_time=" + checkout_time + ", bed=" + bed
-				+ ", bedroom=" + bedroom + ", bathroom=" + bathroom + ", amenity=" + amenity + ", facility=" + facility
-				+ ", build_type=" + build_type + ", rule=" + rule + ", pass_or_not=" + pass_or_not + ", plus_charge="
-				+ plus_charge + ", room_thumbnail_file=" + room_thumbnail_file + ", room_rename_file="
-				+ room_rename_file + "]";
+				+ room_content + ", room_address=" + room_address + ", room_roadaddress=" + room_roadaddress
+				+ ", st_num_people=" + st_num_people + ", max_people=" + max_people + ", checkin_time=" + checkin_time
+				+ ", checkout_time=" + checkout_time + ", bed=" + bed + ", bedroom=" + bedroom + ", bathroom="
+				+ bathroom + ", amenity=" + amenity + ", facility=" + facility + ", build_type=" + build_type
+				+ ", rule=" + rule + ", pass_or_not=" + pass_or_not + ", plus_charge=" + plus_charge
+				+ ", room_thumbnail_file=" + room_thumbnail_file + ", room_rename_file=" + room_rename_file + "]";
 	}
 
-	
-	
 
-
+	
 }

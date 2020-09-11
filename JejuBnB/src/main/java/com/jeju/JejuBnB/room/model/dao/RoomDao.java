@@ -27,7 +27,12 @@ public class RoomDao {
 	}
 
 	public ArrayList<Room> selectBList(int currentPage, int limit) {
-		List<Room> list = session.selectList("roomMapper.selectBList");
+		PageCount pageCount = new PageCount();		
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+		pageCount.setStartRow(startRow);
+		pageCount.setEndRow(endRow);
+		List<Room> list = session.selectList("roomMapper.selectBList", pageCount);
 		return (ArrayList<Room>) list;
 	}
 

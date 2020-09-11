@@ -128,12 +128,12 @@ public class RoomController {
 			return "common/error";
 		}
 	}
-	
+	//숙소 상세보기 
 	@RequestMapping("moveDetailView.do")
 	public ModelAndView moveDetail(ModelAndView mv, @RequestParam("roomno") int roomno) {
 		Room room = roomService.selectRoom(roomno);
 		if(room != null) {
-			mv.setViewName("room/roomDetailView");
+			mv.setViewName("reservation/reservationListView");
 			mv.addObject("room", room);
 			logger.info(room.toString());
 
@@ -143,6 +143,7 @@ public class RoomController {
 		}
 		return mv;
 	}
+	
 	
 	@RequestMapping("moveUpdatView.do")
 	public String moveUPdate(Model model, @RequestParam("roomno") int roomno) {

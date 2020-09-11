@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jeju.JejuBnB.filter.model.service.FilterService;
@@ -60,9 +61,9 @@ public class RoomController {
 	
 	@RequestMapping(value="roominsert.do", method=RequestMethod.POST)
 	public String insertRoom(Room room, Model model, CheckTime ct, HttpServletRequest request, 
-			@RequestParam(value="ofile", required = false) MultipartFile ofile) {
-		
-		if(ofile != null) {
+			@RequestParam(value="ofile", required = false) MultipartFile ofile, @RequestParam("address") String address) {
+		String orgname = ofile.getOriginalFilename();
+		if(!orgname.isEmpty()) {
 			String savePath = request.getSession().getServletContext().getRealPath("resources/roomThumbnail");
 			room.setRoom_thumbnail_file(ofile.getOriginalFilename());
 			String rename = null;
@@ -81,18 +82,9 @@ public class RoomController {
 		}
 
 		
-		
-		
-		
-		
-		
-		room.setCheckout_time("" + ct.getOuthour() + ct.getOutminute());
-		room.setCheckin_time(""+ct.getInhour() + ct.getInminute());
-		/*
-		 * room.setAmenity(amenity); room.setFacility(facility);
-		 * room.setBuild_type(build); room.setRule(rule);
-		 */
-		
+		room.setCheckout_time(ct.getOuthour() + ct.getOutminute());
+		room.setCheckin_time(ct.getInhour() + ct.getInminute());
+		room.setRoom_address(room.getRoom_roadaddress() + address);
 		logger.info(room.toString());
 
 		int result = roomService.insertRoom(room);

@@ -4,16 +4,16 @@ public class CheckTime implements java.io.Serializable{
 
 	private static final long serialVersionUID = 6010L;
 	
-	private int inhour;
-	private int inminute;
-	private int outhour;
-	private int outminute;
+	private String inhour;
+	private String inminute;
+	private String outhour;
+	private String outminute;
 	
 	public CheckTime() {
 		
 	}
 
-	public CheckTime(int inhour, int inminute, int outhour, int outminute) {
+	public CheckTime(String inhour, String inminute, String outhour, String outminute) {
 		super();
 		this.inhour = inhour;
 		this.inminute = inminute;
@@ -21,35 +21,35 @@ public class CheckTime implements java.io.Serializable{
 		this.outminute = outminute;
 	}
 
-	public int getInhour() {
+	public String getInhour() {
 		return inhour;
 	}
 
-	public void setInhour(int inhour) {
+	public void setInhour(String inhour) {
 		this.inhour = inhour;
 	}
 
-	public int getInminute() {
+	public String getInminute() {
 		return inminute;
 	}
 
-	public void setInminute(int inminute) {
+	public void setInminute(String inminute) {
 		this.inminute = inminute;
 	}
 
-	public int getOuthour() {
+	public String getOuthour() {
 		return outhour;
 	}
 
-	public void setOuthour(int outhour) {
+	public void setOuthour(String outhour) {
 		this.outhour = outhour;
 	}
 
-	public int getOutminute() {
+	public String getOutminute() {
 		return outminute;
 	}
 
-	public void setOutminute(int outminute) {
+	public void setOutminute(String outminute) {
 		this.outminute = outminute;
 	}
 
@@ -58,6 +58,6 @@ public class CheckTime implements java.io.Serializable{
 		return "CheckTime [inhour=" + inhour + ", inminute=" + inminute + ", outhour=" + outhour + ", outminute="
 				+ outminute + "]";
 	}
-	
+
 	
 }

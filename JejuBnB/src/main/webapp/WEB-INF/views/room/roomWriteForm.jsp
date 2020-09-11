@@ -23,7 +23,7 @@
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById("PostNumber").value = data.zonecode;
-                document.getElementById("RoadAddress").value = roadAddr;
+                document.getElementById("room_roadaddress").value = roadAddr;
                
             }
         }).open();
@@ -44,8 +44,8 @@
 
 <input type="text" id="PostNumber" placeholder="우편번호" required readonly><br>
 숙소 주소 : <button onclick="PostCall()" type="button">우편번호 검색</button><br>
-<input type="text" id="RoadAddress" placeholder="도로명주소" readonly><br>
-<input type="text" id="DetailAddress" placeholder="상세주소" required><br>
+<input type="text" id="room_roadaddress" name="room_roadaddress" placeholder="도로명주소" readonly><br>
+<input type="text" id="DetailAddress" name="address" placeholder="상세주소" required><br>
 
 기준 인원 : <input type="number" name="st_num_people" placeholder="기준 인원" required>명 <br>
 최대 인원 : <input type="number" name="max_people" placeholder="최대 인원" required><br>

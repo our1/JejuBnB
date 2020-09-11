@@ -441,7 +441,7 @@
    </div>
  </div>
  <div class="moreview">
-    <a href="#"> 더 보기 </a>
+    <a href="tlist.do"> 더 보기 </a>
 </div>
 
   </body>

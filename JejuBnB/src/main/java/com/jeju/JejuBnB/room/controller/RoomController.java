@@ -2,6 +2,7 @@ package com.jeju.JejuBnB.room.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -58,27 +59,40 @@ public class RoomController {
 	}
 	
 	@RequestMapping(value="roominsert.do", method=RequestMethod.POST)
-	public String insertRoom(Room room, Model model, CheckTime ct, HttpServletRequest request,@RequestParam("amenity") String amenity,
-			@RequestParam("facility") String facility, @RequestParam("build") String build, @RequestParam("rule") String rule,
-			@RequestParam(name="ofile", required=false) MultipartFile ofile) {
+	public String insertRoom(Room room, Model model, CheckTime ct, HttpServletRequest request, 
+			@RequestParam(value="ofile", required = false) MultipartFile ofile) {
+		
 		if(ofile != null) {
 			String savePath = request.getSession().getServletContext().getRealPath("resources/roomThumbnail");
 			room.setRoom_thumbnail_file(ofile.getOriginalFilename());
+			String rename = null;
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+			rename = sdf.format(new java.sql.Date(System.currentTimeMillis()));
+			
+			rename += "." + ofile.getOriginalFilename().substring(ofile.getOriginalFilename().lastIndexOf(".") + 1);
+			
 			try {
-				ofile.transferTo(new File(savePath + "\\" + ofile.getOriginalFilename()));
+				ofile.transferTo(new File(savePath + "\\" + rename));
 			} catch (IllegalStateException | IOException e) {
 				e.printStackTrace();
 			}
+			room.setRoom_thumbnail_file(ofile.getOriginalFilename());
+			room.setRoom_rename_file(rename);
 		}
+
+		
+		
+		
+		
+		
 		
 		room.setCheckout_time("" + ct.getOuthour() + ct.getOutminute());
 		room.setCheckin_time(""+ct.getInhour() + ct.getInminute());
-		room.setAmenity(amenity);
-		room.setFacility(facility);
-		room.setBuild_type(build);
-		room.setRule(rule);
-		room.setRoom_thumbnail_file("1.jpg");
-		room.setRoom_rename_file("1.jpg");
+		/*
+		 * room.setAmenity(amenity); room.setFacility(facility);
+		 * room.setBuild_type(build); room.setRule(rule);
+		 */
+		
 		logger.info(room.toString());
 
 		int result = roomService.insertRoom(room);
@@ -116,7 +130,7 @@ public class RoomController {
 		
 		if(list.size() > 0) {
 			model.addAttribute("list", list);
-			return "room/myroomListView";
+			return "room/myRoomListView";
 		}else {
 			model.addAttribute("message", "회원님의 숙소 조회 실패");
 			return "common/error";

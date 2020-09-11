@@ -23,7 +23,7 @@
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById("PostNumber").value = data.zonecode;
-                document.getElementById("roadAddress").value = roadAddr;
+                document.getElementById("RoadAddress").value = roadAddr;
                
             }
         }).open();
@@ -35,18 +35,17 @@
 <c:import url="/WEB-INF/views/common/header.jsp"/>
 <hr>
 <h1> 글 쓰기</h1>
-<form action="roominsert.do" method="post" >
+<form action="roominsert.do" method="post" enctype="multipart/form-data">
 <input type="hidden" name="user_id" value="${loginMember.user_id }" >
 
 <div id="first">
 숙소 이름 : <input type="text" name="room_name" placeholder="숙소 이름" required> <br>
 숙소 소개 : <textarea rows="50" cols="50" name="room_content" required placeholder="숙소 소개"></textarea> <br>
 
-숙소 주소 : <button onclick="PostCall()" type="button">주소 검색</button><br>
-
-<input type="text" id="PostNumber" placeholder="우편번호"><br>
-<input type="text" id="RoadAddress" placeholder="도로명주소"><br>
-<input type="text" id="DetailAddress" placeholder="상세주소"><br>
+<input type="text" id="PostNumber" placeholder="우편번호" required readonly><br>
+숙소 주소 : <button onclick="PostCall()" type="button">우편번호 검색</button><br>
+<input type="text" id="RoadAddress" placeholder="도로명주소" readonly><br>
+<input type="text" id="DetailAddress" placeholder="상세주소" required><br>
 
 기준 인원 : <input type="number" name="st_num_people" placeholder="기준 인원" required>명 <br>
 최대 인원 : <input type="number" name="max_people" placeholder="최대 인원" required><br>

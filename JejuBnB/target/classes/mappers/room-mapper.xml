@@ -9,6 +9,7 @@
 		<result property="room_name" column="room_name" />	
 		<result property="room_content" column="room_content" />	
 		<result property="room_address" column="room_address" />
+		<result property="room_roadaddress" column="room_readaddress" />
 		<result property="st_num_people" column="st_num_people" />		
 		<result property="max_people" column="max_people" />	
 		<result property="checkin_time" column="checkin_time" />	
@@ -32,6 +33,7 @@
 		<result property="room_name" column="room_name" />	
 		<result property="room_content" column="room_content" />	
 		<result property="room_address" column="room_address" />	
+		<result property="room_roadaddress" column="room_readaddress" />
 		<result property="st_num_people" column="st_num_people" />	
 		<result property="max_people" column="max_people" />	
 		<result property="checkin_time" column="checkin_time" />	
@@ -52,7 +54,7 @@
 	
 	<select id="selectList" parameterType="com.jeju.JejuBnB.room.model.vo.PageCount" resultMap="resultList">
 	<![CDATA[
-		select * from(select rownum rnum, room_no, user_id, room_name, room_content, room_address, max_people, checkin_time, checkout_time, bed, bedroom, 
+		select * from(select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
 		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file from room order by room_name)
 		where rnum >= #{startRow} and rnum <= #{endRow}
 		]]>
@@ -60,7 +62,7 @@
 	
 	<select id="selectBList" parameterType="com.jeju.JejuBnB.room.model.vo.PageCount" resultMap="resultList">
 	<![CDATA[
-		select * from(select rownum rnum, room_no, user_id, room_name, room_content, room_address, max_people, checkin_time, checkout_time, bed, bedroom, 
+		select * from(select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
 		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file from room order by room_name)
 		where rnum >= #{startRow} and rnum <= #{endRow}
 		]]>
@@ -79,13 +81,13 @@
 	</select> 
 	
 	<insert id="insertRoom" parameterType="Room">
-		insert into room values((select max(room_no) from room) + 1, #{user_id}, #{room_name }, #{room_content }, #{room_address }, #{st_num_people }, #{ max_people},
+		insert into room values((select max(room_no) from room) + 1, #{user_id}, #{room_name }, #{room_content }, #{room_address }, #{room_roadaddress}, #{st_num_people }, #{ max_people},
 		 #{ checkin_time}, #{checkout_time }, #{ bed}, #{bedroom }, #{bathroom }, #{ amenity}, #{ facility}, 
 		#{build_type }, #{rule }, default,  #{plus_charge }, #{room_thumbnail_file }, #{room_rename_file })
 	</insert>
 	
 	<update id="updateRoom" parameterType="Room">
-		update room set room_name = #{room_name}, room_content = #{room_content}, room_address={room_address}, st_num_people = #{ st_num_people }, 
+		update room set room_name = #{room_name}, room_content = #{room_content}, room_address=#{room_address}, room_roadaddress=#{room_roadaddress},st_num_people = #{ st_num_people }, 
 		max_people = #{ max_people }, checkin_time = #{checkin_time}, checkout_time= #{checkout_time}, bed = #{ bed}, bedroom=#{bedroom}, bathroom = #{bathroom},
 		amenity = # { amenity }, facility = # { facility }, build_type = #{ build_type }, rule = #{ rule }, plus_chaarge = #{plus_chaarge}, room_thumbnail_file = #{room_thumbnail_file },room_rename_file= #{room_rename_file }
 	</update>

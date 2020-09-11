@@ -48,8 +48,9 @@
 <input type="text" id="DetailAddress" name="address" placeholder="상세주소" required><br>
 
 기준 인원 : <input type="number" name="st_num_people" placeholder="기준 인원" required>명 <br>
-최대 인원 : <input type="number" name="max_people" placeholder="최대 인원" required><br>
-
+최대 인원 : <input type="number" name="max_people" placeholder="최대 인원" required>명<br>
+평일 금액 : <input type="number" name="room_weekday" placeholder="평일 가격"><br>
+주말 금액 : <input type="number" name="room_weekend" placeholder="주말 가격"><br>
 
 체크인 시간 : <select name="inhour">
 				<option value="12">12</option>

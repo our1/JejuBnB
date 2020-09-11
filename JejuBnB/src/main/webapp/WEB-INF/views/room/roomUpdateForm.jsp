@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>JejuBnB</title>
-<script type="text/javascript" src="/second/resources/js/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="/JejuBnB/resources/js/jquery-3.5.1.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
 <!-- !!중요. - autoload=false 를 반드시 붙혀주셔야 합니다.-->
 <script>
@@ -29,14 +29,16 @@
             }
         }).open();
     })
-    if($("addressDiv").css('display') == 'none'){
-    	$("addressDiv").show();
-    	$("ShowAddress").hide();
-    }
-    
-    }
-    
    
+    }
+    
+    
+    function show(){
+    	$("#addressDiv").show();
+    	$("#ShowAddress").hide();
+    
+    }
+    
 </script>
 </head>
 <body>
@@ -46,18 +48,21 @@
 <div id="first">
 숙소 이름 : <input type="text" name="room_name" placeholder="숙소 이름" value="${room.room_name }"> <br>
 숙소 소개 : <textarea rows="50" cols="50" name="room_content" >${room.room_content } </textarea> <br>
-<div id = "addressDiv" style="display:none;">
-<input type="text" id="PostNumber" placeholder="우편번호" required readonly><br>
+<div id = "addressDiv" style="display:none">
+<input type="text" id="PostNumber" placeholder="우편번호"  readonly><br>
+숙소 주소 : <button onclick="PostCall()" type="button">우편번호 검색</button><br>
 <input type="text" id="room_roadaddress" name="room_roadaddress" placeholder="도로명주소" readonly value="${room.room_roadaddress }"><br>
-<input type="text" id="DetailAddress" name="address" placeholder="상세주소" required><br>
+<input type="text" id="DetailAddress" name="address" placeholder="상세주소" ><br>
 </div>
 <div id="ShowAddress" >
-<input type="text" value="${room.room_address }" readonly>
-숙소 주소 : <button onclick="PostCall()" type="button">우편번호 검색</button><br>
-
+<input type="text" value="${room.room_address }" name="room_address" readonly>
+<button onclick="show()" type="button">주소 수정</button>
 </div>
 기준 인원 : <input type="number" name="st_num_people" value="${room.st_num_people }" >명 <br>
-최대 인원 : <input type="number" name="max_people" placeholder="최대 인원" value="${room.max_people }"><br>
+최대 인원 : <input type="number" name="max_people" value="${room.max_people }"><br>
+평일 금액 : <input type="number" name="room_weekday" value="${room.room_weekday}"><br>
+주말 금액 : <input type="number" name="room_weekdend" value="${room.room_weekend }"><br>
+
 체크인 시간 : <select name="inhour">
 				<option value="12">12</option>
 				<option value="13">13</option>

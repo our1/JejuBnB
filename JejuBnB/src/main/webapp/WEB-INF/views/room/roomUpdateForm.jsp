@@ -10,7 +10,7 @@
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp"/>
 <hr>
-<form action="roomupdate.do" method="post" >
+<form action="roomupdate.do" method="post" enctype="multipart/form-data">
 <div id="first">
 숙소 이름 : <input type="text" name="room_name" placeholder="숙소 이름" value="${room.room_name }"> <br>
 숙소 소개 : <textarea rows="50" cols="50" name="room_content" >${room.room_content } </textarea> <br>

@@ -19,7 +19,10 @@
 		<typeAlias type="com.jeju.JejuBnB.filter.model.vo.Build_type" alias="Build_type" />
 		<typeAlias type="com.jeju.JejuBnB.filter.model.vo.Facility" alias="Facility" />
 		<typeAlias type="com.jeju.JejuBnB.filter.model.vo.Rule" alias="Rule" />
-		
+		<typeAlias type="com.jeju.JejuBnB.notice.model.vo.User_Notice" alias="User_Notice" />
+		<typeAlias type="com.jeju.JejuBnB.notice.model.vo.Notice" alias="Notice" />
+		<typeAlias type="com.jeju.JejuBnB.notice.model.vo.Notice_Type" alias="Notice_Type" />
+
 	</typeAliases>
 
 	<mappers>
@@ -33,6 +36,6 @@
 		<mapper resource="mappers/question-mapper.xml"/>
 		<mapper resource="mappers/reservation-mapper.xml" />
 		<mapper resource="mappers/filter-mapper.xml" />
-		
+		<mapper resource="mappers/notice-mapper.xml" />
 	</mappers>
 </configuration>

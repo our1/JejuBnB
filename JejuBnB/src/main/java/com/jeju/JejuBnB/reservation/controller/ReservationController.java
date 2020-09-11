@@ -26,4 +26,5 @@ public class ReservationController {
 		model.addAttribute("room", room);
 		return "reservation/reservationListView";
 	}
+	
 }

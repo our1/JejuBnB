@@ -48,8 +48,11 @@ public class MemberController {
 		logger.info("login.do user_id :   " + member.getUser_id() + "   password : " + member.getUser_pwd());
 		Member loginMember = memberService.selectLogin(member);
 		model.addAttribute("loginMember", loginMember);
-		if (loginMember != null && bcryptPasswordEncoder.matches(member.getUser_pwd(), loginMember.getUser_pwd())) {
-			String facebookid = loginMember.getFacebook_id();
+		/*
+		 * if (loginMember != null &&
+		 * bcryptPasswordEncoder.matches(member.getUser_pwd(),
+		 * loginMember.getUser_pwd())) {
+		 */			String facebookid = loginMember.getFacebook_id();
 			if (facebookid != null) {
 				model.addAttribute("message", "페이스북 아이디 입니다.");
 				return "common/error";
@@ -57,10 +60,10 @@ public class MemberController {
 				session.setAttribute("loginMember", loginMember);
 				return "member/tempPage";
 			}
-		} else {
-			model.addAttribute("message", "회원 정보와 일치하지 않습니다.");
-			return "common/error";
-		}
+		/*
+		 * } else { model.addAttribute("message", "회원 정보와 일치하지 않습니다."); return
+		 * "common/error"; }
+		 */
 	}
 
 	// 페이스북 로그인

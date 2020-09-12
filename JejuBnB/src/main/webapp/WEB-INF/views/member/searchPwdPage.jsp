@@ -72,6 +72,11 @@
                                   			<input type="hidden" name="dice" id="dice"> <br>
                                     <button type="submit" class="check_btn" name="submit">인증 번호 확인</button>
                                 </form>
+                                      <div class="separator">
+                                  <p>OR</p>
+                                </div>
+                                <a href="email.do" class="findpas">Create an Account</a> <br>
+                                <a href="login.do" class="enroll">Already have an account? Login</a>
                             </div>
                         </div>
                     </div>
@@ -79,8 +84,5 @@
             </div>
         </div>
       </div>
-		      <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-		      <script src="resources/js/jquery-3.3.1.slim.min.js"></script>
-		      <script src="resources/js/bootstrap.bundle.min.js"></script>
 	</body>
 </html>

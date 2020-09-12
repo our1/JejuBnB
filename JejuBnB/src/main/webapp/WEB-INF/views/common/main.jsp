@@ -393,7 +393,7 @@
        <li> 사장님 신청</li>
        <li> 알림</li>
        <li> 고객센터</li>
-       <li onclick="javascript:location.href='logout.do'"><span class="lnr lnr-cog"></span> 로그아웃</li>
+       <li onclick="javascript:location.href='logout.do'"> 로그아웃</li>
      </ul>
      </c:if>
      <c:if test="${empty loginMember }">

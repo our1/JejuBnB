@@ -181,9 +181,31 @@ public class RoomController {
 	}
 	
 	@RequestMapping("roomupdate.do")
-	public String roomUpdate(Room room, CheckTime ct, Model model) {
-		room.setCheckout_time("" + ct.getOuthour() + ct.getOutminute());
-		room.setCheckin_time(""+ct.getInhour() + ct.getInminute());
+	public String roomUpdate(Room room, CheckTime ct, Model model,@RequestParam(name="ofile", required=false) MultipartFile ofile,
+			@RequestParam(name="address", required=false) String address, HttpServletRequest request) {
+		if(address != null) {
+			room.setRoom_address(room.getRoom_roadaddress()+address);
+		}
+		
+		String originName = ofile.getOriginalFilename();
+		if(!originName.isEmpty()) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+			String rename = sdf.format(new java.sql.Date(System.currentTimeMillis()));
+			rename += "." + ofile.getOriginalFilename().substring(ofile.getOriginalFilename().lastIndexOf(".") + 1);
+			String savePath = request.getSession().getServletContext().getRealPath("resources/roomThumbnail");
+
+			try {
+				ofile.transferTo(new File(savePath + "\\" + rename));
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+			room.setRoom_thumbnail_file(originName);
+			room.setRoom_rename_file(rename);
+		}
+		
+		
+		room.setCheckout_time(ct.getOuthour() + ct.getOutminute());
+		room.setCheckin_time(ct.getInhour() + ct.getInminute());
 		int result = roomService.updateRoom(room);
 		
 		if(result > 0) {

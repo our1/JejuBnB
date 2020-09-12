@@ -10,7 +10,7 @@ public interface TourService {
 	ArrayList<Tour> selectTour(int currentPage, int limit);
 	ArrayList<Tour> SelectSearchTour (String tour_address, int currentPage, int limit);
     ArrayList<Tour> SelectOrderBy (int currentPage, int limit, int orderby);
-	Tour SelectTourDeatil(int tour_no);
+	Tour SelectTourDetail(int tour_no);
 	Tour SelectTourLike (int count);
 	int insertTour (Tour tour);
 	int updateTour (Tour tour);

@@ -3,5 +3,51 @@
 "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="tourMapper">
+	<resultMap id="resultTour" type="Tour">
+		<id column="tour_no" property="tour_no" />
+		<result column="tour_name" property="tour_name" />
+		<result column="tour_content" property="tour_content" />
+		<result column="tour_date" property="tour_date" />
+		<result column="tour_address" property="tour_address" />
+		<result column="tour_act_start_date" property="tour_act_start_date" />
+		<result column="tour_act_end_date" property="tour_act_end_date" />
+		<result column="tour_thumbnail_original_file" property="tour_thumbnail_original_file" />
+		<result column="tour_thumbnail_rename_file" property="tour_thumbnail_rename_file" />
+		<result column="tour_moreinfo" property="tour_moreinfo" />
+		<result column="tour_readcount" property="tour_readcount" />
+		<result column="tour_category_no" property="tour_category_no" />
+		<result column="user_id" property="user_id" />
+	</resultMap>
+	
+		<resultMap id="resultList" type="Tour">
+		<id column="tour_no" property="tour_no" />
+		<result column="tour_name" property="tour_name" />
+		<result column="tour_content" property="tour_content" />
+		<result column="tour_date" property="tour_date" />
+		<result column="tour_address" property="tour_address" />
+		<result column="tour_act_start_date" property="tour_act_start_date" />
+		<result column="tour_act_end_date" property="tour_act_end_date" />
+		<result column="tour_thumbnail_original_file" property="tour_thumbnail_original_file" />
+		<result column="tour_thumbnail_rename_file" property="tour_thumbnail_rename_file" />
+		<result column="tour_moreinfo" property="tour_moreinfo" />
+		<result column="tour_readcount" property="tour_readcount" />
+		<result column="tour_category_no" property="tour_category_no" />
+		<result column="user_id" property="user_id" />
+	</resultMap>
+	
+	<select id="selectTour" parameterType="com.jeju.JejuBnB.tour.model.vo.TourPage" resultMap="resultList">
+		<![CDATA[
+		select * 
+		from(select rownum rnum, tour_no, tour_name, tour_content, tour_date, tour_address, tour_act_start_date, tour_act_end_date, tour_thumbnail_original_file, tour_thumbnail_rename_file, 
+		            tour_moreinfo, tour_readcount, tour_category_no, user_id 
+		            from (select * from tour order by tour_no))
+		where rnum >= #{ startRow } and rnum <= #{ endRow }
+		]]>
+	</select>
+	<select id="selectTourDetail" parameterType="_int" resultMap="resultTour">
+		select * 
+		from tour
+		where tour_no = #{ tour_no }
+	</select>
 
 </mapper>

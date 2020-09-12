@@ -386,31 +386,31 @@
      <div class="dropdown"><span class="lnr lnr-menu"></span><span class="myimg"></span></div>
      <c:if test="${empty loginMember }">
      	<ul class="dropdown-list">
-       <li><span class="lnr lnr-home"></span> 마이페이지</li>
-       <li><span class="lnr lnr-envelope"></span> 내 쿠폰</li>
-       <li><span class="lnr lnr-cog"></span> 내가 정한 숙소</li>
-       <li><span class="lnr lnr-cog"></span> 사장님 신청</li>
-       <li><span class="lnr lnr-cog"></span> 알림</li>
-       <li><span class="lnr lnr-cog"></span> 고객센터</li>
+       <li> 마이페이지</li>
+       <li> 내 쿠폰</li>
+       <li> 내가 정한 숙소</li>
+       <li> 사장님 신청</li>
+       <li> 알림</li>
+       <li> 고객센터</li>
        <li onclick="movePage()">로그인</li>
      </ul>
      </c:if>
      <c:if test="${!empty loginMember }">
      <ul class="dropdown-list">
-       <li><span class="lnr lnr-home"></span> 마이페이지</li>
-       <li><span class="lnr lnr-envelope"></span> 내 쿠폰</li>
-       <li><span class="lnr lnr-cog"></span> 내가 정한 숙소</li>
-       <li><span class="lnr lnr-cog"></span> 사장님 신청</li>
-       <li><span class="lnr lnr-cog"></span> 알림</li>
-       <li><span class="lnr lnr-cog"></span> 고객센터</li>
-       <li onclick="winOpen2()"><span class="lnr lnr-cog"></span> 내 알림 글 보기</li>
-       <li onclick="winOpen1()"><span class="lnr lnr-cog"></span> 관리자 필터 관리</li>
-       <li onclick="winOpen3()"><span class="lnr lnr-cog"></span> 관리자 알림 관리</li>
-       <li onclick="javascript:location.href='logout.do'"><span class="lnr lnr-cog"></span> 로그아웃</li>
-       <li onclick="javascript:location.href='movemyroom.do?userid=${loginMember.user_id }'"><span class="lnr lnr-cog"></span> 내 숙소 보기</li>
-       <li onclick="javascript:location.href='roomlist.do'"><span class="lnr lnr-cog"></span> 룸 리스트</li>
-       <li onclick="javascript:location.href='moveroomwrite.do'"><span class="lnr lnr-cog"></span> 사장님 신청하기</li>
-       <li onclick="javascript:location.href='main.do'"><span class="lnr lnr-cog"></span> Home</li>
+       <li> 마이페이지</li>
+       <li> 내 쿠폰</li>
+       <li> 내가 정한 숙소</li>
+       <li> 사장님 신청</li>
+       <li> 알림</li>
+       <li> 고객센터</li>
+       <li onclick="winOpen2()"> 내 알림 글 보기</li>
+       <li onclick="winOpen1()"> 관리자 필터 관리</li>
+       <li onclick="winOpen3()"> 관리자 알림 관리</li>
+       <li onclick="javascript:location.href='logout.do'"> 로그아웃</li>
+       <li onclick="javascript:location.href='movemyroom.do?userid=${loginMember.user_id }'"> 내 숙소 보기</li>
+       <li onclick="javascript:location.href='roomlist.do'"> 룸 리스트</li>
+       <li onclick="javascript:location.href='moveroomwrite.do'"> 사장님 신청하기</li>
+       <li onclick="javascript:location.href='main.do'"> Home</li>
      </ul>
      </c:if>
           </div>
@@ -425,8 +425,8 @@
      </script>
      <div class="mainimg">
      </div>
-     <div class="slist">hotel list</div>
-     <div class="tlist">tour list</div>
+     <div class="slist">Room List</div>
+     <div class="tlist">Tour List</div>
      <hr class="onelisthr">
  <div id="onelist">
    <div class="one">

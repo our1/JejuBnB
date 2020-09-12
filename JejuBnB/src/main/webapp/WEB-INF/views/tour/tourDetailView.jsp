@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -65,9 +66,20 @@
 
           </div>
          </div>
-      <div class="tname">제주도 오름 투어 와 야경 스냅 촬영</div>
+      <div class="tname">${ tour.tour_name }</div>
              <div class="facebook"><img src="resources/images/face.png"></div>
              <div class="instagram"><img src="resources/images/insta.png"></div>
+			 <a id="create-kakao-link-btn" href="javascript:;">
+			  <img src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" />
+			</a>
+			<script type="text/javascript">
+			  function sendLink() {
+				  Kakao.Link.createScrapButton(ScrapButtonSettings)({
+					  container: '#kakao-link-btn',
+					  requestUrl: 'https://developers.kakao.com'
+					});
+				  }
+			</script>
              <input type="checkbox" class="checkbox" id="checkbox" />
               <label for="checkbox">
                     <svg id="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg">
@@ -113,17 +125,11 @@
                     </svg>
                   </label>
         <div class="ts">
-            <span>&#9733;</span> 4.8 ( 135 )   용담일동, 제주시, 한국
+            <span>&#9733;</span> 4.8 ( 135 ) &nbsp;&nbsp; ${ tour.tour_address }
               <hr class="tshr">
         </div>
         <div class="tcontent"><div class="tct">프로그램</div><br>
-            출발 하기전 구름 사진을 보고, 별이 가장 많이 보일곳으로 갈거에요. <br>
-            날이 좋아 별이 보이는 날엔 오름에 올라 야경도 보고, <br>
-            별이 잘 보이는 날엔 잠시 누워 하늘을 보고 별자리도 알려드릴거에요~ <br>
-            또한, 핸드폰으로 별 사진을 찍는 법을 가르쳐 드리고, 함께 찍어보고 있어요. <br>
-            멋진 음악이 함께한다면 꿈만 같은 제주도의 푸른밤을 만끽 할 수 있을거에요. <br>
-            별과 야경으로 감성 충전후에는 스냅 촬영 포인트로 이동하여 <br>
-            조명 설치 후 인생샷이 될만한 스냅촬영을 할 거에요~ ^^ <br>
+             ${ tour.tour_content }
             <hr class="tchr">
         </div>
         <div class="tmap">
@@ -176,12 +182,13 @@
       <div class="moreimpo">
         알아두어야 할 사항 <br>
           <div class="moreimpocontent">
-          바람이 자주 부는 지역입니다. 바람을 막을 수 있는 바람막이 정도 챙겨오시면 좋습니다 ㅎㅎ
+          ${ tour.tour_moreinfo }
           </div>
           <hr class="mihr">
       </div>
-   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-   <script src="resources/js/head.js"></script>
-   <script src="resources/js/tourDetail.js"></script>
+		   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		   <script src="resources/js/head.js"></script>
+		   <script src="resources/js/tourDetail.js"></script>
+   <c:import url="/WEB-INF/views/common/footer.jsp" />
   </body>
 </html>

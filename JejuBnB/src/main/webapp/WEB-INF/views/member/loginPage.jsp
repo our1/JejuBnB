@@ -86,7 +86,7 @@
                               </div>
                                 <form action="login.do" method="post">	
                                     <div class="form-group mb-3">
-                                        <input id="inputEmail" type="email" placeholder="Email address" required="" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4" name="user_id">
+                                        <input id="inputEmail" type="text" placeholder="Email address" required="" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4" name="user_id">
                                     </div>
                                     <div class="form-group mb-3">
                                         <input id="inputPassword" type="password" placeholder="Password" required="" class="form-control rounded-pill border-0 shadow-sm px-4 text-primary" name="user_pwd">
@@ -101,10 +101,10 @@
                                     <div class="separator">
                                       <p>OR</p>
                                     </div>
-                                    <button class="google__btn">
-                                      <i class="fa fa-facebook"></i>
-                                       Sign in with FaceBook
-                                    </button>
+                                    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" data-size="large" data-button-type="login_with" data-layout="rounded" data-auto-logout-link="false" data-use-continue-as="false" class="google__btn">
+								          <i class="fa fa-facebook"></i>
+								          Sign in with FaceBook
+								    </fb:login-button>
                                 </form>
                             </div>
                         </div>

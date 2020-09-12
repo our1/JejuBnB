@@ -17,13 +17,18 @@
 	
 	
 	<select id="selectList" resultMap="resultPolicy">
-	select * from policy where policy_no = #{policy_no} 
+	select * from policy 
+	
 	</select>
 	
 	<insert id="insertPolicy" parameterType="Policy">
 	insert into policy
-	values (#{policy_no},#{policy_content},#{policy_type})
+	values ((select nvl(max(policy_no)+1,0) from policy),#{policy_content},#{policy_type})
 	</insert>
 	
+	<!-- <update id="">
+	</update>
 	
+	<delete id="">
+	</delete> -->
 </mapper>

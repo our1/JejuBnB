@@ -384,21 +384,28 @@
         </div>
      </div>
      <div class="dropdown"><span class="lnr lnr-menu"></span><span class="myimg"></span></div>
-     <c:if test="${empty loginMember }">
+     <c:if test="${ !empty loginMember and  loginMember.admin_check eq 'Y' }">
      	<ul class="dropdown-list">
-       <li><span class="lnr lnr-home"></span> 마이페이지</li>
+     	<li onclick="javascript:location.href='moveMyPage.do'"><span class="lnr lnr-cog"></span> 마이페이지</li>
+     	<li onclick="javascript:location.href='moveAdminPage.do'"><span class="lnr lnr-cog"></span> 관리자 페이지</li>
        <li><span class="lnr lnr-envelope"></span> 내 쿠폰</li>
        <li><span class="lnr lnr-cog"></span> 내가 정한 숙소</li>
        <li><span class="lnr lnr-cog"></span> 사장님 신청</li>
        <li><span class="lnr lnr-cog"></span> 알림</li>
        <li><span class="lnr lnr-cog"></span> 고객센터</li>
+       <li onclick="javascript:location.href='logout.do'"><span class="lnr lnr-cog"></span> 로그아웃</li>
+     </ul>
+     </c:if>
+     <c:if test="${empty loginMember }">
+     	<ul class="dropdown-list">
+       <li><span class="lnr lnr-cog"></span> 고객센터</li>
        <li onclick="movePage()">로그인</li>
      </ul>
      </c:if>
-     <c:if test="${!empty loginMember }">
+     <c:if test="${!empty loginMember and  empty loginMember.admin_check}">
      <ul class="dropdown-list">
-       <li><span class="lnr lnr-home"></span> 마이페이지</li>
-       <li><span class="lnr lnr-envelope"></span> 내 쿠폰</li>
+       <li onclick="javascript:location.href='moveMyPage.do'"><span class="lnr lnr-cog"></span> 마이페이지</li>
+   		<li onclick="javascript:location.href='moveAdminPage.do'"><span class="lnr lnr-cog"></span> 관리자 페이지</li>
        <li><span class="lnr lnr-cog"></span> 내가 정한 숙소</li>
        <li><span class="lnr lnr-cog"></span> 사장님 신청</li>
        <li><span class="lnr lnr-cog"></span> 알림</li>
@@ -407,9 +414,9 @@
        <li onclick="winOpen1()"><span class="lnr lnr-cog"></span> 관리자 필터 관리</li>
        <li onclick="winOpen3()"><span class="lnr lnr-cog"></span> 관리자 알림 관리</li>
        <li onclick="javascript:location.href='logout.do'"><span class="lnr lnr-cog"></span> 로그아웃</li>
-       <li onclick="javascript:location.href='movemyroom.do?userid=${loginMember.user_id }'"><span class="lnr lnr-cog"></span> 내 숙소 보기</li>
+       <li onclick="javascript:location.href='moveMyRoom.do?userid=${loginMember.user_id }'"><span class="lnr lnr-cog"></span> 내 숙소 보기</li>
        <li onclick="javascript:location.href='roomlist.do'"><span class="lnr lnr-cog"></span> 룸 리스트</li>
-       <li onclick="javascript:location.href='moveroomwrite.do'"><span class="lnr lnr-cog"></span> 사장님 신청하기</li>
+       <li onclick="javascript:location.href='moveRoomWrite.do'"><span class="lnr lnr-cog"></span> 사장님 신청하기</li>
        <li onclick="javascript:location.href='main.do'"><span class="lnr lnr-cog"></span> Home</li>
      </ul>
      </c:if>

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"  %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,7 +49,7 @@
 <form action="roomupdate.do" method="post" enctype="multipart/form-data">
 <div id="first">
 숙소 이름 : <input type="text" name="room_name" placeholder="숙소 이름" value="${room.room_name }"> <br>
-숙소 소개 : <textarea rows="50" cols="50" name="room_content" >${room.room_content } </textarea> <br>
+숙소 소개 : <textarea rows="5" cols="50" name="room_content" >${room.room_content } </textarea> <br>
 <div id = "addressDiv" style="display:none">
 <input type="text" id="PostNumber" placeholder="우편번호"  readonly><br>
 숙소 주소 : <button onclick="PostCall()" type="button">우편번호 검색</button><br>
@@ -100,30 +102,97 @@
 침실 수 : <input type="number" name="bedroom" placeholder="1" value="${room.bedroom }"> 개 <br>
 욕실 수 : <input type="number" name="bathroom" placeholder="1" value="${room.bathroom }"> 칸 <br>
 편의 시설 :  <br>
-<c:forEach var="count1" begin="0" end="${AlistSize }" step="4">
+<c:forEach var="count1" begin="0" end="${fn:length(Alist)}" step="4">
 <c:forEach items="${Alist }" var="alist" begin="${count1 }" end="${count1 + 3}">
-${ alist } <input type="checkbox" name="amenity" value="${alist }"> &nbsp; &nbsp;
+
+<c:set var="loop_flag" value="true" />
+<c:set var="checked" value="" />
+
+<c:forTokens items="${room.amenity }" delims="," var="amenity_name">
+
+<c:if test="${loop_flag }" >
+
+	<c:if test="${fn:trim(alist) eq fn:trim(amenity_name)}">
+		<c:set var="checked" value="checked" />
+		<c:set var="loop_flag" value="false" />
+		
+	</c:if>
+</c:if>
+</c:forTokens>
+
+${ alist } <input type="checkbox" name="amenity" value="${alist }" ${checked } > &nbsp; &nbsp; 
+
 </c:forEach> <br>
 </c:forEach>
  <br>
 시설 :<br>
-<c:forEach var="count2" begin="0" end="${FlistSize }" step="3">
+<c:forEach var="count2" begin="0" end="${fn:length(Flist)}" step="4">
 <c:forEach items="${Flist }" var="flist" begin="${count2 }" end="${count2 + 2}">
-${ flist } <input type="checkbox" name="facility" value="${flist }"> &nbsp; &nbsp;
+
+<c:set var="loop_flag" value="true" />
+<c:set var="checked" value="" />
+
+<c:forTokens items="${room.facility }" delims="," var="facility_name">
+
+<c:if test="${loop_flag }" >
+
+	<c:if test="${fn:trim(flist) eq fn:trim(facility_name)}">
+		<c:set var="checked" value="checked" />
+		<c:set var="loop_flag" value="false" />
+		
+	</c:if>
+</c:if>
+</c:forTokens>
+
+${ flist } <input type="checkbox" name="facility" value="${flist }" ${checked }> &nbsp; &nbsp;
 </c:forEach> <br>
 </c:forEach>
 <br>
 건물 유형 :<br>
-<c:forEach var="count3" begin="0" end="${BlistSize }" step="4">
+<c:forEach var="count3" begin="0" end="${fn:length(Blist)}" step="4">
 <c:forEach items="${Blist }" var="blist" begin="${count3 }" end="${count3 + 3}">
-${ blist } <input type="checkbox" name="build" value="${blist }"> &nbsp; &nbsp;
+
+<c:set var="loop_flag" value="true" />
+<c:set var="checked" value="" />
+
+<c:forTokens items="${room.build_type }" delims="," var="build_name">
+
+<c:if test="${loop_flag }" >
+
+	<c:if test="${fn:trim(blist) eq fn:trim(build_name)}">
+		<c:set var="checked" value="checked" />
+		<c:set var="loop_flag" value="false" />
+		
+	</c:if>
+</c:if>
+</c:forTokens>
+
+${ blist } <input type="checkbox" name="build" value="${blist }" ${checked }> &nbsp; &nbsp;
 </c:forEach> <br>
 </c:forEach>
 <br>
 
 이용 규칙 :<br>
-<c:forEach items="${Rlist }" var="rlist">
-${rlist } <input type="checkbox" name="rule" value="${rlist }"> &nbsp; &nbsp;
+<c:forEach var="count4" begin="0" end="${fn:length(Rlist)}" step="4">
+<c:forEach items="${Rlist }" var="rlist" begin="${count4 }" end="${count4 + 3 }">
+
+
+<c:set var="loop_flag" value="true" />
+<c:set var="checked" value="" />
+
+<c:forTokens items="${room.rule }" delims="," var="rule_name">
+<c:if test="${loop_flag }" >
+
+	<c:if test="${rlist eq rule_name}">
+		<c:set var="checked" value="checked" />
+		<c:set var="loop_flag" value="false" />
+		
+	</c:if>
+</c:if>
+</c:forTokens>
+
+${rlist } <input type="checkbox" name="rule" value="${rlist }" ${checked }> &nbsp; &nbsp;
+</c:forEach>
 </c:forEach>
 <br><br>
 인원 추가 금액 : <input type="number" name="plus_charge" value="${room.plus_charge }"><br>

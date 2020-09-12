@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.jeju.JejuBnB.room.model.dao.RoomDao;
 import com.jeju.JejuBnB.room.model.vo.Room;
+import com.jeju.JejuBnB.room.model.vo.Room_File;
 
 @Service("roomService")
 public class RoomServiceImpl implements RoomService{
@@ -47,6 +48,16 @@ public class RoomServiceImpl implements RoomService{
 	@Override
 	public Room selectRoom(int roomno) {
 		return roomDao.selectRoom(roomno);
+	}
+
+	@Override
+	public int selectRoomNo(String userid) {
+		return roomDao.selectRoomNo(userid);
+	}
+
+	@Override
+	public int insertRoomFile(ArrayList<Room_File> rflist) {
+		return roomDao.insertRoomFile(rflist);
 	}
 
 }

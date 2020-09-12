@@ -36,7 +36,7 @@
 		<result property="room_name" column="room_name" />	
 		<result property="room_content" column="room_content" />	
 		<result property="room_address" column="room_address" />	
-		<result property="room_roadaddress" column="room_readaddress" />
+		<result property="room_roadaddress" column="room_roadaddress" />
 		<result property="st_num_people" column="st_num_people" />	
 		<result property="max_people" column="max_people" />	
 		<result property="checkin_time" column="checkin_time" />	
@@ -60,7 +60,7 @@
 	<select id="selectList" parameterType="com.jeju.JejuBnB.room.model.vo.PageCount" resultMap="resultList">
 	<![CDATA[
 		select * from(select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
-		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file from room order by room_name, room_weekday, room_weekend)
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from room order by room_no desc)
 		where rnum >= #{startRow} and rnum <= #{endRow}
 		]]>
 	</select>
@@ -68,7 +68,7 @@
 	<select id="selectBList" parameterType="com.jeju.JejuBnB.room.model.vo.PageCount" resultMap="resultList">
 	<![CDATA[
 		select * from(select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
-		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file from room order by room_name, room_weekday, room_weekend)
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file,  room_rename_file, room_weekday, room_weekend from room order by room_no desc)
 		where rnum >= #{startRow} and rnum <= #{endRow}
 		]]>
 	</select>
@@ -85,8 +85,12 @@
 		select count(reply_no) from review where room_no = #{ room_no }
 	</select> 
 	
+	<select id="selectRoomNo" parameterType="string" resultType="_int">
+		select room_no from (select rownum rnum, room_no from room where user_id = #{userid} order by room_no desc) where rnum = 1
+	</select>
+	
 	<insert id="insertRoom" parameterType="Room">
-		insert into room values((select max(room_no) from room) + 1, #{user_id}, #{room_name }, #{room_content }, #{room_address }, #{room_roadaddress}, #{st_num_people }, #{ max_people},
+		insert into room values((select nvl(max(room_no),0) from room) + 1, #{user_id}, #{room_name }, #{room_content }, #{room_address }, #{room_roadaddress}, #{st_num_people }, #{ max_people},
 		 #{ checkin_time}, #{checkout_time }, #{ bed}, #{bedroom }, #{bathroom },
 		 <if test="amenity == null">
 		 	null,
@@ -124,6 +128,10 @@
 		</if>
 		#{room_weekday}, #{room_weekend})
 		
+	</insert>
+	
+	<insert id="insertRoomFile" parameterType="Room_File" >	
+			insert into room_file values((select nvl(max(room_file_no),0) from room_file ) + 1, #{room_no}, #{original_file}, #{rename_file})
 	</insert>
 	
 	<update id="updateRoom" parameterType="Room">

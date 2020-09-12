@@ -107,9 +107,9 @@ hr { clear: both; }
 <li><a href="${ pageContext.servletContext.contextPath}/moveFile.do"> 파일 업로드 테스트</a></li>
 <li><a onclick="winOpen2(${sessionScope.loginMember.user_id})">내 알림 글 보기</a></li>
 <li><a onclick="winOpen1()">관리자 필터 관리</a></li>
-<li><a href="${ pageContext.servletContext.contextPath}/movemyroom.do?userid="${loginMember.user_id }>내 숙소 보기</a></li>
+<li><a href="${ pageContext.servletContext.contextPath}/moveMyRoom.do?userid="${loginMember.user_id }>내 숙소 보기</a></li>
 <li><a href="${ pageContext.servletContext.contextPath}/roomlist.do">룸 리스트</a></li>
-<li><a href="${ pageContext.servletContext.contextPath}/moveroomwrite.do">사장님 신청하기</a></li>
+<li><a href="${ pageContext.servletContext.contextPath}/moveRoomWrite.do">사장님 신청하기</a></li>
 <li><a href="loginPage.do">로그인</a></li>
 <li><a href="main.do">Home</a></li>
 </ul>

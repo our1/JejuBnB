@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.jeju.JejuBnB.room.model.vo.PageCount;
 import com.jeju.JejuBnB.room.model.vo.Room;
+import com.jeju.JejuBnB.room.model.vo.Room_File;
 
 @Repository("roomDao")
 public class RoomDao {
@@ -74,6 +75,22 @@ public class RoomDao {
 
 	public Room selectRoom(int roomno) {
 		return session.selectOne("roomMapper.selectRoom", roomno);
+	}
+
+	public int selectRoomNo(String userid) {
+		return session.selectOne("roomMapper.selectRoomNo", userid);
+	}
+
+	public int insertRoomFile(ArrayList<Room_File> rflist) {
+		int result = 0;
+		for(int i = 0; i < rflist.size(); i++) {
+			result += session.insert("roomMapper.insertRoomFile", rflist.get(i));
+		}
+		
+		if(!(rflist.size()-1 == result)) {
+			result = 0;
+		}
+		return result;
 	}
 
 	

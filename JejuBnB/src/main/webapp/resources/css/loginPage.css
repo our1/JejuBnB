@@ -9,7 +9,7 @@
     }
     .logo img{
       position: relative;
-      left : 16%;
+      left : 14%;
     }
     .rounded-pill {
       border-radius: 8px;
@@ -108,11 +108,16 @@
     }
     .findpas {
       color: black;
-      margin-left: 20%;
+      margin-left: 9%;
       text-decoration: underline;
     }
     .enroll {
       color: black;
       margin-left: 4%;
       text-decoration: underline;
+    }
+    .fb_iframe_widget {
+    display : inline-block;
+    position : relative;
+    left : 5.2%;
     }

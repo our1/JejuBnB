@@ -375,9 +375,11 @@
     	}
     	
     	function movePage(){
+    		
     		 window.open("loginPage.do", "로그인", 
-    			"width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
+    			"width=1700, height=900, left=100, top=50, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
     	}
+
         </script>
         <div class="searchbut">
           <i class="fas fa-search fa-2x"></i>

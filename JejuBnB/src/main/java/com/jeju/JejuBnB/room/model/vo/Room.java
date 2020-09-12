@@ -29,6 +29,8 @@ public class Room implements java.io.Serializable {
 	private int plus_charge;
 	private String room_thumbnail_file;
 	private String room_rename_file;
+	private int room_weekday;
+	private int room_weekend;
 	
 	
 	public Room() {
@@ -39,7 +41,8 @@ public class Room implements java.io.Serializable {
 	public Room(int room_no, String user_id, String room_name, String room_content, String room_address,
 			String room_roadaddress, int st_num_people, int max_people, String checkin_time, String checkout_time,
 			int bed, int bedroom, int bathroom, String amenity, String facility, String build_type, String rule,
-			String pass_or_not, int plus_charge, String room_thumbnail_file, String room_rename_file) {
+			String pass_or_not, int plus_charge, String room_thumbnail_file, String room_rename_file, int room_weekday,
+			int room_weekend) {
 		super();
 		this.room_no = room_no;
 		this.user_id = user_id;
@@ -62,8 +65,30 @@ public class Room implements java.io.Serializable {
 		this.plus_charge = plus_charge;
 		this.room_thumbnail_file = room_thumbnail_file;
 		this.room_rename_file = room_rename_file;
+		this.room_weekday = room_weekday;
+		this.room_weekend = room_weekend;
 	}
 
+
+
+	public int getRoom_weekday() {
+		return room_weekday;
+	}
+
+
+	public void setRoom_weekday(int room_weekday) {
+		this.room_weekday = room_weekday;
+	}
+
+
+	public int getRoom_weekend() {
+		return room_weekend;
+	}
+
+
+	public void setRoom_weekend(int room_weekend) {
+		this.room_weekend = room_weekend;
+	}
 
 
 	public String getRoom_roadaddress() {
@@ -284,7 +309,8 @@ public class Room implements java.io.Serializable {
 				+ ", checkout_time=" + checkout_time + ", bed=" + bed + ", bedroom=" + bedroom + ", bathroom="
 				+ bathroom + ", amenity=" + amenity + ", facility=" + facility + ", build_type=" + build_type
 				+ ", rule=" + rule + ", pass_or_not=" + pass_or_not + ", plus_charge=" + plus_charge
-				+ ", room_thumbnail_file=" + room_thumbnail_file + ", room_rename_file=" + room_rename_file + "]";
+				+ ", room_thumbnail_file=" + room_thumbnail_file + ", room_rename_file=" + room_rename_file
+				+ ", room_weekday=" + room_weekday + ", room_weekend=" + room_weekend + "]";
 	}
 
 

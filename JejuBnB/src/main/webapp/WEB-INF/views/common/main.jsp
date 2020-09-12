@@ -373,6 +373,11 @@
     	{
     	window.open("adUNoticeList.do","알림","width=1000,height=500");
     	}
+    	
+    	function movePage(){
+    		 window.open("loginPage.do", "로그인", 
+    			"width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
+    	}
         </script>
         <div class="searchbut">
           <i class="fas fa-search fa-2x"></i>
@@ -387,7 +392,7 @@
        <li> 사장님 신청</li>
        <li> 알림</li>
        <li> 고객센터</li>
-       <li><a href="loginPage.do">로그인</a></li>
+       <li onclick="movePage()">로그인</li>
      </ul>
      </c:if>
      <c:if test="${!empty loginMember }">

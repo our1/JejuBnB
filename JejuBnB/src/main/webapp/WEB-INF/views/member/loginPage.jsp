@@ -113,10 +113,10 @@
             </div>
         </div>
       </div>
-      		<div id="status">
-		</div>
-		<div id="fb-root">
-		</div>
+	  		<div id="status">
+			</div>
+			<div id="fb-root">
+			</div>
 
       <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
       <script src="resources/js/jquery-3.3.1.slim.min.js"></script>

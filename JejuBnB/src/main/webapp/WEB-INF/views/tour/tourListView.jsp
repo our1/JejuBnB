@@ -25,8 +25,7 @@
           <li><a href="#">로그아웃</a></li>
       </ul>
   </div>
-   <div class="thead"></div>
-    <h1 class="tour">관광지</h1>
+   <div class="thead"><h1 class="tour">관광지</h1></div>
      <button class="live">자연</button>
      <button class="cook">맛집</button>
      <button class="act">액티비티</button>
@@ -236,7 +235,8 @@ function closeRoadview() {
     toggleMapWrapper(true, position);
 }
 </script>
-       <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-       <script src="resources/js/head.js"></script>
+	       <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	       <script src="resources/js/head.js"></script>
+       <c:import url="/WEB-INF/views/common/footer.jsp" />
   </body>
 </html>

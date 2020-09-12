@@ -139,7 +139,7 @@ top : 5px;
  background-repeat: no-repeat;
 }
 .tour {
-  position: absolute;
+  position: relative;
   font-family: 'Cafe24Oneprettynight';
   top : 20%;
   left : 5%;
@@ -147,7 +147,7 @@ top : 5px;
 }
 .live {
   font-family: 'Cafe24Oneprettynight';
-  position: absolute;
+  position: relative;
   top : 47%;
   left: 1.5%;
   width: 90px;
@@ -160,7 +160,7 @@ top : 5px;
 
 .cook {
   font-family: 'Cafe24Oneprettynight';
-  position: absolute;
+  position: relative;
   top : 47%;
   left : 9.5%;
   width: 90px;
@@ -173,7 +173,7 @@ top : 5px;
 
 .act {
   font-family: 'Cafe24Oneprettynight';
-  position: absolute;
+  position: relative;
   top : 47%;
   left : 17.5%;
   width: 90px;
@@ -185,7 +185,7 @@ top : 5px;
 }
 .movelist {
   font-family: 'Cafe24Oneprettynight';
-  position: absolute;
+  position: relative;
   top: 47%;
   left: 63%;
   width: 50px;
@@ -200,7 +200,7 @@ top : 5px;
   display: grid;
   grid-template-columns: 253px 253px 253px 253px 253px;
   grid-template-rows: 450px 450px 450px;
-  position: absolute;
+  position: relative;
   top : 60%;
   left : 1.5%;
   font-family: 'Cafe24Oneprettynight';

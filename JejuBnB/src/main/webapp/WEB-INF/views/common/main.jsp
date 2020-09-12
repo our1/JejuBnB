@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"  errorPage="/WEB-INF/views/common/error.jsp" 
+    pageEncoding="UTF-8"  errorPage="/WEB-INF/views/common/error.jsp"
     isELIgnored="false" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -329,7 +329,7 @@
       </style>
   </head>
   <body>
-  
+
      <div class="mainhead">
           <div class="logo">
             <img src="resources/images/로고.png" >
@@ -358,49 +358,54 @@
         people.classList.toggle('active');
         peoplelist.classList.toggle('opened');
     }
-        
+
         function winOpen1()
     	{
     	window.open("moveFilterList.do","필터","width=900,height=1000");
     	}
-    	
+
     	function winOpen2()
     	{
     	window.open("myNoticeList.do?userid=${loginMember.user_id}","알림","width=800,height=500");
     	}
-    	
+
     	function winOpen3()
     	{
     	window.open("adUNoticeList.do","알림","width=1000,height=500");
     	}
-    	
-    	function movePage(){
-    		
-    		 window.open("loginPage.do", "로그인", 
-    			"width=1700, height=900, left=100, top=50, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
-    	}
 
+    	function movePage(){
+    		 window.open("loginPage.do", "로그인",
+    			"width=1700, height=900, left=100, top=50, toolbar=no, menubar=no, scrollbars=no, resizable=yes" ); 
+    	}
         </script>
         <div class="searchbut">
           <i class="fas fa-search fa-2x"></i>
         </div>
      </div>
      <div class="dropdown"><span class="lnr lnr-menu"></span><span class="myimg"></span></div>
-     <c:if test="${empty loginMember }">
+     <c:if test="${ !empty loginMember and  loginMember.admin_check eq 'Y' }">
      	<ul class="dropdown-list">
-       <li> 마이페이지</li>
+     	<li onclick="javascript:location.href='moveMyPage.do'"> 마이페이지</li>
+     	<li onclick="javascript:location.href='moveAdminPage.do'"> 관리자 페이지</li>
        <li> 내 쿠폰</li>
        <li> 내가 정한 숙소</li>
        <li> 사장님 신청</li>
        <li> 알림</li>
        <li> 고객센터</li>
+       <li onclick="javascript:location.href='logout.do'"><span class="lnr lnr-cog"></span> 로그아웃</li>
+     </ul>
+     </c:if>
+     <c:if test="${empty loginMember }">
+     	<ul class="dropdown-list">
+       <li> 고객센터</li>
        <li onclick="movePage()">로그인</li>
      </ul>
      </c:if>
-     <c:if test="${!empty loginMember }">
+     <c:if test="${!empty loginMember and  empty loginMember.admin_check}">
      <ul class="dropdown-list">
-       <li> 마이페이지</li>
-       <li> 내 쿠폰</li>
+       <li onclick="javascript:location.href='moveMyPage.do'"> 마이페이지</li>
+   		<li onclick="javascript:location.href='moveAdminPage.do'"> 관리자 페이지</li>
        <li> 내가 정한 숙소</li>
        <li> 사장님 신청</li>
        <li> 알림</li>
@@ -427,8 +432,8 @@
      </script>
      <div class="mainimg">
      </div>
-     <div class="slist">Room List</div>
-     <div class="tlist">Tour List</div>
+     <div class="slist">hotel list</div>
+     <div class="tlist">tour list</div>
      <hr class="onelisthr">
  <div id="onelist">
    <div class="one">
@@ -450,6 +455,6 @@
  <div class="moreview">
     <a href="tlist.do"> 더 보기 </a>
 </div>
-
+<c:import url="/WEB-INF/views/common/footer.jsp" />
   </body>
 </html>

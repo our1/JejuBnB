@@ -41,7 +41,8 @@
 	         </div>
 	        </c:forEach>
 	    </div>
-       <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-       <script src="resources/js/head.js"></script>
+		       <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		       <script src="resources/js/head.js"></script>
+       <c:import url="/WEB-INF/views/common/footer.jsp" />
   </body>
 </html>

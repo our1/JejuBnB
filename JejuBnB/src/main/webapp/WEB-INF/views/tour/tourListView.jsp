@@ -26,10 +26,12 @@
       </ul>
   </div>
    <div class="thead"><h1 class="tour">관광지</h1></div>
+   <div style="padding: 100px 0px 0px 0px;"></div>
      <button class="live">자연</button>
      <button class="cook">맛집</button>
      <button class="act">액티비티</button>
      <button class="movelist" onclick="javascipt:location.href='tourNoMap.do'"></button>
+     <div style="padding: 100px 0px 0px 0px;"></div>
        <div class="tourlist">
 	       <c:forEach items="${ requestScope.list }" var="t">
 	         <div class="one">
@@ -50,7 +52,7 @@
         <div id="roadviewControl" onclick="setRoadviewRoad()"></div>
     </div>
 </div>
-
+<div style="padding: 100px 0px 0px 0px;"></div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f30a1bf673317be5978a11f2b404a16b"></script>
 <script>
 var overlayOn = false, // 지도 위에 로드뷰 오버레이가 추가된 상태를 가지고 있을 변수

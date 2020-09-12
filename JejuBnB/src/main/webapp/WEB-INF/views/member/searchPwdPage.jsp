@@ -4,7 +4,10 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>JejuBnB</title>
+		<link rel="stylesheet" href="resources/css/bootstrap.min.css" >
+		<link rel="stylesheet" href="resources/css/searchPwdPage.css" >
 		<script type="text/javascript" src="resources/js/jquery-3.5.1.min.js"></script>
 		<script>
 		function infoCheck(){
@@ -42,17 +45,42 @@
 		</script>
 	</head>
 	<body>
-		<form action="searchPwd.do" method="post">
-			이메일 아이디: <input type="text" name="user_id" id="user_id"> <br>
-			&nbsp;&nbsp;&nbsp;
-			생 년 월 일:  <input type="text" name="birthday" id="birthday">   ex) 920304   <br>
-			
-			<div id="submitbutton">
-				<input type="button" value="본인인증" onclick=" return infoCheck();">
-			</div>
-			<input type="number" name="email_injeung" placeholder="  인증번호를 입력하세요. " required>
-			<input type="hidden" name="dice" id="dice"> <br>
-			 <button type="submit" name="submit">인증번호 확인</button>
-		</form>
+		  <div class="container-fluid">
+        <div class="row no-gutter">
+            <div class="col-md-6 d-none d-md-flex bg-image"></div>
+            <div class="col-md-6 bg-light">
+                <div class="login d-flex align-items-center py-5">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-10 col-xl-7 mx-auto">
+                              <div class="logo">
+                                <img src="resources/images/무제.png" >
+                              </div>
+                                <form action="searchPwd.do" method="post">
+                                    <div class="form-group mb-3">
+                                        <input id="user_id" type="email" placeholder="Email address" required="" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4" name="user_id">
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <input id="birthday" type="text" placeholder="생년월일" required="" class="form-control rounded-pill border-0 shadow-sm px-4" name="birthday"><div class="example"> ex) 970602 </div>
+                                    </div>
+                                    <div id="submitbutton" class="ab">
+                                  				<input type="button" value="본인 인증" onclick=" return infoCheck();">
+                                  			</div>
+                                          <div class="form-group mb-3">
+                                  			<input type="number" name="email_injeung" class="form-control rounded-pill border-0 shadow-sm px-4" placeholder="  인증번호를 입력하세요. " required>
+                                        </div>
+                                  			<input type="hidden" name="dice" id="dice"> <br>
+                                    <button type="submit" class="check_btn" name="submit">인증 번호 확인</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+		      <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		      <script src="resources/js/jquery-3.3.1.slim.min.js"></script>
+		      <script src="resources/js/bootstrap.bundle.min.js"></script>
 	</body>
 </html>

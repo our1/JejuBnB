@@ -141,7 +141,7 @@ top : 5px;
  background-repeat: no-repeat;
 }
 .timage {
-  position: absolute;
+  position: relative;
   width: 1400px;
   height: 500px;
   top : 40%;
@@ -816,7 +816,7 @@ top : 5px;
   animation-delay: 4s;
 }
 .container {
-  position: absolute;
+  position: relative;
   width: 1400px;
   height: 500px;
   top : 40%;
@@ -825,7 +825,7 @@ top : 5px;
 }
 
 .tname {
-  position: absolute;
+  position: relative;
   font-family: 'Cafe24Oneprettynight';
   top : 100%;
   left : 13%;
@@ -835,26 +835,26 @@ top : 5px;
 .facebook img{
   width: 30px;
   height: 30px;
-  position: absolute;
+  position: relative;
   left : 74.5%;
   top : 100%
 }
 .instagram img{
   width: 30px;
   height: 30px;
-  position: absolute;
+  position: relative;
   left : 77.5%;
   top : 100%;
 }
 #create-kakao-link-btn img {
   width : 30px;
   height : 30px;
-  position: absolute;
+  position: relative;
   left : 77.5%;
   top : 100%;
 }
 svg {
-  position: absolute;
+  position: relative;
   left: calc(50% - 30px);
   top: calc(50% - 30px);
 }
@@ -865,7 +865,7 @@ svg {
   overflow: visible;
   width: 60px;
   margin: 20px;
-  position: absolute;
+  position: relative;
   left: 78.8%;
   top: 96.1%;
 }
@@ -1112,7 +1112,7 @@ svg #main-circ {
 }
 .ts {
   font-family: 'Cafe24Oneprettynight';
-  position: absolute;
+  position: relative;
   top : 107%;
   left : 13.3%;
 }
@@ -1127,7 +1127,7 @@ svg #main-circ {
   font-size: 40px;
 }
 .tcontent {
-  position: absolute;
+  position: relative;
   top : 123.5%;
   left: 13%;
   font-size: 20px;
@@ -1138,7 +1138,7 @@ svg #main-circ {
 }
 .tmap {
   font-size: 40px;
-  position: absolute;
+  position: relative;
   top : 162.5%;
   left: 13%;
 }
@@ -1155,7 +1155,7 @@ svg #main-circ {
 }
 .treview {
   font-size: 30px;
-  position: absolute;
+  position: relative;
   top : 241%;
   left: 13%;
 }
@@ -1201,7 +1201,7 @@ svg #main-circ {
   margin-top: 10%;
 }
 .reviewmore {
-  position: absolute;
+  position: relative;
   top : 87%;
   left : 105%;
   width: 120px;
@@ -1213,7 +1213,7 @@ svg #main-circ {
   font-family: 'Cafe24Oneprettynight';
 }
 .moreimpo {
-  position: absolute;
+  position: relative;
   top : 105%;
 }
 .moreimpocontent{

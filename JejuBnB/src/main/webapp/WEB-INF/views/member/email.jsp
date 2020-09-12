@@ -2,43 +2,41 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>JejuBnB</title>
-</head>
-<body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>JejuBnB</title>
+    <link rel="stylesheet" href="resources/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="resources/css/email.css" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
- 
-<table border="1" width="300" height="300" align= "center">
-<center>
-<span style="color: green; font-weight: bold;">이메일 인증 <br> (이메일을 인증 받아야 다음 단계로 넘어갈 수 있습니다.)</span> <br> <br>    
-        <br> <br>
-        
-        
- 
-        
-        <div style="text-align:center;">
-            <tr>        
-                <td>
-                <center>
-                    <form action="auth.do" method="post">
-                    
-                    <center>
-                        <br>
-                        <div>
-                            이메일 : <input type="email" name="e_mail"
-                                placeholder="  이메일주소를 입력하세요. ">
-                        </div>                                                    
- 
-                        <br> <br>
-                        <button type="submit" name="submit">이메일 인증받기 (이메일 보내기)</button>
- 
+  </head>
+  <body>
+
+    <div class="container-fluid">
+        <div class="row no-gutter">
+            <div class="col-md-6 d-none d-md-flex bg-image"></div>
+            <div class="col-md-6 bg-light">
+                <div class="login d-flex align-items-center py-5">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-10 col-xl-7 mx-auto">
+                              <div class="logo">
+                                <img src="resources/images/무제.png" >
+                              </div>
+                               <div class="em"> 이메일 인증 을 받아야 다음 단계 로 넘어 갈 수 있습니다 . </div>
+                                <form action="auth.do" method="post">
+                                    <div class="form-group mb-3">
+                                        <input id="inputEmail" type="email" placeholder="Email address" required="" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4" name="e_mail">
+                                    </div>
+                                    <button type="submit" class="check_btn" name="submit">이메일 인증 받기 ( Send Email )</button>
+                                </form>
+                            </div>
                         </div>
-                    </td>
-                </tr>
-                    </center>
-     </table>
-   </form>
-</center>
-</body>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+  </body>
 </html>

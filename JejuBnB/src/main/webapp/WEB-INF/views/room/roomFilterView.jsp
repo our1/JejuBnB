@@ -9,9 +9,10 @@
 <title>JejuBnB</title>
 </head>
 <body>
-침대 수 : <input type="number" name="bad" placeholder="침대 수 "> <br>
-침실 수 : <input type="number" name="badroom" placeholder="침실 수 "> <br>
-욕실 수 : <input type="number" name="bathroom" placeholder="욕실 수 "> <br>
+<form action="SearchFilter.do" method="post">
+침대 수 : <input type="number" name="bedCount" placeholder="0" value="0"> <br>
+침실 수 : <input type="number" name="bedroomCount" placeholder="0" value="0"> <br>
+욕실 수 : <input type="number" name="bathroomCount" placeholder="0" value="0"> <br>
 
 
 편의 시설 :
@@ -42,6 +43,7 @@ ${ blist } <input type="checkbox" name="build" value="${blist }"> &nbsp; &nbsp;
 ${rlist } <input type="checkbox" name="rule" value="${rlist }"> &nbsp; &nbsp;
 </c:forEach>
 </c:forEach>
-
+<button type="submit" >검색</button>
+</form>
 </body>
 </html>

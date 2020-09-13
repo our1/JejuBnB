@@ -52,6 +52,9 @@
 <h1 align="center">숙소 리스트 페이지</h1>
 <div id="roomList">
 <button onclick="javascript:location.href='moveRoomBList.do'">리스트로 보기</button>
+<button onclick="javascript:location.href='moveRoomBList.do'">리스트로 보기</button>
+<button onclick="javascript:location.href='moveRoomBList.do'">리스트로 보기</button>
+
 <button onclick="moveFilterPage()">필터 추가하기</button>
 
 

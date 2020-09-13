@@ -257,8 +257,15 @@ public class RoomController {
 	
 	@RequestMapping("moveFilterPage.do")
 	public String moveFilterPage(Model model) {
-		
-		return "";
+		ArrayList<Amenity> Alist = filterService.selectAmenity();
+		ArrayList<Build_type> Blist = filterService.selectBuild_type();
+		ArrayList<Facility> Flist = filterService.selectFacility();
+		ArrayList<Rule> Rlist = filterService.selectRule();
+		model.addAttribute("Alist", Alist);
+		model.addAttribute("Blist", Blist);
+		model.addAttribute("Flist", Flist);
+		model.addAttribute("Rlist", Rlist);
+		return "room/roomFilterView";
 	}
 	
 	

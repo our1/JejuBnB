@@ -3,6 +3,7 @@ package com.jeju.JejuBnB.room.model.service;
 import java.util.ArrayList;
 
 import com.jeju.JejuBnB.room.model.vo.Room;
+import com.jeju.JejuBnB.room.model.vo.RoomFilter;
 import com.jeju.JejuBnB.room.model.vo.Room_File;
 
 public interface RoomService {
@@ -13,6 +14,8 @@ public interface RoomService {
 	int insertRoom(Room room);
 	int updateRoom(Room room);
 	int deleteRoom(int room_no);
-	int selectRoomNo(String userid);
+	Room selectRoomNo(String userid);
 	int insertRoomFile(ArrayList<Room_File> rflist);
+	ArrayList<Room> selectSearchFilter(Room room);
+	ArrayList<Room_File> selectRoomFile(int roomno);
 }

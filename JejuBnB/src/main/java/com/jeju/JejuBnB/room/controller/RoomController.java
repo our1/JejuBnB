@@ -28,6 +28,7 @@ import com.jeju.JejuBnB.filter.model.vo.Rule;
 import com.jeju.JejuBnB.room.model.service.RoomService;
 import com.jeju.JejuBnB.room.model.vo.CheckTime;
 import com.jeju.JejuBnB.room.model.vo.Room;
+import com.jeju.JejuBnB.room.model.vo.RoomFilter;
 import com.jeju.JejuBnB.room.model.vo.Room_File;
 
 @Controller
@@ -60,6 +61,7 @@ public class RoomController {
 	
 	}
 	
+	
 	@RequestMapping(value="roominsert.do", method=RequestMethod.POST)
 	public String insertRoom(Room room, Model model, CheckTime ct, MultipartHttpServletRequest mrequest, HttpServletRequest request, 
 			@RequestParam(value="ofile", required = false) MultipartFile ofile, @RequestParam("address") String address) {
@@ -81,7 +83,9 @@ public class RoomController {
 			room.setRoom_rename_file(rename);
 		}
 		
-		int roomno = roomService.selectRoomNo(room.getUser_id());
+		Room Sroomno = roomService.selectRoomNo(room.getUser_id());
+		int roomno = Sroomno.getRoom_no() + 1;
+		logger.info(""+roomno);
 		List<MultipartFile> fileList = mrequest.getFiles("file");
 		ArrayList<Room_File> rflist = new ArrayList<Room_File>();
 		String savePath1 = request.getSession().getServletContext().getRealPath("resources/roomFiles");
@@ -107,12 +111,10 @@ public class RoomController {
 			rflist.add(rf);
 		}
 		
-		logger.info(rflist.toString());
 		
 		room.setCheckout_time(ct.getOuthour() + ct.getOutminute());
 		room.setCheckin_time(ct.getInhour() + ct.getInminute());
 		room.setRoom_address(room.getRoom_roadaddress() + address);
-		logger.info(room.toString());
 		
 		int result = roomService.insertRoom(room);
 		int result2 = roomService.insertRoomFile(rflist);
@@ -136,7 +138,6 @@ public class RoomController {
 		model.addAttribute("Blist", Blist);
 		model.addAttribute("Flist", Flist);
 		model.addAttribute("Rlist", Rlist);
-		logger.info(Alist.toString());
 		return "room/roomWriteForm";
 	}
 	
@@ -159,7 +160,6 @@ public class RoomController {
 		if(room != null) {
 			mv.setViewName("room/roomDetailView");
 			mv.addObject("room", room);
-			logger.info(room.toString());
 
 		}else {
 			mv.setViewName("common/error");
@@ -171,6 +171,7 @@ public class RoomController {
 	@RequestMapping("moveUpdatView.do")
 	public String moveUPdate(Model model, @RequestParam("roomno") int roomno) {
 		Room room = roomService.selectRoom(roomno);
+		ArrayList<Room_File> rflist = roomService.selectRoomFile(roomno);
 		ArrayList<Amenity> Alist = filterService.selectAmenity();
 		ArrayList<Build_type> Blist = filterService.selectBuild_type();
 		ArrayList<Facility> Flist = filterService.selectFacility();
@@ -180,7 +181,11 @@ public class RoomController {
 		model.addAttribute("Flist", Flist);
 		model.addAttribute("Rlist", Rlist);
 		if(room != null) {
+			if(rflist.size() > 0) {
+				model.addAttribute("rflist", rflist);
+			}
 			model.addAttribute("room", room);
+			logger.info(rflist.toString());
 			return "room/roomUpdateForm";
 		}else {
 			model.addAttribute("message","게시글 수정페이지 이동 실패");
@@ -255,10 +260,33 @@ public class RoomController {
 		}
 	}
 	
+	@RequestMapping(value="SearchFilter.do", method=RequestMethod.POST)
+	public String SearchFilter(Room room, Model model, HttpServletRequest request) {
+		room.setBed(Integer.parseInt(request.getParameter("bedCount")));
+		room.setBedroom(Integer.parseInt(request.getParameter("bedroomCount")));
+		room.setBathroom(Integer.parseInt(request.getParameter("bathroomCount")));
+		
+		ArrayList<Room> list = roomService.selectSearchFilter(room);
+		if(list.size() > 0) {
+			model.addAttribute("list", list);
+			return "room/roomListView";
+		}else {
+			model.addAttribute("message", "조회 실패");
+			return "common/error";
+		}
+	}
+	
 	@RequestMapping("moveFilterPage.do")
 	public String moveFilterPage(Model model) {
-		
-		return "";
+		ArrayList<Amenity> Alist = filterService.selectAmenity();
+		ArrayList<Build_type> Blist = filterService.selectBuild_type();
+		ArrayList<Facility> Flist = filterService.selectFacility();
+		ArrayList<Rule> Rlist = filterService.selectRule();
+		model.addAttribute("Alist", Alist);
+		model.addAttribute("Blist", Blist);
+		model.addAttribute("Flist", Flist);
+		model.addAttribute("Rlist", Rlist);
+		return "room/roomFilterView";
 	}
 	
 	

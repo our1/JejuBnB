@@ -1,0 +1,216 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JejuBnB</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+
+<script>
+	$(function() {
+		var rating = $('.review .rating');
+
+		rating.each(function() {
+			var targetScore = $(this).attr('data-rate');
+			$(this).find('svg:nth-child(-n+' + targerScore + ')').css({
+				color : '#F05522'
+			});
+		});
+
+		var userScore = $('#makeStar');
+		userScore.change(function() {
+			var userScoreNum = $(this).val();
+			console.log(userScoreNum);
+			$('.make_star svg').css({
+				color : '#000'
+			});
+			$('.make_star svg:nth-child(-n+' + userScoreNum + ')').css({
+				color : '#F05522'
+			});
+		});
+
+		$('.make_star svg').click(function() {
+			var targetNum = $(this).index() + 1;
+			$('.make_star svg').css({
+				color : '#000'
+			});
+			$('.make_star svg:nth-child(-n+' + targerNum + ')').css({
+				color : '#F05522'
+			});
+		});
+
+		var userScore = $('#makeStar1');
+		userScore.change(function() {
+			var userScoreNum = $(this).val();
+			console.log(userScoreNum);
+			$('.make_star1 svg').css({
+				color : '#000'
+			});
+			$('.make_star1 svg:nth-child(-n+' + userScoreNum + ')').css({
+				color : '#F05522'
+			});
+		});
+
+		$('.make_star1 svg').click(function() {
+			var targetNum = $(this).index() + 1;
+			$('.make_star1 svg').css({
+				color : '#000'
+			});
+			$('.make_star1 svg:nth-child(-n+' + targerNum + ')').css({
+				color : '#F05522'
+			});
+		});
+
+		var userScore = $('#makeStar2');
+		userScore.change(function() {
+			var userScoreNum = $(this).val();
+			console.log(userScoreNum);
+			$('.make_star2 svg').css({
+				color : '#000'
+			});
+			$('.make_star2 svg:nth-child(-n+' + userScoreNum + ')').css({
+				color : '#F05522'
+			});
+		});
+
+		$('.make_star2 svg').click(function() {
+			var targetNum = $(this).index() + 1;
+			$('.make_star2 svg').css({
+				color : '#000'
+			});
+			$('.make_star2 svg:nth-child(-n+' + targerNum + ')').css({
+				color : '#F05522'
+			});
+		});
+
+	});
+</script>
+<script>
+	$(document).ready(function(){
+		$('#replyForm').submit(function(){
+			window.close();
+		});
+	});
+</script>
+<style type="text/css">
+._cvx08b {
+	margin-bottom: 12px !important;
+}
+
+._cvx08b1 {
+	margin-bottom: 12px !important;
+	margin-left: 270px;
+}
+
+._a3qxec {
+	-webkit-box-pack: justify !important;
+	-webkit-box-align: center !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: space-between !important;
+	width: 100% !important;
+}
+
+._y1ba89 {
+	width: 100% !important;
+	overflow: hidden !important;
+	text-overflow: ellipsis !important;
+	white-space: nowrap !important;
+}
+</style>
+</head>
+<body>
+	<h3>만족도 체크</h3>
+	<div class="make_star">
+		<div class="_cvx08b">
+			<div class="_a3qxec">
+				<h4>청결도</h4>
+				<div class="_cvx08b1">
+					<select name="" id="makeStar">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					</select>
+					<div class="rating" data-rate="3">
+						<i class="fas fa-star"></i> 
+						<i class="fas fa-star"></i> 
+						<i class="fas fa-star"></i> 
+						<i class="fas fa-star"></i> 
+						<i class="fas fa-star"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="make_star1">
+		<div class="_cvx08b">
+			<div class="_a3qxec">
+				<h4>가격대비 만족도</h4>
+				<div class="_cvx08b1">
+					<select name="" id="makeStar1">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					</select>
+					<div class="rating" data-rate="3">
+						<i class="fas fa-star"></i> 
+						<i class="fas fa-star"></i> 
+						<i class="fas fa-star"></i> 
+						<i class="fas fa-star"></i> 
+						<i class="fas fa-star"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="make_star2">
+		<div class="_cvx08b">
+			<div class="_a3qxec">
+				<h4>서비스</h4>
+				<div class="_cvx08b">
+					<div class="_1byskwn">
+						<select name="" id="makeStar2">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>
+						<div class="rating" data-rate="3">
+							<i class="fas fa-star"></i> 
+							<i class="fas fa-star"></i> 
+							<i class="fas fa-star"></i> 
+							<i class="fas fa-star"></i> 
+							<i class="fas fa-star"></i>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+
+		
+		<form action="reinsert.do?roomno=${ room.room_no }" id="replyForm">
+			<table>	
+					<input type="hidden" name="roomno" value="${ room.room_no }">
+					<input type="hidden" name="reviewno" value="${ review.reply_no }">	
+					<input type="hidden" name="userid" value="${ member.user_id }">				
+				<tr>	
+					<td><textarea rows="3.2" cols="80" name="replyco">${ review.review_content }</textarea></td>
+					<td><input type="submit" value="리뷰 등록"	style="width: 70px; height: 55px;"></td>
+				</tr>
+			</table>	
+		</form>
+		
+</body>
+</html>

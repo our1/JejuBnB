@@ -846,6 +846,13 @@ top : 5px;
   left : 77.5%;
   top : 100%;
 }
+#create-kakao-link-btn img {
+  width : 30px;
+  height : 30px;
+  position: absolute;
+  left : 77.5%;
+  top : 100%;
+}
 svg {
   position: absolute;
   left: calc(50% - 30px);

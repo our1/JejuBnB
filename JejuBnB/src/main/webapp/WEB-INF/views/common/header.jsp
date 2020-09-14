@@ -76,7 +76,7 @@ hr { clear: both; }
 <body>
 <header>
 <h1 id="logo"><a href="main.do"> JejuBnB </a></h1>
-<%-- <c:if test= "${ !empty loginMember and loginMember.user_id eq 'admin'}">
+<c:if test= "${ !empty loginMember and loginMember.user_id eq 'admin'}">
 	<%// 관리자가 로그인 했을때	%>
 <ul id="menubar">
 <li><a href="/testm/mlist"> 회원관리</a></li>
@@ -100,9 +100,9 @@ hr { clear: both; }
 <li><a href="${ pageContext.servletContext.contextPath}/moveroomwrite.do">사장님 신청하기</a></li>
 <li><a href="main.do">Home</a></li>
 </ul>
-</c:if> --%>
-<%-- <c:if test="${ empty loginMember }">
- --%><ul id="menubar">
+</c:if> 
+<c:if test="${ empty loginMember }">
+<ul id="menubar">
 <li><a href="email.do"> 회원가입</a></li>
 <li><a href="${ pageContext.servletContext.contextPath}/moveFile.do"> 파일 업로드 테스트</a></li>
 <li><a onclick="winOpen2(${sessionScope.loginMember.user_id})">내 알림 글 보기</a></li>
@@ -113,8 +113,8 @@ hr { clear: both; }
 <li><a href="loginPage.do">로그인</a></li>
 <li><a href="main.do">Home</a></li>
 </ul>
-<%-- </c:if>
- --%>
+</c:if>
+
 </header>
 </body>
 </html>

@@ -373,27 +373,39 @@
     	{
     	window.open("adUNoticeList.do","알림","width=1000,height=500");
     	}
+    	
+    	function movePage(){
+    		 window.open("loginPage.do", "로그인", 
+    			"width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
+    	}
         </script>
         <div class="searchbut">
           <i class="fas fa-search fa-2x"></i>
         </div>
      </div>
      <div class="dropdown"><span class="lnr lnr-menu"></span><span class="myimg"></span></div>
-     <c:if test="${empty loginMember }">
+     <c:if test="${ !empty loginMember and  loginMember.admin_check eq 'Y' }">
      	<ul class="dropdown-list">
-       <li><span class="lnr lnr-home"></span> 마이페이지</li>
+     	<li onclick="javascript:location.href='moveMyPage.do'"><span class="lnr lnr-cog"></span> 마이페이지</li>
+     	<li onclick="javascript:location.href='moveAdminPage.do'"><span class="lnr lnr-cog"></span> 관리자 페이지</li>
        <li><span class="lnr lnr-envelope"></span> 내 쿠폰</li>
        <li><span class="lnr lnr-cog"></span> 내가 정한 숙소</li>
        <li><span class="lnr lnr-cog"></span> 사장님 신청</li>
        <li><span class="lnr lnr-cog"></span> 알림</li>
        <li><span class="lnr lnr-cog"></span> 고객센터</li>
-       <li><a href="loginPage.do">로그인</a></li>
+       <li onclick="javascript:location.href='logout.do'"><span class="lnr lnr-cog"></span> 로그아웃</li>
      </ul>
      </c:if>
-     <c:if test="${!empty loginMember }">
+     <c:if test="${empty loginMember }">
+     	<ul class="dropdown-list">
+       <li><span class="lnr lnr-cog"></span> 고객센터</li>
+       <li onclick="movePage()">로그인</li>
+     </ul>
+     </c:if>
+     <c:if test="${!empty loginMember and  empty loginMember.admin_check}">
      <ul class="dropdown-list">
-       <li><span class="lnr lnr-home"></span> 마이페이지</li>
-       <li><span class="lnr lnr-envelope"></span> 내 쿠폰</li>
+       <li onclick="javascript:location.href='moveMyPage.do'"><span class="lnr lnr-cog"></span> 마이페이지</li>
+   		<li onclick="javascript:location.href='moveAdminPage.do'"><span class="lnr lnr-cog"></span> 관리자 페이지</li>
        <li><span class="lnr lnr-cog"></span> 내가 정한 숙소</li>
        <li><span class="lnr lnr-cog"></span> 사장님 신청</li>
        <li><span class="lnr lnr-cog"></span> 알림</li>

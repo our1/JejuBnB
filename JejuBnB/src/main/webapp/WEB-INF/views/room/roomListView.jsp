@@ -32,7 +32,7 @@
       #roomList {
 		width : 50%;
 		height : 80%;
-		position : absolute;
+		position : relative;
 		right : 50%;
 		top : 30%;
 	}

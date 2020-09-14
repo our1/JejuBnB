@@ -25,12 +25,13 @@
           <li><a href="#">로그아웃</a></li>
       </ul>
   </div>
-   <div class="thead"></div>
-    <h1 class="tour">관광지</h1>
+   <div class="thead"><h1 class="tour">관광지</h1></div>
+    <div style="padding: 100px 0px 0px 0px;"></div>
      <button class="live">자연</button>
      <button class="cook">맛집</button>
      <button class="act">액티비티</button>
      <button class="movelist" onclick="javascipt:location.href='tlist.do'"></button>
+     <div style="padding: 100px 0px 0px 0px;"></div>
        <div class="tourlist">
 	       <c:forEach items="${ requestScope.list }" var="t">
 	         <div class="one">
@@ -41,6 +42,7 @@
 	         </div>
 	        </c:forEach>
 	    </div>
+	    <div style="padding: 100px 0px 0px 0px;"></div>
 		       <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 		       <script src="resources/js/head.js"></script>
        <c:import url="/WEB-INF/views/common/footer.jsp" />

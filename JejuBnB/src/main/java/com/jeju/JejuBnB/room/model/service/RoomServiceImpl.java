@@ -76,4 +76,19 @@ public class RoomServiceImpl implements RoomService{
 		return roomDao.getListCount();
 	}
 
+	@Override
+	public ArrayList<Room> selectChkList(ArrayList<Room> room, int currentPage, int limit, int people) {
+		return roomDao.selectChkList(room, currentPage, limit, people);
+	}
+
+	@Override
+	public ArrayList<Room> selectChkRNList(String checkin, String checkout) {
+		return roomDao.selectChkRNList(checkin, checkout);
+	}
+
+	@Override
+	public ArrayList<Room> selectSysdate() {
+		return roomDao.selectSysdate();
+	}
+
 }

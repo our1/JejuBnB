@@ -153,6 +153,32 @@ public class RoomDao {
 				
 	}
 
+	public ArrayList<Room> selectChkList(ArrayList<Room> room, int currentPage, int limit, int people) {
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+		
+		HashMap hm = new HashMap();
+		hm.put("list", room);
+		hm.put("startRow", 1);
+		hm.put("endRow", 8);
+		hm.put("people", people);
+		List<Room> list = session.selectList("roomMapper.selectChkList", hm);
+		return (ArrayList<Room>) list;
+	}
+
+	public ArrayList<Room> selectChkRNList(String checkin, String checkout) {
+		HashMap hm = new HashMap();
+		hm.put("checkin", checkin);
+		hm.put("checkout", checkout);
+		List<Room> list = session.selectList("roomMapper.selectChkRNList", hm);
+		return (ArrayList<Room>)list;
+	}
+
+	public ArrayList<Room> selectSysdate() {
+		List<Room> list = session.selectList("roomMapper.selectSysdate");
+		return (ArrayList<Room>)list;
+	}
+
 	
 
 }

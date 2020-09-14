@@ -54,9 +54,9 @@
      <c:if test="${!empty loginMember and  empty loginMember.admin_check}">
      <ul class="dropdown-list">
        <li onclick="javascript:location.href='moveMyPage.do'"> 내 정보 보기</li>
-       <li onclick="javascript:location.href='movemyroom.do?userid=${loginMember.user_id }'"> 저장 목록</li>
+       <li onclick="javascript:location.href='moveMyRoom.do?userid=${loginMember.user_id }'"> 저장 목록</li>
        <li onclick="winOpen2()"> 알림</li>
-       <li onclick="javascript:location.href='moveroomwrite.do'"> 사장님 신청하기</li>
+       <li onclick="javascript:location.href='moveRoomWrite.do'"> 사장님 신청하기</li>
        <hr class="divider">
        <li onclick="javascript:location.href='roomlist.do'"> 숙소</li>
        <li onclick="javascript:location.href='tlist.do'"> 관광지</li>

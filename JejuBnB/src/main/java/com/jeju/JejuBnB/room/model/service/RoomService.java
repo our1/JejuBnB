@@ -19,4 +19,7 @@ public interface RoomService {
 	ArrayList<Room> selectSearchFilter(Room room);
 	ArrayList<Room_File> selectRoomFile(int roomno);
 	int getListCount();
+	ArrayList<Room> selectChkList(ArrayList<Room> room, int currentPage, int limit, int people);
+	ArrayList<Room> selectChkRNList(String checkin, String checkout);
+	ArrayList<Room> selectSysdate();
 }

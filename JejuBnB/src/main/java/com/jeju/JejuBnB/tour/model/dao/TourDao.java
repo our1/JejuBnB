@@ -31,5 +31,9 @@ public class TourDao {
 	public Tour selectTourDetail(int tour_no) {
 		return session.selectOne("tourMapper.selectTourDetail", tour_no);
 	}
+	
+	public int insertTour(Tour tour) {
+		return session.insert("tourMapper.insertTour", tour);
+	}
 
 }

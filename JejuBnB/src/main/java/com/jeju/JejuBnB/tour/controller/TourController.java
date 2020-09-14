@@ -74,5 +74,9 @@ public class TourController {
 		return mv;
 	}
 
-
+	@RequestMapping("twrite.do")
+	public String TourWriteForm() {
+		return "tour/tourWriteForm";
+	}
 }
+

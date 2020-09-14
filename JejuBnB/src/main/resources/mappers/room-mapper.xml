@@ -68,6 +68,9 @@
 		<id property="room_no" column="room_no" />
 	</resultMap>
 	
+	<select id="getListCount" resultType="_int">
+		select count(room_no) from room
+	</select>
 	
 	<select id="selectList" parameterType="com.jeju.JejuBnB.room.model.vo.PageCount" resultMap="resultList">
 	<![CDATA[
@@ -106,51 +109,55 @@
 	</select>
 	
 	<select id="selectSearchFilter" parameterType="java.util.HashMap" resultMap="resultList">
-		select * from (select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
-		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from room 
+		select * from 
+			(select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+			bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from   
+ 				(select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+				bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend
+     		    from room 
 		<if test="alist != null">
 			<foreach collection="alist" item="amenity">
-				intersect select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+				intersect select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
 		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from room where amenity like '%'||#{amenity}||'%'				
 			</foreach>
 		</if>
 		
 		<if test="flist != null">
 			<foreach collection="flist" item="facility">
-				intersect select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+				intersect select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
 		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from room where facility like '%'||#{facility}||'%'
 			</foreach>		
 		</if>
 		
 		<if test="blist != null">
 			<foreach collection="blist" item="build">
-				intersect select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+				intersect select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
 		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from room where build_type like '%'||#{build}||'%'
 			</foreach>
 		</if>
 		
 		<if test="rlist != null">
 			<foreach collection="rlit" item="rule">
-			intersect select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+			intersect select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
 		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from room where rule like '%'||#{rule}||'%'
 			</foreach>		
 		</if>
 		
 		<if test="bed != 0">
-		intersect select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+		intersect select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
 		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from room desc where bed = #{bed}
 		</if>
 		
 		<if test="bedroom != 0">
-		intersect select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+		intersect select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
 		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from room where bedroom = #{bedroom}
 		</if>
 		
 		<if test="bathroom != 0">
-		intersect select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+		intersect select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
 		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from room where bathroom = #{bathroom}
 		</if>
-		order by room_no)
+		order by room_no))
 		<![CDATA[
 		where rnum >= #{startRow} and rnum <= #{endRow}
 		]]>

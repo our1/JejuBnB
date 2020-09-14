@@ -18,4 +18,5 @@ public interface RoomService {
 	int insertRoomFile(ArrayList<Room_File> rflist);
 	ArrayList<Room> selectSearchFilter(Room room);
 	ArrayList<Room_File> selectRoomFile(int roomno);
+	int getListCount();
 }

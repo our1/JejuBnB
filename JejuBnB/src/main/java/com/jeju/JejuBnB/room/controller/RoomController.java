@@ -45,14 +45,33 @@ public class RoomController {
 	public String SelectList(HttpServletRequest request, Model model) {
 		int limit = 8;
 		int currentPage = 1;
+		int listCount = roomService.getListCount();
+
 		if(request.getParameter("page") != null) {
 			currentPage = Integer.parseInt(request.getParameter("page"));
 		}
-		ArrayList<Room> list = roomService.selectList(currentPage, limit);
 		
+		if(request.getParameter("checkin") != null) {
+			String checkin = request.getParameter("checkin");
+			String checkout = request.getParameter("checkout");
+			int people = Integer.parseInt(request.getParameter("people"));
+		}
+		
+		
+		ArrayList<Room> list = roomService.selectList(currentPage, limit);
+		int maxPage = (int)(((double)listCount / limit) + 0.9);
+		int startPage = (((int)((double)currentPage / limit + 0.9)) - 1) * limit + 1;
+		int endPage = startPage + limit -1;
+		if(maxPage < endPage) {
+			endPage = maxPage;
+		}
 		if(list != null) {
-		model.addAttribute("list", list);
-		model.addAttribute("listSize", list.size());
+			model.addAttribute("maxPage", maxPage);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage);
+			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("listCount", listCount);
+			model.addAttribute("list", list);
 		return "room/roomListView";
 		} else {
 			model.addAttribute("message", "리스트 출력 실패");
@@ -60,6 +79,8 @@ public class RoomController {
 		}
 	
 	}
+	
+	
 	
 	
 	@RequestMapping(value="roominsert.do", method=RequestMethod.POST)
@@ -267,6 +288,8 @@ public class RoomController {
 		room.setBathroom(Integer.parseInt(request.getParameter("bathroomCount")));
 		
 		ArrayList<Room> list = roomService.selectSearchFilter(room);
+		logger.info(room.toString());
+
 		if(list.size() > 0) {
 			model.addAttribute("list", list);
 			return "room/roomListView";
@@ -289,6 +312,11 @@ public class RoomController {
 		return "room/roomFilterView";
 	}
 	
+	@RequestMapping("moveSearchList.do")
+	public String moveSearchList(@RequestParam("list") ArrayList<Room> list, Model model) {
+		model.addAttribute("list", list);
+		return "room/roomListView";
+	}
 	
 }
 

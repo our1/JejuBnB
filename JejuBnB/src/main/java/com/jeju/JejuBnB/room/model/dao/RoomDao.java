@@ -148,6 +148,11 @@ public class RoomDao {
 		return (ArrayList<Room_File>) rflist;
 	}
 
+	public int getListCount() {
+		return session.selectOne("roomMapper.getListCount");
+				
+	}
+
 	
 
 }

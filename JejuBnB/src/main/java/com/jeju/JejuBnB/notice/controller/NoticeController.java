@@ -51,8 +51,8 @@ public class NoticeController {
 	
 	
 	
-	@RequestMapping("insertReeservation.do")
-	public ModelAndView insertReeservation(HttpServletRequest request, ModelAndView mv) {
+	@RequestMapping("insertNotice.do")
+	public ModelAndView insertNotice(HttpServletRequest request, ModelAndView mv, @RequestParam("returnPage") String returnPage) {
 		int choice = Integer.parseInt(request.getParameter("choice"));
 		String toUser = request.getParameter("toUser");
 		String fromUser = request.getParameter("fromUser");
@@ -90,7 +90,7 @@ public class NoticeController {
 			result2 = noticeService.insertUNotice(un2);
 			
 			if(result > 0 && result2 > 0) {
-				mv.setViewName("common/main");
+				mv.setViewName(returnPage);
 			}else{
 				mv.addObject("message", "알림 보내기 실패");
 				mv.setViewName("common/error");
@@ -107,7 +107,7 @@ public class NoticeController {
 			result = noticeService.insertUNotice(un1);
 			
 			if(result > 0) {
-				mv.setViewName("common/main");
+				mv.setViewName(returnPage);
 			}else{
 				mv.addObject("message", "알림 보내기 실패");
 				mv.setViewName("common/error");
@@ -123,7 +123,7 @@ public class NoticeController {
 			result = noticeService.insertUNotice(un1);
 			
 			if(result > 0) {
-				mv.setViewName("common/main");
+				mv.setViewName(returnPage);
 			}else{
 				mv.addObject("message", "알림 보내기 실패");
 				mv.setViewName("common/error");
@@ -140,7 +140,7 @@ public class NoticeController {
 			result = noticeService.insertUNotice(un1);
 			
 			if(result > 0) {
-				mv.setViewName("common/main");
+				mv.setViewName(returnPage);
 			}else{
 				mv.addObject("message", "알림 보내기 실패");
 				mv.setViewName("common/error");
@@ -157,7 +157,7 @@ public class NoticeController {
 			result = noticeService.insertUNotice(un1);
 			
 			if(result > 0) {
-				mv.setViewName("common/main");
+				mv.setViewName(returnPage);
 			}else{
 				mv.addObject("message", "알림 보내기 실패");
 				mv.setViewName("common/error");

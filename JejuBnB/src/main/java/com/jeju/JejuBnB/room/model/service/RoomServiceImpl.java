@@ -71,4 +71,9 @@ public class RoomServiceImpl implements RoomService{
 		return roomDao.selectRoomFile(roomno);
 	}
 
+	@Override
+	public int getListCount() {
+		return roomDao.getListCount();
+	}
+
 }

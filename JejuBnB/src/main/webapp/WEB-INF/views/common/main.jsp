@@ -327,6 +327,7 @@
           font-size: 25px;
         }
       </style>
+      
   </head>
   <body>
 
@@ -339,6 +340,25 @@
             체크인<br>
             <div class="chkinsub">날짜 추가</div>
         </div>
+        <!-- <ul id="inCalendar">
+        	<li><span>
+        	<table align="center" id="calendar">
+        <tr>
+            <td><font size=1%; color="#B3B6B3"><label onclick="beforem()" id="before" ></label></font></td>
+            <td colspan="5" align="center" id="yearmonth"></td>
+            <td><font size=1%; color="#B3B6B3"><label onclick="nextm()" id="next"></label></font></td>
+        </tr>
+        <tr>
+            <td align="center"> <font color="#FF9090">일</font></td>
+            <td align="center"> 월 </td>
+            <td align="center"> 화 </td>
+            <td align="center"> 수 </td>
+            <td align="center"> 목 </td>
+            <td align="center"> 금 </td>
+            <td align="center"><font color=#7ED5E4>토</font></td>
+        </tr>
+    </table></span></li>
+        </ul> -->
         <div class="chkout">
             체크아웃<br>
             <div class="chkoutsub">날짜 추가</div>
@@ -351,6 +371,7 @@
            <li> 인원 수 <span class="peoplus"></span></li>
         </ul>
         <script type="text/javascript">
+                
         var people = document.querySelector('.people');
         var peoplelist = document.querySelector('.peoplelist');
 

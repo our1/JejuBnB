@@ -1,6 +1,7 @@
 package com.jeju.JejuBnB.room.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -77,7 +78,7 @@ public class RoomDao {
 		return session.selectOne("roomMapper.selectRoom", roomno);
 	}
 
-	public int selectRoomNo(String userid) {
+	public Room selectRoomNo(String userid) {
 		return session.selectOne("roomMapper.selectRoomNo", userid);
 	}
 
@@ -91,6 +92,91 @@ public class RoomDao {
 			result = 0;
 		}
 		return result;
+	}
+
+	public ArrayList<Room> selectSearchFilter(Room room) {
+		HashMap hm = new HashMap();
+		if(room.getAmenity() != null) {
+			ArrayList<String> amenitylist = new ArrayList<String>();
+			String [] amenity = room.getAmenity().split(",");
+			for (int i = 0; i < amenity.length; i++) {
+				amenitylist.add(amenity[i]);
+			}
+			hm.put("alist", amenitylist);
+		}
+		
+		if(room.getFacility() != null) {
+			ArrayList<String> facilitylist = new ArrayList<String>();
+			String [] fecility = room.getFacility().split(",");
+			for(int i = 0; i < fecility.length; i++) {
+				facilitylist.add(fecility[i]);
+			}
+			hm.put("flist", facilitylist);
+
+		}
+		
+		if(room.getBuild_type() != null) {
+			ArrayList<String> buildlist = new ArrayList<String>();
+			String [] build = room.getBuild_type().split(",");
+			for(int i = 0; i < build.length; i++) {
+				buildlist.add(build[i]);
+			}
+			hm.put("blist", buildlist);
+		}
+		
+		if(room.getRule() != null) {
+			ArrayList<String> rulelist = new ArrayList<String>();
+			String [] rule = room.getRule().split(",");
+			for(int i = 0; i < rule.length; i++) {
+				rulelist.add(rule[i]);
+			}
+			hm.put("rlist", rulelist);
+		}
+		
+		hm.put("bed", room.getBed());
+		hm.put("bedroom", room.getBedroom());
+		hm.put("bathroom", room.getBathroom());
+		hm.put("startRow", 1);
+		hm.put("endRow", 8);
+		List<Room> list = session.selectList("roomMapper.selectSearchFilter", hm);
+		
+		return (ArrayList<Room>) list;
+	}
+
+	public ArrayList<Room_File> selectRoomFile(int roomno) {
+		List<Room_File> rflist = session.selectList("roomMapper.selectRoomFile", roomno);
+		return (ArrayList<Room_File>) rflist;
+	}
+
+	public int getListCount() {
+		return session.selectOne("roomMapper.getListCount");
+				
+	}
+
+	public ArrayList<Room> selectChkList(ArrayList<Room> room, int currentPage, int limit, int people) {
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+		
+		HashMap hm = new HashMap();
+		hm.put("list", room);
+		hm.put("startRow", 1);
+		hm.put("endRow", 8);
+		hm.put("people", people);
+		List<Room> list = session.selectList("roomMapper.selectChkList", hm);
+		return (ArrayList<Room>) list;
+	}
+
+	public ArrayList<Room> selectChkRNList(String checkin, String checkout) {
+		HashMap hm = new HashMap();
+		hm.put("checkin", checkin);
+		hm.put("checkout", checkout);
+		List<Room> list = session.selectList("roomMapper.selectChkRNList", hm);
+		return (ArrayList<Room>)list;
+	}
+
+	public ArrayList<Room> selectSysdate() {
+		List<Room> list = session.selectList("roomMapper.selectSysdate");
+		return (ArrayList<Room>)list;
 	}
 
 	

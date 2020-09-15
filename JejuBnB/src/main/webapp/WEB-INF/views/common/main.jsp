@@ -7,6 +7,7 @@
   <head>
     <meta charset="utf-8">
     <title>JejuBnB</title>
+
     <link rel="stylesheet" href="resources/css/main.css" >
   </head>
   <body>

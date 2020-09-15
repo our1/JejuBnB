@@ -198,8 +198,16 @@ ${rlist } <input type="checkbox" name="rule" value="${rlist }" ${checked }> &nbs
 인원 추가 금액 : <input type="number" name="plus_charge" value="${room.plus_charge }"><br>
 </div>
 <div id="third">
-숙소 대표 사진 : <input type="file" name="ofile"> <br>
+숙소 대표 사진 : ${ room.room_thumbnail_file } <br>
+숙소 대표 변경 : <input type="file" name="ofile"> <br>
+<hr>
+<c:if test="${!empty rflist }">
+<c:forEach items="${rflist }" var="rf">
+숙소 사진들 : ${ rf.original_file} <br>
+</c:forEach>
 
+</c:if>
+숙소 사진들 : <input multiple="multiple" type="file" name="upfile">
 <input type="submit" value="전송">
 </div>
 </form>

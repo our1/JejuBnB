@@ -49,4 +49,9 @@ public class RoomServiceImpl implements RoomService{
 		return roomDao.selectRoom(roomno);
 	}
 
+	@Override
+	public int updateAvgScore(int room_no) {
+		return roomDao.updateAvg(room_no);
+	}
+
 }

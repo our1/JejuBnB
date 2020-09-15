@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.jeju.JejuBnB.review.model.vo.Review;
+import com.jeju.JejuBnB.room.model.vo.Room;
 
 @Repository("reviewDao")
 public class ReviewDao {
@@ -15,8 +16,8 @@ public class ReviewDao {
 	@Autowired
 	private SqlSessionTemplate session;
 	
-	public ArrayList<Review> selectReply(int reply_no) {
-		List<Review> list = session.selectList("reviewMapper.selectReply", reply_no);
+	public ArrayList<Review> selectReply(int room_no) {
+		List<Review> list = session.selectList("reviewMapper.selectReply", room_no);
 		return (ArrayList<Review>) list;
 	}
 	

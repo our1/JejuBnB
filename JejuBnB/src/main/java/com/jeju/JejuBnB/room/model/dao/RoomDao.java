@@ -75,7 +75,10 @@ public class RoomDao {
 	public Room selectRoom(int roomno) {
 		return session.selectOne("roomMapper.selectRoom", roomno);
 	}
-
+	
+	public int updateAvg(int room_no) {
+		return session.update("roomMapper.", room_no);
+	}
 	
 
 }

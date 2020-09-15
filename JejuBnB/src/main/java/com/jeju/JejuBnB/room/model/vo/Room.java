@@ -29,6 +29,7 @@ public class Room implements java.io.Serializable {
 	private int plus_charge;
 	private String room_thumbnail_file;
 	private String room_rename_file;
+	private int score_avg;
 	
 	
 	public Room() {
@@ -39,7 +40,7 @@ public class Room implements java.io.Serializable {
 	public Room(int room_no, String user_id, String room_name, String room_content, String room_address,
 			String room_roadaddress, int st_num_people, int max_people, String checkin_time, String checkout_time,
 			int bed, int bedroom, int bathroom, String amenity, String facility, String build_type, String rule,
-			String pass_or_not, int plus_charge, String room_thumbnail_file, String room_rename_file) {
+			String pass_or_not, int plus_charge, String room_thumbnail_file, String room_rename_file, int score_avg) {
 		super();
 		this.room_no = room_no;
 		this.user_id = user_id;
@@ -62,17 +63,7 @@ public class Room implements java.io.Serializable {
 		this.plus_charge = plus_charge;
 		this.room_thumbnail_file = room_thumbnail_file;
 		this.room_rename_file = room_rename_file;
-	}
-
-
-
-	public String getRoom_roadaddress() {
-		return room_roadaddress;
-	}
-
-
-	public void setRoom_roadaddress(String room_roadaddress) {
-		this.room_roadaddress = room_roadaddress;
+		this.score_avg = score_avg;
 	}
 
 
@@ -123,6 +114,16 @@ public class Room implements java.io.Serializable {
 
 	public void setRoom_address(String room_address) {
 		this.room_address = room_address;
+	}
+
+
+	public String getRoom_roadaddress() {
+		return room_roadaddress;
+	}
+
+
+	public void setRoom_roadaddress(String room_roadaddress) {
+		this.room_roadaddress = room_roadaddress;
 	}
 
 
@@ -276,6 +277,21 @@ public class Room implements java.io.Serializable {
 	}
 
 
+	public int getScore_avg() {
+		return score_avg;
+	}
+
+
+	public void setScore_avg(int score_avg) {
+		this.score_avg = score_avg;
+	}
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Room [room_no=" + room_no + ", user_id=" + user_id + ", room_name=" + room_name + ", room_content="
@@ -284,9 +300,12 @@ public class Room implements java.io.Serializable {
 				+ ", checkout_time=" + checkout_time + ", bed=" + bed + ", bedroom=" + bedroom + ", bathroom="
 				+ bathroom + ", amenity=" + amenity + ", facility=" + facility + ", build_type=" + build_type
 				+ ", rule=" + rule + ", pass_or_not=" + pass_or_not + ", plus_charge=" + plus_charge
-				+ ", room_thumbnail_file=" + room_thumbnail_file + ", room_rename_file=" + room_rename_file + "]";
+				+ ", room_thumbnail_file=" + room_thumbnail_file + ", room_rename_file=" + room_rename_file
+				+ ", score_avg=" + score_avg + "]";
 	}
 
+
+	
 
 	
 }

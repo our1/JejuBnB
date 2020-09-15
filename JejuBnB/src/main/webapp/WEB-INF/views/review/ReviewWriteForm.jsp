@@ -7,12 +7,14 @@
 <head>
 <meta charset="UTF-8">
 <title>JejuBnB</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
 
 <script>
 	$(function() {
-		var rating = $('.review .rating');
+		 var rating = $('.review .rating');
 
 		rating.each(function() {
 			var targetScore = $(this).attr('data-rate');
@@ -20,10 +22,11 @@
 				color : '#F05522'
 			});
 		});
-
+ 		
+ 		
 		var userScore = $('#makeStar');
 		userScore.change(function() {
-			var userScoreNum = $(this).val();
+			var userScoreNum = $(this).val(); 
 			console.log(userScoreNum);
 			$('.make_star svg').css({
 				color : '#000'
@@ -90,11 +93,14 @@
 	});
 </script>
 <script>
-	$(document).ready(function(){
-		$('#replyForm').submit(function(){
-			window.close();
-		});
-	});
+	window.onload=function(){
+		var popbtn = document.getElementById('popbtn');
+		popbtn.onclick=function(){
+			document.replyForm.target = opener.name;
+			document.replyForm.submit();
+			self.close();
+		}
+	};
 </script>
 <style type="text/css">
 ._cvx08b {
@@ -125,61 +131,15 @@
 </head>
 <body>
 	<h3>만족도 체크</h3>
-	<div class="make_star">
-		<div class="_cvx08b">
-			<div class="_a3qxec">
-				<h4>청결도</h4>
-				<div class="_cvx08b1">
-					<select name="" id="makeStar">
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-					</select>
-					<div class="rating" data-rate="3">
-						<i class="fas fa-star"></i> 
-						<i class="fas fa-star"></i> 
-						<i class="fas fa-star"></i> 
-						<i class="fas fa-star"></i> 
-						<i class="fas fa-star"></i>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="make_star1">
-		<div class="_cvx08b">
-			<div class="_a3qxec">
-				<h4>가격대비 만족도</h4>
-				<div class="_cvx08b1">
-					<select name="" id="makeStar1">
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-					</select>
-					<div class="rating" data-rate="3">
-						<i class="fas fa-star"></i> 
-						<i class="fas fa-star"></i> 
-						<i class="fas fa-star"></i> 
-						<i class="fas fa-star"></i> 
-						<i class="fas fa-star"></i>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="make_star2">
-		<div class="_cvx08b">
-			<div class="_a3qxec">
-				<h4>서비스</h4>
-				<div class="_cvx08b">
-					<div class="_1byskwn">
-						<select name="" id="makeStar2">
+	<form action="reinsert.do" name="replyForm">
+		<input type="hidden" name="room_no" value="${ room.room_no }">
+		<input type="hidden" name="user_id" value="${ loginMember.user_id }">
+		<div class="make_star">
+			<div class="_cvx08b">
+				<div class="_a3qxec">
+					<h4>청결도</h4>
+					<div class="_cvx08b1">
+						<select name="clean_score" id="makeStar">
 							<option value="1">1</option>
 							<option value="2">2</option>
 							<option value="3">3</option>
@@ -187,30 +147,67 @@
 							<option value="5">5</option>
 						</select>
 						<div class="rating" data-rate="3">
-							<i class="fas fa-star"></i> 
-							<i class="fas fa-star"></i> 
-							<i class="fas fa-star"></i> 
-							<i class="fas fa-star"></i> 
-							<i class="fas fa-star"></i>
+							<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+								class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+								class="fas fa-star"></i>
 						</div>
 					</div>
 				</div>
-				
 			</div>
 		</div>
 
-		
-		<form action="reinsert.do?roomno=${ room.room_no }" id="replyForm">
-			<table>	
-					<input type="hidden" name="roomno" value="${ room.room_no }">
-					<input type="hidden" name="reviewno" value="${ review.reply_no }">	
-					<input type="hidden" name="userid" value="${ member.user_id }">				
-				<tr>	
-					<td><textarea rows="3.2" cols="80" name="replyco">${ review.review_content }</textarea></td>
-					<td><input type="submit" value="리뷰 등록"	style="width: 70px; height: 55px;"></td>
+		<div class="make_star1">
+			<div class="_cvx08b">
+				<div class="_a3qxec">
+					<h4>가격대비 만족도</h4>
+					<div class="_cvx08b1">
+						<select name="value_score" id="makeStar1">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>
+						<div class="rating" data-rate="3">
+							<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+								class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+								class="fas fa-star"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="make_star2">
+			<div class="_cvx08b">
+				<div class="_a3qxec">
+					<h4>서비스</h4>
+					<div class="_cvx08b">
+						<div class="_1byskwn">
+							<select name="service_score" id="makeStar2">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+							</select>
+							<div class="rating" data-rate="3">
+								<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+									class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+									class="fas fa-star"></i>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<table>
+				<tr>
+					<td><textarea rows="3.2" cols="75" name="review_content">${ review.review_content }</textarea></td>
+					<td><input type="button" id="popbtn" value="리뷰 등록"	style="width: 70px; height: 55px;"></td>
 				</tr>
-			</table>	
-		</form>
-		
+			</table>
+	</form>
 </body>
 </html>

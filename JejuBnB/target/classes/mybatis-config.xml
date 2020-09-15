@@ -22,6 +22,7 @@
 		<typeAlias type="com.jeju.JejuBnB.notice.model.vo.User_Notice" alias="User_Notice" />
 		<typeAlias type="com.jeju.JejuBnB.notice.model.vo.Notice" alias="Notice" />
 		<typeAlias type="com.jeju.JejuBnB.notice.model.vo.Notice_Type" alias="Notice_Type" />
+		<typeAlias type="com.jeju.JejuBnB.review.model.vo.Review" alias="Review" />
 
 	</typeAliases>
 
@@ -37,5 +38,6 @@
 		<mapper resource="mappers/reservation-mapper.xml" />
 		<mapper resource="mappers/filter-mapper.xml" />
 		<mapper resource="mappers/notice-mapper.xml" />
+		<mapper resource="mappers/review-mapper.xml" />
 	</mappers>
 </configuration>

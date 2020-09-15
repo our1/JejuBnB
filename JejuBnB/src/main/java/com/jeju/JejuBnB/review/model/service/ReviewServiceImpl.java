@@ -25,14 +25,16 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
-	public int deleteReview(int reply_no) {
-		return reviewDao.deleteReview(reply_no);
+	public int deleteReview(int room_no) {
+		return reviewDao.deleteReview(room_no);
 	}
 
 	@Override
-	public ArrayList<Review> selectReply(int reply_no) {
-		return reviewDao.selectReply(reply_no);
+	public ArrayList<Review> selectReply(int room_no) {
+		return reviewDao.selectReply(room_no);
 	}
+
+	
 
 	
 	

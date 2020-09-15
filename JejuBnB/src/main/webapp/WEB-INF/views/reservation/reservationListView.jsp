@@ -35,7 +35,7 @@ img.ui-datepicker-trigger {
 		// 종료일(toDate)은 시작일(fromDate) 이전 날짜 선택 불가
 
 		//시작일.
-		$('#fromDate').datepicker({
+		$('#checkin_date').datepicker({
 			//showOn: "both",                     // 달력을 표시할 타이밍 (both: focus or button)
 			//buttonImage: "images/calendar.gif", // 버튼 이미지
 			buttonImageOnly : true, // 버튼 이미지만 표시할지 여부
@@ -46,12 +46,12 @@ img.ui-datepicker-trigger {
 			onClose : function(selectedDate) {
 				// 시작일(fromDate) datepicker가 닫힐때
 				// 종료일(toDate)의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
-				$("#toDate").datepicker("option", "minDate", selectedDate);
+				$("#checkout_date").datepicker("option", "minDate", selectedDate);
 			}
 		});
 
 		//종료일
-		$('#toDate').datepicker({
+		$('#checkout_date').datepicker({
 			//showOn: "both",
 			//buttonImage: "images/calendar.gif",
 			buttonImageOnly : true,
@@ -62,7 +62,7 @@ img.ui-datepicker-trigger {
 			onClose : function(selectedDate) {
 				// 종료일(toDate) datepicker가 닫힐때
 				// 시작일(fromDate)의 선택할수있는 최대 날짜(maxDate)를 선택한 종료일로 지정
-				$("#fromDate").datepicker("option", "maxDate", selectedDate);
+				$("#checkin_date").datepicker("option", "maxDate", selectedDate);
 			}
 		});
 	});
@@ -167,16 +167,14 @@ img.ui-datepicker-trigger {
         </script>
 <script type="text/javascript">
 function moveReservPage(){
-	location.href="redetail.do?roomno=" + ${room.room_no};
+	location.href="redetail.do?room_no=" + ${room.room_no};
 }	
 </script>
 <script>
-	$(document).ready(function(){
-		var formObj = $("form[role='form']");
-		
-		$('#popupBtn').on("click", function(){
-			var make_date = $("#make_date").val();
-			window.open("rewrite.do?make_date="+make_date,"_blank","toolvar=yes,menubar=yes,width=500,height=500,left=430,top=70").focus();
+	window.name = "reservationListView";
+	$(document).ready(function(){	
+		$('#popupBtn').click(function(){			
+			window.open("rewrite.do?room_no=${room.room_no}" ,"_blank","toolvar=yes,menubar=yes,width=500,height=500,left=430,top=70").focus();
 		});
 	});
 </script>
@@ -763,47 +761,47 @@ ul, li {
 		<h2>호스트의 숙소 소개</h2> <br>
 		<h4>${ room.room_content }</h4>	
 		
-		<br><br><hr><br><br><br>
+		<br><br><hr>
 
 	<table>
-		<c:url var="rp" value="rlist.do">
-			<c:param name="replyno" value="${ review.reply_no }"></c:param>
-		</c:url>
-		<c:forEach items="${ requestScope.list }" var="repList">
+		<c:forEach items="${ requestScope.list }" var="review"> 
 			<tr>
-				청결도 : ${ review.clean_score }<br /> 
-				가격대비 만족도 : ${ review.value_score } <br /> 
-				서비스 : ${ review.service_score }
+				<th>별점:</th> <br>	
+				<td></td>	
 			</tr>
 			<tr>
-				작성자 : ${member.user_id} 	<br />
-				<%-- 작성 날짜 :<fmt:formatDate value="${reply.redate}" pattern="yyyy-MM-dd" /> --%>
+				<th>작성자 : </th>
+				<td>${review.user_id} </td> <br>
+				<th>작성 날짜 : </th>
+				<td><fmt:formatDate value="${review.review_date}" pattern="yyyy-MM-dd" /> </td>
 			</tr>
 			<tr>
-				${review.reply_content}
+				<th>리뷰내용 :</th> <br>
+				<td>${review.review_content}</td>
 			</tr>
 		</c:forEach>
 	</table>
 
-
 	<button type="button" class="btn" id="popupBtn">리뷰 등록</button>
-		<br><br><hr><br><br><br>
+	<br><br><hr><br><br><br>
 		
-			
+		<form action="reserv.do" method="post" >
+		<input type="hidden" name="room_no" value="${ room_no }">
+		<input type="hidden" name="user_id" value="${ loginMember.user_id }">
 		<div class="main-form">
 			<h2 class="form-title1">요금을 확인하려면 날짜를 입력하세요.</h2>
 			<div class="inline-block">
 				<div class="form-title2">체크인</div>
 				<div class="form form-2">
-					<label for="fromDate"></label> <input type="text" name="fromDate"
-						id="fromDate" readonly placeholder="날짜추가">
+					<label for="checkin_date"></label> 
+					<input type="text" name="checkin_date" id="checkin_date" readonly placeholder="날짜추가">
 				</div>
 			</div>
 			<div class="inline-block">
 				<div class="form-title2">체크아웃</div>
 				<div class="form form-2">
-					<label for="toDate"></label> <input type="text" name="toDate"
-						id="toDate" readonly placeholder="날짜추가">
+					<label for="checkout_date"></label> 
+					<input type="text" name="checkout_date" id="checkout_date" readonly placeholder="날짜추가">
 				</div>
 			</div>
 			<div class="form-title2">인원</div>
@@ -836,7 +834,7 @@ ul, li {
 				<button class="search-button" onclick="moveReservPage()">예약 진행하기</button>
 			</div>
 		</div>
-
+	</form>
 
 
 <c:import url="/WEB-INF/views/common/footer.jsp" />

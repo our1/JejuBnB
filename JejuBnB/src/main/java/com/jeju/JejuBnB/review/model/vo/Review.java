@@ -1,5 +1,7 @@
 package com.jeju.JejuBnB.review.model.vo;
 
+import java.sql.Date;
+
 public class Review implements java.io.Serializable{
 
 	private static final long serialVersionUID = 9999L;
@@ -14,11 +16,12 @@ public class Review implements java.io.Serializable{
 	private int review_seq;
 	private int room_no;
 	private String user_id;
+	private java.sql.Date review_date;
 	
 	public Review() {}
 
 	public Review(int reply_no, int clean_score, int value_score, int service_score, String review_content,
-			int review_level, int review_ref, int review_seq, int room_no, String user_id) {
+			int review_level, int review_ref, int review_seq, int room_no, String user_id, Date review_date) {
 		super();
 		this.reply_no = reply_no;
 		this.clean_score = clean_score;
@@ -30,6 +33,7 @@ public class Review implements java.io.Serializable{
 		this.review_seq = review_seq;
 		this.room_no = room_no;
 		this.user_id = user_id;
+		this.review_date = review_date;
 	}
 
 	public int getReply_no() {
@@ -112,6 +116,14 @@ public class Review implements java.io.Serializable{
 		this.user_id = user_id;
 	}
 
+	public java.sql.Date getReview_date() {
+		return review_date;
+	}
+
+	public void setReview_date(java.sql.Date review_date) {
+		this.review_date = review_date;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -121,8 +133,11 @@ public class Review implements java.io.Serializable{
 		return "Review [reply_no=" + reply_no + ", clean_score=" + clean_score + ", value_score=" + value_score
 				+ ", service_score=" + service_score + ", review_content=" + review_content + ", review_level="
 				+ review_level + ", review_ref=" + review_ref + ", review_seq=" + review_seq + ", room_no=" + room_no
-				+ ", user_id=" + user_id + "]";
+				+ ", user_id=" + user_id + ", review_date=" + review_date + "]";
 	}
 	
+	
+
+		
 	
 }

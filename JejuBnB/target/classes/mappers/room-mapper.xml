@@ -25,6 +25,7 @@
 		<result property="plus_charge" column="plus_charge" />	
 		<result property="room_original_file" column="room_original_file" />	
 		<result property="room_rename_file" column="room_rename_file" />	
+		<result property="score_avg" column="score_avg" />	
 	</resultMap>
 	
 	<resultMap type="Room" id="resultList">
@@ -49,13 +50,14 @@
 		<result property="plus_charge" column="plus_charge" />	
 		<result property="room_thumbnail_file" column="room_thumbnail_file" />	
 		<result property="room_rename_file" column="room_rename_file" />	
+		<result property="score_avg" column="score_avg" />	
 	</resultMap>
 	
 	
 	<select id="selectList" parameterType="com.jeju.JejuBnB.room.model.vo.PageCount" resultMap="resultList">
 	<![CDATA[
 		select * from(select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
-		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file from room order by room_name)
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, score_avg from room order by room_name)
 		where rnum >= #{startRow} and rnum <= #{endRow}
 		]]>
 	</select>
@@ -63,7 +65,7 @@
 	<select id="selectBList" parameterType="com.jeju.JejuBnB.room.model.vo.PageCount" resultMap="resultList">
 	<![CDATA[
 		select * from(select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
-		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file from room order by room_name)
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, score_avg from room order by room_name)
 		where rnum >= #{startRow} and rnum <= #{endRow}
 		]]>
 	</select>
@@ -73,7 +75,7 @@
 	</select>
 	
 	<select id="selectRoom" parameterType="int" resultMap="resultRoom">
-		select * from room where room_no = #{roomno}
+		select * from room where room_no = #{room_no}
 	</select>
 	
 	<select id="selectReviewCount" parameterType="int" resultType="_int">
@@ -124,6 +126,10 @@
 		update room set room_name = #{room_name}, room_content = #{room_content}, room_address=#{room_address}, room_roadaddress=#{room_roadaddress},st_num_people = #{ st_num_people }, 
 		max_people = #{ max_people }, checkin_time = #{checkin_time}, checkout_time= #{checkout_time}, bed = #{ bed}, bedroom=#{bedroom}, bathroom = #{bathroom},
 		amenity = # { amenity }, facility = # { facility }, build_type = #{ build_type }, rule = #{ rule }, plus_chaarge = #{plus_chaarge}, room_thumbnail_file = #{room_thumbnail_file },room_rename_file= #{room_rename_file }
+	</update>
+	
+	<update id="updateAvg" parameterType="int">
+		update room set score_avg = #{score_avg}
 	</update>
 	
 	<delete id="deleteRoom" parameterType="int">

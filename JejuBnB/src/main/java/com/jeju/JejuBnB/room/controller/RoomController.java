@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jeju.JejuBnB.filter.model.service.FilterService;
@@ -24,6 +23,8 @@ import com.jeju.JejuBnB.filter.model.vo.Amenity;
 import com.jeju.JejuBnB.filter.model.vo.Build_type;
 import com.jeju.JejuBnB.filter.model.vo.Facility;
 import com.jeju.JejuBnB.filter.model.vo.Rule;
+import com.jeju.JejuBnB.review.model.service.ReviewService;
+import com.jeju.JejuBnB.review.model.vo.Review;
 import com.jeju.JejuBnB.room.model.service.RoomService;
 import com.jeju.JejuBnB.room.model.vo.CheckTime;
 import com.jeju.JejuBnB.room.model.vo.Room;
@@ -34,6 +35,9 @@ public class RoomController {
 	
 	@Autowired
 	private RoomService roomService;
+	
+	@Autowired
+	private ReviewService reviewService;
 	
 	@Autowired
 	private FilterService filterService;
@@ -128,14 +132,18 @@ public class RoomController {
 			return "common/error";
 		}
 	}
-	//숙소 상세보기 
+	//숙소 상세보기  & 리뷰 리스트
 	@RequestMapping("moveDetailView.do")
-	public ModelAndView moveDetail(ModelAndView mv, @RequestParam("roomno") int roomno) {
-		Room room = roomService.selectRoom(roomno);
+	public ModelAndView moveDetail(ModelAndView mv, @RequestParam("roomno") int room_no) {
+		Room room = roomService.selectRoom(room_no);
+		ArrayList<Review> list = reviewService.selectReply(room_no);
+		
 		if(room != null) {
 			mv.setViewName("reservation/reservationListView");
 			mv.addObject("room", room);
+			mv.addObject("list", list);
 			logger.info(room.toString());
+			logger.info(list.toString());
 
 		}else {
 			mv.setViewName("common/error");

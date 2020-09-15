@@ -22,9 +22,9 @@ public class ReservationController {
 	private ReservationService reservationService;
 	private RoomService roomService;
 	
-	//숙소 예약페이지
-	@RequestMapping("redetail.do")
-	public ModelAndView moveReserv(ModelAndView mv, @RequestParam("roomno") int roomno) {
+	//값 담아서 숙소 예약페이지 이동
+	@RequestMapping(value="redetail.do", method=RequestMethod.GET)
+	public ModelAndView moveReserv(ModelAndView mv, @RequestParam("room_no") int roomno) {
 		Room room = roomService.selectRoom(roomno);
 		if(room != null) {
 			mv.setViewName("reservation/reservationDetailView");
@@ -38,12 +38,5 @@ public class ReservationController {
 		return mv;
 	}
 	
-	//리뷰 등록 팝업 띄우기
-	@RequestMapping(value="rewrite.do", method=RequestMethod.GET)
-	public ModelAndView popupGet(String make_date) throws Exception {
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("review/ReviewWriteForm");
-		mv.addObject("make_date", make_date);	
-		return mv;
-	}
+	
 }

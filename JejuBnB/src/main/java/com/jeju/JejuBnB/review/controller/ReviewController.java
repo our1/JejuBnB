@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.jeju.JejuBnB.review.model.service.ReviewService;
 import com.jeju.JejuBnB.review.model.vo.Review;
 import com.jeju.JejuBnB.room.controller.RoomController;
+import com.jeju.JejuBnB.room.model.service.RoomService;
+import com.jeju.JejuBnB.room.model.vo.Room;
 
 @Controller
 public class ReviewController {
@@ -22,19 +24,25 @@ private static final Logger logger = LoggerFactory.getLogger(RoomController.clas
 	@Autowired
 	private ReviewService reviewService;
 	
-	//댓글 리스트
-	@RequestMapping(value="rlist.do", method=RequestMethod.GET)
-	public void selectReview(@RequestParam(value="replyno") int reply_no, Model model) {
-		ArrayList<Review> list = reviewService.selectReply(reply_no);
-		model.addAttribute("list", list);
-		
-	}
+	@Autowired
+	private RoomService roomService;
 	
-	//댓글등록
+	//리뷰 등록 팝업 띄우기
+		@RequestMapping(value="rewrite.do", method=RequestMethod.GET)
+		public String popupGet(@RequestParam("room_no") int room_no, Model model) throws Exception {		
+			model.addAttribute("room_no", room_no);
+			return "review/ReviewWriteForm";		
+		}
+	
+	//별점, 리뷰 등록
 	@RequestMapping(value="reinsert.do", method=RequestMethod.GET)
-	public String reinsertMethod(@RequestParam(value="replyco") int reply_no, Review review, Model model) {
-		model.addAttribute("review", review);
-		return "redirect:/moveDetailView.do?roomno=";
+	public String reinsertMethod(@RequestParam(value="room_no") int room_no, Review review, Model model) {
+		reviewService.insertReview(review);
+		//평점 구해서 업데이트 실행 숙소에 대한update
+		//int result = roomService.updateAvgScore(room_no);  //같은 속소리뷰에 대한 점수 합산과 평균구해서 room 에 업데이트 처리
+		Room room = roomService.selectRoom(room_no);
+		model.addAttribute("room", room);
+		return "redirect:/moveDetailView.do";
 	}
 
 }

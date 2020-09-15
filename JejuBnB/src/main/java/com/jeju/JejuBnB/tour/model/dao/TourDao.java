@@ -13,10 +13,10 @@ import com.jeju.JejuBnB.tour.model.vo.TourPage;
 @Repository("tourDao")
 public class TourDao {
 	
+	public TourDao() {}
+	
 	@Autowired
 	private SqlSessionTemplate session;
-	
-	public TourDao() {}
 	
 	public ArrayList<Tour> selectTour(int currentPage, int limit) {
 		// 전달된 값을 이용해서 출력할 시작행과 끝행을 계산함
@@ -29,7 +29,11 @@ public class TourDao {
 	}
 	
 	public Tour selectTourDetail(int tour_no) {
-		return session.selectOne("boardMapper.selectTourDetail", tour_no);
+		return session.selectOne("tourMapper.selectTourDetail", tour_no);
+	}
+	
+	public int insertTour(Tour tour) {
+		return session.insert("tourMapper.insertTour", tour);
 	}
 
 }

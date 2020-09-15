@@ -62,5 +62,4 @@ public class Faq implements java.io.Serializable{
 	
 	
 }
-
  

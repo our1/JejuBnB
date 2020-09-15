@@ -3,7 +3,7 @@
 "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="filterMapper">
-	<resultMap id="resultAmenity" type="Amenity">
+ 	<resultMap id="resultAmenity" type="Amenity">
 		<id property="amenity_no" column="amenity_no" />
 		<result property="amenity_name" column="amenity_name" />
 	</resultMap>

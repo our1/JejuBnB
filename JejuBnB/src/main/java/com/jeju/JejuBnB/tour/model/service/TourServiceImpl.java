@@ -33,7 +33,7 @@ public class TourServiceImpl implements TourService {
 	}
 
 	@Override
-	public Tour SelectTourDeatil(int tour_no) {
+	public Tour SelectTourDetail(int tour_no) {
 		return tourDao.selectTourDetail(tour_no);
 	}
 
@@ -45,8 +45,7 @@ public class TourServiceImpl implements TourService {
 
 	@Override
 	public int insertTour(Tour tour) {
-		// TODO Auto-generated method stub
-		return 0;
+		return tourDao.insertTour(tour);
 	}
 
 	@Override

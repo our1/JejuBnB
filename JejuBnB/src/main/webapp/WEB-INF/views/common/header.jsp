@@ -5,116 +5,68 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>JejuBnB</title>
-<script type="text/javascript">
-	
-	
-	function winOpen1()
-	{
-	window.open("moveFilterList.do","필터","width=900,height=1000");
-	}
-	
-	function winOpen2(id)
-	{
-	window.open("myNoticeList.do?userid=" + id,"알림","width=500,height=500");
-	}
-
-</script>
-<style type="text/css">
-header { margin : 0; padding : 0;}
-header h1#logo {
-	font-size : 50pt;
-	font-style : italic;
-	color : #FFE08C;
-	text-shadow : 2px 2px 2px gray;
-}
-header ul#menubar { 
-	list-style: none;
-	position : relative;
-	left: 150px;
-	top : -30px;		
-}
-header ul#menubar li {
-	float : left;
-	width : 120px;
-	height : 30px;
-	margin-right : 5px;
-	padding : 0;
-}
-header ul#menubar li a {
-	text-decoration : none;
-	width : 120px;
-	height : 30px;
-	display : block;
-	background-color:#FFE08C;
-	text-align : center;
-	color : #505050;
-	font-weight:bold;
-	margin : 0;
-	text-shadow: 1px 1px 1px white;
-	padding-top:5px;
-}
-header ul#menubar li a:hover {
-	text-decoration : none;
-	width : 120px;
-	height : 30px;
-	display : block;
-	background-color:navy;
-	text-align : center;
-	color : white;
-	font-weight:bold;
-	margin : 0;
-	text-shadow: 1px 1px 1px navy;
-	padding-top:5px;
-}
-hr { clear: both; }
-
-
-</style>
+		<link rel="stylesheet" href="resources/css/header.css">
+				<script type="text/javascript">
+					function winOpen1() {
+						window.open("moveFilterList.do","필터","width=900,height=1000");
+				}
+					function winOpen2() {
+						window.open("myNoticeList.do?userid=${loginMember.user_id}","알림","width=1700,height=900, left=100, top=50");
+				}
+					function winOpen3() {
+						window.open("adUNoticeList.do","알림","width=1700,height=900, left=100, top=50");
+				}
+					function movePage() {
+					 	window.open("loginPage.do", "로그인",
+						"width=1700, height=900, left=100, top=50, toolbar=no, menubar=no, scrollbars=no, resizable=yes" ); 
+				}
+				</script>
 </head>
 
 <body>
-<header>
-<h1 id="logo"><a href="main.do"> JejuBnB </a></h1>
-<%-- <c:if test= "${ !empty loginMember and loginMember.user_id eq 'admin'}">
-	<%// 관리자가 로그인 했을때	%>
-<ul id="menubar">
-<li><a href="/testm/mlist"> 회원관리</a></li>
-<li><a href="/testm/nlist.ad"> 공지글관리</a></li>
-<li><a href="/testm/blist"> 게시글관리</a></li>
-<li><a href="#">Q&A관리</a></li>
-<li><a href="#">사진게시판관리</a></li>
-<li><a href="${ pageContext.servletContext.contextPath} }/moveAjax.do">Ajax테스트</a></li>
-<li><a href="${ pageContext.servletContext.contextPath}/moveFile.do"> 파일 업로드 테스트</a></li>
-<li><a href="/testm/index.jsp">Home</a></li>
-</ul>
-</c:if>
-<c:if test="${ !empty sessionScope.loginMember and ! (loginMember.user_id eq 'admin') }">
-<ul id="menubar">
-<li><a href="${pageContext.servletContext.contextPath }/enrollPage.do"> 회원가입</a></li>
-<li><a href="${ pageContext.servletContext.contextPath}/moveFile.do"> 파일 업로드 테스트</a></li>
-<li><a href="/testm/blist?page=1"> 게시글</a></li>
-<li><a href="#">Q&A</a></li>
-<li><a href="${ pageContext.servletContext.contextPath}/movemyroom.do?userid=admin">내 숙소 보기</a></li>
-<li><a href="${ pageContext.servletContext.contextPath}/roomlist.do">룸 리스트</a></li>
-<li><a href="${ pageContext.servletContext.contextPath}/moveroomwrite.do">사장님 신청하기</a></li>
-<li><a href="main.do">Home</a></li>
-</ul>
-</c:if> --%>
-<%-- <c:if test="${ empty loginMember }">
- --%><ul id="menubar">
-<li><a href="email.do"> 회원가입</a></li>
-<li><a href="${ pageContext.servletContext.contextPath}/moveFile.do"> 파일 업로드 테스트</a></li>
-<li><a onclick="winOpen2(${sessionScope.loginMember.user_id})">내 알림 글 보기</a></li>
-<li><a onclick="winOpen1()">관리자 필터 관리</a></li>
-<li><a href="${ pageContext.servletContext.contextPath}/movemyroom.do?userid="${loginMember.user_id }>내 숙소 보기</a></li>
-<li><a href="${ pageContext.servletContext.contextPath}/roomlist.do">룸 리스트</a></li>
-<li><a href="${ pageContext.servletContext.contextPath}/moveroomwrite.do">사장님 신청하기</a></li>
-<li><a href="loginPage.do">로그인</a></li>
-<li><a href="main.do">Home</a></li>
-</ul>
-<%-- </c:if>
- --%>
-</header>
+<div class="mainhead">
+         <div class="logo">
+           <a href="main.do"><img src="resources/images/무제.png"></a>
+         </div>
+    <div class="dropdown"><span class="myimg"></span></div>
+       <c:if test="${ !empty loginMember and  loginMember.admin_check eq 'Y' }">
+     	<ul class="dropdown-list">
+	     	<li onclick="javascript:location.href='moveAdminPage.do'"> 관리자 </li>
+	        <li onclick="winOpen1()"> 필터 관리</li>
+       		<li onclick="winOpen3()"> 알림 관리</li>
+	        <li onclick="winOpen2()"> 알림</li>
+	        <hr class="divider">
+	        <li> 고객센터</li>
+	        <li onclick="javascript:location.href='logout.do'"> 로그아웃</li>
+        </ul>
+     </c:if>
+     <c:if test="${empty loginMember }">
+     	<ul class="dropdown-list">
+     	   <li onclick="javascript:location.href='roomlist.do'"> 숙소</li>
+     	   <li onclick="javascript:location.href='tlist.do'"> 관광지</li>
+     	   <hr class="divider">
+	       <li> 고객센터</li>
+	       <li onclick="movePage()">로그인</li>
+        </ul>
+     </c:if>
+     <c:if test="${!empty loginMember and  empty loginMember.admin_check}">
+     <ul class="dropdown-list">
+       <li onclick="javascript:location.href='moveMyPage.do'"> 내 정보 보기</li>
+       <li onclick="javascript:location.href='moveMyRoom.do?userid=${loginMember.user_id }'"> 저장 목록</li>
+       <li onclick="winOpen2()"> 알림</li>
+       <li onclick="javascript:location.href='moveRoomWrite.do'"> 사장님 신청하기</li>
+       <hr class="divider">
+       <li onclick="javascript:location.href='roomlist.do'"> 숙소</li>
+       <li onclick="javascript:location.href='tlist.do'"> 관광지</li>
+       <hr class="divider">
+       <li> 고객센터</li>
+       <li onclick="javascript:location.href='logout.do'"> 로그아웃</li>
+     </ul>
+     </c:if>
+  </div>
+ 		   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	       <script src="resources/js/head.js"></script>
 </body>
 </html>

@@ -37,6 +37,7 @@
 	  null, null, null) 
 	  </if>
 	</insert>
+	
 	<select id="loginCheck" parameterType="Member"  resultType="Member">
 		select * from member 
 		where user_id = #{user_id}
@@ -47,27 +48,37 @@
 		where user_id = #{user_id}  
 	</select>
 	
-	<delete id="deleteMember" parameterType="string">
-	delete from member where user_id = #{uid}
-	</delete> 
-	
-	
 	<select id="selectMember" parameterType="string" resultType="Member">
 	select * from member where user_id = #{user_id}
 	</select>
 	
-	<select id="selectIdCheck" parameterType="String" resultType="int">
-	select count(user_id) from member where user_id = #{user_id}
+	<select id="selectInfoCheck" parameterType="Member" resultType="int">
+	select count(user_id) from member where user_id = #{user_id} and birthday = #{birthday}
 	</select>
 	
+	<select id="selectMemberList" resultMap="resultList">
+	select * from member
+	</select>
+	
+	<update id="updatePwdMember" parameterType="Member">
+	update member set user_pwd = #{user_pwd} where user_id = #{user_id}
+	</update>
+	
+	<update id="updateMember" parameterType="Member">
+	update member set user_name = #{user_name}, birthday =#{birthday} , phone =#{phone}  where user_id = #{user_id}
+	</update>
+	
+	<update id="updateBeAdminMember" parameterType="string">
+	update member set admin_check = 'Y' where user_id = #{user_id}
+	</update>
 	
 	
+	<delete id="deleteMember" parameterType="string">
+	delete from member where user_id = #{uid}
+	</delete> 
 <!-- 	
 	
 	
-	<select id="selectList" resultMap="resultList">
-	select * from member
-	</select>
 	
 	<select id="selectSearchUserid" parameterType="string" resultMap="resultList">
 	select * from member where userid like '%' || #{keyword} || '%'
@@ -105,14 +116,7 @@
 	
 	
 	
-	<update id="updateMember" parameterType="Member">
-	update member set userpwd = #{userpwd} , age =#{age} , phone =#{phone}, email=#{email} , 
-	hobby =#{hobby} , etc =#{etc} where userid = #{userid}
-	</update>
 	
-	<update id="updateLoginok" parameterType="Member">
-	update member set login_ok = #{login_ok} where userid = #{userid}
-	</update>
 	
 	-->
 	

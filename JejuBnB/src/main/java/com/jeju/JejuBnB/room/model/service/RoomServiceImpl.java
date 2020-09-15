@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.jeju.JejuBnB.room.model.dao.RoomDao;
 import com.jeju.JejuBnB.room.model.vo.Room;
+import com.jeju.JejuBnB.room.model.vo.RoomFilter;
+import com.jeju.JejuBnB.room.model.vo.Room_File;
 
 @Service("roomService")
 public class RoomServiceImpl implements RoomService{
@@ -47,6 +49,46 @@ public class RoomServiceImpl implements RoomService{
 	@Override
 	public Room selectRoom(int roomno) {
 		return roomDao.selectRoom(roomno);
+	}
+
+	@Override
+	public Room selectRoomNo(String userid) {
+		return roomDao.selectRoomNo(userid);
+	}
+
+	@Override
+	public int insertRoomFile(ArrayList<Room_File> rflist) {
+		return roomDao.insertRoomFile(rflist);
+	}
+
+	@Override
+	public ArrayList<Room> selectSearchFilter(Room room) {
+		return roomDao.selectSearchFilter(room);
+	}
+
+	@Override
+	public ArrayList<Room_File> selectRoomFile(int roomno) {
+		return roomDao.selectRoomFile(roomno);
+	}
+
+	@Override
+	public int getListCount() {
+		return roomDao.getListCount();
+	}
+
+	@Override
+	public ArrayList<Room> selectChkList(ArrayList<Room> room, int currentPage, int limit, int people) {
+		return roomDao.selectChkList(room, currentPage, limit, people);
+	}
+
+	@Override
+	public ArrayList<Room> selectChkRNList(String checkin, String checkout) {
+		return roomDao.selectChkRNList(checkin, checkout);
+	}
+
+	@Override
+	public ArrayList<Room> selectSysdate() {
+		return roomDao.selectSysdate();
 	}
 
 }

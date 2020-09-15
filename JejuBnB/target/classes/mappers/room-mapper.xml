@@ -36,7 +36,7 @@
 		<result property="room_name" column="room_name" />	
 		<result property="room_content" column="room_content" />	
 		<result property="room_address" column="room_address" />	
-		<result property="room_roadaddress" column="room_readaddress" />
+		<result property="room_roadaddress" column="room_roadaddress" />
 		<result property="st_num_people" column="st_num_people" />	
 		<result property="max_people" column="max_people" />	
 		<result property="checkin_time" column="checkin_time" />	
@@ -56,11 +56,48 @@
 		<result property="room_weekend" column="room_weekend" />	
 	</resultMap>
 	
+	<resultMap id="resultRfList" type="Room_File">
+		<id property="room_file_no" column="room_file_no" />
+		<result property="room_no" column="room_no" />
+		<result property="original_file" column="original_file" />
+		<result property="rename_file" column="rename_file" />
+		
+	</resultMap>
+	
+	<resultMap id="resultRoomNo" type="Room">
+		<id property="room_no" column="room_no" />
+	</resultMap>
+	
+	<select id="getListCount" resultType="_int">
+		select count(room_no) from room
+	</select>
+	
+	<select id="selectChkList" parameterType="java.util.HashMap" resultMap="resultList">
+		select * from (select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from room where room_no != 0
+		<foreach collection="list" item="room">
+		and room_no != #{room.room_no}
+		</foreach>
+		<![CDATA[
+		and max_people >= #{people}
+		and st_num_people <= #{people}
+		
+		order by room_no)
+		
+		where rnum >= #{startRow} and rnum <= #{endRow}
+		]]>
+	</select>
+	
+	<select id="selectChkRNList" parameterType="java.util.HashMap" resultMap="resultRoomNo">
+		select room_no from reservation
+		where checkin_date = to_date(#{checkin},'YY/MM/DD') and
+		checkout_date = to_date(#{checkout}, 'YY/MM/DD')
+	</select>
 	
 	<select id="selectList" parameterType="com.jeju.JejuBnB.room.model.vo.PageCount" resultMap="resultList">
 	<![CDATA[
 		select * from(select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
-		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file from room order by room_name, room_weekday, room_weekend)
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from room order by room_no desc)
 		where rnum >= #{startRow} and rnum <= #{endRow}
 		]]>
 	</select>
@@ -68,9 +105,19 @@
 	<select id="selectBList" parameterType="com.jeju.JejuBnB.room.model.vo.PageCount" resultMap="resultList">
 	<![CDATA[
 		select * from(select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
-		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file from room order by room_name, room_weekday, room_weekend)
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file,  room_rename_file, room_weekday, room_weekend from room order by room_no desc)
 		where rnum >= #{startRow} and rnum <= #{endRow}
 		]]>
+	</select>
+	
+	<select id="selectSysdate" resultMap="resultRoomNo">
+		select room_no from reservation
+		where checkin_date like sysdate and
+		checkout_date like sysdate + 1
+	</select>
+	
+	<select id="selectRoomFile" parameterType="int" resultMap="resultRfList">
+		select * from room_file where room_no = #{roomno}
 	</select>
 	
 	<select id="selectUserRoom" parameterType="string" resultMap="resultList">
@@ -85,8 +132,67 @@
 		select count(reply_no) from review where room_no = #{ room_no }
 	</select> 
 	
+	<select id="selectRoomNo" parameterType="string" resultMap="resultRoomNo">
+		select * from (select rownum rnum, room_no from room where user_id = #{userid} order by room_no desc) where rnum = 1
+	</select>
+	
+	<select id="selectSearchFilter" parameterType="java.util.HashMap" resultMap="resultList">
+		select * from 
+			(select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+			bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from   
+ 				(select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+				bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend
+     		    from room 
+		<if test="alist != null">
+			<foreach collection="alist" item="amenity">
+				intersect select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from room where amenity like '%'||#{amenity}||'%'				
+			</foreach>
+		</if>
+		
+		<if test="flist != null">
+			<foreach collection="flist" item="facility">
+				intersect select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from room where facility like '%'||#{facility}||'%'
+			</foreach>		
+		</if>
+		
+		<if test="blist != null">
+			<foreach collection="blist" item="build">
+				intersect select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from room where build_type like '%'||#{build}||'%'
+			</foreach>
+		</if>
+		
+		<if test="rlist != null">
+			<foreach collection="rlit" item="rule">
+			intersect select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from room where rule like '%'||#{rule}||'%'
+			</foreach>		
+		</if>
+		
+		<if test="bed != 0">
+		intersect select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from room desc where bed = #{bed}
+		</if>
+		
+		<if test="bedroom != 0">
+		intersect select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from room where bedroom = #{bedroom}
+		</if>
+		
+		<if test="bathroom != 0">
+		intersect select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from room where bathroom = #{bathroom}
+		</if>
+		order by room_no))
+		<![CDATA[
+		where rnum >= #{startRow} and rnum <= #{endRow}
+		]]>
+	</select>
+	
 	<insert id="insertRoom" parameterType="Room">
-		insert into room values((select max(room_no) from room) + 1, #{user_id}, #{room_name }, #{room_content }, #{room_address }, #{room_roadaddress}, #{st_num_people }, #{ max_people},
+		insert into room values((select nvl(max(room_no),0) from room) + 1, #{user_id}, #{room_name }, #{room_content }, #{room_address }, #{room_roadaddress}, #{st_num_people }, #{ max_people},
 		 #{ checkin_time}, #{checkout_time }, #{ bed}, #{bedroom }, #{bathroom },
 		 <if test="amenity == null">
 		 	null,
@@ -124,6 +230,10 @@
 		</if>
 		#{room_weekday}, #{room_weekend})
 		
+	</insert>
+	
+	<insert id="insertRoomFile" parameterType="Room_File" >	
+			insert into room_file values((select nvl(max(room_file_no),0) from room_file ) + 1, #{room_no}, #{original_file}, #{rename_file})
 	</insert>
 	
 	<update id="updateRoom" parameterType="Room">

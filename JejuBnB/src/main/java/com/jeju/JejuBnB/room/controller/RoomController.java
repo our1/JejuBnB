@@ -125,10 +125,11 @@ public class RoomController {
 	public String insertRoom(Room room, Model model, CheckTime ct, MultipartHttpServletRequest mrequest,
 			HttpServletRequest request, @RequestParam(value = "ofile", required = false) MultipartFile ofile,
 			@RequestParam("address") String address) {
-		String orgname = ofile.getOriginalFilename();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 
-		if (!orgname.isEmpty()) {
+		if (ofile != null) {
+			String orgname = ofile.getOriginalFilename();
+
 			String savePath = request.getSession().getServletContext().getRealPath("resources/roomThumbnail");
 			room.setRoom_thumbnail_file(ofile.getOriginalFilename());
 			String rename = sdf.format(new java.sql.Date(System.currentTimeMillis()));
@@ -145,7 +146,6 @@ public class RoomController {
 
 		Room Sroomno = roomService.selectRoomNo(room.getUser_id());
 		int roomno = Sroomno.getRoom_no() + 1;
-		logger.info("" + roomno);
 		List<MultipartFile> fileList = mrequest.getFiles("file");
 		ArrayList<Room_File> rflist = new ArrayList<Room_File>();
 		String savePath1 = request.getSession().getServletContext().getRealPath("resources/roomFiles");
@@ -178,7 +178,8 @@ public class RoomController {
 		int result = roomService.insertRoom(room);
 		int result2 = roomService.insertRoomFile(rflist);
 		if (result > 0) {
-			return "redirect:/roomlist.do";
+			return "redirect:/insertNotice.do?toUser=" + room.getUser_id()+"&fromUser=admin&room_name=" + room.getRoom_name() 
+			+ "&returnPage=redirect:/main.do&choice=7";
 		} else {
 			model.addAttribute("message", "글 등록 실패");
 			return "common/error";

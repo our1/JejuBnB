@@ -39,6 +39,9 @@ public class RoomController {
 
 	@Autowired
 	private RoomService roomService;
+	
+	@Autowired
+	private ReviewService reviewService;
 
 	@Autowired
 	private FilterService filterService;
@@ -212,22 +215,27 @@ public class RoomController {
 		}
 	}
 
-	//숙소 상세보기 
-	@RequestMapping("moveDetailView.do")
-	public ModelAndView moveDetail(ModelAndView mv, @RequestParam("roomno") int roomno) {
-		Room room = roomService.selectRoom(roomno);
+	//숙소 상세보기  & 리뷰 리스트
+		@RequestMapping("moveDetailView.do")
+		public ModelAndView moveDetail(ModelAndView mv, @RequestParam("roomno") int room_no) {
+			Room room = roomService.selectRoom(room_no);
+			ArrayList<Review> list = reviewService.selectReply(room_no);
+			
+			if(room != null) {
+				mv.setViewName("reservation/reservationListView");
+				mv.addObject("room", room);
+				mv.addObject("list", list);
+				logger.info(room.toString());
+				logger.info(list.toString());
 
-		if(room != null) {
-			mv.setViewName("reservation/reservationListView");
-		if (room != null) {
-			mv.setViewName("room/roomDetailView");
-			mv.addObject("room", room);
-		} else {
-			mv.setViewName("common/error");
-			mv.addObject("message", "게시글 조회 실패");
+			}else {
+				mv.setViewName("common/error");
+				mv.addObject("message", "게시글 조회 실패");
+			}
+			return mv;
 		}
-		return mv;
-	}
+		
+		
 
 	
 

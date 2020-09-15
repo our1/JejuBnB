@@ -61,26 +61,33 @@
 </script>
 </head>
 <body>
-<c:import url="/WEB-INF/views/common/header.jsp"/>
+<c:import url="/WEB-INF/views/common/header.jsp" />
 <div class="thead"></div>
 	<form action="tinsert.do"  method="post" onsubmit="return validate();"  enctype="multipart/form-data" >
+	<fieldset>
 	 <select name="카테고리">
 	 	<option value="live">자연</option>
 	 	<option value="food">음식</option>
 	 	<option value="act">액티비티</option>
 	 </select>
-	 <input type="text" placeholder="관광지 이름 을 입력하세요" required> <br>
-	 <c:if test="${ tour_category_no eq 3 }">
+	 <input type="text" placeholder="관광지 이름 을 입력하세요" required>
+	 </fieldset>
+	 <fieldset>
 	 	<input type="date" placeholder="시작 날짜">
 	 	<input type="date" placeholder="끝나는 날짜">
-	 </c:if>
+	 </fieldset>
+	 <fieldset>
 	 <textarea id="summernote" name="editordata"></textarea> <br>
+	 </fieldset>
+	 <fieldset>
 	 <input type="text" id="PostNumber" placeholder="우편번호" required readonly><br>
 		<button onclick="PostCall()" type="button">우편번호 검색</button><br>
 		<input type="text" id="tour_roadaddress" name="tour_roadaddress" placeholder="도로명주소" readonly><br>
 		<input type="text" id="DetailAddress" name="address" placeholder="상세주소" required><br>
-	    <textarea id="summernote" name="editordata"></textarea> <br>
+	  </fieldset>
+	  <fieldset>
 	 <input type="text" placeholder=" 알아두어야 할 사항 을 입력하세요"> <br>
+	 </fieldset>
 <input type="submit" value="작성 완료">
 </form>
     <script type="text/javascript">

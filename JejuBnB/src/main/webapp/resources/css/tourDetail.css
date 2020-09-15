@@ -832,6 +832,7 @@ top : 5px;
   color : black;
   font-size: 40px;
   margin-top: 2%;
+  width: 100%;
 }
 .facebook {
 	width : 50px;
@@ -1134,10 +1135,11 @@ svg #main-circ {
   font-size: 40px;
 }
 .tcontent {
-  position: absolute;
+  position: relative;
   top : 123.5%;
   left: 13%;
   font-size: 20px;
+  width: 100%;
 }
 .tchr {
   width: 1380px;
@@ -1145,7 +1147,7 @@ svg #main-circ {
 }
 .tmap {
   font-size: 40px;
-  position: absolute;
+  position: relative;
   top : 162.5%;
   left: 13%;
 }
@@ -1162,7 +1164,7 @@ svg #main-circ {
 }
 .treview {
   font-size: 30px;
-  position: absolute;
+  position: relative;
   top : 241%;
   left: 13%;
 }
@@ -1208,7 +1210,7 @@ svg #main-circ {
   margin-top: 10%;
 }
 .reviewmore {
-  position: absolute;
+  position: relative;
   top : 87%;
   left : 105%;
   width: 120px;
@@ -1220,7 +1222,7 @@ svg #main-circ {
   font-family: 'Cafe24Oneprettynight';
 }
 .moreimpo {
-  position: absolute;
+  position: relative;
   top : 105%;
 }
 .moreimpocontent{

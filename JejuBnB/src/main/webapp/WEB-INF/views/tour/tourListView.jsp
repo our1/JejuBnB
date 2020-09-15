@@ -15,15 +15,40 @@
            <a href="main.do"><img src="resources/images/무제.png"></a>
          </div>
     <div class="dropdown"><span class="myimg"></span></div>
-      <ul class="dropdown-list">
-          <li><a href="#">마이페이지</a></li>
-          <li><a href="#">내 쿠폰</a></li>
-          <li><a href="#">내가 정한 숙소</a></li>
-          <li><a href="#">사장님 신청</a></li>
-          <li><a href="#">알림</a></li>
-          <li><a href="#">고객센터</a></li>
-          <li><a href="#">로그아웃</a></li>
-      </ul>
+          <c:if test="${ !empty loginMember and  loginMember.admin_check eq 'Y' }">
+     	<ul class="dropdown-list">
+	     	<li onclick="javascript:location.href='moveAdminPage.do'"> 관리자 </li>
+	        <li onclick="winOpen1()"> 필터 관리</li>
+       		<li onclick="winOpen3()"> 알림 관리</li>
+	        <li onclick="winOpen2()"> 알림</li>
+	        <hr class="divider">
+	        <li> 고객센터</li>
+	        <li onclick="javascript:location.href='logout.do'"> 로그아웃</li>
+        </ul>
+     </c:if>
+     <c:if test="${empty loginMember }">
+     	<ul class="dropdown-list">
+     	   <li onclick="javascript:location.href='roomlist.do'"> 숙소</li>
+     	   <li onclick="javascript:location.href='tlist.do'"> 관광지</li>
+     	   <hr class="divider">
+	       <li> 고객센터</li>
+	       <li onclick="movePage()">로그인</li>
+        </ul>
+     </c:if>
+     <c:if test="${!empty loginMember and  empty loginMember.admin_check}">
+     <ul class="dropdown-list">
+       <li onclick="javascript:location.href='moveMyPage.do'"> 내 정보 보기</li>
+       <li onclick="javascript:location.href='moveMyRoom.do?userid=${loginMember.user_id }'"> 저장 목록</li>
+       <li onclick="winOpen2()"> 알림</li>
+       <li onclick="javascript:location.href='moveRoomWrite.do'"> 사장님 신청하기</li>
+       <hr class="divider">
+       <li onclick="javascript:location.href='roomlist.do'"> 숙소</li>
+       <li onclick="javascript:location.href='tlist.do'"> 관광지</li>
+       <hr class="divider">
+       <li> 고객센터</li>
+       <li onclick="javascript:location.href='logout.do'"> 로그아웃</li>
+     </ul>
+     </c:if>
   </div>
    <div class="thead"><h1 class="tour">관광지</h1></div>
    <div style="padding: 100px 0px 0px 0px;"></div>
@@ -52,7 +77,7 @@
         <div id="roadviewControl" onclick="setRoadviewRoad()"></div>
     </div>
 </div>
-<button class="twri" onclick="javascript:location.href='twrite.do'">관광지 작성 하기</button>
+<button class="twri" onclick="javascript:location.href='tmovewrite.do'">관광지 작성 하기</button>
 <div style="padding: 100px 0px 0px 0px;"></div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f30a1bf673317be5978a11f2b404a16b&libraries=services"></script>
 <script>
@@ -94,5 +119,7 @@ geocoder.addressSearch($("#address"), function(result, status) {
 });    
 </script>
        <c:import url="/WEB-INF/views/common/footer.jsp" />
+       	   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	       <script src="resources/js/head.js"></script>
   </body>
 </html>

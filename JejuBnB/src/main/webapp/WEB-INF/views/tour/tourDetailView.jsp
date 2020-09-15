@@ -13,18 +13,43 @@
   <body>
     <div class="mainhead">
          <div class="logo">
-           <img src="resources/images/무제.png" >
+           <a href="main.do"><img src="resources/images/무제.png"></a>
          </div>
     <div class="dropdown"><span class="myimg"></span></div>
-      <ul class="dropdown-list">
-          <li><a href="#">마이페이지</a></li>
-          <li><a href="#">내 쿠폰</a></li>
-          <li><a href="#">내가 정한 숙소</a></li>
-          <li><a href="#">사장님 신청</a></li>
-          <li><a href="#">알림</a></li>
-          <li><a href="#">고객센터</a></li>
-          <li><a href="#">로그아웃</a></li>
-      </ul>
+          <c:if test="${ !empty loginMember and  loginMember.admin_check eq 'Y' }">
+     	<ul class="dropdown-list">
+	     	<li onclick="javascript:location.href='moveAdminPage.do'"> 관리자 </li>
+	        <li onclick="winOpen1()"> 필터 관리</li>
+       		<li onclick="winOpen3()"> 알림 관리</li>
+	        <li onclick="winOpen2()"> 알림</li>
+	        <hr class="divider">
+	        <li> 고객센터</li>
+	        <li onclick="javascript:location.href='logout.do'"> 로그아웃</li>
+        </ul>
+     </c:if>
+     <c:if test="${empty loginMember }">
+     	<ul class="dropdown-list">
+     	   <li onclick="javascript:location.href='roomlist.do'"> 숙소</li>
+     	   <li onclick="javascript:location.href='tlist.do'"> 관광지</li>
+     	   <hr class="divider">
+	       <li> 고객센터</li>
+	       <li onclick="movePage()">로그인</li>
+        </ul>
+     </c:if>
+     <c:if test="${!empty loginMember and  empty loginMember.admin_check}">
+     <ul class="dropdown-list">
+       <li onclick="javascript:location.href='moveMyPage.do'"> 내 정보 보기</li>
+       <li onclick="javascript:location.href='moveMyRoom.do?userid=${loginMember.user_id }'"> 저장 목록</li>
+       <li onclick="winOpen2()"> 알림</li>
+       <li onclick="javascript:location.href='moveRoomWrite.do'"> 사장님 신청하기</li>
+       <hr class="divider">
+       <li onclick="javascript:location.href='roomlist.do'"> 숙소</li>
+       <li onclick="javascript:location.href='tlist.do'"> 관광지</li>
+       <hr class="divider">
+       <li> 고객센터</li>
+       <li onclick="javascript:location.href='logout.do'"> 로그아웃</li>
+     </ul>
+     </c:if>
   </div>
    <div class="thead"></div>
    		<div style="padding: 100px 0px 0px 0px;"></div>
@@ -179,6 +204,7 @@
               </div>
               <button class="reviewmore">리뷰 더보기</button>
          <hr class="trhr">
+      </div>
       </div>
       <div class="moreimpo">
         알아두어야 할 사항 <br>

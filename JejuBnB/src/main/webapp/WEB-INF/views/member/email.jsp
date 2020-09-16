@@ -9,10 +9,8 @@
     <link rel="stylesheet" href="resources/css/bootstrap.min.css" >
     <link rel="stylesheet" href="resources/css/email.css" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
   </head>
   <body>
-
     <div class="container-fluid">
         <div class="row no-gutter">
             <div class="col-md-6 d-none d-md-flex bg-image"></div>

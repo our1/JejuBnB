@@ -20,8 +20,7 @@ public class NoticeDao {
 	
 
 	public int insertUNotice(User_Notice unotice) {
-		// TODO Auto-generated method stub
-		return 0;
+		return session.insert("noticeMapper.insertUserNotice", unotice);
 	}
 
 	public int deleteUNotice(int unoticeno) {

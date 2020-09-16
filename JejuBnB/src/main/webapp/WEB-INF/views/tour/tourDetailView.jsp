@@ -154,16 +154,19 @@
             <span>&#9733;</span> 4.8 ( 135 ) &nbsp;&nbsp; ${ tour.tour_address }
               <hr class="tshr">
         </div>
+        <div style="padding: 100px 0px 0px 0px;"></div>
         <div class="tcontent"><div class="tct">프로그램</div><br>
              ${ tour.tour_content }
             <hr class="tchr">
         </div>
+        <div style="padding: 100px 0px 0px 0px;"></div>
         <div class="tmap">
           방문 장소
           <div class="tcmap">
         </div>
         <hr class="tmhr">
       </div>
+      <div style="padding: 100px 0px 0px 0px;"></div>
       <div class="treview">
         <span>&#9733;</span> 4.8 점 ( 135 ) 개
             <div class="reviewlist">
@@ -206,6 +209,7 @@
          <hr class="trhr">
       </div>
       </div>
+      <div style="padding: 100px 0px 0px 0px;"></div>
       <div class="moreimpo">
         알아두어야 할 사항 <br>
           <div class="moreimpocontent">

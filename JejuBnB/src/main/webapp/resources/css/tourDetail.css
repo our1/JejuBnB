@@ -838,7 +838,8 @@ top : 5px;
 	width : 50px;
 	height : 50px;
 	position: absolute;
-    left: 68%;
+    left: 76.92%;
+    top: 105.9%;
 }
 .facebook img{
   width: 30px;
@@ -848,7 +849,8 @@ top : 5px;
 	width : 50px;
 	height : 50px;
 	position: absolute;
-    left: 70.5%;
+    left: 79.2%;
+    top: 105.9%;
 }
 .instagram img{
   width: 30px;
@@ -858,8 +860,8 @@ top : 5px;
   width : 30px;
   height : 30px;
   position: absolute;
-  left : 77.5%;
-  top : 100%;
+  left: 81.5%;
+  top: 105.8%;
 }
 svg {
   position: relative;
@@ -874,8 +876,8 @@ svg {
   width: 60px;
   margin: 20px;
   position: absolute;
-  left: 78.8%;
-  top: 96.1%;
+  left: 81.8%;
+  top: 102%;
 }
 
 svg #heart {
@@ -1130,6 +1132,7 @@ svg #main-circ {
 .tshr {
   width: 1380px;
   margin-top: 7%;
+  position : absolute;
 }
 .tct {
   font-size: 40px;
@@ -1144,6 +1147,7 @@ svg #main-circ {
 .tchr {
   width: 1380px;
   margin-top: 7%;
+  position : absolute;
 }
 .tmap {
   font-size: 40px;
@@ -1161,6 +1165,7 @@ svg #main-circ {
 .tmhr {
   width: 1380px;
   margin-top: 7%;
+  position : absolute;
 }
 .treview {
   font-size: 30px;
@@ -1171,6 +1176,7 @@ svg #main-circ {
 .trhr {
   width: 1380px;
   margin-top: 17%;
+  position : absolute;
 }
 .treview span{
   color: #FF9999;
@@ -1232,4 +1238,5 @@ svg #main-circ {
 .mihr {
   width: 1380px;
   margin-top: 17%;
+  position : relative;
 }

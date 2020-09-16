@@ -55,7 +55,7 @@
      <button class="live">자연</button>
      <button class="cook">맛집</button>
      <button class="act">액티비티</button>
-     <button class="movelist" onclick="javascipt:location.href='tourNoMap.do'"></button>
+     <button class="movelist" onclick="javascipt:location.href='tourNoMap.do'">X</button>
      <div style="padding: 100px 0px 0px 0px;"></div>
        <div class="tourlist">
 	       <c:forEach items="${ requestScope.list }" var="t">
@@ -68,13 +68,8 @@
 	        </c:forEach>
 	    </div>
 	    <div id="container">
-    <div id="rvWrapper">
-        <div id="roadview" style="width:100%;height:100%;"></div> <!-- 로드뷰를 표시할 div 입니다 -->
-        <div id="close" title="로드뷰닫기" onclick="closeRoadview()"><span class="img"></span></div>
-    </div>
     <div id="mapWrapper">
         <div id="map" style="width:100%;height:100%"></div> <!-- 지도를 표시할 div 입니다 -->
-        <div id="roadviewControl" onclick="setRoadviewRoad()"></div>
     </div>
 </div>
 <button class="twri" onclick="javascript:location.href='tmovewrite.do'">관광지 작성 하기</button>

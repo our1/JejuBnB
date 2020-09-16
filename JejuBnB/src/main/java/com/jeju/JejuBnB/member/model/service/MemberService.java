@@ -10,8 +10,11 @@ public interface MemberService {
 	int insertMember(Member member);
 	int updateMember(Member member);
 	int deleteMember(String userid);
-	ArrayList<Member> selectList();
 	Member selectMember(String userid);
 	Member selectFacebookLogin(Member member);
-	int selectIdCheck(String user_id);
+	int selectInfoCheck(Member member);
+	int updatPwdMember(Member member);
+	ArrayList<Member> selectMemberList(); 
+	int updateBeAdminMember(String user_id);
+	
 }

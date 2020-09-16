@@ -37,10 +37,6 @@ public int updateMember( Member member) {
 	return session.update("memberMapper.updateMember", member);
 }
 
-public ArrayList<Member> selectList() {
-	List<Member> list = session.selectList("memberMapper.selectList");
-	return (ArrayList<Member>)list;
-}
 
 public int updateLoginok( Member member) {
 	return session.update("memberMapper.updateLoginok", member);
@@ -80,6 +76,25 @@ public Member selectFacebookLogin(Member member) {
 public int selectIdCheck(String user_id) {
 	return session.selectOne("memberMapper.selectIdCheck", user_id);
 }
+
+public int selectInfoCheck(Member member) {
+	return session.selectOne("memberMapper.selectInfoCheck", member);
+}
+
+public int updatePwdMember(Member member) {
+	return session.update("memberMapper.updatePwdMember", member);
+}
+
+public ArrayList<Member> selectMemberList() {
+	List<Member> list = session.selectList("memberMapper.selectMemberList");
+	return (ArrayList<Member>)list;
+}
+
+public int updateBeAdminMember(String user_id) {
+	return session.update("memberMapper.updateBeAdminMember", user_id);
+}
+
+
 }
 
 

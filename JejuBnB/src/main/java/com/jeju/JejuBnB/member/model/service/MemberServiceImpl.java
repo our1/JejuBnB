@@ -15,7 +15,6 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Override
 	public Member selectLogin(Member member) {
-		
 		return memberDao.selectLogin(member);
 	}
 
@@ -34,10 +33,6 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.deleteMember(userid);
 	}
 
-	@Override
-	public ArrayList<Member> selectList() {
-		return memberDao.selectList();
-	}
 
 	@Override
 	public Member selectMember(String userid) {
@@ -50,9 +45,28 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.selectFacebookLogin(member);
 	}
 
+
 	@Override
-	public int selectIdCheck(String user_id) {
-		return memberDao.selectIdCheck(user_id);
+	public int selectInfoCheck(Member member) {
+		return memberDao.selectInfoCheck(member);
 	}
+
+	@Override
+	public int updatPwdMember(Member member) {
+		return memberDao.updatePwdMember(member);
+	}
+
+	@Override
+	public ArrayList<Member> selectMemberList() {
+		return memberDao.selectMemberList();
+	}
+
+	@Override
+	public int updateBeAdminMember(String user_id) {
+		return memberDao.updateBeAdminMember(user_id);
+		
+	}
+
+	
 
 }

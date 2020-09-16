@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="eventMapper">
+	<resultMap type="Event" id="resultEvent">
+		<id property="event_no" column="event_no" />
+		<result property="event_name" column="event_name" />	
+		<result property="event_content" column="event_content" />	
+		<result property="event_fimg" column="event_fimg" />	
+		<result property="event_rimg" column="event_rimg" />	
+		<result property="coupon_no" column="coupon_no" />	
+		<result property="sum_fimg" column="sum_fimg" />	
+		<result property="sum_rimg" column="sum_rimg" />	
+	</resultMap>
+	
+	<resultMap type="Event" id="resultList">
+		<id property="event_no" column="event_no" />
+		<result property="event_name" column="event_name" />	
+		<result property="event_content" column="event_content" />	
+		<result property="event_fimg" column="event_fimg" />	
+		<result property="event_rimg" column="event_rimg" />	
+		<result property="coupon_no" column="coupon_no" />	
+		<result property="sum_fimg" column="sum_fimg" />	
+		<result property="sum_rimg" column="sum_rimg" />	
+	</resultMap>
+	
+	
+<!-- 	<select id="">
+	
+	</select>
+	
+	<insert id="">
+	</insert>
+	
+	<update id="">
+	</update>
+	
+	<delete id="">
+	</delete> -->
+</mapper>

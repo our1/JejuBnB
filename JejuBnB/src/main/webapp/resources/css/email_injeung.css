@@ -1,0 +1,45 @@
+    @font-face {
+       font-family: 'Cafe24Oneprettynight';
+       src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff');
+       font-weight: normal;
+       font-style: normal;
+     }
+    .login,
+    .image {
+    min-height: 100vh;
+    }
+    .bg-image {
+    background-image: url('../images/31.jpg');
+    background-size: cover;
+    background-position: center center;
+    }
+    .logo img{
+      position: relative;
+      left : 16%;
+    }
+    .rounded-pill {
+      border-radius: 8px;
+    }
+    .em {
+      font-family: 'Cafe24Oneprettynight';
+      position: relative;
+      left: 4%;
+      top: -3%;
+    }
+    .check_btn {
+    background: #FFC19E;
+    color: white;
+    display: block;
+    width: 92.5%;
+    max-width: 680px;
+    height: 50px;
+    border-radius: 8px;
+    margin: 0 auto;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: 'Cafe24Oneprettynight';
+    box-shadow: 0 15px 30px rgba(255, 193, 158, 0.36);
+    -webkit-transition: .2s linear;
+    transition: .2s linear;
+    }

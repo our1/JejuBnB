@@ -1,5 +1,8 @@
 package com.jeju.JejuBnB.room.model.vo;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Room implements java.io.Serializable {
 	
 	private static final long serialVersionUID = 6001L;
@@ -10,22 +13,24 @@ public class Room implements java.io.Serializable {
 	private String room_name;
 	private String room_content;
 	private String room_address;
+	private String room_roadaddress;
+	private int st_num_people;
 	private int max_people;
 	private String checkin_time;
 	private String checkout_time;
-	private int num_bed;
-	private int num_bedroom;
-	private int num_bathroom;
+	private int bed;
+	private int bedroom;
+	private int bathroom;
 	private String amenity;
 	private String facility;
 	private String build_type;
-	private String room_type;
 	private String rule;
 	private String pass_or_not;
-	private int st_num_people;
 	private int plus_charge;
-	private String room_original_file;
-	private String room_renmae_file;
+	private String room_thumbnail_file;
+	private String room_rename_file;
+	private int room_weekday;
+	private int room_weekend;
 	
 	
 	public Room() {
@@ -33,32 +38,66 @@ public class Room implements java.io.Serializable {
 	}
 
 
-	public Room(int room_no, String user_id, String room_name, String room_content, String room_address, int max_people,
-			String checkin_time, String checkout_time, int num_bed, int num_bedroom, int num_bathroom, String amenity,
-			String facility, String build_type, String room_type, String rule, String pass_or_not, int st_num_people,
-			int plus_charge, String room_original_file, String room_renmae_file) {
+	public Room(int room_no, String user_id, String room_name, String room_content, String room_address,
+			String room_roadaddress, int st_num_people, int max_people, String checkin_time, String checkout_time,
+			int bed, int bedroom, int bathroom, String amenity, String facility, String build_type, String rule,
+			String pass_or_not, int plus_charge, String room_thumbnail_file, String room_rename_file, int room_weekday,
+			int room_weekend) {
 		super();
 		this.room_no = room_no;
 		this.user_id = user_id;
 		this.room_name = room_name;
 		this.room_content = room_content;
 		this.room_address = room_address;
+		this.room_roadaddress = room_roadaddress;
+		this.st_num_people = st_num_people;
 		this.max_people = max_people;
 		this.checkin_time = checkin_time;
 		this.checkout_time = checkout_time;
-		this.num_bed = num_bed;
-		this.num_bedroom = num_bedroom;
-		this.num_bathroom = num_bathroom;
+		this.bed = bed;
+		this.bedroom = bedroom;
+		this.bathroom = bathroom;
 		this.amenity = amenity;
 		this.facility = facility;
 		this.build_type = build_type;
-		this.room_type = room_type;
 		this.rule = rule;
 		this.pass_or_not = pass_or_not;
-		this.st_num_people = st_num_people;
 		this.plus_charge = plus_charge;
-		this.room_original_file = room_original_file;
-		this.room_renmae_file = room_renmae_file;
+		this.room_thumbnail_file = room_thumbnail_file;
+		this.room_rename_file = room_rename_file;
+		this.room_weekday = room_weekday;
+		this.room_weekend = room_weekend;
+	}
+
+
+
+	public int getRoom_weekday() {
+		return room_weekday;
+	}
+
+
+	public void setRoom_weekday(int room_weekday) {
+		this.room_weekday = room_weekday;
+	}
+
+
+	public int getRoom_weekend() {
+		return room_weekend;
+	}
+
+
+	public void setRoom_weekend(int room_weekend) {
+		this.room_weekend = room_weekend;
+	}
+
+
+	public String getRoom_roadaddress() {
+		return room_roadaddress;
+	}
+
+
+	public void setRoom_roadaddress(String room_roadaddress) {
+		this.room_roadaddress = room_roadaddress;
 	}
 
 
@@ -112,6 +151,16 @@ public class Room implements java.io.Serializable {
 	}
 
 
+	public int getSt_num_people() {
+		return st_num_people;
+	}
+
+
+	public void setSt_num_people(int st_num_people) {
+		this.st_num_people = st_num_people;
+	}
+
+
 	public int getMax_people() {
 		return max_people;
 	}
@@ -142,33 +191,33 @@ public class Room implements java.io.Serializable {
 	}
 
 
-	public int getNum_bed() {
-		return num_bed;
+	public int getBed() {
+		return bed;
 	}
 
 
-	public void setNum_bed(int num_bed) {
-		this.num_bed = num_bed;
+	public void setBed(int bed) {
+		this.bed = bed;
 	}
 
 
-	public int getNum_bedroom() {
-		return num_bedroom;
+	public int getBedroom() {
+		return bedroom;
 	}
 
 
-	public void setNum_bedroom(int num_bedroom) {
-		this.num_bedroom = num_bedroom;
+	public void setBedroom(int bedroom) {
+		this.bedroom = bedroom;
 	}
 
 
-	public int getNum_bathroom() {
-		return num_bathroom;
+	public int getBathroom() {
+		return bathroom;
 	}
 
 
-	public void setNum_bathroom(int num_bathroom) {
-		this.num_bathroom = num_bathroom;
+	public void setBathroom(int bathroom) {
+		this.bathroom = bathroom;
 	}
 
 
@@ -202,16 +251,6 @@ public class Room implements java.io.Serializable {
 	}
 
 
-	public String getRoom_type() {
-		return room_type;
-	}
-
-
-	public void setRoom_type(String room_type) {
-		this.room_type = room_type;
-	}
-
-
 	public String getRule() {
 		return rule;
 	}
@@ -232,16 +271,6 @@ public class Room implements java.io.Serializable {
 	}
 
 
-	public int getSt_num_people() {
-		return st_num_people;
-	}
-
-
-	public void setSt_num_people(int st_num_people) {
-		this.st_num_people = st_num_people;
-	}
-
-
 	public int getPlus_charge() {
 		return plus_charge;
 	}
@@ -252,36 +281,38 @@ public class Room implements java.io.Serializable {
 	}
 
 
-	public String getRoom_original_file() {
-		return room_original_file;
+	public String getRoom_thumbnail_file() {
+		return room_thumbnail_file;
 	}
 
 
-	public void setRoom_original_file(String room_original_file) {
-		this.room_original_file = room_original_file;
+	public void setRoom_thumbnail_file(String room_thumbnail_file) {
+		this.room_thumbnail_file = room_thumbnail_file;
 	}
 
 
-	public String getRoom_renmae_file() {
-		return room_renmae_file;
+	public String getRoom_rename_file() {
+		return room_rename_file;
 	}
 
 
-	public void setRoom_renmae_file(String room_renmae_file) {
-		this.room_renmae_file = room_renmae_file;
+	public void setRoom_rename_file(String room_rename_file) {
+		this.room_rename_file = room_rename_file;
 	}
 
 
 	@Override
 	public String toString() {
 		return "Room [room_no=" + room_no + ", user_id=" + user_id + ", room_name=" + room_name + ", room_content="
-				+ room_content + ", room_address=" + room_address + ", max_people=" + max_people + ", checkin_time="
-				+ checkin_time + ", checkout_time=" + checkout_time + ", num_bed=" + num_bed + ", num_bedroom="
-				+ num_bedroom + ", num_bathroom=" + num_bathroom + ", amenity=" + amenity + ", facility=" + facility
-				+ ", build_type=" + build_type + ", room_type=" + room_type + ", rule=" + rule + ", pass_or_not="
-				+ pass_or_not + ", st_num_people=" + st_num_people + ", plus_charge=" + plus_charge
-				+ ", room_original_file=" + room_original_file + ", room_renmae_file=" + room_renmae_file + "]";
+				+ room_content + ", room_address=" + room_address + ", room_roadaddress=" + room_roadaddress
+				+ ", st_num_people=" + st_num_people + ", max_people=" + max_people + ", checkin_time=" + checkin_time
+				+ ", checkout_time=" + checkout_time + ", bed=" + bed + ", bedroom=" + bedroom + ", bathroom="
+				+ bathroom + ", amenity=" + amenity + ", facility=" + facility + ", build_type=" + build_type
+				+ ", rule=" + rule + ", pass_or_not=" + pass_or_not + ", plus_charge=" + plus_charge
+				+ ", room_thumbnail_file=" + room_thumbnail_file + ", room_rename_file=" + room_rename_file
+				+ ", room_weekday=" + room_weekday + ", room_weekend=" + room_weekend + "]";
 	}
-	
+
+
 	
 }

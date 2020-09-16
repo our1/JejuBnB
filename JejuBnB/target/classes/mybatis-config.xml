@@ -23,6 +23,9 @@
 		<typeAlias type="com.jeju.JejuBnB.notice.model.vo.Notice" alias="Notice" />
 		<typeAlias type="com.jeju.JejuBnB.notice.model.vo.Notice_Type" alias="Notice_Type" />
 		<typeAlias type="com.jeju.JejuBnB.room.model.vo.RoomFilter" alias="RoomFilter" />
+		<typeAlias type="com.jeju.JejuBnB.message.model.vo.Message" alias="Message" />
+		<typeAlias type="com.jeju.JejuBnB.mycoupon.model.vo.MyCoupon" alias="MyCoupon" />
+		<typeAlias type="com.jeju.JejuBnB.myroom.model.vo.MyRoom" alias="MyRoom" />
 	</typeAliases>
 
 	<mappers>
@@ -37,5 +40,8 @@
 		<mapper resource="mappers/reservation-mapper.xml" />
 		<mapper resource="mappers/filter-mapper.xml" />
 		<mapper resource="mappers/notice-mapper.xml" />
+		<mapper resource="mappers/message-mapper.xml" />
+		<mapper resource="mappers/mycoupon-mapper.xml" />
+		<mapper resource="mappers/myroom-mapper.xml" />
 	</mappers>
 </configuration>

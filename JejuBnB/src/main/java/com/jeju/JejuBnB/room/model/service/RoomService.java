@@ -12,5 +12,4 @@ public interface RoomService {
 	int insertRoom(Room room);
 	int updateRoom(Room room);
 	int deleteRoom(int room_no);
-	int updateAvgScore(int room_no);
 }

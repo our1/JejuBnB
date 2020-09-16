@@ -4,7 +4,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="reservationMapper">
 
-	<resultMap id="resultReservation" type="Reservation" >
+	<!-- <resultMap id="resultReservation" type="Reservation" >
 		<id property="room_num" column="room_no" />
 		<result property="a_num" column="a_num" />
 		<result property="c_num" column="c_num" />
@@ -26,7 +26,7 @@
 	
 	<select id="selectReservWait" parameterType="_int" resultType="Reservation">
 		select * from reservation where room_no = #{ room_no }
-	</select>
+	</select> -->
 	
 	
 

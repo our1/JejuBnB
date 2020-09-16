@@ -29,7 +29,7 @@ public class Room implements java.io.Serializable {
 	private int plus_charge;
 	private String room_thumbnail_file;
 	private String room_rename_file;
-	private int score_avg;
+	
 	
 	
 	public Room() {
@@ -37,10 +37,11 @@ public class Room implements java.io.Serializable {
 	}
 
 
+
 	public Room(int room_no, String user_id, String room_name, String room_content, String room_address,
 			String room_roadaddress, int st_num_people, int max_people, String checkin_time, String checkout_time,
 			int bed, int bedroom, int bathroom, String amenity, String facility, String build_type, String rule,
-			String pass_or_not, int plus_charge, String room_thumbnail_file, String room_rename_file, int score_avg) {
+			String pass_or_not, int plus_charge, String room_thumbnail_file, String room_rename_file) {
 		super();
 		this.room_no = room_no;
 		this.user_id = user_id;
@@ -63,8 +64,8 @@ public class Room implements java.io.Serializable {
 		this.plus_charge = plus_charge;
 		this.room_thumbnail_file = room_thumbnail_file;
 		this.room_rename_file = room_rename_file;
-		this.score_avg = score_avg;
 	}
+
 
 
 	public int getRoom_no() {
@@ -72,9 +73,11 @@ public class Room implements java.io.Serializable {
 	}
 
 
+
 	public void setRoom_no(int room_no) {
 		this.room_no = room_no;
 	}
+
 
 
 	public String getUser_id() {
@@ -82,9 +85,11 @@ public class Room implements java.io.Serializable {
 	}
 
 
+
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
+
 
 
 	public String getRoom_name() {
@@ -92,9 +97,11 @@ public class Room implements java.io.Serializable {
 	}
 
 
+
 	public void setRoom_name(String room_name) {
 		this.room_name = room_name;
 	}
+
 
 
 	public String getRoom_content() {
@@ -102,9 +109,11 @@ public class Room implements java.io.Serializable {
 	}
 
 
+
 	public void setRoom_content(String room_content) {
 		this.room_content = room_content;
 	}
+
 
 
 	public String getRoom_address() {
@@ -112,9 +121,11 @@ public class Room implements java.io.Serializable {
 	}
 
 
+
 	public void setRoom_address(String room_address) {
 		this.room_address = room_address;
 	}
+
 
 
 	public String getRoom_roadaddress() {
@@ -122,9 +133,11 @@ public class Room implements java.io.Serializable {
 	}
 
 
+
 	public void setRoom_roadaddress(String room_roadaddress) {
 		this.room_roadaddress = room_roadaddress;
 	}
+
 
 
 	public int getSt_num_people() {
@@ -132,9 +145,11 @@ public class Room implements java.io.Serializable {
 	}
 
 
+
 	public void setSt_num_people(int st_num_people) {
 		this.st_num_people = st_num_people;
 	}
+
 
 
 	public int getMax_people() {
@@ -142,9 +157,11 @@ public class Room implements java.io.Serializable {
 	}
 
 
+
 	public void setMax_people(int max_people) {
 		this.max_people = max_people;
 	}
+
 
 
 	public String getCheckin_time() {
@@ -152,9 +169,11 @@ public class Room implements java.io.Serializable {
 	}
 
 
+
 	public void setCheckin_time(String checkin_time) {
 		this.checkin_time = checkin_time;
 	}
+
 
 
 	public String getCheckout_time() {
@@ -162,9 +181,11 @@ public class Room implements java.io.Serializable {
 	}
 
 
+
 	public void setCheckout_time(String checkout_time) {
 		this.checkout_time = checkout_time;
 	}
+
 
 
 	public int getBed() {
@@ -172,9 +193,11 @@ public class Room implements java.io.Serializable {
 	}
 
 
+
 	public void setBed(int bed) {
 		this.bed = bed;
 	}
+
 
 
 	public int getBedroom() {
@@ -182,9 +205,11 @@ public class Room implements java.io.Serializable {
 	}
 
 
+
 	public void setBedroom(int bedroom) {
 		this.bedroom = bedroom;
 	}
+
 
 
 	public int getBathroom() {
@@ -192,9 +217,11 @@ public class Room implements java.io.Serializable {
 	}
 
 
+
 	public void setBathroom(int bathroom) {
 		this.bathroom = bathroom;
 	}
+
 
 
 	public String getAmenity() {
@@ -202,9 +229,11 @@ public class Room implements java.io.Serializable {
 	}
 
 
+
 	public void setAmenity(String amenity) {
 		this.amenity = amenity;
 	}
+
 
 
 	public String getFacility() {
@@ -212,9 +241,11 @@ public class Room implements java.io.Serializable {
 	}
 
 
+
 	public void setFacility(String facility) {
 		this.facility = facility;
 	}
+
 
 
 	public String getBuild_type() {
@@ -222,9 +253,11 @@ public class Room implements java.io.Serializable {
 	}
 
 
+
 	public void setBuild_type(String build_type) {
 		this.build_type = build_type;
 	}
+
 
 
 	public String getRule() {
@@ -232,9 +265,11 @@ public class Room implements java.io.Serializable {
 	}
 
 
+
 	public void setRule(String rule) {
 		this.rule = rule;
 	}
+
 
 
 	public String getPass_or_not() {
@@ -242,9 +277,11 @@ public class Room implements java.io.Serializable {
 	}
 
 
+
 	public void setPass_or_not(String pass_or_not) {
 		this.pass_or_not = pass_or_not;
 	}
+
 
 
 	public int getPlus_charge() {
@@ -252,9 +289,11 @@ public class Room implements java.io.Serializable {
 	}
 
 
+
 	public void setPlus_charge(int plus_charge) {
 		this.plus_charge = plus_charge;
 	}
+
 
 
 	public String getRoom_thumbnail_file() {
@@ -262,9 +301,11 @@ public class Room implements java.io.Serializable {
 	}
 
 
+
 	public void setRoom_thumbnail_file(String room_thumbnail_file) {
 		this.room_thumbnail_file = room_thumbnail_file;
 	}
+
 
 
 	public String getRoom_rename_file() {
@@ -272,24 +313,17 @@ public class Room implements java.io.Serializable {
 	}
 
 
+
 	public void setRoom_rename_file(String room_rename_file) {
 		this.room_rename_file = room_rename_file;
 	}
 
 
-	public int getScore_avg() {
-		return score_avg;
-	}
-
-
-	public void setScore_avg(int score_avg) {
-		this.score_avg = score_avg;
-	}
-
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
 
 
 	@Override
@@ -300,10 +334,11 @@ public class Room implements java.io.Serializable {
 				+ ", checkout_time=" + checkout_time + ", bed=" + bed + ", bedroom=" + bedroom + ", bathroom="
 				+ bathroom + ", amenity=" + amenity + ", facility=" + facility + ", build_type=" + build_type
 				+ ", rule=" + rule + ", pass_or_not=" + pass_or_not + ", plus_charge=" + plus_charge
-				+ ", room_thumbnail_file=" + room_thumbnail_file + ", room_rename_file=" + room_rename_file
-				+ ", score_avg=" + score_avg + "]";
+				+ ", room_thumbnail_file=" + room_thumbnail_file + ", room_rename_file=" + room_rename_file + "]";
 	}
 
+
+	
 
 	
 

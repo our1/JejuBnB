@@ -27,6 +27,7 @@
       </ul>
   </div>
    <div class="thead"></div>
+   		<div style="padding: 100px 0px 0px 0px;"></div>
          <div class="container">
           <div data-am-fadeshow="next-prev-navigation">
 
@@ -186,8 +187,10 @@
           </div>
           <hr class="mihr">
       </div>
-   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-   <script src="resources/js/head.js"></script>
-   <script src="resources/js/tourDetail.js"></script>
+      <div style="padding: 100px 0px 0px 0px;"></div>
+		   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		   <script src="resources/js/head.js"></script>
+		   <script src="resources/js/tourDetail.js"></script>
+   <c:import url="/WEB-INF/views/common/footer.jsp" />
   </body>
 </html>

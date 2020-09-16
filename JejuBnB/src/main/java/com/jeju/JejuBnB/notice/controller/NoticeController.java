@@ -51,13 +51,12 @@ public class NoticeController {
 	
 	
 	
-	@RequestMapping("insertReeservation.do")
-	public ModelAndView insertReeservation(HttpServletRequest request, ModelAndView mv) {
+	@RequestMapping("insertNotice.do")
+	public ModelAndView insertNotice(HttpServletRequest request, ModelAndView mv, @RequestParam("returnPage") String returnPage) {
 		int choice = Integer.parseInt(request.getParameter("choice"));
 		String toUser = request.getParameter("toUser");
 		String fromUser = request.getParameter("fromUser");
 		String room_name = request.getParameter("room_name");
-		
 		Notice notice;
 		Notice notice2;
 		User_Notice un1 = new User_Notice();
@@ -90,7 +89,7 @@ public class NoticeController {
 			result2 = noticeService.insertUNotice(un2);
 			
 			if(result > 0 && result2 > 0) {
-				mv.setViewName("common/main");
+				mv.setViewName(returnPage);
 			}else{
 				mv.addObject("message", "알림 보내기 실패");
 				mv.setViewName("common/error");
@@ -107,7 +106,7 @@ public class NoticeController {
 			result = noticeService.insertUNotice(un1);
 			
 			if(result > 0) {
-				mv.setViewName("common/main");
+				mv.setViewName(returnPage);
 			}else{
 				mv.addObject("message", "알림 보내기 실패");
 				mv.setViewName("common/error");
@@ -123,7 +122,7 @@ public class NoticeController {
 			result = noticeService.insertUNotice(un1);
 			
 			if(result > 0) {
-				mv.setViewName("common/main");
+				mv.setViewName(returnPage);
 			}else{
 				mv.addObject("message", "알림 보내기 실패");
 				mv.setViewName("common/error");
@@ -140,7 +139,7 @@ public class NoticeController {
 			result = noticeService.insertUNotice(un1);
 			
 			if(result > 0) {
-				mv.setViewName("common/main");
+				mv.setViewName(returnPage);
 			}else{
 				mv.addObject("message", "알림 보내기 실패");
 				mv.setViewName("common/error");
@@ -157,14 +156,30 @@ public class NoticeController {
 			result = noticeService.insertUNotice(un1);
 			
 			if(result > 0) {
-				mv.setViewName("common/main");
+				mv.setViewName(returnPage);
+			}else{
+				mv.addObject("message", "알림 보내기 실패");
+				mv.setViewName("common/error");
+			}
+			break;
+		
+		case 7:
+			notice = noticeService.selectNotice(choice);
+			
+			un1.setNotice_content(toUser + notice.getNotice_content1() + room_name + notice.getNotice_content2());
+			un1.setTo_user(toUser);
+			un1.setFrom_user(fromUser);
+			logger.info(un1.toString());
+
+			result = noticeService.insertUNotice(un1);
+			if(result > 0) {
+				mv.setViewName(returnPage);
 			}else{
 				mv.addObject("message", "알림 보내기 실패");
 				mv.setViewName("common/error");
 			}
 			break;
 		}
-		
 		return mv;
 	}
 	

@@ -38,7 +38,7 @@
        		<li onclick="winOpen3()"> 알림 관리</li>
 	        <li onclick="winOpen2()"> 알림</li>
 	        <hr class="divider">
-	        <li> 고객센터</li>
+	        <li onclick="javascript:location.href='policyPage.do'"> 고객센터</li>
 	        <li onclick="javascript:location.href='logout.do'"> 로그아웃</li>
         </ul>
      </c:if>
@@ -47,7 +47,7 @@
      	   <li onclick="javascript:location.href='roomlist.do'"> 숙소</li>
      	   <li onclick="javascript:location.href='tlist.do'"> 관광지</li>
      	   <hr class="divider">
-	       <li> 고객센터</li>
+	       <li onclick="javascript:location.href='policyPage.do'"> 고객센터</li>
 	       <li onclick="movePage()">로그인</li>
         </ul>
      </c:if>
@@ -61,7 +61,7 @@
        <li onclick="javascript:location.href='roomlist.do'"> 숙소</li>
        <li onclick="javascript:location.href='tlist.do'"> 관광지</li>
        <hr class="divider">
-       <li> 고객센터</li>
+       <li onclick="javascript:location.href='policyPage.do'"> 고객센터</li>
        <li onclick="javascript:location.href='logout.do'"> 로그아웃</li>
      </ul>
      </c:if>

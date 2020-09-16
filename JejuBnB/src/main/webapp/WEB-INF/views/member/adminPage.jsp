@@ -693,7 +693,6 @@
 		<c:url var="adminMemberList" value="moveAdminMemberPage.do"/>
 		<a href="${adminMemberList}">회원 관리 페이지로 이동하는 버튼  </a> <br>
 		<a href="${callMyinfo}">사장님 신청 페이지로 이동하는 버튼	 </a>  <br>
-		관리자 만드는 페이지로 이동하는 버튼       <!-- beAdminPage.do    beAdminPage--> <br>
 		회원 관리 페이지로 이동하는 버튼             <!--  adminMemberPage.do    adminMemberPage-->  <br>
 		사장님 신청 페이지로 이동하는 버튼		<!-- behostPage.do     behostPage-->  <br> --%>
 

@@ -97,10 +97,11 @@ public class RoomController {
 		if (maxPage < endPage) {
 			endPage = maxPage;
 		}
-		logger.info("달 : " + cal.get(Calendar.MONTH) + ", 나가는날 : " + cal.get(Calendar.DAY_OF_MONTH));
-		logger.info("요일 : " + week);
-		logger.info("달 : " + inMonth + inday + ", 나가는날 : " + outMonth + outday);
+		/*
+		 * ArrayList<Review> relist = new ArrayList<Review>();
+		 */		
 		if (list != null) {
+			
 			model.addAttribute("inMonth", inMonth);
 			model.addAttribute("inday", inday);
 			model.addAttribute("outMonth", outMonth);
@@ -214,8 +215,8 @@ public class RoomController {
 	}
 
 	@RequestMapping("moveDetailView.do")
-	public ModelAndView moveDetail(ModelAndView mv, @RequestParam("roomno") int roomno) {
-		Room room = roomService.selectRoom(roomno);
+	public ModelAndView moveDetail(ModelAndView mv, @RequestParam("room_no") int room_no) {
+		Room room = roomService.selectRoom(room_no);
 		if (room != null) {
 			mv.setViewName("room/roomDetailView");
 			mv.addObject("room", room);

@@ -22,7 +22,6 @@
 
       html,
       body {
-        height: 100%;
         margin: 0;
         padding: 0;
       }
@@ -31,14 +30,19 @@
       	text-decoration : none;
       }
       
+      #main {
+      	height  : 800px;
+      	position : relative;
+      }
+      
       .container {
       	width : 40%;
+      	height : 1600px;
 		display : grid;
-		grid-template-columns : 200px 1fr;
-		grid-template-rows : repeat(${listCount }, 200px);
+		grid-template-columns : 200px 500px;
+		grid-template-rows : repeat(8, 200px);
 		gap : 10px 5px;
 		padding-left : 10px;
-		
 		}
 		
 		.container img{
@@ -51,6 +55,17 @@
 			width : 200px;
 			height : 200px;
 			margin : 0;
+			border-radius : 5px;
+			
+		}
+		
+		.container #roomImg img{
+			width : 100%;
+			height : 100%;
+			margin : 0;
+			padding : 0;
+			border-radius : 5px;
+			
 		}
 		
 		.container li{
@@ -58,8 +73,9 @@
 		}
 		
 		#RoomContent{
-			margin-top : 60px;
 			margin-left : 0;
+			border-top : 1px solid gray;
+			padding : 0;
 		}
 		
 		#items{	
@@ -73,12 +89,15 @@
 		}
 	
 		#map {	
-			width : 60%;
-			height : 50%;
-			position : absolute;
+			width : 1100px;
+			height : 1000px;
+			/* position : fixed;
 			left : 40%;
-			top : 15%;
-			border : 1px solid black;
+			top : 15%; */
+			 position: sticky;
+			 
+			 left : 40%;
+ 			 bottom : 150px;
 		}
     
     
@@ -99,6 +118,7 @@
 	    	height : 50px;
 	    }
 	    
+	   
     </style>
 
 </head>
@@ -106,7 +126,7 @@
 
 <c:import url="/WEB-INF/views/common/header.jsp"/>
 <hr>
-    
+<div>
 <h1 align="center">숙소 리스트 페이지</h1>
 <div id="main">
 <div id="items">
@@ -120,13 +140,13 @@ ${listCount }개 숙소 검색 . ${inMonth }월${inday }일 - ${outMonth }월${o
 <button onclick="moveFilterPage()">필터 추가하기</button>
 </div>
 <div class="container">
-<c:forEach items="${list }" var="room">
+<c:forEach items="${list }" var="room" >
 	<div id="roomImg" >
 		<img src="${ pageContext.servletContext.contextPath}/resources/roomThumbnail/${ room.room_rename_file }">
 	</div>
 	<div id="RoomContent">
 		<ul>
-			<li> 숙소 이름 : <a href="moveDetailView.do?roomno=${room.room_no}">${room.room_name }</a> </li>
+			<li> 숙소 이름 : <a href="moveDetailView.do?room_no=${room.room_no}">${room.room_name }</a> </li>
 			<li> 숙소 주소 : ${room.room_address } </li>
 			<li> 금액 : 
 			<c:if test="${week eq 6 || week eq 7}">
@@ -140,7 +160,6 @@ ${listCount }개 숙소 검색 . ${inMonth }월${inday }일 - ${outMonth }월${o
 	</div>
 </c:forEach>
 </div>
-
 <div id="page" style="text-align:center;">
 	<c:if test="${ currentPage == 1 }">
 	<button id="moveNext" onclick="moveNext(${currentPage})">&lt;</button>
@@ -165,8 +184,8 @@ ${listCount }개 숙소 검색 . ${inMonth }월${inday }일 - ${outMonth }월${o
 
 
 
-<div id="map" style="width:50%;height:100%;"></div>
-
+<div id="map"></div>
+</div>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=44262f7a543c0f64c3a92e6841cb0ddb&libraries=services"></script>
 <script>
@@ -243,6 +262,7 @@ for(var i = 0; i < '${fn:length(list)}'; i++){
     } 
 });     */
 </script>
+<c:import url="/WEB-INF/views/common/footer.jsp"/>
 
 </body>
 </html>

@@ -23,4 +23,8 @@ public class PolicyDao {
 	public int insertPolicy(Policy policy){
 	return session.insert("policyMapper.insertPolicy", policy);
 	}
+	
+	public int deletePolicy(int policy_no) {
+		return session.delete("policyMapper.deletePolicy", policy_no);
+	}
 }

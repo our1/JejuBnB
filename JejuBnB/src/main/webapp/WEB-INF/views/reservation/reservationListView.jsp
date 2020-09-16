@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -384,11 +385,11 @@ function moveReservPage(){
 </style>
 </head>
 <body>
-	<c:import url="/WEB-INF/views/common/header.jsp" />
+	<c:import url="/WEB-INF/views/common/header.jsp" /> <br>
 	<div>
 		<h1>${ room.room_name }</h1>
 		<br>
-		<style>
+<style>
 * {
 	margin: 0;
 	padding: 0;

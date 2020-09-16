@@ -37,8 +37,8 @@
 
 <insert id="insertReview" parameterType="Review">
 	insert into review 
-	values((select max(reply_no) from review) + 1, #{clean_score}, #{value_score}, #{service_score }, #{review_content}, 
-			 #{room_no}, #{user_id} )
+	values((select max(reply_no) from review) + 1, #{clean_score}, #{value_score}, #{service_score }, 
+	#{review_content}, #{room_no}, #{user_id})
 </insert>	
 
 <update id="updateReview" parameterType="Review">

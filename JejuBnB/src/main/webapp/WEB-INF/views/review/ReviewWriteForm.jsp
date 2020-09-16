@@ -1,16 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<% request.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>JejuBnB</title>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
 
 <script>
 	$(function() {
@@ -131,8 +130,8 @@
 </head>
 <body>
 	<h3>만족도 체크</h3>
-	<form action="reinsert.do" name="replyForm">
-		<input type="hidden" name="room_no" value="${ room.room_no }">
+	<form action="reinsert.do" name="replyForm" method="post">
+		<input type="hidden" name="room_no" value="${ room_no }">
 		<input type="hidden" name="user_id" value="${ loginMember.user_id }">
 		<div class="make_star">
 			<div class="_cvx08b">
@@ -204,7 +203,7 @@
 
 			<table>
 				<tr>
-					<td><textarea rows="3.2" cols="75" name="review_content">${ review.review_content }</textarea></td>
+					<td><textarea rows="3.2" cols="75" name="review_content"></textarea></td>
 					<td><input type="button" id="popbtn" value="리뷰 등록"	style="width: 70px; height: 55px;"></td>
 				</tr>
 			</table>

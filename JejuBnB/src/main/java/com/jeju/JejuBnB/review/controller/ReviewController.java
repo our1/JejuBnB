@@ -35,13 +35,15 @@ private static final Logger logger = LoggerFactory.getLogger(RoomController.clas
 		}
 	
 	//별점, 리뷰 등록
-	@RequestMapping(value="reinsert.do", method=RequestMethod.GET)
+	@RequestMapping(value="reinsert.do", method=RequestMethod.POST)
 	public String reinsertMethod(@RequestParam(value="room_no") int room_no, Review review, Model model) {
+		logger.info("review: " + review.toString());
 		reviewService.insertReview(review);
+		
 		//평점 구해서 업데이트 실행 숙소에 대한update
 		//int result = roomService.updateAvgScore(room_no);  //같은 속소리뷰에 대한 점수 합산과 평균구해서 room 에 업데이트 처리
-		Room room = roomService.selectRoom(room_no);
-		model.addAttribute("room", room);
+		//Room room = roomService.selectRoom(room_no);
+		model.addAttribute("review", review);	
 		return "redirect:/moveDetailView.do";
 	}
 

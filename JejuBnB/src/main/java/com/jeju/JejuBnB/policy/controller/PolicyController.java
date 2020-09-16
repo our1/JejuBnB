@@ -72,8 +72,8 @@ public class PolicyController {
 	}
 	
 	@RequestMapping("deletePolicy.do")
-	public String deletePolicy(@RequestParam("policy_no")int policy_no,Model model) {
-		int result = policyService.deletePolicy(policy_no);
+	public String deletePolicy(@RequestParam("policy_no")String plicy_no,Model model) {
+		int result = policyService.deletePolicy(plicy_no);
 		if(result > 0) {
 			return "redirect:/policyPage.do";
 		}else {

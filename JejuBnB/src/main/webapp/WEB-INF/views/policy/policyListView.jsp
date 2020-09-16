@@ -76,18 +76,14 @@
 		})
 	})
 	
-	function deletechek(){
-		var deletecheck = doucment.getElementById("deletecheck").value;
-		if(confirm('삭제하시겠습니까?')){
-			alert("확인");
-		}else{
-			alert("취소");
-		}
-	}
+	
 </script>
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp" />
+	<br>
+	<br>
+	<hr>
 	<h1>약관 및 정책</h1>
 	<br>
 	<hr>
@@ -95,15 +91,31 @@
 	<a href="PrivacyPage.do">개인정보</a>
 	<br>
 	<hr>
-	<form action="deletePolicy.do" method="post">	
+	<form action="deletePolicy.do" method="post" onsubmit="validate(pono);">	
+	
 	<c:forEach items="${requestScope.policy }" var="po">
 		<c:if test="${  po.policy_type eq '약관' }">
 			<div id="accordian">
 				<ul>
 					<li>
 						<h3>
-							<span class="icon-dashboard"></span>${po.policy_title } 
-							<input type="checkbox" name="policy_no" value="${po.policy_no}">
+							<span class="icon-dashboard"></span>${po.policy_title }
+							<c:if test="${ !empty loginMember and  loginMember.admin_check eq 'Y' }">
+							<input type="checkbox" name="policy_no" value="${po.policy_no}" id="pono">
+							<script type="text/javascript">
+							function validate(pono){
+								var deletecheeck = confirm("삭제하시겠습니까?");
+								if(deletecheck){
+									(policy.getPolicy_no() == pono)
+										alert("삭제되었습니다.");
+										return true;									
+									}else {
+										alert("취소하였습니다.");
+										return false;
+									}
+							}
+							</script>
+							</c:if>
 						</h3>
 						<ul>
 							<li><a href="#">${po.policy_content }</a></li>
@@ -116,8 +128,12 @@
 		</c:if>
 	</c:forEach>
 	<br>
+
+	<c:if test="${ !empty loginMember and  loginMember.admin_check eq 'Y' }">
 	<a href="movePolicyAdd.do">추가하기</a>
 	<input type="submit" value="삭제">
+	</c:if>
 	</form>
+	
 </body>
 </html>

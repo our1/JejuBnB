@@ -28,7 +28,7 @@
 	values ((select nvl(max(policy_no)+1,0) from policy),#{policy_type},#{policy_title},#{policy_content})
 	</insert>
 	
-	<delete id="deletePolicy" parameterType="int">
+	<delete id="deletePolicy" parameterType="string">
 	delete from policy where policy_no = #{policy_no}
 	</delete>
 	

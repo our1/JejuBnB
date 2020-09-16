@@ -2,8 +2,11 @@ package com.jeju.JejuBnB.room.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +31,6 @@ import com.jeju.JejuBnB.filter.model.vo.Rule;
 import com.jeju.JejuBnB.room.model.service.RoomService;
 import com.jeju.JejuBnB.room.model.vo.CheckTime;
 import com.jeju.JejuBnB.room.model.vo.Room;
-import com.jeju.JejuBnB.room.model.vo.RoomFilter;
 import com.jeju.JejuBnB.room.model.vo.Room_File;
 
 @Controller
@@ -46,23 +48,48 @@ public class RoomController {
 		int limit = 8;
 		int currentPage = 1;
 		int listCount = roomService.getListCount();
-
+		
+		Calendar cal = Calendar.getInstance();
+		String inMonth = "" + (cal.get(Calendar.MONTH) + 1);
+		String inday = "" + cal.get(Calendar.DAY_OF_MONTH);
+		String outMonth = inMonth;
+		String outday = "" + (cal.get(Calendar.DAY_OF_MONTH) + 1);
+		int week = cal.get(Calendar.DAY_OF_WEEK);
+		int people = 2;
+		
 		if (request.getParameter("page") != null) {
 			currentPage = Integer.parseInt(request.getParameter("page"));
 		}
 		ArrayList<Room> list = null;
 		if (request.getParameter("checkin") != null) {
+			
 			String checkin = request.getParameter("checkin");
 			String checkout = request.getParameter("checkout");
-			int people = Integer.parseInt(request.getParameter("people"));
+			people = Integer.parseInt(request.getParameter("people"));
 
 			ArrayList<Room> roomNo = roomService.selectChkRNList(checkin, checkout);
 			
 			list = roomService.selectChkList(roomNo, currentPage, limit, people);
+			
+			inMonth = checkin.substring(0, 2);
+			inday = checkin.substring(2,4);
+			outMonth = checkout.substring(0,2);
+			outday = checkout.substring(2,4);
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date chDate = null;
+			try {
+				chDate = sdf.parse(checkin);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			cal.setTime(chDate);
+			week = cal.get(Calendar.DAY_OF_WEEK);
 		} else {
 			int people2 = 2;
 			ArrayList<Room> roomNo = roomService.selectSysdate();
-			list = roomService.selectChkList(roomNo, currentPage, limit, people2);
+			list = roomService.selectList(currentPage, limit);
+			
 		}
 		int maxPage = (int) (((double) listCount / limit) + 0.9);
 		int startPage = (((int) ((double) currentPage / limit + 0.9)) - 1) * limit + 1;
@@ -70,7 +97,16 @@ public class RoomController {
 		if (maxPage < endPage) {
 			endPage = maxPage;
 		}
+		logger.info("달 : " + cal.get(Calendar.MONTH) + ", 나가는날 : " + cal.get(Calendar.DAY_OF_MONTH));
+		logger.info("요일 : " + week);
+		logger.info("달 : " + inMonth + inday + ", 나가는날 : " + outMonth + outday);
 		if (list != null) {
+			model.addAttribute("inMonth", inMonth);
+			model.addAttribute("inday", inday);
+			model.addAttribute("outMonth", outMonth);
+			model.addAttribute("outday", outday);
+			model.addAttribute("week", week);
+			model.addAttribute("people", people);
 			model.addAttribute("maxPage", maxPage);
 			model.addAttribute("startPage", startPage);
 			model.addAttribute("endPage", endPage);
@@ -89,10 +125,11 @@ public class RoomController {
 	public String insertRoom(Room room, Model model, CheckTime ct, MultipartHttpServletRequest mrequest,
 			HttpServletRequest request, @RequestParam(value = "ofile", required = false) MultipartFile ofile,
 			@RequestParam("address") String address) {
-		String orgname = ofile.getOriginalFilename();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 
-		if (!orgname.isEmpty()) {
+		if (ofile != null) {
+			String orgname = ofile.getOriginalFilename();
+
 			String savePath = request.getSession().getServletContext().getRealPath("resources/roomThumbnail");
 			room.setRoom_thumbnail_file(ofile.getOriginalFilename());
 			String rename = sdf.format(new java.sql.Date(System.currentTimeMillis()));
@@ -109,7 +146,6 @@ public class RoomController {
 
 		Room Sroomno = roomService.selectRoomNo(room.getUser_id());
 		int roomno = Sroomno.getRoom_no() + 1;
-		logger.info("" + roomno);
 		List<MultipartFile> fileList = mrequest.getFiles("file");
 		ArrayList<Room_File> rflist = new ArrayList<Room_File>();
 		String savePath1 = request.getSession().getServletContext().getRealPath("resources/roomFiles");
@@ -142,7 +178,8 @@ public class RoomController {
 		int result = roomService.insertRoom(room);
 		int result2 = roomService.insertRoomFile(rflist);
 		if (result > 0) {
-			return "redirect:/roomlist.do";
+			return "redirect:/insertNotice.do?toUser=" + room.getUser_id()+"&fromUser=admin&room_name=" + room.getRoom_name() 
+			+ "&returnPage=redirect:/main.do&choice=7";
 		} else {
 			model.addAttribute("message", "글 등록 실패");
 			return "common/error";

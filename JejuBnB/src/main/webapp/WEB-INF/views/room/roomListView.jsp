@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"  %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,8 +17,6 @@
 	    	
 		}
 	
-	
-    
 </script>
     <style type="text/css">
 
@@ -29,25 +27,78 @@
         padding: 0;
       }
       
-      #roomList {
-		width : 50%;
-		height : 80%;
-		position : relative;
-		right : 50%;
-		top : 30%;
-	}
+      a{
+      	text-decoration : none;
+      }
+      
+      .container {
+      	width : 40%;
+		display : grid;
+		grid-template-columns : 200px 1fr;
+		grid-template-rows : repeat(${listCount }, 200px);
+		gap : 10px 5px;
+		padding-left : 10px;
+		
+		}
+		
+		.container img{
+			width : 200px;
+			height : 200px;
+			padding : 0;
+		}
+		
+		.container #roomImg{
+			width : 200px;
+			height : 200px;
+			margin : 0;
+		}
+		
+		.container li{
+			list-style : none;
+		}
+		
+		#RoomContent{
+			margin-top : 60px;
+			margin-left : 0;
+		}
+		
+		#items{	
+			height : 50px;	
+			padding : 10px;
+			
+		}
+		
+		#page{
+			padding : 10px;
+		}
 	
-	#map {
-		width : 50%;
-		height : 80%;
-		position : absolute;
-		left : 50%;
-		top : 30%;
-	}
-    img {
-    	width : 300px;
-    	height : 300px;
-    }
+		#map {	
+			width : 60%;
+			height : 50%;
+			position : absolute;
+			left : 40%;
+			top : 15%;
+			border : 1px solid black;
+		}
+    
+    
+	    #moveNext{
+	    	width : 25px;
+	    	height : 25px;
+	    	border-radius : 50%;
+	    	background:#ffffff;
+	    	text-align : center;
+	    	line-height : 10px;
+	    	border : 1px solid gray;
+	    	box-shadow : 0 0 1px rgb(221,221,221);
+	    	font-weidth : bold;
+	    }    
+	    
+	    #page{
+	    	width : 40%;
+	    	height : 50px;
+	    }
+	    
     </style>
 
 </head>
@@ -56,86 +107,65 @@
 <hr>
     
 <h1 align="center">숙소 리스트 페이지</h1>
-<div id="roomList">
+<div id="main">
+<div id="items">
+${listCount }개 숙소 검색 . ${inMonth }월${inday }일 - ${outMonth }월${outday }일 . 게스트 ${people }명 <br>
 <button onclick="javascript:location.href='moveRoomBList.do'">리스트로 보기</button>
-
-<form action=""></form>
+<!-- 
 <button onclick="javascript:location.href='moveRoomBList.do'">예약 가능 숙소 보기</button>
 
-
-<button onclick="javascript:location.href='moveRoomBList.do'">리스트로 보기</button>
+<button id="BList" onclick="javascript:location.href='moveRoomBList.do'">리스트로 보기</button> -->
 
 <button onclick="moveFilterPage()">필터 추가하기</button>
-
-
+</div>
+<div class="container">
 <c:forEach items="${list }" var="room">
-<table align="center" border="1" cellspacing="0" width="700">
-<tr><th colspan="3"><img src="${ pageContext.servletContext.contextPath}/resources/roomThumbnail/${ room.room_rename_file }" /></th></tr>
-<tr><td> 숙소 이름 </td> <td>숙소 주소 </td></tr>
-<tr><td><a href="moveDetailView.do?roomno=${room.room_no}">${room.room_name }</a>  </td><td id="address">${room.room_address }</td>
-</table>
+	<div id="roomImg" >
+		<img src="${ pageContext.servletContext.contextPath}/resources/roomThumbnail/${ room.room_rename_file }">
+	</div>
+	<div id="RoomContent">
+		<ul>
+			<li> 숙소 이름 : <a href="moveDetailView.do?roomno=${room.room_no}">${room.room_name }</a> </li>
+			<li> 숙소 주소 : ${room.room_address } </li>
+			<li> 금액 : 
+			<c:if test="${week eq 6 || week eq 7}">
+				<fmt:formatNumber value="${room.room_weekday }" type="currency" />
+			</c:if>
+			<c:if test="${week ne 6 && week ne 7}">
+				<fmt:formatNumber value="${room.room_weekend }" type="currency" />
+			</c:if>
+			</li>
+		</ul>
+	</div>
 </c:forEach>
+</div>
 
-<div style="text-align:center;">
-	<c:if test="${ currentPage <= 1 }">
-	[맨처음] &nbsp;
-	</c:if>
-	<c:if test="${ currentPage > 1 }">
-	<a href="roomlist.do?page=1"> [맨처음]</a>
-	</c:if>
-
-<!-- 이전 그룹 으로 이동 처리 -->
-	<c:if test="${ (currentPage -10) < startPage and (currentPage - 10) > 1 }" >
-	<c:url var="list" value="roomlist.do">
-		<c:param name="page" value="${ startPage - 10 }" />
-	</c:url>
-	<a href="${ list }">[이전그룹]</a>
-	</c:if>
-	<c:if test="${ !((currentPage -10) < startPage and (currentPage - 10) > 1)  }" >
-	[이전그룹]&nbsp;
-	</c:if>
-
-<!-- 현재 페이지가 속한 Page Group의 숫자 출력 처리-->
+<div id="page" style="text-align:center;">
+	<c:if test="${ currentPage == 1 }">
+	<button id="moveNext" onclick="moveNext(${currentPage})">&lt;</button>
+	</c:if>	
 
 <c:forEach var="p" begin="${ startPage }" end="${ endPage }" step="1">
-	<c:if test="${ p eq currentPage }">
-		<font color="red" size="4"><b>[${ p }]</b></font>
+	<c:if test="${ p eq currentPage }">	
+			<font weight="bold"><b>${ p }</b></font>			
 	</c:if>
 	<c:if test="${ p ne currentPage }">
-	<c:url var="ubl3" value="roomlist.do">
-		<c:param name="page" value="${ p }" />
-	</c:url>
-		<a href="${ ubl3 }">${ p }</a>	
+		<button id="moveBack" onclick="moveNext(${currentPage})">&gt;</button>
 	</c:if>
-</c:forEach>>
-
-<!-- 다음그룹으로 이동 처리 -->
-<c:if test="${ (currentPage + 10) > endPage and (currentPage + 10) < maxPage }" >
-<c:url var="list3" value="roomlist.do" >
-	<c:param name="page" value="${ endPage + 10 }" />
-</c:url>
-	<a href="${ list3 }">[다음그룹]</a>
-	</c:if>
-	<c:if test="${ (currentPage + 10) < endPage and (currentPage + 10) > maxPage }">
-	[다음그룹]&nbsp;
-</c:if>
-
-<!-- 맨끝 페이지로 이동 처리 -->
-<c:if test="${ currentpage >= maxPage }" >
-	[맨끝] &nbsp;
-	</c:if>
-	<c:if test="${ currentPage < maxPage }">
-	<c:url var="list4" value="roomlist.do">
-		<c:param name="page" value="${ maxPage }" />
-	</c:url>
-	<a href="${ list4 }">[맨끝]</a>
+</c:forEach>
+	
+	<c:if test="${ currentPage == maxPage }">
+	<button id="moveNext" onclick="moveNext(${currentPage})">&gt;</button>
 	</c:if>
 
 </div>
 
-
 </div>
+
+
+
 <div id="map" style="width:50%;height:100%;"></div>
+
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=44262f7a543c0f64c3a92e6841cb0ddb&libraries=services"></script>
 <script>

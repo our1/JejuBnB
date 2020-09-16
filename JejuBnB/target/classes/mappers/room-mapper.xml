@@ -81,6 +81,7 @@
 		<![CDATA[
 		and max_people >= #{people}
 		and st_num_people <= #{people}
+		
 		order by room_no)
 		
 		where rnum >= #{startRow} and rnum <= #{endRow}

@@ -24,7 +24,7 @@ public class PolicyServiceImpl implements PolicyService{
 	}
 	
 	@Override
-	public int deletePolicy(int policy_no) {
+	public int deletePolicy(String policy_no) {
 		return policyDao.deletePolicy(policy_no);
 	}
 	

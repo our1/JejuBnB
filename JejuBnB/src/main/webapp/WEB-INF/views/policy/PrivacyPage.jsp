@@ -74,6 +74,14 @@
 			}
 		})
 	})
+	function deletechek(){
+		var deletecheck = doucment.getElementById("deletecheck").value;
+		if(confirm('삭제하시겠습니까?')){
+			alert("확인");
+		}else{
+			alert("취소");
+		}
+	}
 </script>
 </head>
 <body>
@@ -93,7 +101,9 @@
 					<li>
 						<h3>
 							<span class="icon-dashboard"></span>${privacy.policy_title }
+							<c:if test="${ !empty loginMember and  loginMember.admin_check eq 'Y' }">
 							<input type="checkbox" name="policy_no" value="${privacy.policy_no}">
+							</c:if>
 						</h3>
 						<ul>
 							<li><a href="#">${privacy.policy_content }</a></li>
@@ -106,8 +116,10 @@
 </c:if>
    </c:forEach>
 <hr>
+	<c:if test="${ !empty loginMember and  loginMember.admin_check eq 'Y' }">
 	<a href="movePolicyAdd.do">추가하기</a>
-	<input type="submit" value="삭제">
+	<input type="submit" value="삭제" id="deletecheck">
+	</c:if>
 	</form>
 </body>
 </html>

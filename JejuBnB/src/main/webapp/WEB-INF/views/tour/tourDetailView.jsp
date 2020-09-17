@@ -151,59 +151,82 @@
                     </svg>
                   </label>
         <div class="ts">
-            <span>&#9733;</span> 4.8 ( 135 ) &nbsp;&nbsp; ${ tour.tour_address }
+            <span>&#9733;</span> ${ tour.tour_review_content } &nbsp;&nbsp; ${ tour.tour_address }
               <hr class="tshr">
         </div>
         <div style="padding: 190px 0px 0px 0px;"></div>
         <div class="tcontent"><div class="tct">프로그램</div><br>
-             ${ tour.tour_content }
+             <div class="tcon">${ tour.tour_content }</div>
             <hr class="tchr">
         </div>
         <div style="padding: 190px 0px 0px 0px;"></div>
         <div class="tmap">
           방문 장소<br>
-          <div id="container">
-    <div id="rvWrapper">
-        <div id="roadview" style="width:100%;height:100%;"></div> <!-- 로드뷰를 표시할 div 입니다 -->
-        <div id="close" title="로드뷰닫기" onclick="closeRoadview()"><span class="img"></span></div>
-    </div>
-    <div id="mapWrapper">
-        <div id="map" style="width:100%;height:100%"></div> <!-- 지도를 표시할 div 입니다 -->
-        <div id="roadviewControl" onclick="setRoadviewRoad()"></div>
-    </div>
-</div>
-<div style="padding: 100px 0px 0px 0px;"></div>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f30a1bf673317be5978a11f2b404a16b&libraries=services"></script>
-<script>
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };  
-// 지도를 생성합니다    
-var map = new kakao.maps.Map(mapContainer, mapOption); 
-// 주소-좌표 변환 객체를 생성합니다
-var geocoder = new kakao.maps.services.Geocoder();
-// 주소로 좌표를 검색합니다
-geocoder.addressSearch($("#address"), function(result, status) {
-    // 정상적으로 검색이 완료됐으면 
-     if (status === kakao.maps.services.Status.OK) {
-        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-        // 결과값으로 받은 위치를 마커로 표시합니다
-        var marker = new kakao.maps.Marker({
-            map: map,
-            position: coords
-        });
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리 집</div>'
-        });
-        infowindow.open(map, marker);
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        map.setCenter(coords);
-    } 
-});    
-</script>
+	<div id="map" style="width:1300px;height:400px;z-index:0;"></div>
+
+	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f30a1bf673317be5978a11f2b404a16b"></script>
+	<script>
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		    mapOption = {
+		        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+		        level: 6, // 지도의 확대 레벨
+		        mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
+		    }; 
+
+		// 지도를 생성한다 
+		var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+		// 지도 타입 변경 컨트롤을 생성한다
+		var mapTypeControl = new kakao.maps.MapTypeControl();
+
+		// 지도의 상단 우측에 지도 타입 변경 컨트롤을 추가한다
+		map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);	
+
+		// 지도에 확대 축소 컨트롤을 생성한다
+		var zoomControl = new kakao.maps.ZoomControl();
+
+		// 지도의 우측에 확대 축소 컨트롤을 추가한다
+		map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+		// 지도 중심 좌표 변화 이벤트를 등록한다
+		kakao.maps.event.addListener(map, 'center_changed', function () {
+			console.log('지도의 중심 좌표는 ' + map.getCenter().toString() +' 입니다.');
+		});
+
+		// 지도 확대 레벨 변화 이벤트를 등록한다
+		kakao.maps.event.addListener(map, 'zoom_changed', function () {
+			console.log('지도의 현재 확대레벨은 ' + map.getLevel() +'레벨 입니다.');
+		});
+
+		// 지도 영역 변화 이벤트를 등록한다
+		kakao.maps.event.addListener(map, 'bounds_changed', function () {
+			var mapBounds = map.getBounds(),
+				message = '지도의 남서쪽, 북동쪽 영역좌표는 ' +
+							mapBounds.toString() + '입니다.';
+
+			console.log(message);	
+		});
+
+		// 지도 시점 변화 완료 이벤트를 등록한다
+		kakao.maps.event.addListener(map, 'idle', function () {
+			var message = '지도의 중심좌표는 ' + map.getCenter().toString() + ' 이고,' + 
+							'확대 레벨은 ' + map.getLevel() + ' 레벨 입니다.';
+			console.log(message);
+		});
+
+		// 지도 클릭 이벤트를 등록한다 (좌클릭 : click, 우클릭 : rightclick, 더블클릭 : dblclick)
+		kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
+			console.log('지도에서 클릭한 위치의 좌표는 ' + mouseEvent.latLng.toString() + ' 입니다.');
+		});	
+
+		// 지도 드래깅 이벤트를 등록한다 (드래그 시작 : dragstart, 드래그 종료 : dragend)
+		kakao.maps.event.addListener(map, 'drag', function () {
+			var message = '지도를 드래그 하고 있습니다. ' + 
+							'지도의 중심 좌표는 ' + map.getCenter().toString() +' 입니다.';
+			console.log(message);
+		});
+
+	</script>
         <hr class="tmhr">
       </div>
       <div style="padding: 80px 0px 0px 0px;"></div>

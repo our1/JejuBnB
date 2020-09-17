@@ -46,6 +46,26 @@
 		<id property="tour_no" column="tour_no" />
 	</resultMap>
 	
+	<resultMap id="resultToCategory" type="Tour_Category">
+		<id property="tour_category_no" column="tour_category_no" />
+		<result property="tour_category_name" column="tour_category_name"/>
+	</resultMap>
+	
+	<resultMap id="resultToReview" type="Tour_Review">
+		<id property="tour_review_no" column="tour_review_no" />
+		<result property="tour_review_content" column="tour_review_content" />
+		<result property="tour_review_date" column="tour_review_date" />
+		<result property="tour_score" column="tour_score" />
+		<result property="tour_no" column="tour_no" />
+		<result property="user_id" column="user_id" />
+	</resultMap>
+	
+	<resultMap id="resultToLike" type="Tour_Like">
+		<id property="tour_no" column="tour_no" />
+		<result property="user_id" column="user_id" />
+		<result property="count" column="count" />
+	</resultMap>
+	
 	<select id="selectTour" parameterType="com.jeju.JejuBnB.tour.model.vo.TourPage" resultMap="resultList">
 		<![CDATA[
 		select * 
@@ -55,10 +75,12 @@
 		where rnum >= #{ startRow } and rnum <= #{ endRow }
 		]]>
 	</select>
+	
 	<select id="selectTourDetail" parameterType="_int" resultMap="resultTour">
-		select * 
-		from tour
-		where tour_no = #{ tour_no }
+		select *
+		from tour t, tour_review r
+		where t.tour_no = r.tour_no
+		and tour_no = #{ tour_no }
 	</select>
 	
 	<select id="selectTourImage" parameterType="_int" resultMap="resultTiList">

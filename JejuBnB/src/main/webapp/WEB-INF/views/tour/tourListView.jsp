@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"  %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -72,14 +74,14 @@
         <div id="map" style="width:100%;height:100%"></div> <!-- 지도를 표시할 div 입니다 -->
     </div>
 </div>
-<button class="twri" onclick="javascript:location.href='tmovewrite.do'">관광지 작성 하기</button>
+<button class="twri" onclick="javascript:location.href='summer.do'">관광지 작성 하기</button>
 <div style="padding: 100px 0px 0px 0px;"></div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f30a1bf673317be5978a11f2b404a16b&libraries=services"></script>
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
+        level: 9 // 지도의 확대 레벨
     };  
 
 // 지도를 생성합니다    
@@ -87,9 +89,45 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 
 // 주소-좌표 변환 객체를 생성합니다
 var geocoder = new kakao.maps.services.Geocoder();
+var list = [];
+var tourName = [];
+<c:forEach items="${ list }" var="tour">
+tourName.push('${tour.tour_name}');
+list.push('${tour.tour_roadaddress}');
+</c:forEach>
+
+
+
+for(var i = 0; i < '${fn:length(list)}'; i++){
+	console.log(tourName[i]);
+	geocoder.addressSearch(list[i], function(result, status) {
+	 if (status === kakao.maps.services.Status.OK) {
+	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+	        // 결과값으로 받은 위치를 마커로 표시합니다
+	        var marker = new kakao.maps.Marker({
+	            map: map,
+	            position: coords
+	        });
+	        
+	     /* // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+	        var content = '<div class="customoverlay"><span class="title">'+
+	        roomName[i] + '</span></div>';
+	        // 커스텀 오버레이가 표시될 위치입니다 
+	        var position = coords;  
+
+	        // 커스텀 오버레이를 생성합니다
+	        var customOverlay = new kakao.maps.CustomOverlay({
+	            map: map,
+	            position: position,
+	            content: content,
+	            yAnchor: 1 
+	        }); */
+	    } 
+	})   
+}
 
 // 주소로 좌표를 검색합니다
-geocoder.addressSearch($("#address"), function(result, status) {
+/* geocoder.addressSearch("제주특별자치도 서귀포시 토평로 15", function(result, status) {
 
     // 정상적으로 검색이 완료됐으면 
      if (status === kakao.maps.services.Status.OK) {
@@ -104,14 +142,14 @@ geocoder.addressSearch($("#address"), function(result, status) {
 
         // 인포윈도우로 장소에 대한 설명을 표시합니다
         var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리 집</div>'
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">${room.room_name}</div>'
         });
         infowindow.open(map, marker);
 
         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
         map.setCenter(coords);
     } 
-});    
+});     */
 </script>
        <c:import url="/WEB-INF/views/common/footer.jsp" />
        	   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>

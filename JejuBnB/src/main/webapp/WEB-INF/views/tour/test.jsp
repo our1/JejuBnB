@@ -14,7 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
   </head>
   <body>
-    <form action="tinser.do" method="post" enctype="multipart/form-data">
+    <form action="tinsert.do" method="post" enctype="multipart/form-data">
     <textarea id="summernote" name="editordata"></textarea>
   </form>
   <input type="submit" value="작성 완료">

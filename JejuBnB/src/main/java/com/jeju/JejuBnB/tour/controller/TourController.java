@@ -101,7 +101,7 @@ public class TourController {
 		
 		if (!orgname.isEmpty()) {
 			String savePath =request.getSession().getServletContext().getRealPath("resources/tourThumbnail");
-			tour.setTour_thumnail_original_file(ofile.getOriginalFilename());
+			tour.setTour_thumbnail_original_file(ofile.getOriginalFilename());
 			String rename = sdf.format(new java.sql.Date(System.currentTimeMillis()));
 			rename += "." + ofile.getOriginalFilename().substring(ofile.getOriginalFilename().lastIndexOf(".") + 1);
 			
@@ -110,8 +110,8 @@ public class TourController {
 			} catch (IllegalStateException | IOException e) {
 				e.printStackTrace();
 			} 
-			tour.setTour_thumnail_original_file(ofile.getOriginalFilename());
-			tour.setTour_thumnail_rename_file(rename);
+			tour.setTour_thumbnail_original_file(ofile.getOriginalFilename());
+			tour.setTour_thumbnail_rename_file(rename);
 		}
 		
 		Tour tono = tourService.selectTourNo(tour.getUser_id());

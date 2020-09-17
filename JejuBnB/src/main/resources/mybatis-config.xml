@@ -4,6 +4,7 @@
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
+		
 		<typeAlias type="com.jeju.JejuBnB.member.model.vo.Member" alias="Member" />
 		<typeAlias type="com.jeju.JejuBnB.room.model.vo.Room" alias="Room" />
 		<typeAlias type="com.jeju.JejuBnB.room.model.vo.Room_File" alias="Room_File" />

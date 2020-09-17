@@ -45,5 +45,10 @@
 		<mapper resource="mappers/reservation-mapper.xml" />
 		<mapper resource="mappers/filter-mapper.xml" />
 		<mapper resource="mappers/notice-mapper.xml" />
+		<mapper resource="mappers/message_detail-mapper.xml" />
+		<mapper resource="mappers/message-mapper.xml" />
+		<mapper resource="mappers/mycoupon-mapper.xml" />
+		<mapper resource="mappers/myroom-mapper.xml" />
+		
 	</mappers>
 </configuration>

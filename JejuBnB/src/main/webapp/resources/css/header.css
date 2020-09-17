@@ -124,5 +124,6 @@ top : 5px;
 hr.divider {
     margin: 9px 0;
     overflow: hidden;
-    background-color: #e5e5e5;
+    border : 1px soild #fff;
+    
 } 

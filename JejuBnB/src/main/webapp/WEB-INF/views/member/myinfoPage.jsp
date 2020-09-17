@@ -27,20 +27,19 @@
 		<table align = "center" width= "500" cellspacing = "5" cellpadding = "0">
 			<tr>
 				<th width = "120"> 이 름  </th>
-				<td> ${loginMember.user_name} </td>
+				<td> ${member.user_name} </td>
 			</tr>
 			<tr>
 				<th> 아 이 디 </th>
-				<td>${loginMember.user_id} </td>
+				<td>${member.user_id} </td>
 			</tr>
-			
 			<tr>
 				<th> 생년월일 </th>
-				<td>${loginMember.birthday} </td>
+				<td>${member.birthday} </td>
 			</tr>
 			<tr>
 				<th> 전화번호 </th>
-				<td> ${loginMember.phone} </td>
+				<td> ${member.phone} </td>
 			</tr>
 			<tr>
 				<th colspan = "2">

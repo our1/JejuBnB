@@ -70,6 +70,7 @@
       </div>
     </div>
   </main>
+  <div style="padding: 150px 0px 0px 0px;"></div>
  		   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	       <script src="resources/js/main.js"></script>
 <c:import url="/WEB-INF/views/common/footer.jsp" />

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.jeju.JejuBnB.member.model.vo.Member;
 import com.jeju.JejuBnB.message.model.vo.Message;
+import com.jeju.JejuBnB.message.model.vo.Message_Detail;
 
 @Repository("messageDao")
 public class MessageDao {
@@ -23,9 +24,24 @@ public class MessageDao {
 		return session.insert("messageMapper.insertMessage", message);
 	}
 
-	public ArrayList<Message> selectListMessage(Message message) {
-		List<Message> list = session.selectList("messageMapper.selectListMessage", message);
-		return (ArrayList<Message>)list;
+	public Message selectListMessage(Message message) {
+		return session.selectOne("messageMapper.selectListMessage", message);
+	}
+	
+	
+	
+	
+	
+	
+	
+	//messageDetail 
+	public ArrayList<Message_Detail> selectListMessageDetail(Message_Detail message_detail) {
+		List<Message_Detail> list = session.selectList("message_detailMapper.selectListMessageDetail", message_detail);
+		return (ArrayList<Message_Detail>)list;
+	}
+
+	public int insertMessageDetail(Message_Detail message_detail) {
+		return session.insert("message_detailMapper.insertMessageDetail", message_detail);
 	}
 	
 	

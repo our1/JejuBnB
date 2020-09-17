@@ -2,31 +2,34 @@
 <!DOCTYPE mapper PUBLIC
 "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="messageMapper">
+<mapper namespace="message_detailMapper">
 
-	<resultMap id="resultMessage" type="Message">
-		<id property="message_no" column="message_no" />
-		<result property="user_one" column="user_one" />
-		<result property="user_two" column="user_two" />
+	<resultMap id="resultMessage" type="Message_Detail">
+		<result property="message_no" column="message_no" />
+		<result property="content" column="content" />
+		<result property="message_date" column="message_date" />
+		<result property="writer" column="writer" />
 	</resultMap>
 	
-	<resultMap id="resultList" type="Message">
-		<id property="message_no" column="message_no" />
-		<result property="user_one" column="user_one" />
-		<result property="user_two" column="user_two" />
+	<resultMap id="resultList" type="Message_Detail">
+		<result property="message_no" column="message_no" />
+		<result property="content" column="content" />
+		<result property="message_date" column="message_date" />
+		<result property="writer" column="writer" />
 	</resultMap>
 	
-	<insert id="insertMessage" parameterType="Message">
-	insert into message (message_no, user_one, user_two)
-	values ((select max(message_no) from message)+1 ,#{ user_one }, #{user_two})
-
-	</insert>
 	
-	<select id="selectListMessage" parameterType="Message"  resultType="Message">
-		select * from message 
-		where (user_one = #{user_one} and user_two = #{user_two}) or (user_one = #{user_two} and user_two = #{user_one})
+	<select id="selectListMessageDetail" parameterType="Message_Detail"  resultMap="resultList">
+		select * from message_detail 
+		where message_no = #{message_no}
 	</select>
+	
+	<insert id="insertMessageDetail" parameterType="Message_Detail" >
+	insert into message_detail (message_no, content, writer)
+	values (#{ message_no },#{ content }, #{writer})
+	</insert>
 <!--	
+	
 	<select id="loginCheck" parameterType="Member"  resultType="Member">
 		select * from member 
 		where user_id = #{user_id}

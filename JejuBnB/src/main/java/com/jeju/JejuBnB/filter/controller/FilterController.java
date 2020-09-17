@@ -44,7 +44,6 @@ public class FilterController {
 	
 	@RequestMapping(value="Ainsert.do", method=RequestMethod.POST)
 	public String insertAmenity(@RequestParam("amenity_name") String amenity_name, Model model) {
-		logger.info("테스트 확인 용 : " + amenity_name);
 		int result = filterService.insertAmenity(amenity_name);
 		
 		if(result > 0) {

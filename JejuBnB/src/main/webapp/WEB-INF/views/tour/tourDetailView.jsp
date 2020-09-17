@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -151,7 +152,7 @@
                     </svg>
                   </label>
         <div class="ts">
-            <span>&#9733;</span> ${ tour.tour_review_content } &nbsp;&nbsp; ${ tour.tour_address }
+            <span>&#9733;</span> 4.8 ( 135 ) &nbsp;&nbsp; ${ tour.tour_address }
               <hr class="tshr">
         </div>
         <div style="padding: 190px 0px 0px 0px;"></div>
@@ -233,41 +234,13 @@
       <div class="treview">
         <span>&#9733;</span> 4.8 점 ( 135 ) 개
             <div class="reviewlist">
+            <c:forEach items="${ requestScope.list }" var="tour_review">
               <div class="one">
-                작성자 아이디 <br>
-                <div class="reviewdate">2020 / 09 / 10 </div><br>
-                너무 좋았습니다 ㅠㅠㅠㅠ 예상보다 훨씬 큰 감동과 경험을 하고 갑니다.
-                다음 번 제주도에 온다면 또 하고, 주변에도 추천해드릴려구요 !!
+                ${ tour_review.user_id } <br>
+                <div class="reviewdate"><fmt:formatDate value="${ tour_review.tour_review_date }" pattern="yyyy-MM-dd" /></div><br>
+					${ tour_review.tour_review_content }
               </div>
-              <div class="two">
-                작성자 아이디 <br>
-                <div class="reviewdate">2020 / 09 / 10 </div><br>
-                너무 좋았습니다 ㅠㅠㅠㅠ 예상보다 훨씬 큰 감동과 경험을 하고 갑니다.
-                다음 번 제주도에 온다면 또 하고, 주변에도 추천해드릴려구요 !!
-              </div>
-              <div class="three">
-                작성자 아이디 <br>
-                <div class="reviewdate">2020 / 09 / 10 </div><br>
-                소중한 경험이었습니다! 사진도 너무 예쁘게 나왔고 호스트분이 너무 친절하셨어요 ㅎㅎ
-              </div>
-              <div class="four">
-                작성자 아이디 <br>
-                <div class="reviewdate">2020 / 09 / 10 </div><br>
-                딸과 함께 예쁜 사진 찍고 싶어서 했는데 정말 특별한 경험으로 인생사진 남겼어요.
-                보는것보다 훨씬 더 좋았고요 원색이 사진이 잘나온다고 하셨는데 빨간색 원피스 강추입니다!! 정말 사진이 예술로 나와요
-              </div>
-              <div class="five">
-                작성자 아이디 <br>
-                <div class="reviewdate">2020 / 09 / 10 </div><br>
-                너무 친절하시고 센스있게 촬영해주셨어요!! 별자리도 보여주시고 밤하늘 별사진도 찍었구요
-                ㅠㅠ진짜 후회없이 체험했습니다! 다음 제주도에서도 또 이용하고싶어요^^
-              </div>
-              <div class="six">
-                작성자 아이디 <br>
-                <div class="reviewdate">2020 / 09 / 10 </div><br>
-                늦은시간이라 걱정했는데 위험하지도않고 너무 재밌고 특별한 경험이었어요^^
-                한번은 꼭 체험해봐야될 경험인거같아요 담번에 항마력좀 키워서 다시 재도전할 계획입니다^^
-              </div>
+             </c:forEach>
               <button class="reviewmore">리뷰 더보기</button>
          <hr class="trhr">
       </div>

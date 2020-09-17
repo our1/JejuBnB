@@ -55,8 +55,8 @@
    <div class="thead"><h1 class="tour">관광지</h1></div>
    <div style="padding: 100px 0px 0px 0px;"></div>
      <button class="live">자연</button>
-     <button class="cook">맛집</button>
-     <button class="act">액티비티</button>
+     <button class="cook">음식</button>
+     <button class="act">체험</button>
      <button class="movelist" onclick="javascipt:location.href='tourNoMap.do'">X</button>
      <div style="padding: 100px 0px 0px 0px;"></div>
        <div class="tourlist">
@@ -74,14 +74,14 @@
         <div id="map" style="width:100%;height:100%"></div> <!-- 지도를 표시할 div 입니다 -->
     </div>
 </div>
-<button class="twri" onclick="javascript:location.href='summer.do'">관광지 작성 하기</button>
+<button class="twri" onclick="javascript:location.href='tmovewrite.do'">관광지 작성 하기</button>
 <div style="padding: 100px 0px 0px 0px;"></div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f30a1bf673317be5978a11f2b404a16b&libraries=services"></script>
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 9 // 지도의 확대 레벨
+        level: 7 // 지도의 확대 레벨
     };  
 
 // 지도를 생성합니다    

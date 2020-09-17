@@ -78,9 +78,8 @@
 	
 	<select id="selectTourDetail" parameterType="_int" resultMap="resultTour">
 		select *
-		from tour t, tour_review r
-		where t.tour_no = r.tour_no
-		and tour_no = #{ tour_no }
+		from tour
+		where tour_no = #{ tour_no }
 	</select>
 	
 	<select id="selectTourImage" parameterType="_int" resultMap="resultTiList">

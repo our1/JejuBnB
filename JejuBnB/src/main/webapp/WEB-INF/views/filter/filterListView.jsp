@@ -20,24 +20,46 @@
 	}
 </style>
 <script type="text/javascript">
+
+function nameCheck(){
+
+	if($("input").is(":checked")){
+		alert("체크되었습니다.1111111"); 
+
+		return true;
+	} else {
+		alert("체크되었습니다."); 
+
+		return false;
+	}
 	
+	};
+
+	/* var amenity = $('input:checkbox[name="amenity_no"]').val();
+	alert(amenity);
+	if(amenity != null){
+		return false;
+	}else {
+		return true;
+	} */
+
 </script>
 </head>
 <body>
 <h1> 필터 리스트 뷰</h1>
 <div id="Adiv" class="list">
 편의 시설 :  <br>
-<form action="Adelete.do" method="post">
+<form action="Adelete.do" method="post" onsubmit="return nameCheck()">
 <c:forEach var="count1" begin="0" end="${AlistSize }" step="4">
 <c:forEach items="${Alist }" var="alist" begin="${count1 }" end="${count1 + 3}">
-${ alist.amenity_name } <input type="checkbox" name="amenity_no" value="${alist.amenity_no }">
+${ alist.amenity_name } <input type="checkbox" class="amenity" name="amenity_no" value="${alist.amenity_no }" >
 </c:forEach> <br>
 </c:forEach> <br>
-<button type="submit" style="margin:10px;">삭제하기</button>
-
+<button type="submit" id="getCheckedAll" style="margin:10px;">삭제하기</button>
 </form>
+
 <form action="Ainsert.do" method="post">
-<input type="text" name="amenity_name" placeholder="추가">
+<input type="text" name="amenity_name" placeholder="추가" required>
 <button type="submit">추가하기</button>
 </form>
  <br>
@@ -54,7 +76,7 @@ ${ flist.facility_name } <input type="checkbox" name="facility_no" value="${flis
 <button type="submit">삭제하기</button>
 </form>
 <form action="Finsert.do" method="post">
-<input type="text" name="facility_name" placeholder="추가">
+<input type="text" name="facility_name" placeholder="추가" required>
 <button type="submit">추가하기</button>
 </form>
 <br>
@@ -72,7 +94,7 @@ ${ blist.bu_type_name } <input type="checkbox" name="bu_type_no" value="${blist.
 </form>
 
 <form action="Dinsert.do" method="post">
-<input type="text" name="bu_type_name" placeholder="추가">
+<input type="text" name="bu_type_name" placeholder="추가" required>
 <button type="submit">추가하기</button>
 </form>
 <br>
@@ -88,7 +110,7 @@ ${rlist.rule_name } <input type="checkbox" name="rule_no" value="${rlist.rule_no
 <br>
 </form>
 <form action="Rinsert.do" method="post">
-<input type="text" name="rule_name" placeholder="추가">
+<input type="text" name="rule_name" placeholder="추가" required>
 <button type="submit">추가하기</button>
 </form>
 </div>

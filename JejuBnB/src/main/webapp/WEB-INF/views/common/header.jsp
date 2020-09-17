@@ -16,7 +16,7 @@
 						window.open("myNoticeList.do?userid=${loginMember.user_id}","알림","width=1700,height=900, left=100, top=50");
 				}
 					function winOpen3() {
-						window.open("adUNoticeList.do","알림","width=1700,height=900, left=100, top=50");
+						window.open("adNoticeList.do","알림","width=1700,height=900, left=100, top=50");
 				}
 					function movePage() {
 					 	window.open("loginPage.do", "로그인",

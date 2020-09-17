@@ -49,6 +49,18 @@ public class NoticeController {
 		return "redirect:/myNoticeList.do?userid="+userid;
 	}
 	
+	@RequestMapping(value="deleteNotice.do", method=RequestMethod.POST)
+	public String deleteNotice(Model model, Notice notice) {
+		
+		int result = noticeService.deleteNotice(notice);
+		logger.info(""+result);
+		if(result > 0) {
+			return "redirect:/adNoticeList.do";
+		}else {
+			return "common/error";
+		}
+	}
+	
 	
 	
 	@RequestMapping("insertNotice.do")
@@ -184,23 +196,10 @@ public class NoticeController {
 	}
 	
 	
-	@RequestMapping("adUNoticeList.do")
-	public String AdUNoticeList(Model model) {
-		ArrayList<User_Notice> list = noticeService.selectUserNoticeList();
-		if(list.size() > 0) {
-			model.addAttribute("list",list);
-			return "notice/adUNoticeList";
-		}else {
-			model.addAttribute("message", "관리자 알림글 전체 조회 실패");
-			return "common/error";
-		}
-	}
-	
 	
 	@RequestMapping("adNoticeList.do")
 	public String AdNoticeList(Model model) {
 		ArrayList<Notice> list = noticeService.selectNoticeList();
-		
 		if(list.size() > 0) {
 			model.addAttribute("list", list);
 			return "notice/adNoticeList";

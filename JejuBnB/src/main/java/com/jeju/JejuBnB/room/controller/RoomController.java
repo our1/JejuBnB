@@ -97,11 +97,10 @@ public class RoomController {
 		if (maxPage < endPage) {
 			endPage = maxPage;
 		}
-		/*
-		 * ArrayList<Review> relist = new ArrayList<Review>();
-		 */		
+		logger.info("달 : " + cal.get(Calendar.MONTH) + ", 나가는날 : " + cal.get(Calendar.DAY_OF_MONTH));
+		logger.info("요일 : " + week);
+		logger.info("달 : " + inMonth + inday + ", 나가는날 : " + outMonth + outday);
 		if (list != null) {
-			
 			model.addAttribute("inMonth", inMonth);
 			model.addAttribute("inday", inday);
 			model.addAttribute("outMonth", outMonth);

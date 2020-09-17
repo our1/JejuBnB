@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>JejuBnB</title>
-
+<script src="/JejuBnB/resources/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 	function moveFilterPage()
 		{	
@@ -16,7 +16,12 @@
 	    	window.open("moveFilterPage.do","알림","width=1000,height=500");
 	    	
 		}
-	
+	$(document).ready(function(){
+		
+		$("#displayMap").onlick(function(){
+			$("#map").toggle();
+		});
+	}
 </script>
     <style type="text/css">
 

@@ -85,7 +85,12 @@
 </script>
 </head>
 <body>
-<c:import url="/WEB-INF/views/common/header.jsp" />	
+<c:import url="/WEB-INF/views/common/header.jsp" />
+<c:import url="/WEB-INF/views/common/servicecenterside.jsp"/>	
+	<br>
+	<br>
+	<hr>
+	<center>
 	<h1>약관 및 정책</h1>
 	<br>
 	<hr>
@@ -93,7 +98,7 @@
 	<a href="PrivacyPage.do">개인정보</a>
 	<br>
 	<hr>
- <c:forEach items="${requestScope.policy }" var="privacy">
+ <c:forEach items="${policy }" var="privacy">
 	<form action="deletePolicy.do" method="post">	
 <c:if test="${ privacy.policy_type eq '개인정보' }">
 <div id="accordian">
@@ -121,5 +126,6 @@
 	<input type="submit" value="삭제" id="deletecheck">
 	</c:if>
 	</form>
+	</center>
 </body>
 </html>

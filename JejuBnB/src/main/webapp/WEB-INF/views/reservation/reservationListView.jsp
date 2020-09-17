@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,7 +42,7 @@ img.ui-datepicker-trigger {
 			//buttonImage: "images/calendar.gif", // 버튼 이미지
 			buttonImageOnly : true, // 버튼 이미지만 표시할지 여부
 			//buttonText: "날짜선택",             // 버튼의 대체 텍스트
-			dateFormat : "yy.mm.dd", // 날짜의 형식
+			dateFormat : "yy-MM-dd", // 날짜의 형식
 			changeMonth : true, // 월을 이동하기 위한 선택상자 표시여부
 			minDate : 0, // 선택할수있는 최소날짜, ( 0 : 오늘 이전 날짜 선택 불가)
 			onClose : function(selectedDate) {
@@ -57,7 +58,7 @@ img.ui-datepicker-trigger {
 			//buttonImage: "images/calendar.gif",
 			buttonImageOnly : true,
 			//buttonText: "날짜선택",
-			dateFormat : "yy.mm.dd",
+			dateFormat : "yy-MM-dd",
 			changeMonth : true,
 			minDate : 0, // 오늘 이전 날짜 선택 불가
 			onClose : function(selectedDate) {
@@ -70,7 +71,7 @@ img.ui-datepicker-trigger {
 </script>
  <script type="text/javascript">
             $(function(){
-              var num=1; //성인 수
+              var num=1; //성인 수 
               var num1=0; //어린이 수
               var num2=0; //유아 수
               var sum; //성인 + 어린이 수
@@ -87,6 +88,7 @@ img.ui-datepicker-trigger {
                   num = num +1;
                 }
                 $('#numberUpDown').text(num);
+                
                 });
 
                 $('#increaseQuantity').click(function(e){
@@ -164,13 +166,17 @@ img.ui-datepicker-trigger {
               }))
               $('#nu').val('게스트' + num  + '명' + ', ' + '유아' + num2  + '명');
             });
+                        	
+            
             });
+            
+
         </script>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 function moveReservPage(){
 	location.href="redetail.do?room_no=" + ${room.room_no};
 }	
-</script>
+</script> -->
 <script>
 	window.name = "reservationListView";
 	$(document).ready(function(){	
@@ -179,6 +185,15 @@ function moveReservPage(){
 		});
 	});
 </script>
+<!-- <script>
+	$(document).ready(function(){
+		$("input[name='check']").click(function(){
+			$("#numberUpDown").each(function(){
+				
+			});
+		});
+	});
+</script> -->
 <style type="text/css">
 ._1044tk8 {
 	display: flex !important;
@@ -214,7 +229,7 @@ function moveReservPage(){
 }
 .main-form {
 	background-color: white;
-	margin-left: 60%;
+	margin-left: 38%;
 	padding: 20px;
 	width: 460px;
 	border-radius: 4px;
@@ -262,7 +277,7 @@ function moveReservPage(){
 	right: 5px;
 }
 /* Style The Dropdown Button */
-.dropbtn {
+.dropbtn_1 {
 	background-color: white;
 	color: black;
 	padding: 16px;
@@ -271,13 +286,13 @@ function moveReservPage(){
 	cursor: pointer;
 }
 /* The container <div> - needed to position the dropdown content */
-.dropdown {
+.dropdown_1 {
 	position: relative;
 	display: inline-block;
 	border: solid 1px #ccc;
 }
 /* Dropdown Content (Hidden by Default) */
-.dropdown-content {
+.dropdown-content_1 {
 	display: none;
 	position: absolute;
 	background-color: white;
@@ -288,21 +303,21 @@ function moveReservPage(){
 	height: 200px;
 }
 /* Links inside the dropdown */
-.dropdown-content a {
+.dropdown-content_1 a {
 	color: black;
 	padding: 12px 16px;
 	text-decoration: none;
 }
 /* Change color of dropdown links on hover */
-.dropdown-content a:hover {
+.dropdown-content_1 a:hover {
 	background-color: white
 }
 /* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
+.dropdown_1:hover .dropdown-content_1 {
 	display: block;
 }
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {
+.dropdown_1:hover .dropbtn_1 {
 	background-color: white;
 }
 ._svr7sj {
@@ -385,9 +400,10 @@ function moveReservPage(){
 </style>
 </head>
 <body>
-	<c:import url="/WEB-INF/views/common/header.jsp" /> <br>
+	<%-- <c:import url="/WEB-INF/views/common/header.jsp"/>--%> <br><br><br><br><br> 
 	<div>
 		<h1>${ room.room_name }</h1>
+		<h2> ${room.room_address } </h2>
 		<br>
 <style>
 * {
@@ -543,7 +559,7 @@ ul, li {
 		</div>
 		<br>
 
-		<h3>${ room.user_id }님의JejuBnB</h3>
+		<h3>${ room.user_id }님의 JejuBnB</h3>
 		<br>
 		<h4>최대 인원 ${ room.max_people } 명, 침대수 ${ room.bed } 개, 침실수 ${ room.bedroom }
 			개, 욕실수 ${ num_bathroom } 개</h4>
@@ -758,18 +774,22 @@ ul, li {
 		</div>
 
 		<br><br><hr><br><br><br>
-
-		<h2>호스트의 숙소 소개</h2> <br>
-		<h4>${ room.room_content }</h4>	
 		
+		<div>
+			<h2>호스트의 숙소 소개</h2> <br>
+			<h4>${ room.room_content }</h4>	
+		</div>
 		<br><br><hr>
+		
+
+			<tr>
+				<td>청결도 : ${ review.clean_score }</td> <br>	
+				<td>가격 대비 만족도 : ${ review.value_score }</td> <br>
+				<td>서비스 : ${ review.service_score }</td>	
+			</tr>
 
 	<table>
 		<c:forEach items="${ requestScope.list }" var="review"> 
-			<tr>
-				<th>별점:</th> <br>	
-				<td></td>	
-			</tr>
 			<tr>
 				<th>작성자 : </th>
 				<td>${review.user_id} </td> <br>
@@ -786,59 +806,57 @@ ul, li {
 	<button type="button" class="btn" id="popupBtn">리뷰 등록</button>
 	<br><br><hr><br><br><br>
 		
-		<form action="reserv.do" method="post" >
-		<input type="hidden" name="room_no" value="${ room_no }">
+	<form action="reserv.do" method="post">
+		<input type="hidden" name="room_no" value="${ room.room_no }">
 		<input type="hidden" name="user_id" value="${ loginMember.user_id }">
-		<div class="main-form">
+			<div class="main-form">
 			<h2 class="form-title1">요금을 확인하려면 날짜를 입력하세요.</h2>
 			<div class="inline-block">
 				<div class="form-title2">체크인</div>
 				<div class="form form-2">
 					<label for="checkin_date"></label> 
-					<input type="text" name="checkin_date" id="checkin_date" readonly placeholder="날짜추가">
+					<input type="text" name="checkinDate" id="checkin_date" readonly placeholder="날짜추가">
 				</div>
 			</div>
 			<div class="inline-block">
 				<div class="form-title2">체크아웃</div>
 				<div class="form form-2">
 					<label for="checkout_date"></label> 
-					<input type="text" name="checkout_date" id="checkout_date" readonly placeholder="날짜추가">
+					<input type="text" name="checkoutDate" id="checkout_date" readonly placeholder="날짜추가">
 				</div>
 			</div>
 			<div class="form-title2">인원</div>
-			<div class="dropdown">
-				<input id="nu" type="text" class="dropbtn" readonly placeholder="인원">
-				<div class="dropdown-content">
+			<div class="dropdown_1">
+				<input id="nu" type="text" class="dropbtn_1" readonly placeholder="인원" name="guest">
+				<div class="dropdown-content_1">
 					<div class="number">
-						<form id="test">
+						<form name="a_num">
 							<h4>성인</h4>
-							<span><button id="decreaseQuantity">&#8722;</button></span> <span
-								id="numberUpDown">1</span> <span><button
-									id="increaseQuantity">&#43;</button></span>
+							<span><button id="decreaseQuantity">&#8722;</button></span> 
+							<span id="numberUpDown">1</span> 
+						    <span><button id="increaseQuantity">&#43;</button></span>
 						</form>
-						<form>
+						<form name="c_num">
 							<h4>어린이</h4>
-							<span><button id="decreaseQuantity2">&#8722;</button></span> <span
-								id="numberUpDown2">0</span> <span><button
-									id="increaseQuantity2">&#43;</button></span>
+							<span><button id="decreaseQuantity2">&#8722;</button></span> 
+							<span id="numberUpDown2">0</span> 
+							<span><button id="increaseQuantity2">&#43;</button></span>
 						</form>
-						<form>
+						<form name="i_num">
 							<h4>유아</h4>
-							<span><button id="decreaseQuantity3">&#8722;</button></span> <span
-								id="numberUpDown3">0</span> <span><button
-									id="increaseQuantity3">&#43;</button></span>
+							<span><button id="decreaseQuantity3">&#8722;</button></span>
+							<span id="numberUpDown3">0</span> 
+							<span><button id="increaseQuantity3">&#43;</button></span>
 						</form>
 					</div>
 				</div>
 			</div>
-			<div>
-				<button class="search-button" onclick="moveReservPage()">예약 진행하기</button>
-			</div>
+				<input name="check" class="search-button" type="submit" value="예약 진행하기">		
 		</div>
 	</form>
+    <br><br><br><br><br>
 
-
-<c:import url="/WEB-INF/views/common/footer.jsp" />
+<%-- <c:import url="/WEB-INF/views/common/footer.jsp"/> --%>
 
 
 </body>

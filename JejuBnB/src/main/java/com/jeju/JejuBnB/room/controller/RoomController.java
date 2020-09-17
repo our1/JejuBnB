@@ -134,7 +134,7 @@ public class RoomController {
 	}
 	//숙소 상세보기  & 리뷰 리스트
 	@RequestMapping("moveDetailView.do")
-	public ModelAndView moveDetail(ModelAndView mv, @RequestParam("roomno") int room_no) {
+	public ModelAndView moveDetail(ModelAndView mv, @RequestParam("room_no") int room_no) {
 		Room room = roomService.selectRoom(room_no);
 		ArrayList<Review> list = reviewService.selectReply(room_no);
 		
@@ -217,7 +217,7 @@ public class RoomController {
 			model.addAttribute("list", list);
 			return "room/roomBListView";
 		}else {
-			model.addAttribute("message", "게시르 형태로 조회 실패");
+			model.addAttribute("message", "게스트 형태로 조회 실패");
 			return "common/error";
 		}
 	}

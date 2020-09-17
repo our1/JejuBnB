@@ -13,11 +13,6 @@ public class ReservationServiceImpl implements ReservationService {
 	private ReservationDao reservationDao;
 
 	@Override
-	public Room selectOne(int room_no) {
-		return reservationDao.selectOne(room_no);
-	}
-
-	@Override
 	public int insertReserv(Reservation reserv) {
 		return reservationDao.insertReserv(reserv);
 	}

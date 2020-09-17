@@ -126,7 +126,7 @@ ${listCount }개 숙소 검색 . ${inMonth }월${inday }일 - ${outMonth }월${o
 	</div>
 	<div id="RoomContent">
 		<ul>
-			<li> 숙소 이름 : <a href="moveDetailView.do?roomno=${room.room_no}">${room.room_name }</a> </li>
+			<li> 숙소 이름 : <a href="moveDetailView.do?room_no=${room.room_no}">${room.room_name }</a> </li>
 			<li> 숙소 주소 : ${room.room_address } </li>
 			<li> 금액 : 
 			<c:if test="${week eq 6 || week eq 7}">

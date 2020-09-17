@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>JejuBnB</title>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <style type="text/css">
 	div.list {
 		border : 1px solid black;
@@ -21,35 +22,57 @@
 </style>
 <script type="text/javascript">
 
-function nameCheck(){
 
-	if($("input").is(":checked")){
-		alert("체크되었습니다.1111111"); 
-
+	function nameCheck1(){
+	var amenity = $("input[name=amenity_no]:checked").val();
+	
+	if(amenity != null){
 		return true;
 	} else {
-		alert("체크되었습니다."); 
-
+		alert("선택 없음"); 
 		return false;
 	}
 	
 	};
-
-	/* var amenity = $('input:checkbox[name="amenity_no"]').val();
-	alert(amenity);
-	if(amenity != null){
-		return false;
-	}else {
-		return true;
-	} */
-
+	
+	function nameCheck2(){
+		var facility = $("input[name=facility_no]:checked").val();
+		if(facility != null){
+			return true;
+		} else {
+			alert("선택 없음"); 
+			return false;
+		}
+	};
+		
+	function nameCheck3(){
+		var bu_type_no = $("input[name=bu_type_no]:checked").val();
+		if(bu_type_no != null){
+			return true;
+		} else {
+			alert("선택 없음"); 
+			return false;
+		}
+	};
+	
+	
+	function nameCheck4(){
+		var rule_no = $("input[name=rule_no]:checked").val();
+		if(rule_no != null){
+			return true;
+		} else {
+			alert("선택 없음"); 
+			return false;
+		}
+	};
+	
 </script>
 </head>
 <body>
 <h1> 필터 리스트 뷰</h1>
 <div id="Adiv" class="list">
 편의 시설 :  <br>
-<form action="Adelete.do" method="post" onsubmit="return nameCheck()">
+<form action="Adelete.do" method="post" onsubmit="return nameCheck1()">
 <c:forEach var="count1" begin="0" end="${AlistSize }" step="4">
 <c:forEach items="${Alist }" var="alist" begin="${count1 }" end="${count1 + 3}">
 ${ alist.amenity_name } <input type="checkbox" class="amenity" name="amenity_no" value="${alist.amenity_no }" >
@@ -67,7 +90,7 @@ ${ alist.amenity_name } <input type="checkbox" class="amenity" name="amenity_no"
  
 <div id="Fdiv" class="list">
 시설 :<br>
-<form action="Fdelete.do" method="post">
+<form action="Fdelete.do" method="post" onsubmit="return nameCheck2()">
 <c:forEach var="count2" begin="0" end="${FlistSize }" step="3">
 <c:forEach items="${Flist }" var="flist" begin="${count2 }" end="${count2 + 2}">
 ${ flist.facility_name } <input type="checkbox" name="facility_no" value="${flist.facility_no }"> &nbsp; &nbsp;
@@ -84,7 +107,7 @@ ${ flist.facility_name } <input type="checkbox" name="facility_no" value="${flis
 
 <div id="Bdiv" class="list">
 건물 유형 :<br>
-<form action="Bdelete.do" method="post">
+<form action="Bdelete.do" method="post" onsubmit="return nameCheck3()">
 <c:forEach var="count3" begin="0" end="${BlistSize }" step="4">
 <c:forEach items="${Blist }" var="blist" begin="${count3 }" end="${count3 + 3}">
 ${ blist.bu_type_name } <input type="checkbox" name="bu_type_no" value="${blist.bu_type_no }"> &nbsp; &nbsp;
@@ -102,7 +125,7 @@ ${ blist.bu_type_name } <input type="checkbox" name="bu_type_no" value="${blist.
 
 <div id="Rdiv" class="list">
 이용 규칙 :<br>
-<form action="rdelete.do" method="post">
+<form action="rdelete.do" method="post" onsubmit="return nameCheck4()">
 <c:forEach items="${Rlist }" var="rlist">
 ${rlist.rule_name } <input type="checkbox" name="rule_no" value="${rlist.rule_no }"> &nbsp; &nbsp;
 </c:forEach>

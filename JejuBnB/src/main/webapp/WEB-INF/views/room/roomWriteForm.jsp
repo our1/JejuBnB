@@ -162,6 +162,10 @@ ${rlist } <input type="checkbox" name="rule" value="${rlist }"> &nbsp; &nbsp;
 <input type="submit" value="전송">
 </div>
 </form>
+<<<<<<< HEAD
+<hr>
+=======
+>>>>>>> refs/heads/master
 <c:import url="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>

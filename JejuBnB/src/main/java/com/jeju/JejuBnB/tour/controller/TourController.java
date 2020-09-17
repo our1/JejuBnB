@@ -153,5 +153,16 @@ public class TourController {
 			return "common/error";
 		}
 	}
+	
+	@RequestMapping("tdelete.do")
+	public String deleteTour(@RequestParam("tour_no") int tour_no, Model model) {
+		int result = tourService.deleteTour(tour_no);
+		if (result > 0) {
+			return "redirect:/tlist.do";
+		} else {
+			model.addAttribute("message", "관광지 게시글  삭제 실패");
+			return "common/error";
+		}
+	}
 }
 

@@ -16,6 +16,9 @@
 	}
 	form {
 	  position : relative;
+	  text-align : center;
+	  font-family: 'Nanum Gothic Coding', monospace;
+	  
 	}
 	.thead{
 	  width: 100%;
@@ -59,15 +62,6 @@
     })
     }
 </script>
-
-<style type="text/css">
-
-	body {
-		text-align : center;
-		font-family: 'Nanum Gothic Coding', monospace;
-	}
-	
-</style>
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp"/>

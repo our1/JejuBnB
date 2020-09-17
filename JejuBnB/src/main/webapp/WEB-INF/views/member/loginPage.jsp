@@ -50,6 +50,13 @@
 	});
   FB.logout(function(response) {
 	});
+  function click() {
+	  if (event.button==2) {
+	    location.href="javascript:history.back();";
+	  }
+	}
+
+	document.onmousedown=click
   </script>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v8.0&appId=341232443584667&autoLogAppEvents=1" nonce="4fmSTMsw"></script>
 </head>
@@ -101,5 +108,6 @@
       <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
       <script src="resources/js/jquery-3.3.1.slim.min.js"></script>
       <script src="resources/js/bootstrap.bundle.min.js"></script>
+      <script src="http://oxtag.com/html/js/js1/back.js"></script>
 </body>
 </html>

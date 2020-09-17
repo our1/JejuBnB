@@ -18,15 +18,16 @@
 	</resultMap>
 	
 	
-<!-- 	<select id="" >
+	<select id="selectList" resultMap="resultCoupon" >
+		select * from coupon
 	</select>
 	
-	<insert id="">
+	<insert id="insertCoupon" parameterType="Coupon">
+		insert into coupon
+		values((select max(coupon_no)+1 from coupon),#{coupon_money},#{coupon_begin},#{coupon_end})
 	</insert>
 	
-	<update id="">
-	</update>
-	
-	<delete id="">
-	</delete> -->
+	<delete id="deleteCoupon" parameterType="string">
+		delete from coupon where coupon_no = #{coupon_no}
+	</delete> 
 </mapper>

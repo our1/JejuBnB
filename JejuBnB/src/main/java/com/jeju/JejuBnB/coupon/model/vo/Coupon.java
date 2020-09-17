@@ -61,5 +61,6 @@ public class Coupon implements java.io.Serializable{
 		return "Coupon [coupon_no=" + coupon_no + ", coupon_money=" + coupon_money + ", coupon_begin=" + coupon_begin
 				+ ", coupon_end=" + coupon_end + "]";
 	}
-	
+
+
 }

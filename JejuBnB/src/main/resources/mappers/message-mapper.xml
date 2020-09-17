@@ -8,27 +8,21 @@
 		<id property="message_no" column="message_no" />
 		<result property="user_one" column="user_one" />
 		<result property="user_two" column="user_two" />
-		<result property="content" column="content" />
-		<result property="message_date" column="message_date" />
-		<result property="writer" column="writer" />
 	</resultMap>
 	
 	<resultMap id="resultList" type="Message">
 		<id property="message_no" column="message_no" />
 		<result property="user_one" column="user_one" />
 		<result property="user_two" column="user_two" />
-		<result property="content" column="content" />
-		<result property="message_date" column="message_date" />
-		<result property="writer" column="writer" />
 	</resultMap>
 	
 	<insert id="insertMessage" parameterType="Message">
-	insert into message (message_no, user_one, user_two, content)
-	values ((select max(message_no) from message)+1 ,#{ user_one }, #{user_two}, null)
+	insert into message (message_no, user_one, user_two)
+	values ((select max(message_no) from message)+1 ,#{ user_one }, #{user_two})
 
 	</insert>
 	
-	<select id="selectListMessage" parameterType="Member"  resultMap="resultList">
+	<select id="selectListMessage" parameterType="Message"  resultType="Message">
 		select * from message 
 		where (user_one = #{user_one} and user_two = #{user_two}) or (user_one = #{user_two} and user_two = #{user_one})
 	</select>

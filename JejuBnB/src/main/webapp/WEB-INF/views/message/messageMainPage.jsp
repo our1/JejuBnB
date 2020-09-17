@@ -15,8 +15,13 @@
 	<c:param name="user_one" value="${loginMember.user_id }"/>
 	<c:param name="user_two" value="user02"/>
 </c:url>
+<c:url value="message.do" var="message2">
+	<c:param name="user_one" value="${loginMember.user_id }"/>
+	<c:param name="user_two" value="bgy8135@naver.com"/>
+</c:url>
 
-<a href="${message }">메세지창</a>
+<a href="${message }">user02 에게 보내기</a>
+<a href="${message2 }">bgy8135에게 보내기</a>
 
 
 </body>

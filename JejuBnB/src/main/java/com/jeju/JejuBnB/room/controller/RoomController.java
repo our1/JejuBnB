@@ -217,7 +217,7 @@ public class RoomController {
 	public ModelAndView moveDetail(ModelAndView mv, @RequestParam("room_no") int room_no) {
 		Room room = roomService.selectRoom(room_no);
 		if (room != null) {
-			mv.setViewName("room/roomDetailView");
+			mv.setViewName("reservation/reservationListView");
 			mv.addObject("room", room);
 
 		} else {

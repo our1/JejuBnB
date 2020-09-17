@@ -8,6 +8,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>JejuBnB</title>
 		<link rel="stylesheet" href="resources/css/header.css">
+
+		<script type="text/javascript">
+			function winOpen1() {
+				window.open("moveFilterList.do","필터","width=900,height=1000");
+			}
+			function winOpen2() {
+				window.open("myNoticeList.do?userid=${loginMember.user_id}","알림","width=1700,height=900, left=100, top=50");
+			}
+			function winOpen3() {
+				window.open("adUNoticeList.do","알림","width=1700,height=900, left=100, top=50");
+			}
+			function movePage() {
+			 	window.open("loginPage.do", "로그인",
+				"width=1700, height=900, left=100, top=50, toolbar=no, menubar=no, scrollbars=no, resizable=yes" ); 
+			}
+		</script>
+
 				<script type="text/javascript">
 					function winOpen1() {
 						window.open("moveFilterList.do","필터","width=900,height=1000");
@@ -23,6 +40,7 @@
 						"width=1700, height=900, left=100, top=50, toolbar=no, menubar=no, scrollbars=no, resizable=yes" ); 
 				}
 				</script>
+
 </head>
 
 <body>

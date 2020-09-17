@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>JejuBnB</title>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
 <!-- !!중요. - autoload=false 를 반드시 붙혀주셔야 합니다.-->
 <script>
@@ -32,6 +33,15 @@
     })
     }
 </script>
+
+<style type="text/css">
+
+	body {
+		text-align : center;
+		font-family: 'Nanum Gothic Coding', monospace;
+	}
+	
+</style>
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp"/>

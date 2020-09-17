@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.jeju.JejuBnB.notice.model.dao.NoticeDao;
 import com.jeju.JejuBnB.notice.model.vo.Notice;
-import com.jeju.JejuBnB.notice.model.vo.Notice_Type;
 import com.jeju.JejuBnB.notice.model.vo.User_Notice;
 
 @Service("noticeService")
@@ -33,13 +32,8 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public int deleteNotice(int noticeno) {
-		return noticeDao.deleteNotice(noticeno);
-	}
-
-	@Override
-	public ArrayList<Notice_Type> selectNType() {
-		return noticeDao.selectNType();
+	public int deleteNotice(Notice notice) {
+		return noticeDao.deleteNotice(notice);
 	}
 
 	@Override

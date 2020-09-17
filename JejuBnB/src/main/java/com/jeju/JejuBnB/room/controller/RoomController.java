@@ -214,8 +214,8 @@ public class RoomController {
 	}
 
 	@RequestMapping("moveDetailView.do")
-	public ModelAndView moveDetail(ModelAndView mv, @RequestParam("roomno") int roomno) {
-		Room room = roomService.selectRoom(roomno);
+	public ModelAndView moveDetail(ModelAndView mv, @RequestParam("roomno") int room_no) {
+		Room room = roomService.selectRoom(room_no);
 		if (room != null) {
 			mv.setViewName("room/roomDetailView");
 			mv.addObject("room", room);

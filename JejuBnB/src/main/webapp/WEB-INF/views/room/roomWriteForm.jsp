@@ -8,6 +8,29 @@
 <head>
 <meta charset="UTF-8">
 <title>JejuBnB</title>
+<style type="text/css">
+	body {
+	  margin : 0;
+	  padding : 0;
+	}
+	form {
+	  position : relative;
+	}
+	.thead{
+	  width: 100%;
+	  height: 329px;
+	  background: linear-gradient( to right,
+	                     rgba(20, 20, 20, 0.85) 0%,
+	                     rgba(20, 20, 20, 0.75) 25%,
+	                     rgba(20, 20, 20, 0.5) 50%,
+	                     rgba(20, 20, 20, 0.25) 75%,
+	                     rgba(20, 20, 20, 0) 100%
+	               ),
+	               url('resources/images/36.jpg');
+	 background-size: cover;
+	 background-repeat: no-repeat;
+}
+</style>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
 <!-- !!중요. - autoload=false 를 반드시 붙혀주셔야 합니다.-->
 <script>
@@ -35,8 +58,7 @@
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp"/>
-<hr>
-<h1> 글 쓰기</h1>
+<div class="thead"></div>
 <form action="roominsert.do" method="post" enctype="multipart/form-data">
 <input type="hidden" name="user_id" value="${loginMember.user_id }" >
 
@@ -127,6 +149,6 @@ ${rlist } <input type="checkbox" name="rule" value="${rlist }"> &nbsp; &nbsp;
 <input type="submit" value="전송">
 </div>
 </form>
-
+<c:import url="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>

@@ -10,6 +10,7 @@ public class Tour implements java.io.Serializable{
 	private String tour_content;
 	private java.sql.Date tour_date;
 	private String tour_address;
+	private String tour_roadaddress;
 	private String tour_act_start_date;
 	private String tour_act_end_date;
 	private String tour_thumbnail_original_file;
@@ -22,19 +23,20 @@ public class Tour implements java.io.Serializable{
 	public Tour() {}
 
 	public Tour(int tour_no, String tour_name, String tour_content, Date tour_date, String tour_address,
-			String tour_act_start_date, String tour_act_end_date, String tour_thumnail_original_file,
-			String tour_thumnail_rename_file, String tour_moreinfo, int tour_readcount, int tour_category_no,
-			String user_id) {
+			String tour_roadaddress, String tour_act_start_date, String tour_act_end_date,
+			String tour_thumbnail_original_file, String tour_thumbnail_rename_file, String tour_moreinfo,
+			int tour_readcount, int tour_category_no, String user_id) {
 		super();
 		this.tour_no = tour_no;
 		this.tour_name = tour_name;
 		this.tour_content = tour_content;
 		this.tour_date = tour_date;
 		this.tour_address = tour_address;
+		this.tour_roadaddress = tour_roadaddress;
 		this.tour_act_start_date = tour_act_start_date;
 		this.tour_act_end_date = tour_act_end_date;
-		this.tour_thumbnail_original_file = tour_thumnail_original_file;
-		this.tour_thumbnail_rename_file = tour_thumnail_rename_file;
+		this.tour_thumbnail_original_file = tour_thumbnail_original_file;
+		this.tour_thumbnail_rename_file = tour_thumbnail_rename_file;
 		this.tour_moreinfo = tour_moreinfo;
 		this.tour_readcount = tour_readcount;
 		this.tour_category_no = tour_category_no;
@@ -81,6 +83,14 @@ public class Tour implements java.io.Serializable{
 		this.tour_address = tour_address;
 	}
 
+	public String getTour_roadaddress() {
+		return tour_roadaddress;
+	}
+
+	public void setTour_roadaddress(String tour_roadaddress) {
+		this.tour_roadaddress = tour_roadaddress;
+	}
+
 	public String getTour_act_start_date() {
 		return tour_act_start_date;
 	}
@@ -97,20 +107,20 @@ public class Tour implements java.io.Serializable{
 		this.tour_act_end_date = tour_act_end_date;
 	}
 
-	public String getTour_thumnail_original_file() {
+	public String getTour_thumbnail_original_file() {
 		return tour_thumbnail_original_file;
 	}
 
-	public void setTour_thumnail_original_file(String tour_thumnail_original_file) {
-		this.tour_thumbnail_original_file = tour_thumnail_original_file;
+	public void setTour_thumbnail_original_file(String tour_thumbnail_original_file) {
+		this.tour_thumbnail_original_file = tour_thumbnail_original_file;
 	}
 
-	public String getTour_thumnail_rename_file() {
+	public String getTour_thumbnail_rename_file() {
 		return tour_thumbnail_rename_file;
 	}
 
-	public void setTour_thumnail_rename_file(String tour_thumnail_rename_file) {
-		this.tour_thumbnail_rename_file = tour_thumnail_rename_file;
+	public void setTour_thumbnail_rename_file(String tour_thumbnail_rename_file) {
+		this.tour_thumbnail_rename_file = tour_thumbnail_rename_file;
 	}
 
 	public String getTour_moreinfo() {
@@ -152,12 +162,14 @@ public class Tour implements java.io.Serializable{
 	@Override
 	public String toString() {
 		return "Tour [tour_no=" + tour_no + ", tour_name=" + tour_name + ", tour_content=" + tour_content
-				+ ", tour_date=" + tour_date + ", tour_address=" + tour_address + ", tour_act_start_date="
-				+ tour_act_start_date + ", tour_act_end_date=" + tour_act_end_date + ", tour_thumnail_original_file="
-				+ tour_thumbnail_original_file + ", tour_thumnail_rename_file=" + tour_thumbnail_rename_file
-				+ ", tour_moreinfo=" + tour_moreinfo + ", tour_readcount=" + tour_readcount + ", tour_category_no="
-				+ tour_category_no + ", user_id=" + user_id + "]";
+				+ ", tour_date=" + tour_date + ", tour_address=" + tour_address + ", tour_roadaddress="
+				+ tour_roadaddress + ", tour_act_start_date=" + tour_act_start_date + ", tour_act_end_date="
+				+ tour_act_end_date + ", tour_thumbnail_original_file=" + tour_thumbnail_original_file
+				+ ", tour_thumbnail_rename_file=" + tour_thumbnail_rename_file + ", tour_moreinfo=" + tour_moreinfo
+				+ ", tour_readcount=" + tour_readcount + ", tour_category_no=" + tour_category_no + ", user_id="
+				+ user_id + "]";
 	}
 	
 	
+
 }

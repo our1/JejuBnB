@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="messageMapper">
+
+	<resultMap id="resultMessage" type="Message">
+		<id property="message_no" column="message_no" />
+		<result property="user_one" column="user_one" />
+		<result property="user_two" column="user_two" />
+	</resultMap>
+	
+	<resultMap id="resultList" type="Message">
+		<id property="message_no" column="message_no" />
+		<result property="user_one" column="user_one" />
+		<result property="user_two" column="user_two" />
+	</resultMap>
+	
+	<insert id="insertMessage" parameterType="Message">
+	insert into message (message_no, user_one, user_two)
+	values ((select max(message_no) from message)+1 ,#{ user_one }, #{user_two})
+
+	</insert>
+	
+	<select id="selectListMessage" parameterType="Message"  resultType="Message">
+		select * from message 
+		where (user_one = #{user_one} and user_two = #{user_two}) or (user_one = #{user_two} and user_two = #{user_one})
+	</select>
+<!--	
+	<select id="loginCheck" parameterType="Member"  resultType="Member">
+		select * from member 
+		where user_id = #{user_id}
+	</select>
+	
+	
+	<select id="selectMember" parameterType="string" resultType="Member">
+	select * from member where user_id = #{user_id}
+	</select>
+	
+	<select id="selectInfoCheck" parameterType="Member" resultType="int">
+	select count(user_id) from member where user_id = #{user_id} and birthday = #{birthday}
+	</select>
+	
+	<select id="selectMemberList" resultMap="resultList">
+	select * from member
+	</select>
+	
+	<update id="updatePwdMember" parameterType="Member">
+	update member set user_pwd = #{user_pwd} where user_id = #{user_id}
+	</update>
+	
+	<update id="updateMember" parameterType="Member">
+	update member set user_name = #{user_name}, birthday =#{birthday} , phone =#{phone}  where user_id = #{user_id}
+	</update>
+	
+	<update id="updateBeAdminMember" parameterType="string">
+	update member set admin_check = 'Y' where user_id = #{user_id}
+	</update>
+	
+	
+	<delete id="deleteMember" parameterType="string">
+	delete from member where user_id = #{uid}
+	</delete> 
+
+	
+	
+	
+	<select id="selectSearchUserid" parameterType="string" resultMap="resultList">
+	select * from member where userid like '%' || #{keyword} || '%'
+	</select>
+	
+	<select id="selectSearchGender" parameterType="string" resultMap="resultList">
+	select * from member where gender = #{keyword}
+	</select>
+	
+	<select id="selectSearchAge" parameterType="int" resultMap="resultList">
+	select * from member
+	
+	<if test="keyword == 60 " >
+		where age == #{ value}
+	</if>
+	
+	<if test="keyword != 60 ">
+	where age between #{value} and #{value +9}
+	</if>
+	
+
+	</select>
+	
+	<select id="selectSearchEnrollDate" parameterType="com.jeju.JejuBnB.member.model.vo.SearchDate" resultMap="resultList">
+	select * from member where enroll_date between #{begin) and #{end}
+	</select>
+	
+	<select id="selectSearchLoginok" parameterType="string" resultMap="resultList">
+	select * from member where login_ok = #{keyword}
+	</select>
+	
+	<select id="selectCheckId" parameterType="string" resultType="int">
+	select count(userid) from member where userid = #{userid}
+	</select>
+	
+	
+	
+	
+	
+	-->
+	
+</mapper>

@@ -23,4 +23,22 @@ public class PolicyDao {
 	public int insertPolicy(Policy policy){
 	return session.insert("policyMapper.insertPolicy", policy);
 	}
+	
+	public int deletePolicy(String policy_no) {
+		String [] policyNo = policy_no.split(",");
+		int result = 0;
+		for(int i = 0; i< policyNo.length; i++) {
+			int count = session.delete("policyMapper.deletePolicy", policyNo[i] );
+			if(count > 0) {
+				result++;
+			}
+		}
+		
+		if(result == policyNo.length) {
+			return 1;
+		}else {
+			return 0;
+		}
+		
+	}
 }

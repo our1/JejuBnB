@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,41 +37,41 @@ img.ui-datepicker-trigger {
 		// 종료일(toDate)은 시작일(fromDate) 이전 날짜 선택 불가
 
 		//시작일.
-		$('#fromDate').datepicker({
+		$('#checkinDate').datepicker({
 			//showOn: "both",                     // 달력을 표시할 타이밍 (both: focus or button)
 			//buttonImage: "images/calendar.gif", // 버튼 이미지
 			buttonImageOnly : true, // 버튼 이미지만 표시할지 여부
 			//buttonText: "날짜선택",             // 버튼의 대체 텍스트
-			dateFormat : "yy.mm.dd", // 날짜의 형식
+			dateFormat : "yy-mm-dd", // 날짜의 형식
 			changeMonth : true, // 월을 이동하기 위한 선택상자 표시여부
 			minDate : 0, // 선택할수있는 최소날짜, ( 0 : 오늘 이전 날짜 선택 불가)
 			onClose : function(selectedDate) {
 				// 시작일(fromDate) datepicker가 닫힐때
 				// 종료일(toDate)의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
-				$("#toDate").datepicker("option", "minDate", selectedDate);
+				$("#checkoutDate").datepicker("option", "minDate", selectedDate);
 			}
 		});
 
 		//종료일
-		$('#toDate').datepicker({
+		$('#checkoutDate').datepicker({
 			//showOn: "both",
 			//buttonImage: "images/calendar.gif",
 			buttonImageOnly : true,
 			//buttonText: "날짜선택",
-			dateFormat : "yy.mm.dd",
+			dateFormat : "yy-mm-dd",
 			changeMonth : true,
 			minDate : 0, // 오늘 이전 날짜 선택 불가
 			onClose : function(selectedDate) {
 				// 종료일(toDate) datepicker가 닫힐때
 				// 시작일(fromDate)의 선택할수있는 최대 날짜(maxDate)를 선택한 종료일로 지정
-				$("#fromDate").datepicker("option", "maxDate", selectedDate);
+				$("#checkinDate").datepicker("option", "maxDate", selectedDate);
 			}
 		});
 	});
 </script>
-  <script type="text/javascript">
+ <script type="text/javascript">
             $(function(){
-              var num=1; //성인 수
+              var num=1; //성인 수 
               var num1=0; //어린이 수
               var num2=0; //유아 수
               var sum; //성인 + 어린이 수
@@ -86,6 +88,8 @@ img.ui-datepicker-trigger {
                   num = num +1;
                 }
                 $('#numberUpDown').text(num);
+                $('#num').val(num);
+                
                 });
 
                 $('#increaseQuantity').click(function(e){
@@ -99,25 +103,29 @@ img.ui-datepicker-trigger {
                     sum3;
                   }
                   $('#numberUpDown').text(num);
+                  $('#num').val(num);
+                 
                 });
 
             $('#decreaseQuantity2').click(function(e){
               e.preventDefault();
-              var stat = $('#numberUpDown2').text();
-              num1 = parseInt(stat,10);
+              var stat1 = $('#numberUpDown2').text();
+              num1 = parseInt(stat1,10);
               num1--;
               sum1 = num + num1;
+              
               if(num1<0){
                 alert('최소인원을 선택해주세요.');
                 sum3;
               }
             $('#numberUpDown2').text(num1);
+            $('#num1').val(num1);
             });
 
             $('#increaseQuantity2').click(function(e){
               e.preventDefault();
-              var stat = $('#numberUpDown2').text();
-              num1 = parseInt(stat,10);
+              var stat1 = $('#numberUpDown2').text();
+              num1 = parseInt(stat1,10);
               num1++;
               sum1 = num + num1;
               if(sum1+num2>10){
@@ -125,23 +133,26 @@ img.ui-datepicker-trigger {
                 sum3;
               }
               $('#numberUpDown2').text(num1);
+              $('#num1').val(num1);
               });
 
             $('#decreaseQuantity3').click(function(e){
               e.preventDefault();
-              var stat = $('#numberUpDown3').text();
-              num2 = parseInt(stat,10);
+              var stat2 = $('#numberUpDown3').text();
+              num2 = parseInt(stat2,10);
               num2--;
               if(num2<0){
                 alert('최소인원을 선택해주세요.');
                 num2=0;
               }
             $('#numberUpDown3').text(num2);
+            $('#num2').val(num2);
             });
+            
             $('#increaseQuantity3').click(function(e){
               e.preventDefault();
-              var stat = $('#numberUpDown3').text();
-              num2 = parseInt(stat,10);
+              var stat2 = $('#numberUpDown3').text();
+              num2 = parseInt(stat2,10);
               num2++;
               sum2 = num + num1;
               if(sum2+num2>10){
@@ -149,6 +160,7 @@ img.ui-datepicker-trigger {
                 sum3;
               }
             $('#numberUpDown3').text(num2);
+            $('#num2').val(num2);
             });
 
             $('button').on('click', function(){
@@ -163,14 +175,34 @@ img.ui-datepicker-trigger {
               }))
               $('#nu').val('게스트' + num  + '명' + ', ' + '유아' + num2  + '명');
             });
+                        	
+            
             });
-        </script>
+            
 
-<script type="text/javascript">
+        </script>
+<!-- <script type="text/javascript">
 function moveReservPage(){
-	location.href="redetail.do?roomno=" + ${room.room_no};
+	location.href="redetail.do?room_no=" + ${room.room_no};
 }	
+</script> -->
+<script>
+	window.name = "reservationListView";
+	$(document).ready(function(){	
+		$('#popupBtn').click(function(){			
+			window.open("rewrite.do?room_no=${room.room_no}" ,"_blank","toolvar=yes,menubar=yes,width=500,height=500,left=430,top=70").focus();
+		});
+	});
 </script>
+<!-- <script>
+	$(document).ready(function(){
+		$("input[name='check']").click(function(){
+			$("#numberUpDown").each(function(){
+				
+			});
+		});
+	});
+</script> -->
 <style type="text/css">
 ._1044tk8 {
 	display: flex !important;
@@ -206,7 +238,7 @@ function moveReservPage(){
 }
 .main-form {
 	background-color: white;
-	margin-left: 60%;
+	margin-left: 38%;
 	padding: 20px;
 	width: 460px;
 	border-radius: 4px;
@@ -254,7 +286,7 @@ function moveReservPage(){
 	right: 5px;
 }
 /* Style The Dropdown Button */
-.dropbtn {
+.dropbtn_1 {
 	background-color: white;
 	color: black;
 	padding: 16px;
@@ -263,13 +295,13 @@ function moveReservPage(){
 	cursor: pointer;
 }
 /* The container <div> - needed to position the dropdown content */
-.dropdown {
+.dropdown_1 {
 	position: relative;
 	display: inline-block;
 	border: solid 1px #ccc;
 }
 /* Dropdown Content (Hidden by Default) */
-.dropdown-content {
+.dropdown-content_1 {
 	display: none;
 	position: absolute;
 	background-color: white;
@@ -280,21 +312,21 @@ function moveReservPage(){
 	height: 200px;
 }
 /* Links inside the dropdown */
-.dropdown-content a {
+.dropdown-content_1 a {
 	color: black;
 	padding: 12px 16px;
 	text-decoration: none;
 }
 /* Change color of dropdown links on hover */
-.dropdown-content a:hover {
+.dropdown-content_1 a:hover {
 	background-color: white
 }
 /* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
+.dropdown_1:hover .dropdown-content_1 {
 	display: block;
 }
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {
+.dropdown_1:hover .dropbtn_1 {
 	background-color: white;
 }
 ._svr7sj {
@@ -377,11 +409,12 @@ function moveReservPage(){
 </style>
 </head>
 <body>
-	<c:import url="/WEB-INF/views/common/header.jsp" />
+	<%-- <c:import url="/WEB-INF/views/common/header.jsp"/>--%> <br><br><br><br><br> 
 	<div>
 		<h1>${ room.room_name }</h1>
+		<h2> ${room.room_address } </h2>
 		<br>
-		<style>
+<style>
 * {
 	margin: 0;
 	padding: 0;
@@ -535,7 +568,7 @@ ul, li {
 		</div>
 		<br>
 
-		<h3>${ room.user_id }님의JejuBnB</h3>
+		<h3>${ room.user_id }님의 JejuBnB</h3>
 		<br>
 		<h4>최대 인원 ${ room.max_people } 명, 침대수 ${ room.bed } 개, 침실수 ${ room.bedroom }
 			개, 욕실수 ${ num_bathroom } 개</h4>
@@ -748,122 +781,93 @@ ul, li {
 				</div>
 			</div>
 		</div>
-<<<<<<< HEAD
-		<br><br><hr><br>
-=======
-		<br>
-		<hr>
-		<br> <br>
->>>>>>> branch 'wodn' of https://github.com/our1/JejuBnB.git
 
-		<h2>호스트의 숙소 소개</h2> <br>
-		<h4>${ room.room_content }</h4>
-			
-		<div class="main-form">
+		<br><br><hr><br><br><br>
+		
+		<div>
+			<h2>호스트의 숙소 소개</h2> <br>
+			<h4>${ room.room_content }</h4>	
+		</div>
+		<br><br><hr>
+		
+
+			<tr>
+				<td>청결도 : ${ review.clean_score }</td> <br>	
+				<td>가격 대비 만족도 : ${ review.value_score }</td> <br>
+				<td>서비스 : ${ review.service_score }</td>	
+			</tr>
+
+	<table>
+		<c:forEach items="${ requestScope.list }" var="review"> 
+			<tr>
+				<th>작성자 : </th>
+				<td>${review.user_id} </td> <br>
+				<th>작성 날짜 : </th>
+				<td><fmt:formatDate value="${review.review_date}" pattern="yyyy-MM-dd" /> </td>
+			</tr>
+			<tr>
+				<th>리뷰내용 :</th> <br>
+				<td>${review.review_content}</td>
+			</tr>
+		</c:forEach>
+	</table>
+
+	<button type="button" class="btn" id="popupBtn">리뷰 등록</button>
+	<br><br><hr><br><br><br>
+		
+	<form action="reserv.do" method="post">
+		<input type="hidden" name="room_no" value="${ room.room_no }">
+		<input type="hidden" name="user_id" value="${ loginMember.user_id }">
+			<div class="main-form">
 			<h2 class="form-title1">요금을 확인하려면 날짜를 입력하세요.</h2>
 			<div class="inline-block">
 				<div class="form-title2">체크인</div>
 				<div class="form form-2">
-					<label for="fromDate"></label> <input type="text" name="fromDate"
-						id="fromDate" readonly placeholder="날짜추가">
+					<label for="checkinDate"></label> 
+					<input type="text" name="checkin_date" id="checkinDate" readonly placeholder="날짜추가">
 				</div>
 			</div>
 			<div class="inline-block">
 				<div class="form-title2">체크아웃</div>
 				<div class="form form-2">
-					<label for="toDate"></label> <input type="text" name="toDate"
-						id="toDate" readonly placeholder="날짜추가">
+					<label for="checkoutDate"></label> 
+					<input type="text" name="checkout_date" id="checkoutDate" readonly placeholder="날짜추가">
 				</div>
 			</div>
 			<div class="form-title2">인원</div>
-			<div class="dropdown">
-				<input id="nu" type="text" class="dropbtn" readonly placeholder="인원">
-				<div class="dropdown-content">
+			<div class="dropdown_1">
+				<input id="nu" type="text" class="dropbtn_1" readonly placeholder="인원" name="guest">
+				<div class="dropdown-content_1">
 					<div class="number">
-						<form id="test">
+						<form>
+						<input type="hidden" name="a_num" id="num" value="${ reservation.a_num }">
+						<input type="hidden" name="c_num" id="num1" value="${ reservation.c_num }">
+						<input type="hidden" name="i_num" id="num2" value="${ reservation.i_num }">
+						<input type="hidden" name="room_weekday" value="${ room.room_weekday }">
+						<input type="hidden" name="room_weekend" value="${ room.room_weekend }">
 							<h4>성인</h4>
-							<span><button id="decreaseQuantity">&#8722;</button></span> <span
-								id="numberUpDown">1</span> <span><button
-									id="increaseQuantity">&#43;</button></span>
-						</form>
-						<form>
+							<span><button id="decreaseQuantity">&#8722;</button></span> 
+							<span id="numberUpDown">1</span> 
+						    <span><button id="increaseQuantity">&#43;</button></span>
 							<h4>어린이</h4>
-							<span><button id="decreaseQuantity2">&#8722;</button></span> <span
-								id="numberUpDown2">0</span> <span><button
-									id="increaseQuantity2">&#43;</button></span>
-						</form>
-						<form>
+							<span><button id="decreaseQuantity2">&#8722;</button></span> 
+							<span id="numberUpDown2">0</span> 
+							<span><button id="increaseQuantity2">&#43;</button></span>
 							<h4>유아</h4>
-							<span><button id="decreaseQuantity3">&#8722;</button></span> <span
-								id="numberUpDown3">0</span> <span><button
-									id="increaseQuantity3">&#43;</button></span>
+							<span><button id="decreaseQuantity3">&#8722;</button></span>
+							<span id="numberUpDown3">0</span> 
+							<span><button id="increaseQuantity3">&#43;</button></span>
 						</form>
 					</div>
 				</div>
 			</div>
-			<div>
-				<button class="search-button" onclick="moveReservPage()">예약 진행하기</button>
-			</div>
+				<input name="check" class="search-button" type="submit" value="예약 진행하기">		
 		</div>
+	</form>
+    <br><br><br><br><br>
+
+<%-- <c:import url="/WEB-INF/views/common/footer.jsp"/> --%>
 
 
-<<<<<<< HEAD
-<c:import url="/WEB-INF/views/common/footer.jsp" />
-=======
-		<c:import url="/WEB-INF/views/common/footer.jsp" />
-
-<div id="slide">
-	<input type="radio" name="pos" id="pos1" checked>
-	<input type="radio" name="pos" id="pos2">
-	<input type="radio" name="pos" id="pos3">
-	<input type="radio" name="pos" id="pos4">
-	<input type="radio" name="pos" id="pos5">
-	<input type="radio" name="pos" id="pos6">
-	<ul>
-		<li></li>
-		<li></li>
-		<li></li>
-    <li></li>
-    <li></li>
-		<li></li>
-	</ul>
-	<p class="pos">
-		<label for="pos1"></label>
-		<label for="pos2"></label>
-		<label for="pos3"></label>
-		<label for="pos4"></label>
-	    <label for="pos5"></label>
-	    <label for="pos6"></label>
-	</p>
-</div> <br>
-    
-<h3>${ room.user_id } 님의 JejuBnB</h3> <br>
-<h4>최대 인원  ${ room.max_people } 명, 침대수 ${ room.num_bed } 개, 
-	침실수 ${ room.num_bedroom } 개, 욕실수  ${ num_bathroom } 개
-</h4> <br><hr>
-
-<div data-plugin-in-point-id="HIGHLIGHTS_DEFAULT" data-section-id="HIGHLIGHTS_DEFAULT" style="padding-top: 32px; padding-bottom: 32px;"><div class="_1044tk8"><div class="_fz3zdn"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style="display: block; height: 24px; width: 24px; fill: currentcolor;"><path d="M17.954 2.781l.175.164 13.072 12.842-1.402 1.426-1.8-1.768L28 29a2 2 0 0 1-1.85 1.994L26 31H6a2 2 0 0 1-1.995-1.85L4 29V15.446l-1.8 1.767-1.4-1.426L13.856 2.958a3 3 0 0 1 4.097-.177zm-2.586 1.503l-.096.088L6 13.48 6 29l5-.001V19a2 2 0 0 1 1.85-1.995L13 17h6a2 2 0 0 1 1.995 1.85L21 19v9.999h5V13.48l-9.3-9.135a1.001 1.001 0 0 0-1.332-.06zM19 19h-6v9.999h6z"></path></svg></div><div class="_1mqc21n">
-	<div class="_1qsawv5">집 전체</div><div class="_1jlr81g">초소형 주택 전체를 단독으로 사용하시게 됩니다.</div></div></div><div class="_1044tk8"><div class="_fz3zdn"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style="display: block; height: 24px; width: 24px; fill: currentcolor;"><path d="M25 1a2 2 0 0 1 1.995 1.85L27 3l-.001 26H29v2H3v-2h1.999L5 3a2 2 0 0 1 1.85-1.995L7 1zm-4 2H7l-.001 26H21zm4 0h-2v26h1.999zm-7 12a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"></path></svg></div><div class="_1mqc21n"><div class="_1qsawv5">셀프 체크인</div><div class="_1jlr81g">키패드를 이용해 체크인하세요.</div></div></div><div class="_1044tk8"><div class="_fz3zdn"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style="display: block; height: 24px; width: 24px; fill: currentcolor;"><path d="M16 0c6.627 0 12 5.373 12 12 0 6.337-3.814 12.751-11.346 19.257L16 31.82l-1.076-.932C7.671 24.509 4 18.218 4 12 4 5.423 9.397 0 16 0zm0 2C10.504 2 6 6.525 6 12c0 5.44 3.249 11.118 9.831 17.02l.169.149.576-.518c6.178-5.65 9.293-11.092 9.42-16.318L26 12c0-5.523-4.477-10-10-10zm0 5a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"></path></svg></div>
-<div class="_1mqc21n"><div class="_1qsawv5">훌륭한 숙소 위치</div>
-<div class="_1jlr81g">최근 숙박한 게스트 중 90%가 위치에 별점 5점을 준 숙소입니다.</div></div></div><div class="_1044tk8"><div class="_fz3zdn"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" style="display: block; height: 24px; width: 24px; fill: currentcolor;"><path d="M12 0v2h8V0h2v2h6a2 2 0 0 1 1.995 1.85L30 4v15.586a2 2 0 0 1-.467 1.284l-.119.13L21 29.414a2 2 0 0 1-1.238.578l-.176.008H7a5 5 0 0 1-4.995-4.783L2 25V4a2 2 0 0 1 1.85-1.995L4 2h6V0zM4 12v13a3 3 0 0 0 2.824 2.995L7 28h11v-5a5 5 0 0 1 4.783-4.995L23 18h5v-6zm23.585 8H23a3 3 0 0 0-2.995 2.824L20 23v4.585zM4 10h24V4h-6v2h-2V4h-8v2h-2V4H4z"></path></svg></div><div class="_1mqc21n">
-<div class="_1qsawv5">체크인 24시간 전까지 수수료 없이 예약 취소 가능</div><div class="_1jlr81g"></div></div></div></div> <br><hr>
-
-<div>
-<h2>요금을 확인하려면 날짜를 입력하세요.</h2>
-<form>
-	 <label for="fromDate"></label>
-			<input type="text" name="fromDate" id="fromDate" readonly value="체크인">
-		<label for="toDate"></label>
-		<input type="text" name="toDate" id="toDate" readonly value="체크아웃">
-</form>
-<button onclick="javascript:location.href='redetail.do';">예약 진행하기</button>
-</div>
-
-<div></div>
-
-
-<c:import url="/WEB-INF/views/common/footer.jsp" />
-
->>>>>>> branch 'wodn' of https://github.com/our1/JejuBnB.git
 </body>
 </html>

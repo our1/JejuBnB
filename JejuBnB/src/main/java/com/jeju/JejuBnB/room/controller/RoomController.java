@@ -28,6 +28,7 @@ import com.jeju.JejuBnB.filter.model.vo.Amenity;
 import com.jeju.JejuBnB.filter.model.vo.Build_type;
 import com.jeju.JejuBnB.filter.model.vo.Facility;
 import com.jeju.JejuBnB.filter.model.vo.Rule;
+import com.jeju.JejuBnB.reservation.model.service.ReservationService;
 import com.jeju.JejuBnB.room.model.service.RoomService;
 import com.jeju.JejuBnB.room.model.vo.CheckTime;
 import com.jeju.JejuBnB.room.model.vo.Room;
@@ -39,6 +40,8 @@ public class RoomController {
 
 	@Autowired
 	private RoomService roomService;
+	
+	
 	
 	/*
 	 * @Autowired private ReviewService reviewService;
@@ -217,7 +220,7 @@ public class RoomController {
 		}
 	}
 
-	//숙소 상세보기  & 리뷰 리스트
+		//숙소 상세보기  & 리뷰 리스트
 		@RequestMapping("moveDetailView.do")
 		public ModelAndView moveDetail(ModelAndView mv, @RequestParam("roomno") int room_no) {
 			Room room = roomService.selectRoom(room_no);
@@ -229,7 +232,6 @@ public class RoomController {
 				//mv.addObject("list", list);
 				logger.info(room.toString());
 				//logger.info(list.toString());
-
 			}else {
 				mv.setViewName("common/error");
 				mv.addObject("message", "게시글 조회 실패");

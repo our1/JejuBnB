@@ -177,11 +177,9 @@ public class NoticeController {
 		
 		case 7:
 			notice = noticeService.selectNotice(choice);
-			
 			un1.setNotice_content(toUser + notice.getNotice_content1() + room_name + notice.getNotice_content2());
 			un1.setTo_user(toUser);
 			un1.setFrom_user(fromUser);
-			logger.info(un1.toString());
 
 			result = noticeService.insertUNotice(un1);
 			if(result > 0) {

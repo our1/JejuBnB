@@ -185,7 +185,7 @@ public class RoomController {
 		int result2 = roomService.insertRoomFile(rflist);
 		if (result > 0) {
 			return "redirect:/insertNotice.do?toUser=" + room.getUser_id()+"&fromUser=admin&room_name=" + room.getRoom_name() 
-			+ "&returnPage=redirect:/main.do&choice=7";
+			+ "&returnPage=redirect:/moveDetailView.do?room_no="+roomno +"&choice=7";
 		} else {
 			model.addAttribute("message", "글 등록 실패");
 			return "common/error";
@@ -193,7 +193,7 @@ public class RoomController {
 
 	}
 	
-	@RequestMapping("moveroomwrite.do")
+	@RequestMapping("moveRoomWrite.do")
 	public String moveRoomWrite(Model model) {
 		ArrayList<Amenity> Alist = filterService.selectAmenity();
 		ArrayList<Build_type> Blist = filterService.selectBuild_type();
@@ -211,7 +211,7 @@ public class RoomController {
 		return "room/roomWriteForm";
 	}
 	
-	@RequestMapping("movemyroom.do")
+	@RequestMapping("moveMyRoom.do")
 	public String moveMyRoom(@RequestParam("userid") String userid, Model model) {
 		ArrayList<Room> list = roomService.selectUserRoom(userid);
 		

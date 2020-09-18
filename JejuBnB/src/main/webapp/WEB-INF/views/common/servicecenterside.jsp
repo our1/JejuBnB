@@ -9,8 +9,8 @@
 	<style>
 		/* 사이드바 스타일 */
 		.sidenav {
-			height:500px;
-			width: 300px;
+			height:450px;
+			width: 250px;
 			position: fixed;
 			z-index:1;
 			left: 0;
@@ -59,7 +59,7 @@
 		/* 미디어쿼리 적용 */
 		@media screen and (max-height:450px) {
 			.sidenav {
-				padding-top:15px;
+				padding-top:0;
 			}
 			.sidenav a {
 				font-size: 18px;
@@ -72,10 +72,10 @@
 <div id="mysidenav" class="sidenav" value="고객센터">
 		<a href="#" class="closebtn" onclick='closeNav()'>x</a>
 		<%-- <c:if test="${!empty loginMember and  loginMember.admin_check eq 'Y' }"> --%>
+				<a href="eventPage.do">이벤트</a>
 		<a href="couponPage.do">쿠폰</a>
 	<%-- 	</c:if> --%>
 		<a href="policyPage.do">약관 및 개인정보</a>
-		<a href="#">이벤트</a>
 		<a href="#">1:1문의</a>
 		<a href="#">자주묻는질문(FAQ)</a>
 	</div>

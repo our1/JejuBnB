@@ -14,6 +14,13 @@
 		<result property="sum_rimg" column="sum_rimg" />	
 	</resultMap>
 	
+	<resultMap type="Coupon" id="resultCoupon">
+		<id property="coupon_no" column="coupon_no" />
+		<result property="coupon_money" column="coupon_money" />	
+		<result property="coupon_begin" column="coupon_begin" />	
+		<result property="coupon_end" column="coupon_end" />	
+	</resultMap>
+	
 	<resultMap type="Event" id="resultList">
 		<id property="event_no" column="event_no" />
 		<result property="event_name" column="event_name" />	
@@ -25,17 +32,31 @@
 		<result property="sum_rimg" column="sum_rimg" />	
 	</resultMap>
 	
+	<resultMap type="com.jeju.JejuBnB.event.model.vo.Collection" id="Collection">
+		<id property="event_no" column="event_no" />
+		<result property="event_name" column="event_name" />	
+		<result property="coupon_begin" column="coupon_begin" />	
+		<result property="coupon_end" column="coupon_end" />	
+	</resultMap>
+
 	
-<!-- 	<select id="">
 	
+	<select id="selectList" resultMap="Collection">
+		select coupon_no,event_name,coupon_begin,coupon_end from event
+		join coupon using(coupon_no)
 	</select>
 	
-	<insert id="">
+	<insert id="insertEvent" parameterType="Event">
+		insert into event
+		values((select max(event_no)+1 from event),#{event_name},#{event_content},#{event_fimg},#{coupon_no}, #{sum_fimg})
 	</insert>
 	
-	<update id="">
+	<update id="updateEvent" parameterType="Event">
+		update event set event_name = #{evnet_name}, event_content = #{event_content},
+		 event_fimg = #{event_fimg}, coupon_no = #{coupon_no}, sum_fimg = #{sum_fimg} where event_no = #{event_no}
 	</update>
 	
-	<delete id="">
-	</delete> -->
+	<delete id="deleteEvent" parameterType="string">
+	delete from event where event_no = #{event_no}
+	</delete> 
 </mapper>

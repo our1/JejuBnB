@@ -81,6 +81,8 @@
 </head>
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp" />
+	<c:import url="/WEB-INF/views/common/servicecenterside.jsp"/>
+	<center>
 	<br>
 	<br>
 	<hr>
@@ -93,7 +95,7 @@
 	<hr>
 	<form action="deletePolicy.do" method="post" onsubmit="validate(pono);">	
 	
-	<c:forEach items="${requestScope.policy }" var="po">
+	<c:forEach items="${policy }" var="po">
 		<c:if test="${  po.policy_type eq '약관' }">
 			<div id="accordian">
 				<ul>
@@ -134,6 +136,6 @@
 	<input type="submit" value="삭제">
 	</c:if>
 	</form>
-	
+	</center>
 </body>
 </html>

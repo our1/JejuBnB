@@ -41,9 +41,13 @@
 
 	
 	
-	<select id="selectList" resultMap="Collection">
-		select coupon_no,event_name,coupon_begin,coupon_end from event
+	<select id="selectList" parameterType="Event" resultMap="Collection">
+		select * from event
 		join coupon using(coupon_no)
+	</select>
+	
+	<select id="getListCount" resultType="_int">
+		select count(event_no) from event
 	</select>
 	
 	<insert id="insertEvent" parameterType="Event">

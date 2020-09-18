@@ -9,7 +9,8 @@ import com.jeju.JejuBnB.event.model.vo.Event;
 
 
 public interface EventService {
-	ArrayList<Collection> selectList();
+	ArrayList<Collection> selectList(int currentPage, int limit);
+	int getListCount();
 	int insertEvent(Event event);
 	int updateEvent(Event event);
 	int deleteEvent(String event_no);

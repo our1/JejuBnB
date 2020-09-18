@@ -16,8 +16,8 @@ public class EventServiceImpl implements EventService{
 	
 	
 	@Override
-	public ArrayList<Collection> selectList(){
-		return eventDao.selectList();
+	public ArrayList<Collection> selectList(int currentPage, int limit){
+		return eventDao.selectList(currentPage, limit);
 	}
 	
 	@Override
@@ -34,4 +34,9 @@ public class EventServiceImpl implements EventService{
 	public int deleteEvent(String event_no) {
 		return eventDao.deleteEvent(event_no);
 	}
+	
+	public int getListCount() {
+		return eventDao.getListCount();
+	}
+	
 }

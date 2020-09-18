@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.jeju.JejuBnB.event.model.vo.Collection;
 import com.jeju.JejuBnB.event.model.vo.Event;
+import com.jeju.JejuBnB.room.model.vo.PageCount;
 
 @Repository("eventDao")
 public class EventDao {
@@ -18,14 +19,26 @@ public class EventDao {
 	public EventDao() {}
 	
 	
-	public ArrayList<Collection> selectList(){
+	public ArrayList<Collection> selectList(int currentPage, int limit){
+		PageCount pageCount = new PageCount();
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+		pageCount.setStartRow(startRow);
+		pageCount.setEndRow(endRow);
 		List<Collection> list = session.selectList("eventMapper.selectList");
 		return (ArrayList<Collection>)list;
 	}
 	
+	public int getListCount() {
+		return session.selectOne("eventMapper.getListCount");
+	}
+	
+	
 	public int insertEvent(Event event) {
 		return session.insert("eventMapper.insertEvent", event);
 	}
+	
+	
 	
 	public int updateEvent(Event event) {
 		return session.update("eventMapper.updateEvent", event);

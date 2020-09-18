@@ -143,8 +143,8 @@
 		select count(reply_no) from review where room_no = #{ room_no }
 	</select> 
 	
-	<select id="selectRoomNo" parameterType="string" resultMap="resultRoomNo">
-		select * from (select rownum rnum, room_no from room where user_id = #{userid} order by room_no desc) where rnum = 1
+	<select id="selectRoomNo" parameterType="string" resultType="int">
+		select nvl(max(room_no),1) from room where user_id = #{uid}
 	</select>
 	
 	<select id="selectSearchFilter" parameterType="java.util.HashMap" resultMap="resultList">

@@ -646,7 +646,11 @@ ul, li {
 						</section>
 					</div>
 				</div>
-				<c:if test="${ amenity.amenity_no eq '7' }">
+				<ul>
+				<c:forTokens items="${ room.amenity }" delims="," var="amenity">
+<li>${amenity }</li>
+</c:forTokens>
+				</ul>
 				<div class="_1byskwn">
 					<div class="_19xnuo97">
 						<div class="_1nlbjeu">
@@ -662,7 +666,6 @@ ul, li {
 							</div>
 						</div>
 					</div>
-					</c:if>	
 					<c:if test="${ amenity.amenity_no eq '17' }">
 					<div class="_19xnuo97">
 						<div class="_1nlbjeu">

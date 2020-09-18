@@ -79,7 +79,7 @@ public class RoomDao {
 	}
 
 
-	public Room selectRoomNo(String userid) {
+	public int selectRoomNo(String userid) {
 		return session.selectOne("roomMapper.selectRoomNo", userid);
 	}
 

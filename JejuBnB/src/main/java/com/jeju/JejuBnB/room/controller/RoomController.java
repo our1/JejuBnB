@@ -2,6 +2,8 @@ package com.jeju.JejuBnB.room.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -127,7 +129,7 @@ public class RoomController {
 	@RequestMapping(value = "roominsert.do", method = RequestMethod.POST)
 	public String insertRoom(Room room, Model model, CheckTime ct, MultipartHttpServletRequest mrequest,
 			HttpServletRequest request, @RequestParam(value = "ofile", required = false) MultipartFile ofile,
-			@RequestParam("address") String address) {
+			@RequestParam("address") String address) throws UnsupportedEncodingException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 
 		if (ofile != null) {
@@ -146,7 +148,6 @@ public class RoomController {
 			room.setRoom_thumbnail_file(ofile.getOriginalFilename());
 			room.setRoom_rename_file(rename);
 		}
-		logger.info(room.toString());
 
 		room.setCheckout_time(ct.getOuthour() + ct.getOutminute());
 		room.setCheckin_time(ct.getInhour() + ct.getInminute());
@@ -154,8 +155,7 @@ public class RoomController {
 		int result = roomService.insertRoom(room);
 
 		
-		Room Sroomno = roomService.selectRoomNo(room.getUser_id());
-		int roomno = Sroomno.getRoom_no() + 1;
+		int roomno = roomService.selectRoomNo(room.getUser_id());
 		List<MultipartFile> fileList = mrequest.getFiles("file");
 		ArrayList<Room_File> rflist = new ArrayList<Room_File>();
 		String savePath1 = request.getSession().getServletContext().getRealPath("resources/roomFiles");
@@ -180,12 +180,13 @@ public class RoomController {
 			rf.setRoom_no(roomno);
 			rflist.add(rf);
 		}
-
-	
+		
+			String encoderName = URLEncoder.encode(room.getRoom_name(), "utf-8");
+		
+		logger.info(room.getRoom_name());
 		int result2 = roomService.insertRoomFile(rflist);
 		if (result > 0) {
-			return "redirect:/insertNotice.do?toUser=" + room.getUser_id()+"&fromUser=admin&room_name=" + room.getRoom_name() 
-			+ "&returnPage=redirect:/moveDetailView.do?room_no="+roomno +"&choice=7";
+			return "redirect:/insertNotice.do?toUser=" + room.getUser_id()+"&fromUser=admin&room_name="+encoderName+"&returnPage=redirect:/moveDetailView.do?room_no="+roomno +"&choice=7";
 		} else {
 			model.addAttribute("message", "글 등록 실패");
 			return "common/error";
@@ -199,11 +200,6 @@ public class RoomController {
 		ArrayList<Build_type> Blist = filterService.selectBuild_type();
 		ArrayList<Facility> Flist = filterService.selectFacility();
 		ArrayList<Rule> Rlist = filterService.selectRule();
-		model.addAttribute("AlistSize", Alist.size());
-		model.addAttribute("BlistSize", Blist.size());
-		model.addAttribute("FlistSize", Flist.size());
-		model.addAttribute("RlistSize", Rlist.size());
-
 		model.addAttribute("Alist", Alist);
 		model.addAttribute("Blist", Blist);
 		model.addAttribute("Flist", Flist);
@@ -214,11 +210,11 @@ public class RoomController {
 	@RequestMapping("moveMyRoom.do")
 	public String moveMyRoom(@RequestParam("userid") String userid, Model model) {
 		ArrayList<Room> list = roomService.selectUserRoom(userid);
-		
-		if(list.size() > 0) {
+
+		if (list.size() > 0) {
 			model.addAttribute("list", list);
 			return "room/myRoomListView";
-		}else {
+		} else {
 			model.addAttribute("message", "회원님의 숙소 조회 실패");
 			return "common/error";
 		}
@@ -234,9 +230,7 @@ public class RoomController {
 			mv.setViewName("reservation/reservationListView");
 			mv.addObject("room", room);
 			mv.addObject("list", list);
-			logger.info(room.toString());
-			logger.info(list.toString());
-
+			
 		}else {
 			mv.setViewName("common/error");
 			mv.addObject("message", "게시글 조회 실패");

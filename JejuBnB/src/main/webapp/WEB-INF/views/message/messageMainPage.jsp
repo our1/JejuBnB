@@ -27,7 +27,7 @@
 <c:url value="moveMessageList.do" var="message">
 	<c:param name="user_one" value="${loginMember.user_id }"/>
 </c:url>
- 
+    
 
 <button onclick="return message();">메세지창 user02</button>
 <button onclick="javascript:location.href='${message }'">메세지함 가기</button>

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jeju.JejuBnB.filter.model.service.FilterService;
@@ -123,19 +124,20 @@ public class RoomController {
 	
 	}
 	
-	@RequestMapping(value="roominsert.do", method=RequestMethod.POST)
-	public String insertRoom(Room room, Model model, CheckTime ct, HttpServletRequest request, 
-			@RequestParam(value="ofile", required = false) MultipartFile ofile, @RequestParam("address") String address) {
-		String orgname = ofile.getOriginalFilename();
-		if(!orgname.isEmpty()) {
+	@RequestMapping(value = "roominsert.do", method = RequestMethod.POST)
+	public String insertRoom(Room room, Model model, CheckTime ct, MultipartHttpServletRequest mrequest,
+			HttpServletRequest request, @RequestParam(value = "ofile", required = false) MultipartFile ofile,
+			@RequestParam("address") String address) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+
+		if (ofile != null) {
+			String orgname = ofile.getOriginalFilename();
+
 			String savePath = request.getSession().getServletContext().getRealPath("resources/roomThumbnail");
 			room.setRoom_thumbnail_file(ofile.getOriginalFilename());
-			String rename = null;
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-			rename = sdf.format(new java.sql.Date(System.currentTimeMillis()));
-			
+			String rename = sdf.format(new java.sql.Date(System.currentTimeMillis()));
 			rename += "." + ofile.getOriginalFilename().substring(ofile.getOriginalFilename().lastIndexOf(".") + 1);
-			
+
 			try {
 				ofile.transferTo(new File(savePath + "\\" + rename));
 			} catch (IllegalStateException | IOException e) {
@@ -184,13 +186,11 @@ public class RoomController {
 		if (result > 0) {
 			return "redirect:/insertNotice.do?toUser=" + room.getUser_id()+"&fromUser=admin&room_name=" + room.getRoom_name() 
 			+ "&returnPage=redirect:/main.do&choice=7";
-
 		} else {
 			model.addAttribute("message", "글 등록 실패");
 			return "common/error";
 		}
-		
-		
+
 	}
 	
 	@RequestMapping("moveroomwrite.do")

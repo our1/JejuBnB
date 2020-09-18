@@ -55,27 +55,25 @@ public class RoomController {
 		String outMonth = inMonth;
 		String outday = "" + (cal.get(Calendar.DAY_OF_MONTH) + 1);
 		int week = cal.get(Calendar.DAY_OF_WEEK);
-		int people = 2;
+		int people = 1;
 		
 		if (request.getParameter("page") != null) {
 			currentPage = Integer.parseInt(request.getParameter("page"));
 		}
+		
 		ArrayList<Room> list = null;
 		if (request.getParameter("checkin") != null) {
 			
 			String checkin = request.getParameter("checkin");
 			String checkout = request.getParameter("checkout");
 			people = Integer.parseInt(request.getParameter("people"));
-
 			ArrayList<Room> roomNo = roomService.selectChkRNList(checkin, checkout);
-			
+			logger.info(roomNo.toString());
 			list = roomService.selectChkList(roomNo, currentPage, limit, people);
-			
-			inMonth = checkin.substring(0, 2);
-			inday = checkin.substring(2,4);
-			outMonth = checkout.substring(0,2);
-			outday = checkout.substring(2,4);
-			
+			inMonth = checkin.substring(5, 7);
+			inday = checkin.substring(8);
+			outMonth = checkout.substring(5,7);
+			outday = checkout.substring(8);
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Date chDate = null;
 			try {
@@ -86,7 +84,6 @@ public class RoomController {
 			cal.setTime(chDate);
 			week = cal.get(Calendar.DAY_OF_WEEK);
 		} else {
-			int people2 = 2;
 			ArrayList<Room> roomNo = roomService.selectSysdate();
 			list = roomService.selectList(currentPage, limit);
 			
@@ -97,9 +94,7 @@ public class RoomController {
 		if (maxPage < endPage) {
 			endPage = maxPage;
 		}
-		logger.info("달 : " + cal.get(Calendar.MONTH) + ", 나가는날 : " + cal.get(Calendar.DAY_OF_MONTH));
-		logger.info("요일 : " + week);
-		logger.info("달 : " + inMonth + inday + ", 나가는날 : " + outMonth + outday);
+		
 		if (list != null) {
 			model.addAttribute("inMonth", inMonth);
 			model.addAttribute("inday", inday);
@@ -143,7 +138,14 @@ public class RoomController {
 			room.setRoom_thumbnail_file(ofile.getOriginalFilename());
 			room.setRoom_rename_file(rename);
 		}
+		logger.info(room.toString());
 
+		room.setCheckout_time(ct.getOuthour() + ct.getOutminute());
+		room.setCheckin_time(ct.getInhour() + ct.getInminute());
+		room.setRoom_address(room.getRoom_roadaddress() + address);
+		int result = roomService.insertRoom(room);
+
+		
 		Room Sroomno = roomService.selectRoomNo(room.getUser_id());
 		int roomno = Sroomno.getRoom_no() + 1;
 		List<MultipartFile> fileList = mrequest.getFiles("file");
@@ -171,11 +173,7 @@ public class RoomController {
 			rflist.add(rf);
 		}
 
-		room.setCheckout_time(ct.getOuthour() + ct.getOutminute());
-		room.setCheckin_time(ct.getInhour() + ct.getInminute());
-		room.setRoom_address(room.getRoom_roadaddress() + address);
-
-		int result = roomService.insertRoom(room);
+	
 		int result2 = roomService.insertRoomFile(rflist);
 		if (result > 0) {
 			return "redirect:/insertNotice.do?toUser=" + room.getUser_id()+"&fromUser=admin&room_name=" + room.getRoom_name() 

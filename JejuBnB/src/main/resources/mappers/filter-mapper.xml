@@ -24,35 +24,35 @@
 	</resultMap>
 	
 	<select id="selectAmenity" resultMap="resultAmenity">
-		select * from amenity
+		select * from amenity order by amenity_no
 	</select>
 	
 	<select id="selectBuT" resultMap="resultBuild_Type">
-		select * from Build_Type
+		select * from Build_Type order by bu_type_no
 	</select>
 	
 	<select id="selectFacility" resultMap="resultFacility">
-		select * from Facility
+		select * from Facility order by facility_no
 	</select>
 	
 	<select id="selectRule" resultMap="resultRule">
-		select * from Rule
+		select * from Rule order by rule_no
 	</select>
 	
 	<insert id="insertAmenity" parameterType="string">
-		insert into amenity values((select max(amenity_no) from amenity) + 1, #{amenity_name})
+		insert into amenity values((select nvl(max(amenity_no),0) + 1 from amenity), #{amenity_name})
 	</insert>
 	
 	<insert id="insertFacility" parameterType="Facility">
-		insert into facility values((select max(facility_no) from facility) + 1, #{facility_name})
+		insert into facility values((select nvl(max(facility_no),0) + 1 from facility) + 1, #{facility_name})
 	</insert>
 	
 	<insert id="insertBut" parameterType="Build_Type">
-		insert into build_type values((select max(bu_type_no) from build_type) + 1, #{bu_type_name})
+		insert into build_type values((select nvl(max(bu_type_no),0) + 1 from build_type) + 1, #{bu_type_name})
 	</insert>
 	
 	<insert id="insertRule" parameterType="Rule">
-		insert into Rule values((select max(rule_no) from Rule) + 1, #{rule_name})
+		insert into Rule values((select nvl(max(rule_no),0) + 1 from Rule) + 1, #{rule_name})
 	</insert>
 	
 	<delete id="deleteAmenity" parameterType="int">

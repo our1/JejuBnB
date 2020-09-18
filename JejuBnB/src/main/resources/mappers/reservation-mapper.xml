@@ -3,8 +3,9 @@
 "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="reservationMapper">
-<resultMap id="resultReservation" type="Reservation" >
-		<id property="room_num" column="room_no" />
+
+	 <resultMap id="resultReservation" type="Reservation" >
+		<id property="room_no" column="room_no" />
 		<result property="a_num" column="a_num" />
 		<result property="c_num" column="c_num" />
 		<result property="i_num" column="i_num" />
@@ -12,25 +13,32 @@
 		<result property="checkout_date" column="checkout_date" />
 		<result property="re_num" column="re_num" />
 		<result property="user_id" column="user_id" />
-		<result property="pay" column="pay" />
+		<result property="guest" column="guest" />
 	</resultMap>
 	
-	<select id="selectOne" parameterType="_int" resultType="Reservation">
+	
+	<select id="selectReserv" parameterType="int" resultType="Reservation">
 		select * from reservation where room_no = #{ room_no }
 	</select>
 	
-	<select id="selectReserv" parameterType="_int" resultType="Reservation">
+	<select id="selectReservWait" parameterType="int" resultType="Reservation">
 		select * from reservation where room_no = #{ room_no }
-	</select>
-	
-	<select id="selectReservWait" parameterType="_int" resultType="Reservation">
-		select * from reservation where room_no = #{ room_no }
-	</select>
+	</select> 
 	
 	<insert id="insertReserv" parameterType="Reservation">
-		insert into reservation
-		values (#{ a_num }, #{ c_num }, #{ i_num }, #{ checkin_date }, #{ checkout_date })
+		insert into reservation 
+		values ((select max(room_no) from reservation) + 1, 
+				#{a_num,jdbcType=INTEGER}, #{c_num,jdbcType=INTEGER}, #{i_num,jdbcType=INTEGER}, 
+				#{checkin_date}, #{checkout_date}, (select nvl(max(re_num),0) + 1 from reservation), 
+				#{user_id,jdbcType=VARCHAR}, #{guest,jdbcType=VARCHAR})
 	</insert>
- 
+	
+
 
 </mapper>
+
+
+
+
+
+

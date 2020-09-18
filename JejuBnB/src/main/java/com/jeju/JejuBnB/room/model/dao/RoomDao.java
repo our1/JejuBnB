@@ -78,6 +78,7 @@ public class RoomDao {
 		return session.selectOne("roomMapper.selectRoom", roomno);
 	}
 
+
 	public Room selectRoomNo(String userid) {
 		return session.selectOne("roomMapper.selectRoomNo", userid);
 	}
@@ -182,6 +183,8 @@ public class RoomDao {
 		return (ArrayList<Room>)list;
 	}
 
+
 	
+
 
 }

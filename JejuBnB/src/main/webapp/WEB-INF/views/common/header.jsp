@@ -34,6 +34,7 @@
 </head>
 
 <body>
+
 <div class="mainhead">
          <div class="logo">
            <a href="main.do"><img src="resources/images/무제.png"></a>

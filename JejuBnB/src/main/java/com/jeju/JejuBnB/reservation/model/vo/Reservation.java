@@ -13,12 +13,12 @@ public class Reservation implements java.io.Serializable{
 	private java.sql.Date checkout_date;
 	private int re_num;
 	private String user_id;
-	private int pay;
+	private String guest;
 	
     public Reservation() {}
 
 	public Reservation(int room_no, int a_num, int c_num, int i_num, Date checkin_date, Date checkout_date, int re_num,
-			String user_id, int pay) {
+			String user_id, String guest) {
 		super();
 		this.room_no = room_no;
 		this.a_num = a_num;
@@ -28,7 +28,7 @@ public class Reservation implements java.io.Serializable{
 		this.checkout_date = checkout_date;
 		this.re_num = re_num;
 		this.user_id = user_id;
-		this.pay = pay;
+		this.guest = guest;
 	}
 
 	public int getRoom_no() {
@@ -95,12 +95,12 @@ public class Reservation implements java.io.Serializable{
 		this.user_id = user_id;
 	}
 
-	public int getPay() {
-		return pay;
+	public String getGuest() {
+		return guest;
 	}
 
-	public void setPay(int pay) {
-		this.pay = pay;
+	public void setGuest(String guest) {
+		this.guest = guest;
 	}
 
 	public static long getSerialversionuid() {
@@ -111,8 +111,10 @@ public class Reservation implements java.io.Serializable{
 	public String toString() {
 		return "Reservation [room_no=" + room_no + ", a_num=" + a_num + ", c_num=" + c_num + ", i_num=" + i_num
 				+ ", checkin_date=" + checkin_date + ", checkout_date=" + checkout_date + ", re_num=" + re_num
-				+ ", user_id=" + user_id + ", pay=" + pay + "]";
+				+ ", user_id=" + user_id + ", guest=" + guest + "]";
 	}
+
+	
     
     
     

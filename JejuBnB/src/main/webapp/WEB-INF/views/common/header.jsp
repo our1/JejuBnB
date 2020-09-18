@@ -61,12 +61,12 @@
         </ul>
      </c:if>
      <c:if test="${empty loginMember }">
-        <ul class="dropdown-list">
-           <li onclick="javascript:location.href='roomlist.do'"> 숙소</li>
-           <li onclick="javascript:location.href='tlist.do'"> 관광지</li>
-           <hr class="divider">
-          <li onclick="javascript:location.href='policyPage.do'"> 고객센터</li>
-          <li onclick="movePage()">로그인</li>
+     	<ul class="dropdown-list">
+     	   <li onclick="javascript:location.href='roomlist.do'"> 숙소</li>
+     	   <li onclick="javascript:location.href='tlist.do'"> 관광지</li>
+     	   <hr class="divider">
+	       <li onclick="javascript:location.href='couponPage.do'"> 고객센터</li>
+	       <li onclick="movePage()">로그인</li>
         </ul>
      </c:if>
      <c:if test="${!empty loginMember and  empty loginMember.admin_check}">

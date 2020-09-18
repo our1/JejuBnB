@@ -14,7 +14,6 @@
 <h1>쿠폰리스트</h1>
 <form action="deleteCoupon">
 <c:forEach items="">
-
 </c:forEach>
 </form>
 

@@ -91,4 +91,9 @@ public class TourServiceImpl implements TourService {
 		return tourDao.selectTourNo(user_id);
 	}
 
+	@Override
+	public ArrayList<Tour_Review> selectTourReview(int tour_review_no) {
+		return tourDao.selectTourReview(tour_review_no);
+	}
+
 }

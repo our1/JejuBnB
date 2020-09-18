@@ -46,7 +46,7 @@
 <c:import url="/WEB-INF/views/common/header.jsp" />
 <div class="thead"></div>
 <div style="padding: 100px 0px 0px 0px;"></div>
-	<form action="tinsert.do"  method="post" onsubmit="return validate();"  enctype="multipart/form-data" >
+	<form action="tinsert.do" method="post" onsubmit="return validate();"  enctype="multipart/form-data" >
 	<fieldset class="fh">
 	 <select name="카테고리">
 	 	<option value="live">자연</option>

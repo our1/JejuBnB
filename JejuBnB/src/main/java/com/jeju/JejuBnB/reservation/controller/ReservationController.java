@@ -1,6 +1,9 @@
 package com.jeju.JejuBnB.reservation.controller;
 
-import java.sql.Date;
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+
 import java.text.SimpleDateFormat;
 
 import org.slf4j.Logger;
@@ -35,7 +38,7 @@ public class ReservationController {
 	//값 담아서 숙소 예약페이지 이동
 	@RequestMapping(value="reserv.do", method=RequestMethod.POST)
 	public ModelAndView insertReserv(@RequestParam(value="room_no") int room_no, Reservation reserv, Room room, ModelAndView mv,
-			@RequestParam(value="checkin_date") String checkin_date, @RequestParam(value="checkout_date") String checkout_date) {	
+			@RequestParam(value="checkin_date") String checkin_date, @RequestParam(value="checkout_date") String checkout_date, HttpServletRequest request) {	
 		logger.info("reserv: " + reserv);
 		
 		if(room != null) {
@@ -46,19 +49,26 @@ public class ReservationController {
 			mv.addObject("room", room);
 			
 			try {
+						
+			    logger.info("checkinDate : " + checkin_date);
+				logger.info("checkoutDate : " + checkout_date);
 				
-				SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
-				Date checkinDate = (java.sql.Date) format.parse(checkin_date);
-				Date checkoutDate = (java.sql.Date) format.parse(checkout_date);
-				long calDate = checkinDate.getTime() - checkoutDate.getTime();
-				long calDateDays = calDate / (24*60*60*1000);
-				calDateDays = Math.abs(calDateDays);
-				logger.info("calDate : " + calDate);
+				String in = request.getParameter("checkin_date");	
+				String out = request.getParameter("checkout_date");		
 				
+				 SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd"); 
+				 Date FirstDate = (Date) format.parse(in);
+			     Date SecondDate = (Date) format.parse(out);
+				 long calDate =	 SecondDate.getTime() - FirstDate.getTime(); 
+				 long calDateDays = calDate / (24*60*60*1000); 
+				 calDateDays = Math.abs(calDateDays);
+				 logger.info("calDateDays : " + calDateDays);
+				 
+				 mv.addObject("date", calDateDays); //보내줌
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
 		}		
 		return mv;
 				

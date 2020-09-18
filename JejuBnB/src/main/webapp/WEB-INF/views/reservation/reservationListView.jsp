@@ -824,14 +824,14 @@ ul, li {
 				<div class="form-title2">체크인</div>
 				<div class="form form-2">
 					<label for="checkinDate"></label> 
-					<input type="text" name="checkin_date" id="checkinDate" readonly placeholder="날짜추가">
+					<input type="text" name="checkin_date" id="checkinDate" readonly placeholder="날짜추가" value="${ reservation.checkin_date }">
 				</div>
 			</div>
 			<div class="inline-block">
 				<div class="form-title2">체크아웃</div>
 				<div class="form form-2">
 					<label for="checkoutDate"></label> 
-					<input type="text" name="checkout_date" id="checkoutDate" readonly placeholder="날짜추가">
+					<input type="text" name="checkout_date" id="checkoutDate" readonly placeholder="날짜추가" value="${ reservation.checkout_date }">
 				</div>
 			</div>
 			<div class="form-title2">인원</div>

@@ -2,8 +2,11 @@ package com.jeju.JejuBnB.room.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,7 +26,6 @@ import com.jeju.JejuBnB.filter.model.vo.Amenity;
 import com.jeju.JejuBnB.filter.model.vo.Build_type;
 import com.jeju.JejuBnB.filter.model.vo.Facility;
 import com.jeju.JejuBnB.filter.model.vo.Rule;
-
 import com.jeju.JejuBnB.review.model.service.ReviewService;
 import com.jeju.JejuBnB.review.model.vo.Review;
 import com.jeju.JejuBnB.room.model.service.RoomService;
@@ -45,25 +47,79 @@ public class RoomController {
 	private FilterService filterService;
 	
 	@RequestMapping("roomlist.do")
-	public String SelectList(HttpServletRequest request, Model model) {
-		int limit = 8;
-		int currentPage = 1;
-		if(request.getParameter("page") != null) {
-			currentPage = Integer.parseInt(request.getParameter("page"));
-		}
-		ArrayList<Room> list = roomService.selectList(currentPage, limit);
-		
-		
-		if(list != null) {
-		model.addAttribute("list", list);
-		logger.info(list.toString());
-		return "room/roomListView";
-		} else {
-			model.addAttribute("message", "리스트 출력 실패");
-			return "common/error";
-		}
-	
-	}
+	   public String SelectList(HttpServletRequest request, Model model) {
+	      int limit = 8;
+	      int currentPage = 1;
+	      int listCount = roomService.getListCount();
+	      
+	      Calendar cal = Calendar.getInstance();
+	      String inMonth = "" + (cal.get(Calendar.MONTH) + 1);
+	      String inday = "" + cal.get(Calendar.DAY_OF_MONTH);
+	      String outMonth = inMonth;
+	      String outday = "" + (cal.get(Calendar.DAY_OF_MONTH) + 1);
+	      int week = cal.get(Calendar.DAY_OF_WEEK);
+	      int people = 1;
+	      
+	      if (request.getParameter("page") != null) {
+
+	         currentPage = Integer.parseInt(request.getParameter("page"));
+	      }
+	      
+	      ArrayList<Room> list = null;
+	      if (request.getParameter("checkin") != null) {
+	         
+	         String checkin = request.getParameter("checkin");
+	         String checkout = request.getParameter("checkout");
+	         people = Integer.parseInt(request.getParameter("people"));
+	         ArrayList<Room> roomNo = roomService.selectChkRNList(checkin, checkout);
+	         logger.info(roomNo.toString());
+	         list = roomService.selectChkList(roomNo, currentPage, limit, people);
+	         inMonth = checkin.substring(5, 7);
+	         inday = checkin.substring(8);
+	         outMonth = checkout.substring(5,7);
+	         outday = checkout.substring(8);
+	         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	         Date chDate = null;
+	         try {
+	            chDate = sdf.parse(checkin);
+	         } catch (ParseException e) {
+	            e.printStackTrace();
+	         }
+	         cal.setTime(chDate);
+	         week = cal.get(Calendar.DAY_OF_WEEK);
+	      } else {
+	         ArrayList<Room> roomNo = roomService.selectSysdate();
+	         list = roomService.selectList(currentPage, limit);
+	         
+	      }
+	      int maxPage = (int) (((double) listCount / limit) + 0.9);
+	      int startPage = (((int) ((double) currentPage / limit + 0.9)) - 1) * limit + 1;
+	      int endPage = startPage + limit - 1;
+	      if (maxPage < endPage) {
+	         endPage = maxPage;
+	      }
+	      
+	      if (list != null) {
+	         model.addAttribute("inMonth", inMonth);
+	         model.addAttribute("inday", inday);
+	         model.addAttribute("outMonth", outMonth);
+	         model.addAttribute("outday", outday);
+	         model.addAttribute("week", week);
+	         model.addAttribute("people", people);
+	         model.addAttribute("maxPage", maxPage);
+	         model.addAttribute("startPage", startPage);
+	         model.addAttribute("endPage", endPage);
+	         model.addAttribute("currentPage", currentPage);
+	         model.addAttribute("listCount", listCount);
+	         model.addAttribute("list", list);
+	         return "room/roomListView";
+
+	      } else {
+	         model.addAttribute("message", "리스트 출력 실패");
+	         return "common/error";
+	      }
+	   
+	   }
 	
 	@RequestMapping(value="roominsert.do", method=RequestMethod.POST)
 	public String insertRoom(Room room, Model model, CheckTime ct, HttpServletRequest request, 

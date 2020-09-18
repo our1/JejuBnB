@@ -19,6 +19,7 @@
 		<typeAlias type="com.jeju.JejuBnB.policy.model.vo.Policy" alias="Policy"/>
 		<typeAlias type="com.jeju.JejuBnB.question.model.vo.Question" alias="Question"/>
 		<typeAlias type="com.jeju.JejuBnB.reservation.model.vo.Reservation" alias="Reservation" />
+		<typeAlias type="com.jeju.JejuBnB.review.model.vo.Review" alias="Review" />
 		<typeAlias type="com.jeju.JejuBnB.filter.model.vo.Amenity" alias="Amenity" />
 		<typeAlias type="com.jeju.JejuBnB.filter.model.vo.Build_type" alias="Build_type" />
 		<typeAlias type="com.jeju.JejuBnB.filter.model.vo.Facility" alias="Facility" />
@@ -49,6 +50,7 @@
 		<mapper resource="mappers/message-mapper.xml" />
 		<mapper resource="mappers/mycoupon-mapper.xml" />
 		<mapper resource="mappers/myroom-mapper.xml" />
+		<mapper resource="mappers/review-mapper.xml" />
 
 	</mappers>
 </configuration>

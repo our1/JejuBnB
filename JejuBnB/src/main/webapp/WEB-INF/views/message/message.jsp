@@ -17,17 +17,16 @@
 <br>
 <br>
 <br>
+
 <c:forEach items ="${list2 }" var = "ms">
 <c:if test="${ms.writer == loginMember.user_name }">
 <div align="right">
-${ms.writer }<br>
-${ms.content }<br>
+${ms.writer } :  ${ms.content }<br>
 </div>
 </c:if>
 <c:if test="${ms.writer != loginMember.user_name }">
 <div align="left">
-${ms.writer }<br>
-${ms.content }<br>
+${ms.writer } :  ${ms.content }<br>
 </div>
 </c:if>
 </c:forEach>

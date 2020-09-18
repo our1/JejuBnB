@@ -21,7 +21,7 @@
 	
 	<select id="selectListMessageDetail" parameterType="Message_Detail"  resultMap="resultList">
 		select * from message_detail 
-		where message_no = #{message_no}
+		where message_no = #{message_no} order by message_date 
 	</select>
 	
 	<insert id="insertMessageDetail" parameterType="Message_Detail" >

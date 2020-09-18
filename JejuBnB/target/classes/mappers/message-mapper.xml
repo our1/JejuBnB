@@ -16,15 +16,20 @@
 		<result property="user_two" column="user_two" />
 	</resultMap>
 	
+	
 	<insert id="insertMessage" parameterType="Message">
 	insert into message (message_no, user_one, user_two)
-	values ((select max(message_no) from message)+1,0 ,#{ user_one }, #{user_two})
-
+	values ((select nvl(max(message_no)+1,0) from message) ,#{ user_one }, #{user_two})
 	</insert>
 	
 	<select id="selectListMessage" parameterType="Message"  resultType="Message">
 		select * from message 
 		where (user_one = #{user_one} and user_two = #{user_two}) or (user_one = #{user_two} and user_two = #{user_one})
+	</select>
+	
+	<select id="selectMessageList" parameterType="Message"  resultMap="resultList">
+	select * from message
+	where user_one = #{user_one} or user_two = #{user_one}
 	</select>
 <!--	
 	<select id="loginCheck" parameterType="Member"  resultType="Member">

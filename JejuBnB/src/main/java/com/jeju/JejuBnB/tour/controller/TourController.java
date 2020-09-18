@@ -154,6 +154,23 @@ public class TourController {
 		}
 	}
 	
+	@RequestMapping("trlist.do")
+	public String MoveTourReview() {
+		return "tour/tourReviewList";
+	}
+	
+	@RequestMapping("trwrite.do")
+	public String MoveReviewWrite() {
+		return "tour/tourReviewWriteForm";
+	}
+	
+	@RequestMapping("cou.do")
+	public String cou() {
+		return "tour/cou";
+	}
+	
+	
+	
 	@RequestMapping("tdelete.do")
 	public String deleteTour(@RequestParam("tour_no") int tour_no, Model model) {
 		int result = tourService.deleteTour(tour_no);

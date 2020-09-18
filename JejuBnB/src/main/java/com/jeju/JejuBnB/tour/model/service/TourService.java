@@ -11,6 +11,7 @@ public interface TourService {
 	ArrayList<Tour> SelectSearchTour(Tour tour);
     ArrayList<Tour> SelectOrderBy (int currentPage, int limit, int orderby);
     ArrayList<Tour_Image> selectTourImage(int touno);
+    ArrayList<Tour_Review> selectTourReview(int tour_review_no);
 	Tour SelectTourDetail(int tour_no);
 	Tour SelectTourLike (int count);
 	Tour selectTourNo(String user_id);

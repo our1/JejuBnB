@@ -1143,6 +1143,9 @@ svg #main-circ {
   font-size: 20px;
   width: 100%;
 }
+.tcon {
+	width: 1360px; 
+}
 .tchr {
   width: 1380px;
   margin-top: 7%;

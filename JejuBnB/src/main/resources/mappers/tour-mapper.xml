@@ -82,6 +82,11 @@
 		where tour_no = #{ tour_no }
 	</select>
 	
+	<select id="selectTourCategory" parameterType="_int" resultMap="resultToCategory">
+		select * from tour_category
+		where tour_category_no = #{ tour_category_no }
+	</select>
+	
 	<select id="selectTourImage" parameterType="_int" resultMap="resultTiList">
 		select * from tour_image
 		where tour_image_no = #{ touno }
@@ -90,6 +95,11 @@
 	<select id="selectTourNo" parameterType="String" resultType="_int">
 		select * from ( select rownum rum, tour_no from
 						where user_id = #{ user_id } order by tour_no desc) where rnum = 1
+	</select>
+	
+	<select id="selectTourReview" parameterType="_int" resultMap="resultToReview">
+		select * from tour_review
+		where tour_review_no = #{ tour_review_no }
 	</select>
 	
 	<insert id="insertTour" parameterType="Tour">

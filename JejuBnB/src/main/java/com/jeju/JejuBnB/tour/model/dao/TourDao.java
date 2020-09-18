@@ -87,4 +87,9 @@ public class TourDao {
 		return null;
 	}
 
+	public ArrayList<Tour_Review> selectTourReview(int tour_review_no) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -106,6 +106,10 @@
 					  requestUrl: 'https://developers.kakao.com'
 					});
 				  }
+				function moveReviewPage() {
+					window.open("trlist.do", "리뷰",
+							"width=800, height=900, left=300, top=50, toolbar=no, menubar=no, scrollbars=no, menubar=no");
+				}
 			</script>
              <input type="checkbox" class="checkbox" id="checkbox" />
               <label for="checkbox">
@@ -226,7 +230,6 @@
 							'지도의 중심 좌표는 ' + map.getCenter().toString() +' 입니다.';
 			console.log(message);
 		});
-
 	</script>
         <hr class="tmhr">
       </div>
@@ -241,7 +244,7 @@
 					${ tour_review.tour_review_content }
               </div>
              </c:forEach>
-              <button class="reviewmore">리뷰 더보기</button>
+              <button class="reviewmore" onclick="moveReviewPage()">리뷰 더보기</button>
          <hr class="trhr">
       </div>
       </div>

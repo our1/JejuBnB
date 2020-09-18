@@ -28,6 +28,10 @@ public class MessageDao {
 		return session.selectOne("messageMapper.selectListMessage", message);
 	}
 	
+	public ArrayList<Message> selectMessageList(Message message) {
+		List<Message> list = session.selectList("messageMapper.selectMessageList", message);
+		return (ArrayList<Message>)list;
+	}
 	
 	
 	
@@ -43,6 +47,7 @@ public class MessageDao {
 	public int insertMessageDetail(Message_Detail message_detail) {
 		return session.insert("message_detailMapper.insertMessageDetail", message_detail);
 	}
+
 	
 	
 

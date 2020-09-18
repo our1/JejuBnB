@@ -34,4 +34,9 @@ public class MessageServiceImpl implements MessageService {
 	public int insertMessageDetail(Message_Detail message_detail) {
 		return messageDao.insertMessageDetail(message_detail);
 	}
+
+	@Override
+	public ArrayList<Message> selectMessageList(Message message) {
+		return messageDao.selectMessageList(message);
+	}
 }

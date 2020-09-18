@@ -16,7 +16,7 @@ public class ReservationDao {
 	
 	
 	public int insertReserv(Reservation reserv) {
-		return session.insert("reservationMapper.insertReserv");
+		return session.insert("reservationMapper.insertReserv", reserv);
 	}
 	
 	public Reservation selectReserv(int room_no) {

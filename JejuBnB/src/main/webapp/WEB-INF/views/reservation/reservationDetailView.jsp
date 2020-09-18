@@ -15,12 +15,12 @@
 
 <h2>예약정보</h2>
 <h3>날짜</h3>
-<h2><fmt:formatDate value="${ reservation.checkin_date }" type="date" dateStyle="yyyy-MM-dd"/>~
-<fmt:formatDate value="${ reservation.checkout_date }" type="date" dateStyle="yyyy-MM-dd"/></h2> <br>
+<h2>${ reservation.checkin_date }~${ reservation.checkout_date }</h2>
 <h3>인원</h3>
 <h2>${ reservation.guest }</h2> <br>
 <h3>가격</h3>
-
+<h2>${ room.room_weekday }</h2>
+<h2>${ room.room_weekend }</h2>
 <c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

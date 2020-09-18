@@ -47,7 +47,7 @@ private static final Logger logger = LoggerFactory.getLogger(RoomController.clas
 		//int result = roomService.updateAvgScore(room_no);  //같은 속소리뷰에 대한 점수 합산과 평균구해서 room 에 업데이트 처리
 		//Room room = roomService.selectRoom(room_no);
 		model.addAttribute("review", review);	
-		return "reservation/reservationDetailView";
+		return "redirect:/moveDetailView.do?room_no="+room_no;
 	}
 	
 	

@@ -37,34 +37,34 @@ img.ui-datepicker-trigger {
 		// 종료일(toDate)은 시작일(fromDate) 이전 날짜 선택 불가
 
 		//시작일.
-		$('#checkin_date').datepicker({
+		$('#checkinDate').datepicker({
 			//showOn: "both",                     // 달력을 표시할 타이밍 (both: focus or button)
 			//buttonImage: "images/calendar.gif", // 버튼 이미지
 			buttonImageOnly : true, // 버튼 이미지만 표시할지 여부
 			//buttonText: "날짜선택",             // 버튼의 대체 텍스트
-			dateFormat : "yy-MM-dd", // 날짜의 형식
+			dateFormat : "yy-mm-dd", // 날짜의 형식
 			changeMonth : true, // 월을 이동하기 위한 선택상자 표시여부
 			minDate : 0, // 선택할수있는 최소날짜, ( 0 : 오늘 이전 날짜 선택 불가)
 			onClose : function(selectedDate) {
 				// 시작일(fromDate) datepicker가 닫힐때
 				// 종료일(toDate)의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
-				$("#checkout_date").datepicker("option", "minDate", selectedDate);
+				$("#checkoutDate").datepicker("option", "minDate", selectedDate);
 			}
 		});
 
 		//종료일
-		$('#checkout_date').datepicker({
+		$('#checkoutDate').datepicker({
 			//showOn: "both",
 			//buttonImage: "images/calendar.gif",
 			buttonImageOnly : true,
 			//buttonText: "날짜선택",
-			dateFormat : "yy-MM-dd",
+			dateFormat : "yy-mm-dd",
 			changeMonth : true,
 			minDate : 0, // 오늘 이전 날짜 선택 불가
 			onClose : function(selectedDate) {
 				// 종료일(toDate) datepicker가 닫힐때
 				// 시작일(fromDate)의 선택할수있는 최대 날짜(maxDate)를 선택한 종료일로 지정
-				$("#checkin_date").datepicker("option", "maxDate", selectedDate);
+				$("#checkinDate").datepicker("option", "maxDate", selectedDate);
 			}
 		});
 	});
@@ -88,6 +88,7 @@ img.ui-datepicker-trigger {
                   num = num +1;
                 }
                 $('#numberUpDown').text(num);
+                $('#num').val(num);
                 
                 });
 
@@ -102,25 +103,29 @@ img.ui-datepicker-trigger {
                     sum3;
                   }
                   $('#numberUpDown').text(num);
+                  $('#num').val(num);
+                 
                 });
 
             $('#decreaseQuantity2').click(function(e){
               e.preventDefault();
-              var stat = $('#numberUpDown2').text();
-              num1 = parseInt(stat,10);
+              var stat1 = $('#numberUpDown2').text();
+              num1 = parseInt(stat1,10);
               num1--;
               sum1 = num + num1;
+              
               if(num1<0){
                 alert('최소인원을 선택해주세요.');
                 sum3;
               }
             $('#numberUpDown2').text(num1);
+            $('#num1').val(num1);
             });
 
             $('#increaseQuantity2').click(function(e){
               e.preventDefault();
-              var stat = $('#numberUpDown2').text();
-              num1 = parseInt(stat,10);
+              var stat1 = $('#numberUpDown2').text();
+              num1 = parseInt(stat1,10);
               num1++;
               sum1 = num + num1;
               if(sum1+num2>10){
@@ -128,23 +133,26 @@ img.ui-datepicker-trigger {
                 sum3;
               }
               $('#numberUpDown2').text(num1);
+              $('#num1').val(num1);
               });
 
             $('#decreaseQuantity3').click(function(e){
               e.preventDefault();
-              var stat = $('#numberUpDown3').text();
-              num2 = parseInt(stat,10);
+              var stat2 = $('#numberUpDown3').text();
+              num2 = parseInt(stat2,10);
               num2--;
               if(num2<0){
                 alert('최소인원을 선택해주세요.');
                 num2=0;
               }
             $('#numberUpDown3').text(num2);
+            $('#num2').val(num2);
             });
+            
             $('#increaseQuantity3').click(function(e){
               e.preventDefault();
-              var stat = $('#numberUpDown3').text();
-              num2 = parseInt(stat,10);
+              var stat2 = $('#numberUpDown3').text();
+              num2 = parseInt(stat2,10);
               num2++;
               sum2 = num + num1;
               if(sum2+num2>10){
@@ -152,6 +160,7 @@ img.ui-datepicker-trigger {
                 sum3;
               }
             $('#numberUpDown3').text(num2);
+            $('#num2').val(num2);
             });
 
             $('button').on('click', function(){
@@ -814,15 +823,15 @@ ul, li {
 			<div class="inline-block">
 				<div class="form-title2">체크인</div>
 				<div class="form form-2">
-					<label for="checkin_date"></label> 
-					<input type="text" name="checkinDate" id="checkin_date" readonly placeholder="날짜추가">
+					<label for="checkinDate"></label> 
+					<input type="text" name="checkin_date" id="checkinDate" readonly placeholder="날짜추가">
 				</div>
 			</div>
 			<div class="inline-block">
 				<div class="form-title2">체크아웃</div>
 				<div class="form form-2">
-					<label for="checkout_date"></label> 
-					<input type="text" name="checkoutDate" id="checkout_date" readonly placeholder="날짜추가">
+					<label for="checkoutDate"></label> 
+					<input type="text" name="checkout_date" id="checkoutDate" readonly placeholder="날짜추가">
 				</div>
 			</div>
 			<div class="form-title2">인원</div>
@@ -830,19 +839,20 @@ ul, li {
 				<input id="nu" type="text" class="dropbtn_1" readonly placeholder="인원" name="guest">
 				<div class="dropdown-content_1">
 					<div class="number">
-						<form name="a_num">
+						<form>
+						<input type="hidden" name="a_num" id="num" value="${ reservation.a_num }">
+						<input type="hidden" name="c_num" id="num1" value="${ reservation.c_num }">
+						<input type="hidden" name="i_num" id="num2" value="${ reservation.i_num }">
+						<input type="hidden" name="room_weekday" value="${ room.room_weekday }">
+						<input type="hidden" name="room_weekend" value="${ room.room_weekend }">
 							<h4>성인</h4>
 							<span><button id="decreaseQuantity">&#8722;</button></span> 
 							<span id="numberUpDown">1</span> 
 						    <span><button id="increaseQuantity">&#43;</button></span>
-						</form>
-						<form name="c_num">
 							<h4>어린이</h4>
 							<span><button id="decreaseQuantity2">&#8722;</button></span> 
 							<span id="numberUpDown2">0</span> 
 							<span><button id="increaseQuantity2">&#43;</button></span>
-						</form>
-						<form name="i_num">
 							<h4>유아</h4>
 							<span><button id="decreaseQuantity3">&#8722;</button></span>
 							<span id="numberUpDown3">0</span> 

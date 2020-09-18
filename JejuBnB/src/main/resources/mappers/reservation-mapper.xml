@@ -17,21 +17,28 @@
 	</resultMap>
 	
 	
-	<select id="selectReserv" parameterType="_int" resultType="Reservation">
+	<select id="selectReserv" parameterType="int" resultType="Reservation">
 		select * from reservation where room_no = #{ room_no }
 	</select>
 	
-	<select id="selectReservWait" parameterType="_int" resultType="Reservation">
+	<select id="selectReservWait" parameterType="int" resultType="Reservation">
 		select * from reservation where room_no = #{ room_no }
 	</select> 
 	
-	<insert id="insertReserv" parameterType="_int">
+	<insert id="insertReserv" parameterType="Reservation">
 		insert into reservation 
-		values ((select max(room_no) from reservation) + 1, #{a_num}, #{c_num}, #{i_num}, 
-				#{checkin_date}, #{checkout_date},
-				#{re_num}, #{user_id}, #{guest})
+		values ((select max(room_no) from reservation) + 1, 
+				#{a_num,jdbcType=INTEGER}, #{c_num,jdbcType=INTEGER}, #{i_num,jdbcType=INTEGER}, 
+				#{checkin_date}, #{checkout_date}, (select nvl(max(re_num),0) + 1 from reservation), 
+				#{user_id,jdbcType=VARCHAR}, #{guest,jdbcType=VARCHAR})
 	</insert>
 	
 
 
 </mapper>
+
+
+
+
+
+

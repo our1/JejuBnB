@@ -30,6 +30,7 @@
 		<typeAlias type="com.jeju.JejuBnB.mycoupon.model.vo.MyCoupon" alias="MyCoupon" />
 		<typeAlias type="com.jeju.JejuBnB.myroom.model.vo.MyRoom" alias="MyRoom" />
 		<typeAlias type="com.jeju.JejuBnB.message.model.vo.Message_Detail" alias="Message_Detail" />
+
 	</typeAliases>
 
 	<mappers>
@@ -48,6 +49,6 @@
 		<mapper resource="mappers/message-mapper.xml" />
 		<mapper resource="mappers/mycoupon-mapper.xml" />
 		<mapper resource="mappers/myroom-mapper.xml" />
-		
+
 	</mappers>
 </configuration>

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="resources/css/main.css" >
   </head>
   <body>
+
 <c:import url="/WEB-INF/views/common/header.jsp" />
      <video autoplay muted loop id="myVideo">
 	   <source src="resources/video/night.mp4" type="video/mp4">
@@ -74,5 +75,6 @@
  		   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	       <script src="resources/js/main.js"></script>
 <c:import url="/WEB-INF/views/common/footer.jsp" />
+
   </body>
 </html>

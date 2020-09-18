@@ -44,6 +44,7 @@
 </head>
 
 <body>
+
 <div class="mainhead">
          <div class="logo">
            <a href="main.do"><img src="resources/images/무제.png"></a>
@@ -86,5 +87,6 @@
   </div>
  		   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	       <script src="resources/js/head.js"></script>
+
 </body>
 </html>

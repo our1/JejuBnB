@@ -210,7 +210,11 @@ public class NoticeController {
 	}
 	
 	
-	
+	@RequestMapping(value="adNoticeUpdate.do", method=RequestMethod.POST)
+	public String adNoticeUpdate() {
+		
+		return "";
+	}
 	
 	
 	

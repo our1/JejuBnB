@@ -96,13 +96,9 @@
 		#map {	
 			width : 1100px;
 			height : 1000px;
-			/* position : fixed;
+			position: sticky;			
 			left : 40%;
-			top : 15%; */
-			 position: sticky;
-			 
-			 left : 40%;
- 			 bottom : 150px;
+ 			bottom : 150px;
 		}
     
     
@@ -187,7 +183,6 @@ ${listCount }개 숙소 검색 . ${inMonth }월${inday }일 - ${outMonth }월${o
 </div>
 
 
-
 <div id="map"></div>
 </div>
 
@@ -241,30 +236,7 @@ for(var i = 0; i < '${fn:length(list)}'; i++){
 	})   
 }
 
-// 주소로 좌표를 검색합니다
-/* geocoder.addressSearch("제주특별자치도 서귀포시 토평로 15", function(result, status) {
 
-    // 정상적으로 검색이 완료됐으면 
-     if (status === kakao.maps.services.Status.OK) {
-
-        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-        // 결과값으로 받은 위치를 마커로 표시합니다
-        var marker = new kakao.maps.Marker({
-            map: map,
-            position: coords
-        });
-
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">${room.room_name}</div>'
-        });
-        infowindow.open(map, marker);
-
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        map.setCenter(coords);
-    } 
-});     */
 </script>
 <c:import url="/WEB-INF/views/common/footer.jsp"/>
 

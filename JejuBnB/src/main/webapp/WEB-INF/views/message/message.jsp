@@ -17,16 +17,16 @@
 <br>
 <br>
 <br>
+
 <c:forEach items ="${list2 }" var = "ms">
-<c:if test="${ms.writer == loginMember.user_id }">
-<div align="left">
-${ms.content } ${ms.message_date }<br>
+<c:if test="${ms.writer == loginMember.user_name }">
+<div align="right">
+${ms.writer } :  ${ms.content }<br>
 </div>
 </c:if>
-<c:if test="${ms.writer != loginMember.user_id }">
-<div align="right">
-${ms.writer }<br>
-${ms.content }<br>
+<c:if test="${ms.writer != loginMember.user_name }">
+<div align="left">
+${ms.writer } :  ${ms.content }<br>
 </div>
 </c:if>
 </c:forEach>
@@ -37,11 +37,10 @@ ${ms.content }<br>
 cellpadding = "5">
 <tr><th>내용</th> <td><textarea rows="5" cols="50" name="content" id="insert"></textarea></td></tr>
 <tr><th colspan="2">
-<input type="hidden" name="writer" value="${loginMember.user_id }">
+<input type="hidden" name="writer" value="${loginMember.user_name }">
 <input type="hidden" name="message_no" value="${messagelist.message_no }">
 <input type="submit" value="보내기"> &nbsp; 
 <input type="reset" value="작성취소"> &nbsp; 
-<input type="button" value="이전 페이지로 이동" onclick="javascript:history.go(-1); return false;"> &nbsp; 
 </th></tr>
 </table>
 </form>

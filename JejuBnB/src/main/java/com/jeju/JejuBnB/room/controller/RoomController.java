@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +31,7 @@ import com.jeju.JejuBnB.filter.model.vo.Amenity;
 import com.jeju.JejuBnB.filter.model.vo.Build_type;
 import com.jeju.JejuBnB.filter.model.vo.Facility;
 import com.jeju.JejuBnB.filter.model.vo.Rule;
+import com.jeju.JejuBnB.member.model.service.MemberService;
 import com.jeju.JejuBnB.review.model.service.ReviewService;
 import com.jeju.JejuBnB.review.model.vo.Review;
 import com.jeju.JejuBnB.room.model.service.RoomService;
@@ -52,7 +54,7 @@ public class RoomController {
 	private FilterService filterService;
 	
 	@RequestMapping("roomlist.do")
-	public String SelectList(HttpServletRequest request, Model model) {
+	public String SelectList(HttpServletRequest request, Model model, HttpSession session) {
 		int limit = 8;
 		int currentPage = 1;
 		int listCount = roomService.getListCount();
@@ -76,6 +78,10 @@ public class RoomController {
 			String checkin = request.getParameter("checkin");
 			String checkout = request.getParameter("checkout");
 			people = Integer.parseInt(request.getParameter("people"));
+			session.setAttribute("checkin", checkin);
+			session.setAttribute("checkout", checkout);
+			session.setAttribute("people",people);
+			
 			ArrayList<Room> roomNo = roomService.selectChkRNList(checkin, checkout);
 			logger.info(roomNo.toString());
 			list = roomService.selectChkList(roomNo, currentPage, limit, people);
@@ -103,7 +109,11 @@ public class RoomController {
 		if (maxPage < endPage) {
 			endPage = maxPage;
 		}
-		
+		/* 회원이 좋아요 누른 룸 리스트 번호 가져오기
+		 * if(request.getParameter("user_id") != null) {
+		 *  ArrayList mlist = MemberService.selectMyRoom(request.getParameter("user_id")); }
+		 * model.setAttribute("mlist", mlist);
+		 */
 		if (list != null) {
 			model.addAttribute("inMonth", inMonth);
 			model.addAttribute("inday", inday);
@@ -250,10 +260,6 @@ public class RoomController {
 		model.addAttribute("Blist", Blist);
 		model.addAttribute("Flist", Flist);
 		model.addAttribute("Rlist", Rlist);
-		model.addAttribute("AlistSize", Alist.size());
-		model.addAttribute("BlistSize", Blist.size());
-		model.addAttribute("FlistSize", Flist.size());
-		model.addAttribute("RlistSize", Rlist.size());
 		if(room != null) {
 			model.addAttribute("room", room);
 			return "room/roomUpdateForm";

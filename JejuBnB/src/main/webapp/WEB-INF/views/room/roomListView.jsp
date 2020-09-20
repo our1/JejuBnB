@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>JejuBnB</title>
-<script src="/JejuBnB/resources/js/jquery-3.3.1.min.js"></script>
+<script src="/JejuBnB/resources/js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 	function moveFilterPage()
 		{	
@@ -18,10 +18,28 @@
 		}
 	$(document).ready(function(){
 		
-		$("#displayMap").onlick(function(){
-			$("#map").toggle();
-		});
-	}
+		function insertH(room_no){
+			var roomNo = room_no;
+			var user_id = '${loginMember.user_id}';
+			
+			$.ajax({
+				url : "insertMyRoom.do",
+				data : {user_id:user_id, room_no:roomNo},
+				type : "post",
+				success : function(result){
+					if(result == "ok") {
+						$("#nolike").html('<img id="like" src="${ pageContext.servletContext.contextPath}/resources/images/하트.png" style="width:20px;height:20px;">');
+					}else {
+						alert('잘못된 접근 입니다.');
+					}
+				},
+				error : function(request, status, errorData){
+					console.log("error code : " + request.satus + "\nMessage : " + request.responseText + "\nError" + errorData);
+				}								
+			});
+			
+		};
+	});
 </script>
     <style type="text/css">
 
@@ -119,6 +137,11 @@
 	    	height : 50px;
 	    }
 	    
+	    .heart {
+	    	background : none;
+	    	border : none;
+	    }
+	    
 	   
     </style>
 
@@ -132,10 +155,6 @@
 <div id="items">
 ${listCount }개 숙소 검색 . ${inMonth }월${inday }일 - ${outMonth }월${outday }일 . 게스트 ${people }명 <br>
 <button onclick="javascript:location.href='moveRoomBList.do'">리스트로 보기</button>
-<!-- 
-<button onclick="javascript:location.href='moveRoomBList.do'">예약 가능 숙소 보기</button>
-
-<button id="BList" onclick="javascript:location.href='moveRoomBList.do'">리스트로 보기</button> -->
 
 <button onclick="moveFilterPage()">필터 추가하기</button>
 </div>
@@ -156,6 +175,26 @@ ${listCount }개 숙소 검색 . ${inMonth }월${inday }일 - ${outMonth }월${o
 				<fmt:formatNumber value="${room.room_weekend }" type="currency" />
 			</c:if>
 			</li>
+			<c:if test="${!empty loginMember}" >
+				<c:if test="${!empty mlist }">
+					<c:forEach items="${mlist }" var="roomNo">
+						<c:if test="${room.room_no eq roomNo }">
+							<li style="float:right;"><button class="heart" id="deleteHeart"><img id="like" src="${ pageContext.servletContext.contextPath}/resources/images/하트.png" style="width:20px;height:20px;"></button></li>
+						</c:if>
+						<c:if test="${room.room_no ne roomNo }">
+							<li style="float:right;"><button class="heart" id="insertHeart" onclick="insertH(${room.room_no})"><img id="nolike" src="${ pageContext.servletContext.contextPath}/resources/images/빈하트.png" style="width:20px;height:20px;"></button></li>
+						</c:if>
+					</c:forEach>
+				</c:if>
+				<c:if test="${empty mlist }" >
+					<li style="float:right;"><button class="heart" id="insertHeart" onclick="insertH(${room.room_no})"><img id="nolike" src="${ pageContext.servletContext.contextPath}/resources/images/빈하트.png" style="width:20px;height:20px;"></button></li>
+				</c:if>
+			
+			</c:if>
+			<c:if test="${empty loginMember }">
+				<li style="float:right;"><button class="heart" onclick="javascript:alert('로그인 후 이용해주세요.')"><img src="${ pageContext.servletContext.contextPath}/resources/images/빈하트.png" style="width:20px;height:20px;"></button></li>
+			</c:if>
+			
 		</ul>
 	</div>
 </c:forEach>

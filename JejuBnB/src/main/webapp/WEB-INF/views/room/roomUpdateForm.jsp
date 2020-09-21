@@ -42,6 +42,14 @@
     }
     
 </script>
+<style type="text/css">
+body {
+		margin : 0;
+		padding : 0;
+		text-align : center;
+		font-family: 'Nanum Gothic Coding', monospace;
+	}
+</style>
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp"/>
@@ -198,7 +206,7 @@ ${rlist } <input type="checkbox" name="rule" value="${rlist }" ${checked }> &nbs
 인원 추가 금액 : <input type="number" name="plus_charge" value="${room.plus_charge }"><br>
 </div>
 <div id="third">
-숙소 대표 사진 : ${ room.room_thumbnail_file } <br>
+숙소 대표 사진 : <div ><img style="width:100px;height:100px;" src="${ pageContext.servletContext.contextPath}/resources/roomThumbnail/${ room.room_rename_file }"> </div><br>
 숙소 대표 변경 : <input type="file" name="ofile"> <br>
 <hr>
 <c:if test="${!empty rflist }">

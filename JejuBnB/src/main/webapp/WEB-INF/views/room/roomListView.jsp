@@ -16,19 +16,21 @@
 	    	window.open("moveFilterPage.do","알림","width=1000,height=500");
 	    	
 		}
-	$(document).ready(function(){
+	
 		
 		function insertH(room_no){
 			var roomNo = room_no;
 			var user_id = '${loginMember.user_id}';
-			
+			var id = 'insertHeart' + roomNo;
 			$.ajax({
 				url : "insertMyRoom.do",
 				data : {user_id:user_id, room_no:roomNo},
 				type : "post",
 				success : function(result){
 					if(result == "ok") {
-						$("#nolike").html('<img id="like" src="${ pageContext.servletContext.contextPath}/resources/images/하트.png" style="width:20px;height:20px;">');
+						$("#"+id).empty();
+						$("#"+id).append('<li style="float:right;"id="deleteHeart'+roomNo+'"><button class="heart" onclick="deleteH('+roomNo+')"><img id="like" src="${ pageContext.servletContext.contextPath}/resources/images/하트.png" style="width:20px;height:20px;"></button></li>');
+						$("#"+id).show();
 					}else {
 						alert('잘못된 접근 입니다.');
 					}
@@ -39,7 +41,30 @@
 			});
 			
 		};
-	});
+		
+		function deleteH(room_no){
+			var roomNo = room_no;
+			var id = 'deleteHeart' + roomNo;
+			$.ajax({
+				url : "deleteMyRoom.do",
+				data : {room_no:roomNo},
+				type : "post",
+				success : function(result){
+					if(result == "ok"){
+						$("#"+id).empty();
+						$("#"+id).append('<li style="float:right;" id="insertHeart'+roomNo+'"><button class="heart" onclick="insertH('+roomNo+');"><img id="nolike" src="${ pageContext.servletContext.contextPath}/resources/images/빈하트.png" style="width:20px;height:20px;"></button></li>');
+						$("#"+id).show();
+					}else {
+						alert('잘못된 접근 입니다.');
+					}
+				},
+				error : function(request, status, errorData){
+					console.log("error code : " + request.satus + "\nMessage : " + request.responseText + "\nError" + errorData);
+				}			
+			});
+			
+		}
+
 </script>
     <style type="text/css">
 
@@ -142,6 +167,7 @@
 	    	border : none;
 	    }
 	    
+	    
 	   
     </style>
 
@@ -177,22 +203,32 @@ ${listCount }개 숙소 검색 . ${inMonth }월${inday }일 - ${outMonth }월${o
 			</li>
 			<c:if test="${!empty loginMember}" >
 				<c:if test="${!empty mlist }">
+				
+					<c:set var="check" value="true" />				
 					<c:forEach items="${mlist }" var="roomNo">
-						<c:if test="${room.room_no eq roomNo }">
-							<li style="float:right;"><button class="heart" id="deleteHeart"><img id="like" src="${ pageContext.servletContext.contextPath}/resources/images/하트.png" style="width:20px;height:20px;"></button></li>
-						</c:if>
-						<c:if test="${room.room_no ne roomNo }">
-							<li style="float:right;"><button class="heart" id="insertHeart" onclick="insertH(${room.room_no})"><img id="nolike" src="${ pageContext.servletContext.contextPath}/resources/images/빈하트.png" style="width:20px;height:20px;"></button></li>
-						</c:if>
+					
+						<c:if test="${check }" >
+							<c:if test="${room.room_no eq roomNo.room_no }">
+								<li style="float:right;"id="deleteHeart${room.room_no }"><button class="heart" onclick="deleteH(${room.room_no})"><img id="like" src="${ pageContext.servletContext.contextPath}/resources/images/하트.png" style="width:20px;height:20px;"></button></li>
+								<c:set var="check" value="false"/>
+							</c:if>
+						</c:if>	
+											
 					</c:forEach>
+					
+					<c:if test="${check}">
+						<li style="float:right;" id="insertHeart${room.room_no }"><button class="heart" onclick="insertH(${room.room_no});"><img id="nolike" src="${ pageContext.servletContext.contextPath}/resources/images/빈하트.png" style="width:20px;height:20px;"></button></li>
+					</c:if>
+					
 				</c:if>
 				<c:if test="${empty mlist }" >
-					<li style="float:right;"><button class="heart" id="insertHeart" onclick="insertH(${room.room_no})"><img id="nolike" src="${ pageContext.servletContext.contextPath}/resources/images/빈하트.png" style="width:20px;height:20px;"></button></li>
+					<li style="float:right;" id="insertHeart${room.room_no }"><button class="heart" onclick="insertH(${room.room_no});"><img id="nolike" src="${ pageContext.servletContext.contextPath}/resources/images/빈하트.png" style="width:20px;height:20px;"></button></li>
 				</c:if>
 			
 			</c:if>
 			<c:if test="${empty loginMember }">
 				<li style="float:right;"><button class="heart" onclick="javascript:alert('로그인 후 이용해주세요.')"><img src="${ pageContext.servletContext.contextPath}/resources/images/빈하트.png" style="width:20px;height:20px;"></button></li>
+			
 			</c:if>
 			
 		</ul>
@@ -245,10 +281,10 @@ roomName.push('${room.room_name}');
 list.push('${room.room_roadaddress}');
 </c:forEach>
 
-
-
 for(var i = 0; i < '${fn:length(list)}'; i++){
-	console.log(roomName[i]);
+	 var name = roomName[i];
+ 	console.log(i +" 번째 룸 이름 : " + name);
+
 	geocoder.addressSearch(list[i], function(result, status) {
 	 if (status === kakao.maps.services.Status.OK) {
 	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
@@ -257,10 +293,9 @@ for(var i = 0; i < '${fn:length(list)}'; i++){
 	            map: map,
 	            position: coords
 	        });
-	        
-	     /* // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-	        var content = '<div class="customoverlay"><span class="title">'+
-	        roomName[i] + '</span></div>';
+	       
+	    // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+	        var content = '<div class="customoverlay"><span class="title">'+name+ '</span></div>';
 	        // 커스텀 오버레이가 표시될 위치입니다 
 	        var position = coords;  
 
@@ -270,7 +305,7 @@ for(var i = 0; i < '${fn:length(list)}'; i++){
 	            position: position,
 	            content: content,
 	            yAnchor: 1 
-	        }); */
+	        });
 	    } 
 	})   
 }

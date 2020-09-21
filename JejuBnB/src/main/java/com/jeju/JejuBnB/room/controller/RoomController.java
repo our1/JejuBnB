@@ -31,7 +31,8 @@ import com.jeju.JejuBnB.filter.model.vo.Amenity;
 import com.jeju.JejuBnB.filter.model.vo.Build_type;
 import com.jeju.JejuBnB.filter.model.vo.Facility;
 import com.jeju.JejuBnB.filter.model.vo.Rule;
-import com.jeju.JejuBnB.member.model.service.MemberService;
+import com.jeju.JejuBnB.myroom.model.service.MyRoomService;
+import com.jeju.JejuBnB.myroom.model.vo.MyRoom;
 import com.jeju.JejuBnB.review.model.service.ReviewService;
 import com.jeju.JejuBnB.review.model.vo.Review;
 import com.jeju.JejuBnB.room.model.service.RoomService;
@@ -52,6 +53,9 @@ public class RoomController {
 	
 	@Autowired
 	private FilterService filterService;
+	
+	@Autowired
+	private MyRoomService myroomService;
 	
 	@RequestMapping("roomlist.do")
 	public String SelectList(HttpServletRequest request, Model model, HttpSession session) {
@@ -109,11 +113,12 @@ public class RoomController {
 		if (maxPage < endPage) {
 			endPage = maxPage;
 		}
-		/* 회원이 좋아요 누른 룸 리스트 번호 가져오기
-		 * if(request.getParameter("user_id") != null) {
-		 *  ArrayList mlist = MemberService.selectMyRoom(request.getParameter("user_id")); }
-		 * model.setAttribute("mlist", mlist);
-		 */
+		//회원이 좋아요 누른 룸 리스트 번호 가져오기
+		if(request.getParameter("userid") != null) {
+		ArrayList<MyRoom> mlist = myroomService.selectMyRoom(request.getParameter("userid"));
+		model.addAttribute("mlist", mlist);
+		}
+		
 		if (list != null) {
 			model.addAttribute("inMonth", inMonth);
 			model.addAttribute("inday", inday);

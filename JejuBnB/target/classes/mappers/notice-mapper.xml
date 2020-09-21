@@ -21,7 +21,7 @@
 	
 	
 	<select id="selectUserNotice" parameterType="string" resultMap="resultUNotice">
-		select * from user_notice where to_user = #{userid}
+		select * from user_notice where from_user = #{userid}
 	</select>
 	
 	<select id="selectNotice" parameterType="int" resultMap="resultNotice">

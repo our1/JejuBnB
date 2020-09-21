@@ -1,35 +1,109 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Summernote with Bootstrap 4</title>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JejuBnB</title> 
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet"> 
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet"> 
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+</head>
+<style type="text/css">
+	body {
+	  margin : 0;
+	  padding : 0;
+	}
+	form {
+	  position: relative;
+   	  left: 5%;
+	}
+	select {
+	  width: 121px;
+      height: 42px;
+	}
+    .tn {
+      width: 600px;
+      height: 42px;
+	}
+	.tds {
+	  width : 300px;
+	  height : 42px;
+	}
+	.tdd {
+	  width : 300px;
+	  height : 42px;
+	}
+</style>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
+<!-- !!중요. - autoload=false 를 반드시 붙혀주셔야 합니다.-->
+<script>
+    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+    function PostCall() {
+    	daum.postcode.load(function(){
+            new daum.Postcode({
+            	 oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+               
 
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
-  </head>
-  <body>
-    <form action="tinsert.do" method="post" enctype="multipart/form-data">
-    <textarea id="summernote" name="editordata"></textarea>
-  </form>
-  <input type="submit" value="작성 완료">
-    <script>
-      $(document).ready(function() {
-  $('#summernote').summernote({
-    lang: 'ko-KR' // default: 'en-US'
-  });
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById("PostNumber").value = data.zonecode;
+                document.getElementById("tour_roadaddress").value = roadAddr;
+               
+            }
+        }).open();
+    })
+    }
+</script>
+<body>
+<form action="" method="post">
+	 <select name="카테고리">
+	 	<option value="live">자연</option>
+	 	<option value="food">음식</option>
+	 	<option value="act">체험</option>
+	 </select>
+<input type="text" class="tn" name="tour_name" placeholder="관광지 이름 을 입력 하세요"><br>
+<input type="date" class="tds" name="tour_act_start_date" placeholder="체험 시작 날짜">
+<input type="date" class="tdd" name="tour_act_end+_date" placeholder="체험 끝나는 날짜">
+<textarea name="tour_content" id="summernote" class="summernote"></textarea>
+<script>
+$(document).ready(function() { $('#summernote').summernote(); 
 });
-$('#summernote').summernote({
-  height: 300,                 // set editor height
-  minHeight: null,             // set minimum height of editor
-  maxHeight: null,             // set maximum height of editor
-  focus: true                  // set focus to editable area after initializing summernote
+$('.summernote').summernote({ 
+	height : 300, 
+	width : 1200,
+	lang : 'ko-KR',
+	placeholder : '관광지 내용 을 입력 하세요',
+	onImageUpload: function(files, editor, welEditable) { sendFile(files[0], editor, welEditable);
+	} 
 });
-    </script>
-  </body>
+</script>
+ 		<input type="text" id="PostNumber" placeholder="우편번호" required readonly><br>
+		<button onclick="PostCall()" type="button">우편번호 검색</button><br>
+		<input type="text" id="tour_roadaddress" name="tour_roadaddress" placeholder="도로명주소" readonly><br>
+		<input type="text" id="DetailAddress" name="address" placeholder="상세주소" required><br>
+<textarea name="tour_moreinfo" id="summernote2" class="summernote2" placeholder="알아야 할 사항 을 입력 하세요"></textarea>	
+<script>
+$(document).ready(function() { $('#summernote2').summernote(); 
+});
+$('.summernote2').summernote({ 
+	height: 300, 
+	width : 1200,
+	lang : 'ko-KR', 
+	placeholder : '알아야 할 사항 을 입력 하세요',
+	onImageUpload: function(files, editor, welEditable) { sendFile(files[0], editor, welEditable);
+	} 
+});
+</script>	
+<input type="submit" value="작성 완료" class="co">
+</form>
+</body>
 </html>

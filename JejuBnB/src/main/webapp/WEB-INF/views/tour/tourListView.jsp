@@ -10,6 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>JejuBnB</title>
         <link rel="stylesheet" href="resources/css/tourlist.css" >
+        <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
   </head>
   <body>
     <div class="mainhead">
@@ -54,15 +55,21 @@
   </div>
    <div class="thead"><h1 class="tour">관광지</h1></div>
    <div style="padding: 100px 0px 0px 0px;"></div>
-     <button class="live">자연</button>
-     <button class="cook">음식</button>
-     <button class="act">체험</button>
+     <button class="live">자연
+     	<div class="livecount">7 개</div>
+     </button>
+     <button class="cook">음식
+     	<div class="cookcount">10 개</div>
+     </button>
+     <button class="act">체험
+     	<div class="actcount">5 개</div>
+     </button>
      <button class="movelist" onclick="javascipt:location.href='tourNoMap.do'">X</button>
      <div style="padding: 100px 0px 0px 0px;"></div>
        <div class="tourlist">
 	       <c:forEach items="${ requestScope.list }" var="t">
 	         <div class="one">
-	           <a href="tdetail.do?tour_no=${ t.tour_no }" target="_blank"><img src="resources/images/01.jpg" width=100% height=100%>
+	           <a href="tdetail.do?tour_no=${ t.tour_no }" target="_blank"><img src="resources/images/01.jpg" width=100% height=100%>  
 	            <span>&#9733;</span> 4.8 ( 135 )<br>
 	             <br>${ t.tour_name }
 	           </a>
@@ -74,7 +81,7 @@
         <div id="map" style="width:100%;height:100%"></div> <!-- 지도를 표시할 div 입니다 -->
     </div>
 </div>
-<button class="twri" onclick="javascript:location.href='tmovewrite.do'">관광지 작성 하기</button>
+<button class="twri" onclick="javascript:location.href='test.do'">관광지 작성 하기</button>
 <div style="padding: 100px 0px 0px 0px;"></div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f30a1bf673317be5978a11f2b404a16b&libraries=services"></script>
 <script>
@@ -95,7 +102,7 @@ var tourName = [];
 tourName.push('${tour.tour_name}');
 list.push('${tour.tour_roadaddress}');
 </c:forEach>
-
+console.log(list);
 
 
 for(var i = 0; i < '${fn:length(list)}'; i++){

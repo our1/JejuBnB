@@ -87,9 +87,12 @@ public class TourDao {
 		return null;
 	}
 
-	public ArrayList<Tour_Review> selectTourReview(int tour_review_no) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Tour_Review> selectTourReview(Tour_Review tour_review) {
+		return session.selectList("tourMapper.selectTourReview", tour_review);
+	}
+
+	public Tour selectTourScore(int tour_score) {
+		return session.selectOne("tourMapper.selectTourScore", tour_score);
 	}
 
 }

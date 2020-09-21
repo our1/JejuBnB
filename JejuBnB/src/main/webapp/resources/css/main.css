@@ -212,3 +212,44 @@
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
     }
+          .res {
+          width: 500px;
+          height: 60px;
+          -webkit-border-top-left-radius: 120px 120px;
+          -webkit-border-bottom-left-radius: 120px 120px;
+          -webkit-border-top-right-radius: 120px 120px;
+          -webkit-border-bottom-right-radius: 120px 120px;
+          background-color: white;
+          position: absolute;
+          left : 140%;
+          top : 60%;
+        }
+            .chkin{
+          position: absolute;
+          left : 8%;
+          top : 20%;
+          font-family: 'Cafe24Oneprettynight';
+          font-size: 17px;
+        }
+        .chkinsub {
+          color: #ADAFB6;
+        }
+        .chkout {
+          position: absolute;
+          left : 35%;
+          top : 20%;
+          font-family: 'Cafe24Oneprettynight';
+          font-size: 17px;
+        }
+        .chkoutsub {
+          color: #ADAFB6;
+        }
+        .people {
+          position: absolute;
+          left : 62%;
+          top : 20%;
+          font-family: 'Cafe24Oneprettynight';
+          font-size: 17px;
+          display: inline-block;
+          cursor: pointer;
+        }

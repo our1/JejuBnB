@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8">
     <title>JejuBnB</title>
-
+	<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
     <link rel="stylesheet" href="resources/css/main.css" >
   </head>
   <body>
@@ -22,7 +22,25 @@
      </video>
      <div class="mainpre">가까운 곳에서<br> 즐기는 색다른 여행 </div>
 	 <div class="mainpresub">가까운 곳의 숨겨진 아름다움을  발견하는 <br> 색다른 휴가를 즐겨보세요.</div>
-    <main class="main">
+<!-- 	      <div class="res">
+        <div class="chkin">
+            체크인<br>
+            <div class="chkinsub">날짜 추가</div>
+        </div>
+        <div class="chkout">
+            체크아웃<br>
+            <div class="chkoutsub">날짜 추가</div>
+        </div>
+        <div class="people">
+            인원<br>
+            <div class="peoplesub">게스트 추가</div>
+        </div>
+        <div class="searchbut">
+          <i class="fas fa-search fa-2x"></i>
+        </div>
+     </div> -->
+	 
+   <!--  <main class="main">
  	 <div class="container">
   	  <div class="tab">
      	 <div class="tab-menu">
@@ -74,7 +92,7 @@
          </div>
       </div>
     </div>
-  </main>
+  </main> -->
   <div style="padding: 150px 0px 0px 0px;"></div>
  		   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	       <script src="resources/js/main.js"></script>

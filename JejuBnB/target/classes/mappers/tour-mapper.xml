@@ -99,23 +99,35 @@
 	
 	<select id="selectTourReview" parameterType="_int" resultMap="resultToReview">
 		select * from tour_review
-		where tour_review_no = #{ tour_review_no }
+		where tour_review_no = #{ tour_no } 
+		order by tour_review_no desc
 	</select>
+	
+	<select id="selectTourScore">
+		select tour_score
+		from tour_review
+		where tour_no = #{ tour_no }
+	</select> 
 	
 	<insert id="insertTour" parameterType="Tour">
 		insert into tour
-		values((select max(tour_no) from tour) + 1, #{ tour_no }, #{ tour_category_no }, #{ tour_address }, #{ tour_content }, #{ tour_act_start_date }, #{ tour_act_end_date },
+		values((select max(tour_no) from tour) + 1, #{ tour_name }, #{ tour_content }, sysdate, #{ tour_address }, #{ tour_act_start_date }, #{ tour_act_end_date },
 		<if test="tour_thumbnail_original_file == null">
 			null, null,
 		</if>
 		<if test="tour_thumbnail_original_file != null">
 			#{ tour_thumbnail_original_file }, #{ tour_thumbnail_rename_file },
 		</if>
-		#{ tour_moreinfo }, #{ user_id } )
+		#{ tour_moreinfo }, default, default, default )
 	</insert>
 	
 	<insert id="insertTourImage" parameterType="Tour_Image" >
 		insert into tour_image values ((select max(tour_image_no) from tour_image ) + 1, #{ tour_original_file }, #{ tour_rename_file }, #{ tour_no } )
+	</insert>
+	
+	<insert id="insertTourReview">
+		insert into tour_review
+		values ((select max(tour_review_no) from tour_review ) + 1, #{ tour_review_content }, sysdate, #{ tour_score }, default, default)
 	</insert>
 	
 	<update id="updateTour" parameterType="Tour">
@@ -138,8 +150,18 @@
 				      where tour_no = #{ tour_no } + 1 where tour_no = #{ tour_no })
 	</update> 
 	
+	<update id="updateTourReview">
+		update tour_reivew
+		set tour_review_content = #{ tour_review_content }
+		where tour_review_no = #{ tour_review_no }
+	</update>
+	
 	<delete id="deleteTour" parameterType="_int" >
 		delete from tour where tour_no = #{ tour_no }
+	</delete>
+	
+	<delete id="">
+		delete from tour_review where tour_review_no = #{ tour_review_no }
 	</delete>
 
 

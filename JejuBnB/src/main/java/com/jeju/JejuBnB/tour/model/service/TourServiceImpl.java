@@ -1,6 +1,7 @@
 package com.jeju.JejuBnB.tour.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -92,8 +93,13 @@ public class TourServiceImpl implements TourService {
 	}
 
 	@Override
-	public ArrayList<Tour_Review> selectTourReview(int tour_review_no) {
-		return tourDao.selectTourReview(tour_review_no);
+	public List<Tour_Review> selectTourReview(Tour_Review tour_review) {
+		return tourDao.selectTourReview(tour_review);
+	}
+
+	@Override
+	public Tour SelectTourScore(int tour_score) {
+		return tourDao.selectTourScore(tour_score);
 	}
 
 }

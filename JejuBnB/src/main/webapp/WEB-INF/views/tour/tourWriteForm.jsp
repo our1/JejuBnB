@@ -5,14 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-<!-- include summernote css/js-->
-<link href="resources/summernote/summernote-bs4.css" rel="stylesheet">
-<script src="resources/summernote/summernote-bs4.js"></script>
-<!-- include summernote-ko-KR -->
-<script src="resources/summernote/lang/summernote-ko-KR.js"></script>
+
+<script src="//cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
 
 <link href="resources/css/tourWriteForm.css" rel="stylesheet">
 
@@ -46,7 +40,7 @@
 <c:import url="/WEB-INF/views/common/header.jsp" />
 <div class="thead"></div>
 <div style="padding: 100px 0px 0px 0px;"></div>
-	<form action="tinsert.do" method="post" onsubmit="return validate();"  enctype="multipart/form-data" >
+	<form action="imageUpload.do" method="post">
 	<fieldset class="fh">
 	 <select name="카테고리">
 	 	<option value="live">자연</option>
@@ -60,7 +54,8 @@
 	 	<input type="date" placeholder="끝나는 날짜">
 	 </fieldset>
 	 <fieldset class="ft">
-	 <textarea id="summernote" name="editordata" placeholder="관광지 에 대해 알려주세요 "></textarea> <br>
+	 <textarea id = "description" name = "description" rows = "5" cols = "80" placeholder = "상품설명을 입력하세요"></textarea>
+         <br>
 	 </fieldset>
 	 <fieldset class="ff">
 	 <input type="text" id="PostNumber" placeholder="우편번호" required readonly><br>
@@ -74,19 +69,7 @@
 <input type="submit" value="작성 완료" class="co">
 </form>
 <div style="padding: 100px 0px 0px 0px;"></div>
-    <script type="text/javascript">
-      $(document).ready(function() {
-  $('#summernote').summernote({
-    lang: 'ko-KR' // default: 'en-US'
-  });
-});
-$('#summernote').summernote({
-  height: 300,                 // set editor height
-  minHeight: null,             // set minimum height of editor
-  maxHeight: null,             // set maximum height of editor
-  focus: true                  // set focus to editable area after initializing summernote
-});
-    </script>
 <c:import url="/WEB-INF/views/common/footer.jsp"/>
+<script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
 </body>
 </html>

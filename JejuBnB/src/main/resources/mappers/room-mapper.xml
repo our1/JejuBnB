@@ -117,15 +117,15 @@
    </select>
    
    <select id="selectRoomFile" parameterType="int" resultMap="resultRfList">
-      select * from room_file where room_no = #{roomno}
+      select * from room_file where room_no = #{room_no}
    </select>
    
    <select id="selectUserRoom" parameterType="string" resultMap="resultList">
-      select * from room where user_id = #{uid}
+      select * from room where user_id = #{user_id}
    </select>
    
    <select id="selectRoom" parameterType="int" resultMap="resultRoom">
-      select * from room where room_no = #{roomno}
+      select * from room where room_no = #{room_no}
    </select>
    
    <select id="selectReviewCount" parameterType="int" resultType="_int">
@@ -133,7 +133,7 @@
    </select> 
    
    <select id="selectRoomNo" parameterType="string" resultMap="resultRoomNo">
-      select * from (select rownum rnum, room_no from room where user_id = #{userid} order by room_no desc) where rnum = 1
+      select * from (select rownum rnum, room_no from room where user_id = #{user_id} order by room_no desc) where rnum = 1
    </select>
    
    <select id="selectSearchFilter" parameterType="java.util.HashMap" resultMap="resultList">

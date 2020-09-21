@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,16 +38,16 @@ public class ReservationController {
 	
 	//값 담아서 숙소 예약페이지 이동
 	@RequestMapping(value="reserv.do", method=RequestMethod.POST)
-	public ModelAndView insertReserv(@RequestParam(value="room_no") int room_no, Reservation reserv, Room room, ModelAndView mv,
+	public ModelAndView insertReserv(@RequestParam(value="room_no") int room_no, Reservation reserv, ModelAndView mv,
 			@RequestParam(value="checkin_date") String checkin_date, @RequestParam(value="checkout_date") String checkout_date, HttpServletRequest request) {	
 		logger.info("reserv: " + reserv);
 		
-		if(room != null) {
+		if(reserv != null) {
 			reservationService.insertReserv(reserv);
-			roomService.selectRoom(room_no);
-			mv.setViewName("reservation/reservationDetailView");
+			Room room = roomService.selectRoom(room_no);
 			mv.addObject("reserv", reserv);
 			mv.addObject("room", room);
+			mv.setViewName("reservation/reservationDetailView");
 			
 			try {
 						
@@ -64,7 +65,7 @@ public class ReservationController {
 				 calDateDays = Math.abs(calDateDays);
 				 logger.info("calDateDays : " + calDateDays);
 				 
-				 mv.addObject("date", calDateDays); //보내줌
+				 mv.addObject("date", calDateDays); 
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -72,6 +73,31 @@ public class ReservationController {
 		}		
 		return mv;
 				
+	}
+	
+	//결제 팝업
+	@RequestMapping(value="payment.do", method=RequestMethod.GET)
+	public String reservPayment(@RequestParam(value="room_no") int room_no, Model model) throws Exception {	
+		logger.info(" 1:" + room_no);
+		model.addAttribute("room_no", room_no);
+		return "reservation/popupPayment";		
+	}
+	
+	//카카오페이 결제
+	@RequestMapping(value="pay.do", method=RequestMethod.GET)
+	public ModelAndView kakaoPayment(@RequestParam(value="room_no") int room_no, ModelAndView mv)  {	
+		logger.info(" 2:" + room_no);
+		mv.addObject("room_no", room_no);
+		mv.setViewName("reservation/Payment");
+		return mv;		
+	}
+
+	//무통장 결제
+	@RequestMapping(value="pay2.do", method=RequestMethod.GET)
+	public String muPayment(@RequestParam(value="room_no") int room_no, Model model)  {	
+		logger.info(" 3:" + room_no);
+		model.addAttribute("room_no", room_no);
+		return "reservation/Payment2";		
 	}
 	
 	

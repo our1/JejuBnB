@@ -20,6 +20,15 @@
 	div {
 		text-align : left;
 	}
+	
+	h5{
+		padding : 0;
+		margin : 0;
+	}
+	h4{
+		padding : 0;
+		margin : 0;
+	}
 	form {
 	  position : relative;
 	}
@@ -51,7 +60,7 @@
 	}
 	
 	#main {
-		width : 50%;
+		width : 900px;
 		position : relative;
 		left : 35%;
 		padding : 5px;
@@ -63,6 +72,51 @@
 		height : 20px;
 	}
 	
+	.checkBox {
+		width : 250px;
+		height : 20px;
+		margin : 5px;
+		padding : 0;
+	}
+	
+	#container1{
+		width : 400px;
+		display : grid;
+		grid-template-columns : 200px 200px 200px 200px;
+		gap : 10px 5px;
+		padding : 0;
+		margin-bottom : 20px;
+	}
+	
+	#container2{
+		width : 400px;
+		display : grid;
+		grid-template-columns : 200px 200px 200px 200px;
+		gap : 10px 5px;
+		padding : 0;
+		margin-bottom : 20px;
+		
+	}
+	
+	#container3{
+		width : 400px;
+		display : grid;
+		grid-template-columns : 200px 200px 200px 200px;
+		gap : 10px 5px;
+		padding : 0;
+		margin-bottom : 20px;
+		
+	}
+	
+	#container4{
+		width : 400px;
+		display : grid;
+		grid-template-columns : 200px 200px;
+		gap : 10px 5px;
+		padding : 0;
+		margin-bottom : 20px;
+		
+	}
 </style>
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
@@ -100,8 +154,8 @@
 <input type="hidden" name="user_id" value="${loginMember.user_id }" >
 
 <div id="first" class="write">
-	<span id="roomName" >숙소의 이름을 입력해 주세요  <input type="text" name="room_name" placeholder="숙소 이름" required>  </span><br>
-	<span id="roomContent">숙소를 소개해 주세요 <textarea rows="5" cols="50" name="room_content" required placeholder="숙소 소개"></textarea> </span><br>
+	<span id="roomName" ><h5>숙소의 이름을 입력해 주세요</h5>  <input type="text" name="room_name" placeholder="숙소 이름" required>  </span><br>
+	<span id="roomContent"><h5>숙소를 소개해 주세요</h5> <textarea rows="5" cols="50" name="room_content" required placeholder="숙소 소개"></textarea> </span><br>
 	
 	<input type="text" id="PostNumber" placeholder="우편번호" required readonly><br>
 	숙소 주소 : <button onclick="PostCall()" type="button">우편번호 검색</button><br>
@@ -144,40 +198,48 @@
 				<option value="50">50</option>
 			</select> <br>
 </div>
-
 <div id="second" class="write">
 침대 수 : <input type="number" name="bed" placeholder="1" required> 개 <br>
 침실 수 : <input type="number" name="bedroom" placeholder="1" required> 개 <br>
-욕실 수 : <input type="number" name="bathroom" placeholder="1" required> 칸 <br>
-편의 시설 :  <br>
+욕실 수 : <input type="number" name="bathroom" placeholder="1" required> 칸 <br> <br>
+
+<h4>편의 시설 </h4>
+<div id="container1">
 <c:forEach var="count1" begin="0" end="${fn:length(Alist)}" step="4">
 <c:forEach items="${Alist }" var="alist" begin="${count1 }" end="${count1 + 3}">
-${ alist } <input type="checkbox" name="amenity" value="${alist }"> &nbsp; &nbsp;
-</c:forEach> <br>
+<div class="checkBox"><input type="checkbox" name="amenity" value="${alist }"> ${ alist }</div>
 </c:forEach>
- <br>
-시설 :<br>
+</c:forEach>
+</div>
+ 
+
+<h5>시설 </h5>
+<div id="container2">
 <c:forEach var="count2" begin="0" end="${fn:length(Flist)}" step="4">
 <c:forEach items="${Flist }" var="flist" begin="${count2 }" end="${count2 + 2}">
-${ flist } <input type="checkbox" name="facility" value="${flist }"> &nbsp; &nbsp;
-</c:forEach> <br>
+<div class="checkBox"><input type="checkbox" name="facility" value="${flist }"> ${ flist }</div>
+</c:forEach> 
 </c:forEach>
-<br>
-건물 유형 :<br>
+</div>
+
+<h5>건물 유형 </h5>
+<div id="container3">
 <c:forEach var="count3" begin="0" end="${fn:length(Blist)}" step="4">
 <c:forEach items="${Blist }" var="blist" begin="${count3 }" end="${count3 + 3}">
-${ blist } <input type="checkbox" name="build" value="${blist }"> &nbsp; &nbsp;
-</c:forEach> <br>
+<div class="checkBox"><input type="checkbox" name="build" value="${blist }"> ${ blist }</div>
+</c:forEach> 
 </c:forEach>
-<br>
+</div>
 
-이용 규칙 :<br>
+<h5>이용 규칙 </h5>
+<div id="container4">
 <c:forEach var="count4" begin="0" end="${fn:length(Rlist)}" step="4">
 <c:forEach items="${Rlist }" var="rlist" begin="${count4 }" end="${count4 + 3 }">
-${rlist } <input type="checkbox" name="rule" value="${rlist }"> &nbsp; &nbsp;
+<div class="checkBox"><input type="checkbox" name="rule" value="${rlist }">${rlist }</div>
 </c:forEach>
 </c:forEach>
-<br><br>
+</div>
+<br>
 인원 추가 금액 : <input type="number" name="plus_charge" required><br>
 </div>
 <div id="third" class="write">

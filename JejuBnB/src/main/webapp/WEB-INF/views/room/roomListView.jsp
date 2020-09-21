@@ -280,35 +280,77 @@ var roomName = [];
 roomName.push('${room.room_name}');
 list.push('${room.room_roadaddress}');
 </c:forEach>
-
+var markerArr = [];
 for(var i = 0; i < '${fn:length(list)}'; i++){
-	 var name = roomName[i];
- 	console.log(i +" 번째 룸 이름 : " + name);
-
+	var name = roomName[i];
+	var coords ="";
 	geocoder.addressSearch(list[i], function(result, status) {
-	 if (status === kakao.maps.services.Status.OK) {
-	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-	        // 결과값으로 받은 위치를 마커로 표시합니다
-	        var marker = new kakao.maps.Marker({
-	            map: map,
-	            position: coords
-	        });
-	       
-	    // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-	        var content = '<div class="customoverlay"><span class="title">'+name+ '</span></div>';
-	        // 커스텀 오버레이가 표시될 위치입니다 
-	        var position = coords;  
+		 if (status === kakao.maps.services.Status.OK) {
+			 coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+		        // 결과값으로 받은 위치를 마커로 표시합니다
+		        var marker = new kakao.maps.Marker({
+		            map: map,
+		            position: coords
+		        });
+		        markerArr.push('marker');
+		        console.log(markerArr);
 
-	        // 커스텀 오버레이를 생성합니다
-	        var customOverlay = new kakao.maps.CustomOverlay({
-	            map: map,
-	            position: position,
-	            content: content,
-	            yAnchor: 1 
-	        });
-	    } 
-	})   
+		    	/* 
+		    	 var content = '<div class="customoverlay"><span class="title">'+name+ '</span></div>';
+		    	    // 커스텀 오버레이를 생성합니다
+		    	    var customOverlay = new kakao.maps.CustomOverlay({
+		    	        map: map,
+		    	        position: coords,
+		    	        content: content,
+		    	        yAnchor: 1 
+		    	    });
+		        */
+		        var radius = 100;
+
+		     // 마커들이 담긴 배열
+		     markerArr.forEach(function(m) {
+		         var c1 = map.getCenter();
+		         var c2 = m.getPosition();
+		         var poly = new Polyline({
+		           // map: map, 을 하지 않아도 거리는 구할 수 있다.
+		           path: [c1, c2]
+		         });
+		         var dist = poly.getLength(); // m 단위로 리턴
+
+		         if (dist < radius) {
+		             m.setMap(map);
+		         } else {
+		             m.setMap(null);
+		         }
+		     });
+		}   
+	});
 }
+
+/* kakao.maps.event.addListener(map, 'center_changed', function() {
+    var radius = 100;
+
+    // 마커들이 담긴 배열
+    markers.forEach(function(m) {
+        var c1 = map.getCenter();
+        var c2 = m.getPosition();
+        console.log(c1);
+        console.log(c2);
+        var poly = new Polyline({
+          // map: map, 을 하지 않아도 거리는 구할 수 있다.
+          path: [c1, c2]
+        });
+        var dist = poly.getLength(); // m 단위로 리턴
+
+        if (dist < radius) {
+            m.setMap(map);
+        } else {
+            m.setMap(null);
+        }
+    });
+   });
+     */
+
 
 
 </script>

@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>JejuBnB</title>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
 <script type="text/javascript" src="/JejuBnB/resources/js/jquery-3.5.1.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
 <!-- !!중요. - autoload=false 를 반드시 붙혀주셔야 합니다.-->
@@ -49,11 +50,47 @@ body {
 		text-align : center;
 		font-family: 'Nanum Gothic Coding', monospace;
 	}
+	
+	input {
+		border : 1px solid gray;
+		border-radius : 5px;		
+		margin : 5px;
+		height : 20px;
+	}
+	
+	textarea {
+		border : 1px solid gray;
+		border-radius : 5px;
+	}
+	
+	#main {
+		width : 50%;
+		position : relative;
+		left : 20%;
+		top : 20%;
+		padding : 5px;
+		margin-top : 30px;
+	}
+	.thead{
+	  width: 100%;
+	  height: 329px;
+	  background: linear-gradient( to right,
+	                     rgba(20, 20, 20, 0.85) 0%,
+	                     rgba(20, 20, 20, 0.75) 25%,
+	                     rgba(20, 20, 20, 0.5) 50%,
+	                     rgba(20, 20, 20, 0.25) 75%,
+	                     rgba(20, 20, 20, 0) 100%
+	               ),
+	               url('resources/images/36.jpg');
+	 background-size: cover;
+	 background-repeat: no-repeat;
+	}
 </style>
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp"/>
-<hr>
+<div class="thead"></div>
+<div id="main">
 <form action="roomupdate.do" method="post" enctype="multipart/form-data">
 <div id="first">
 숙소 이름 : <input type="text" name="room_name" placeholder="숙소 이름" value="${room.room_name }"> <br>
@@ -219,5 +256,6 @@ ${rlist } <input type="checkbox" name="rule" value="${rlist }" ${checked }> &nbs
 <input type="submit" value="전송">
 </div>
 </form>
+</div>
 </body>
 </html>

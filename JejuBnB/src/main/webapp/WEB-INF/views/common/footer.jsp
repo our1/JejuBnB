@@ -29,8 +29,6 @@
 
 .footer__logo {
   font-family: 'Alex Brush', cursive;
-  font-weight: 400;
-  font-size: 2rem;
 }
 
 .footer__addr h2 {

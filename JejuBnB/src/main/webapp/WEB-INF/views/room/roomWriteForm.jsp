@@ -31,6 +31,9 @@
 	}
 	form {
 	  position : relative;
+	  text-align : center;
+	  font-family: 'Nanum Gothic Coding', monospace;
+	  
 	}
 	.thead{
 	  width: 100%;

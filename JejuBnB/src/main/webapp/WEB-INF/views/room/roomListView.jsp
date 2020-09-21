@@ -9,6 +9,20 @@
 <meta charset="UTF-8">
 <title>JejuBnB</title>
 <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/themify-icons.css">
+    <link rel="stylesheet" href="css/nice-select.css">
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/gijgo.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/slick.css">
+    <link rel="stylesheet" href="css/slicknav.css">
+
+    <link rel="stylesheet" href="css/style.css">
 <script src="/JejuBnB/resources/js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 	function moveFilterPage()
@@ -65,7 +79,7 @@
 			});
 			
 		}
-
+		
 </script>
     <style type="text/css">
 
@@ -75,49 +89,24 @@
         padding: 0;
       }
       
-      a{
-      	text-decoration : none;
-      }
-      
       #main {
       	height  : 800px;
       	position : relative;
+      	margin : 0;
       }
       
-      .container {
+      .container1 {
       	width : 40%;
-      	height : 1600px;
 		display : grid;
-		grid-template-columns : 200px 500px;
-		grid-template-rows : repeat(8, 200px);
+		grid-template-columns : 1fr 1fr;
+		grid-template-rows : repeat(4, 500px);
 		gap : 10px 5px;
 		padding-left : 10px;
+		margin-top : 100px;
 		}
 		
-		.container img{
-			width : 200px;
-			height : 200px;
-			padding : 0;
-		}
 		
-		.container #roomImg{
-			width : 200px;
-			height : 200px;
-			margin : 0;
-			border-radius : 5px;
-			
-		}
-		
-		.container #roomImg img{
-			width : 100%;
-			height : 100%;
-			margin : 0;
-			padding : 0;
-			border-radius : 5px;
-			
-		}
-		
-		.container li{
+		.container1 li{
 			list-style : none;
 		}
 		
@@ -167,8 +156,23 @@
 	    	background : none;
 	    	border : none;
 	    }
+	    .col-lg-6 col-md-6{
+	    	width : 100%;
+	    }
 	    
-	    
+	    #roomImg img {
+	    	width : 300px;
+	    	height : 300px;
+	    	border-radius : 5px;
+	    }
+	    .headButton{
+	    	background-color : #FF4A52;
+			border : none;
+			border-radius : 5px;
+			width : 100px;
+			height : 30px;
+			text-color : #ffffff;
+	    }
 	   
     </style>
 
@@ -180,62 +184,90 @@
 <h1 align="center">숙소 리스트 페이지</h1>
 <div id="main">
 <div id="items">
-${listCount }개 숙소 검색 . ${inMonth }월${inday }일 - ${outMonth }월${outday }일 . 게스트 ${people }명 <br>
-<button onclick="javascript:location.href='moveRoomBList.do'">리스트로 보기</button>
+<h3 id="resultS">${listCount }개 숙소 검색 . ${inMonth }월${inday }일 - ${outMonth }월${outday }일 . 게스트 ${people }명 </h3>
+<button class="headButton" onclick="javascript:location.href='moveRoomBList.do'">리스트로 보기</button>
+<button class="headButton" onclick="moveFilterPage()">필터 추가하기</button>
+</div>
+<div class="container1">
+				<c:forEach items="${list }" var="room">
+					<div class="col-lg-6 col-md-6">
+						<div class="single_place">
+							<div id="roomImg">
+								<img src="${ pageContext.servletContext.contextPath}/resources/roomThumbnail/${ room.room_rename_file }">
+							</div>
+							<div class="place_info">
+								<a href="moveDetailView.do?room_no=${room.room_no}"><h3>${room.room_name }</h3></a>
+								<p style="width:300px;">${room.room_address }</p>
+								<div class="rating_days d-flex justify-content-between" style="width:300px;">
+									<span class="d-flex justify-content-center align-items-center">
+										<i class="fa fa-star"></i> 
+										<i class="fa fa-star"></i> 
+										<i class="fa fa-star"></i> 
+										<i class="fa fa-star"></i> 
+										<i class="fa fa-star"></i> 
+										<a href="#">(20 Review)</a>
+									</span>
+									<div class="days">
+									<c:if
+										test="${week eq 6 || week eq 7}">
+										<fmt:formatNumber value="${room.room_weekday }"
+											type="currency" />
+									</c:if> <c:if test="${week ne 6 && week ne 7}">
+										<fmt:formatNumber value="${room.room_weekend }"
+											type="currency" />
+									</c:if>
+										<c:if test="${!empty loginMember}">
+											<c:if test="${!empty mlist }">
+												<c:set var="check" value="true" />
+												<c:forEach items="${mlist }" var="roomNo">
+													<c:if test="${check }">
+														<c:if test="${room.room_no eq roomNo.room_no }">
+															<li style="float: right;"
+																id="deleteHeart${room.room_no }"><button
+																	class="heart" onclick="deleteH(${room.room_no})">
+																	<img id="like"
+																		src="${ pageContext.servletContext.contextPath}/resources/images/하트.png"
+																		style="width: 20px; height: 20px;">
+																</button></li>
+															<c:set var="check" value="false" />
+														</c:if>
+													</c:if>
+												</c:forEach>
 
-<button onclick="moveFilterPage()">필터 추가하기</button>
-</div>
-<div class="container">
-<c:forEach items="${list }" var="room" >
-	<div id="roomImg" >
-		<img src="${ pageContext.servletContext.contextPath}/resources/roomThumbnail/${ room.room_rename_file }">
-	</div>
-	<div id="RoomContent">
-		<ul>
-			<li> 숙소 이름 : <a href="moveDetailView.do?room_no=${room.room_no}">${room.room_name }</a> </li>
-			<li> 숙소 주소 : ${room.room_address } </li>
-			<li> 금액 : 
-			<c:if test="${week eq 6 || week eq 7}">
-				<fmt:formatNumber value="${room.room_weekday }" type="currency" />
-			</c:if>
-			<c:if test="${week ne 6 && week ne 7}">
-				<fmt:formatNumber value="${room.room_weekend }" type="currency" />
-			</c:if>
-			</li>
-			<c:if test="${!empty loginMember}" >
-				<c:if test="${!empty mlist }">
-				
-					<c:set var="check" value="true" />				
-					<c:forEach items="${mlist }" var="roomNo">
-					
-						<c:if test="${check }" >
-							<c:if test="${room.room_no eq roomNo.room_no }">
-								<li style="float:right;"id="deleteHeart${room.room_no }"><button class="heart" onclick="deleteH(${room.room_no})"><img id="like" src="${ pageContext.servletContext.contextPath}/resources/images/하트.png" style="width:20px;height:20px;"></button></li>
-								<c:set var="check" value="false"/>
-							</c:if>
-						</c:if>	
-											
-					</c:forEach>
-					
-					<c:if test="${check}">
-						<li style="float:right;" id="insertHeart${room.room_no }"><button class="heart" onclick="insertH(${room.room_no});"><img id="nolike" src="${ pageContext.servletContext.contextPath}/resources/images/빈하트.png" style="width:20px;height:20px;"></button></li>
-					</c:if>
-					
-				</c:if>
-				<c:if test="${empty mlist }" >
-					<li style="float:right;" id="insertHeart${room.room_no }"><button class="heart" onclick="insertH(${room.room_no});"><img id="nolike" src="${ pageContext.servletContext.contextPath}/resources/images/빈하트.png" style="width:20px;height:20px;"></button></li>
-				</c:if>
-			
-			</c:if>
-			<c:if test="${empty loginMember }">
-				<li style="float:right;"><button class="heart" onclick="javascript:alert('로그인 후 이용해주세요.')"><img src="${ pageContext.servletContext.contextPath}/resources/images/빈하트.png" style="width:20px;height:20px;"></button></li>
-			
-			</c:if>
-			
-		</ul>
-	</div>
-</c:forEach>
-</div>
+												<c:if test="${check}">
+													<li style="float: right;" id="insertHeart${room.room_no }"><button
+															class="heart" onclick="insertH(${room.room_no});">
+															<img id="nolike"
+																src="${ pageContext.servletContext.contextPath}/resources/images/빈하트.png"
+																style="width: 20px; height: 20px;">
+														</button></li>
+												</c:if>
+											</c:if>
+											<c:if test="${empty mlist }">
+												<li style="float: right;" id="insertHeart${room.room_no }"><button
+														class="heart" onclick="insertH(${room.room_no});">
+														<img id="nolike"
+															src="${ pageContext.servletContext.contextPath}/resources/images/빈하트.png"
+															style="width: 20px; height: 20px;">
+													</button></li>
+											</c:if>
+										</c:if>
+										<c:if test="${empty loginMember }">
+											<li style="float: right;"><button class="heart"
+													onclick="javascript:alert('로그인 후 이용해주세요.')">
+													<img
+														src="${ pageContext.servletContext.contextPath}/resources/images/빈하트.png"
+														style="width: 20px; height: 20px;">
+												</button></li>
+										</c:if>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</c:forEach>
+			</div>
 <div id="page" style="text-align:center;">
 	<c:if test="${ currentPage == 1 }">
 	<button id="moveNext" onclick="moveNext(${currentPage})">&lt;</button>

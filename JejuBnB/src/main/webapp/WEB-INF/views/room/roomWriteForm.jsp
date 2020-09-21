@@ -50,16 +50,17 @@
 	 background-repeat: no-repeat;
 	}
 	
-	input {
+	#main input {
 		border : 1px solid gray;
 		border-radius : 5px;		
-		margin : 5px;
+		margin : 10px;
 		height : 20px;
 	}
 	
 	textarea {
 		border : 1px solid gray;
 		border-radius : 5px;
+		margin : 10px;
 	}
 	
 	#main {
@@ -120,9 +121,37 @@
 		margin-bottom : 20px;
 		
 	}
+	
+	.filebox label { 
+	display: inline-block; 
+	padding: .5em .75em; 
+	color: #999; 
+	font-size: inherit; 
+	line-height: normal; 
+	vertical-align: middle; 
+	background-color: #fdfdfd; 
+	cursor: pointer; 
+	border: 1px solid #ebebeb; 
+	border-bottom-color: #e2e2e2; 
+	border-radius: .25em; 
+	} 
+	
+	.filebox input[type="file"] {
+	 /* 파일 필드 숨기기 */ 
+	 position: absolute; 
+	 width: 1px; 
+	 height: 1px; 
+	 padding: 0; 
+	 margin: -1px; 
+	 overflow: hidden; 
+	 clip:rect(0,0,0,0); 
+	 border: 0; 
+	 }
+
 </style>
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
 <!-- !!중요. - autoload=false 를 반드시 붙혀주셔야 합니다.-->
@@ -147,6 +176,17 @@
         }).open();
     })
     }
+    
+    $(function(){
+    	$("#thumbnail").on('change', function(){
+ 
+    		var thumbnail = $("#thumbnail").val().split("\\");
+    		var fileName = thumbnail[thumbnail.length-1];
+    		$("#ThBox").empty();
+    		$("#ThBox").append('<label for="thumbnail" id="Tlabel">대표 사진</label> <input type="file" id="thumbnail" name="ofile" required />'+fileName);
+    		$("#ThBox").show();
+    	});
+    });
 </script>
 </head>
 <body>
@@ -157,6 +197,7 @@
 <input type="hidden" name="user_id" value="${loginMember.user_id }" >
 
 <div id="first" class="write">
+<h2>숙소</h2>
 	<span id="roomName" ><h5>숙소의 이름을 입력해 주세요</h5>  <input type="text" name="room_name" placeholder="숙소 이름" required>  </span><br>
 	<span id="roomContent"><h5>숙소를 소개해 주세요</h5> <textarea rows="5" cols="50" name="room_content" required placeholder="숙소 소개"></textarea> </span><br>
 	
@@ -164,11 +205,13 @@
 	숙소 주소 : <button onclick="PostCall()" type="button">우편번호 검색</button><br>
 	<input type="text" id="room_roadaddress" name="room_roadaddress" placeholder="도로명주소" readonly><br>
 	<input type="text" id="DetailAddress" name="address" placeholder="상세주소" required><br>
-	
+	<hr>
 	기준 인원 : <input type="number" name="st_num_people" placeholder="기준 인원" required>명 <br>
 	최대 인원 : <input type="number" name="max_people" placeholder="최대 인원" required>명<br>
 	평일 금액 : <input type="number" name="room_weekday" placeholder="평일 가격"><br>
 	주말 금액 : <input type="number" name="room_weekend" placeholder="주말 가격"><br>
+	인원 추가 금액 : <input type="number" name="plus_charge" required><br>
+	
 
 체크인 시간 : <select name="inhour">
 				<option value="12">12</option>
@@ -201,10 +244,14 @@
 				<option value="50">50</option>
 			</select> <br>
 </div>
+
+<hr>
 <div id="second" class="write">
+<h2>시설</h2>
 침대 수 : <input type="number" name="bed" placeholder="1" required> 개 <br>
 침실 수 : <input type="number" name="bedroom" placeholder="1" required> 개 <br>
 욕실 수 : <input type="number" name="bathroom" placeholder="1" required> 칸 <br> <br>
+<hr>
 
 <h4 class="first">편의 시설 </h4>
 <div id="container1">
@@ -215,7 +262,7 @@
 </c:forEach>
 </div>
  
-
+<hr>
 <h4>시설 </h4>
 <div id="container2">
 <c:forEach var="count2" begin="0" end="${fn:length(Flist)}" step="4">
@@ -224,7 +271,7 @@
 </c:forEach> 
 </c:forEach>
 </div>
-
+<hr>
 <h4>건물 유형 </h4>
 <div id="container3">
 <c:forEach var="count3" begin="0" end="${fn:length(Blist)}" step="4">
@@ -233,7 +280,7 @@
 </c:forEach> 
 </c:forEach>
 </div>
-
+<hr>
 <h4>이용 규칙 </h4>
 <div id="container4">
 <c:forEach var="count4" begin="0" end="${fn:length(Rlist)}" step="4">
@@ -243,11 +290,10 @@
 </c:forEach>
 </div>
 <br>
-인원 추가 금액 : <input type="number" name="plus_charge" required><br>
 </div>
 <div id="third" class="write">
-숙소 대표 사진 : <input type="file" name="ofile" required> <br>
-숙소 사진들 : <input multiple="multiple" type="file" name="file" />
+<div class="filebox" id="ThBox"> <label for="thumbnail" id="Tlabel">대표 사진</label> <input type="file" id="thumbnail" name="ofile" required /> </div>
+<div class="filebox"><label for="files">숙소 사진 추가</label><input multiple="multiple" type="file" id="files" name="file" style="display:none;"/></div>
 <input type="submit" value="전송">
 </div>
 </form>

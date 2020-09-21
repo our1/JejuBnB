@@ -319,6 +319,43 @@ public class RoomController {
 		}
 	}
 	
+	@RequestMapping(value = "SearchFilter.do", method = RequestMethod.POST)
+	public String SearchFilter(Room room, Model model, HttpServletRequest request) {
+		room.setBed(Integer.parseInt(request.getParameter("bedCount")));
+		room.setBedroom(Integer.parseInt(request.getParameter("bedroomCount")));
+		room.setBathroom(Integer.parseInt(request.getParameter("bathroomCount")));
+
+		ArrayList<Room> list = roomService.selectSearchFilter(room);
+
+		if (list.size() > 0) {
+			model.addAttribute("list", list);
+			return "room/roomListView";
+		} else {
+			model.addAttribute("message", "조회 실패");
+			return "common/error";
+		}
+	}
+
+	@RequestMapping("moveFilterPage.do")
+	public String moveFilterPage(Model model) {
+		ArrayList<Amenity> Alist = filterService.selectAmenity();
+		ArrayList<Build_type> Blist = filterService.selectBuild_type();
+		ArrayList<Facility> Flist = filterService.selectFacility();
+		ArrayList<Rule> Rlist = filterService.selectRule();
+		model.addAttribute("Alist", Alist);
+		model.addAttribute("Blist", Blist);
+		model.addAttribute("Flist", Flist);
+		model.addAttribute("Rlist", Rlist);
+		return "room/roomFilterView";
+	}
+
+	@RequestMapping("moveSearchList.do")
+	public String moveSearchList(@RequestParam("list") ArrayList<Room> list, Model model) {
+		model.addAttribute("list", list);
+		return "room/roomListView";
+	}
+
+	
 	
 }
 

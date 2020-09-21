@@ -73,6 +73,7 @@
 		font-family: 'Cafe24Oneprettynight';
 		position: relative;
     	top: -188%;
+    	width : 300px;
 	}
 	.xbu {
 		border : none;

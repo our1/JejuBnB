@@ -66,7 +66,7 @@ body {
 	#main {
 		width : 50%;
 		position : relative;
-		left : 20%;
+		left : 35%;
 		top : 20%;
 		padding : 5px;
 		margin-top : 30px;
@@ -84,6 +84,74 @@ body {
 	               url('resources/images/36.jpg');
 	 background-size: cover;
 	 background-repeat: no-repeat;
+	}
+	
+	
+	div {
+		text-align : left;
+	}
+	
+	h5{
+		padding : 0;
+		margin : 5px;
+	}
+	h4{
+		padding : 0;
+		margin : 0;
+	}
+	form {
+	  position : relative;
+	}
+	
+	input[type=checkbox] {
+		width : 20px;
+		height : 20px;
+	}
+	
+	.checkBox {
+		width : 250px;
+		height : 20px;
+		margin : 5px;
+		padding : 0;
+	}
+	
+	#container1{
+		width : 400px;
+		display : grid;
+		grid-template-columns : 200px 200px 200px 200px;
+		gap : 10px 5px;
+		padding : 0;
+		margin-bottom : 20px;
+	}
+	
+	#container2{
+		width : 400px;
+		display : grid;
+		grid-template-columns : 200px 200px 200px 200px;
+		gap : 10px 5px;
+		padding : 0;
+		margin-bottom : 20px;
+		
+	}
+	
+	#container3{
+		width : 400px;
+		display : grid;
+		grid-template-columns : 200px 200px 200px 200px;
+		gap : 10px 5px;
+		padding : 0;
+		margin-bottom : 20px;
+		
+	}
+	
+	#container4{
+		width : 400px;
+		display : grid;
+		grid-template-columns : 200px 200px;
+		gap : 10px 5px;
+		padding : 0;
+		margin-bottom : 20px;
+		
 	}
 </style>
 </head>
@@ -146,7 +214,8 @@ body {
 침대 수 : <input type="number" name="bed" placeholder="1" value="${room.bed }"> 개 <br>
 침실 수 : <input type="number" name="bedroom" placeholder="1" value="${room.bedroom }"> 개 <br>
 욕실 수 : <input type="number" name="bathroom" placeholder="1" value="${room.bathroom }"> 칸 <br>
-편의 시설 :  <br>
+<h4>편의 시설 </h4>
+<div id="container1">
 <c:forEach var="count1" begin="0" end="${fn:length(Alist)}" step="4">
 <c:forEach items="${Alist }" var="alist" begin="${count1 }" end="${count1 + 3}">
 
@@ -165,12 +234,13 @@ body {
 </c:if>
 </c:forTokens>
 
-${ alist } <input type="checkbox" name="amenity" value="${alist }" ${checked } > &nbsp; &nbsp; 
+<div class="checkBox"><input type="checkbox" name="amenity" value="${alist }" ${checked } >${ alist }</div>
 
-</c:forEach> <br>
 </c:forEach>
- <br>
-시설 :<br>
+</c:forEach>
+</div>
+<h4>시설 </h4>
+<div id="container2">
 <c:forEach var="count2" begin="0" end="${fn:length(Flist)}" step="4">
 <c:forEach items="${Flist }" var="flist" begin="${count2 }" end="${count2 + 2}">
 
@@ -189,11 +259,13 @@ ${ alist } <input type="checkbox" name="amenity" value="${alist }" ${checked } >
 </c:if>
 </c:forTokens>
 
-${ flist } <input type="checkbox" name="facility" value="${flist }" ${checked }> &nbsp; &nbsp;
-</c:forEach> <br>
+<div class="checkBox"><input type="checkbox" name="facility" value="${flist }" ${checked }>${ flist } </div>
 </c:forEach>
-<br>
-건물 유형 :<br>
+</c:forEach>
+</div>
+
+<h4>건물 유형 </h4>
+<div id="container3">
 <c:forEach var="count3" begin="0" end="${fn:length(Blist)}" step="4">
 <c:forEach items="${Blist }" var="blist" begin="${count3 }" end="${count3 + 3}">
 
@@ -212,12 +284,13 @@ ${ flist } <input type="checkbox" name="facility" value="${flist }" ${checked }>
 </c:if>
 </c:forTokens>
 
-${ blist } <input type="checkbox" name="build" value="${blist }" ${checked }> &nbsp; &nbsp;
-</c:forEach> <br>
+<div class="checkBox"><input type="checkbox" name="build" value="${blist }" ${checked }>${ blist } </div>
+</c:forEach> 
 </c:forEach>
-<br>
+</div>
 
-이용 규칙 :<br>
+<h4>이용 규칙 </h4>
+<div id="container4">
 <c:forEach var="count4" begin="0" end="${fn:length(Rlist)}" step="4">
 <c:forEach items="${Rlist }" var="rlist" begin="${count4 }" end="${count4 + 3 }">
 
@@ -236,10 +309,10 @@ ${ blist } <input type="checkbox" name="build" value="${blist }" ${checked }> &n
 </c:if>
 </c:forTokens>
 
-${rlist } <input type="checkbox" name="rule" value="${rlist }" ${checked }> &nbsp; &nbsp;
+<div class="checkBox"><input type="checkbox" name="rule" value="${rlist }" ${checked }>${rlist } </div>
 </c:forEach>
 </c:forEach>
-<br><br>
+</div>
 인원 추가 금액 : <input type="number" name="plus_charge" value="${room.plus_charge }"><br>
 </div>
 <div id="third">

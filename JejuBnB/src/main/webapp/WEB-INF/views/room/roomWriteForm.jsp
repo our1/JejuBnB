@@ -23,7 +23,7 @@
 	
 	h5{
 		padding : 0;
-		margin : 0;
+		margin : 5px;
 	}
 	h4{
 		padding : 0;
@@ -213,7 +213,7 @@
 </div>
  
 
-<h5>시설 </h5>
+<h4>시설 </h4>
 <div id="container2">
 <c:forEach var="count2" begin="0" end="${fn:length(Flist)}" step="4">
 <c:forEach items="${Flist }" var="flist" begin="${count2 }" end="${count2 + 2}">
@@ -222,7 +222,7 @@
 </c:forEach>
 </div>
 
-<h5>건물 유형 </h5>
+<h4>건물 유형 </h4>
 <div id="container3">
 <c:forEach var="count3" begin="0" end="${fn:length(Blist)}" step="4">
 <c:forEach items="${Blist }" var="blist" begin="${count3 }" end="${count3 + 3}">
@@ -231,7 +231,7 @@
 </c:forEach>
 </div>
 
-<h5>이용 규칙 </h5>
+<h4>이용 규칙 </h4>
 <div id="container4">
 <c:forEach var="count4" begin="0" end="${fn:length(Rlist)}" step="4">
 <c:forEach items="${Rlist }" var="rlist" begin="${count4 }" end="${count4 + 3 }">

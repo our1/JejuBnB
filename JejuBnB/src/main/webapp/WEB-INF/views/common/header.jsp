@@ -31,9 +31,6 @@ function winOpen1() {
 function winOpen2() {
 	window.open("myNoticeList.do?userid=${loginMember.user_id}","알림","width=1074,height=455, left=460, top=165");
 }
-function winOpen3() {
-	window.open("adUNoticeList.do","알림","width=1074,height=696, left=455, top=165");
-}
 function movePage() {
  	window.open("loginPage.do", "로그인",
 	"width=1074, height=696, left=455, top=165, toolbar=no, menubar=no, scrollbars=no, resizable=yes, status= no, location= no" ); 
@@ -65,14 +62,15 @@ function message() {
 				<ul class="dropdown-menu">
 					<li onclick="javascript:location.href='moveAdminPage.do'"> 관리자 </li>
 			        <li onclick="winOpen1()"> 필터 관리</li>
-		       		<li onclick="winOpen3()"> 알림 관리</li>
+		       		<li onclick="javascript:location.href='roomlist.do?userid=${loginMember.user_id }'"> 숙소</li>
+            		<li onclick="javascript:location.href='tlist.do'"> 관광지</li>
 			        <li class="divider">
 			        <li onclick="javascript:location.href='policyPage.do'"> 고객센터</li>
 			        <li onclick="javascript:location.href='logout.do'"> 로그아웃</li>
 		        </ul>
 		     </c:if>
          <c:if test="${!empty loginMember and  empty loginMember.admin_check and loginMember.host_check ne 'Y'}">
-          <ul class="dropdown-list">
+          <ul class="dropdown-menu">
              <li onclick="javascript:location.href='moveMyPage.do'"> 내 정보 보기</li>
              <li onclick="javascript:location.href='moveMyRoom.do?userid=${loginMember.user_id }'"> 저장 목록</li>
              <li onclick="winOpen2()"> 알림</li>
@@ -94,21 +92,8 @@ function message() {
 			       <li onclick="movePage()">로그인</li>
 		        </ul>
 		     </c:if>
-		     <c:if test="${!empty loginMember and  empty loginMember.admin_check}">
-			     <ul class="dropdown-menu">
-			       <li onclick="javascript:location.href='moveMyPage.do'"> 내 정보 보기</li>
-			       <li onclick="javascript:location.href='moveMyRoom.do?userid=${loginMember.user_id }'"> 저장 목록</li>
-			       <li onclick="javascript:location.href='moveRoomWrite.do'"> 사장님 신청하기</li>
-			       <li class="divider">
-			       <li onclick="javascript:location.href='roomlist.do'"> 숙소</li>
-			       <li onclick="javascript:location.href='tlist.do'"> 관광지</li>
-			       <li class="divider">
-			       <li onclick="javascript:location.href='policyPage.do'"> 고객센터</li>
-			       <li onclick="javascript:location.href='logout.do'"> 로그아웃</li>
-			     </ul>
-		     </c:if>
          <c:if test="${!empty loginMember and  empty loginMember.admin_check and loginMember.host_check eq 'Y'}">
-               <ul class="dropdown-list">
+               <ul class="dropdown-menu">
                  <li onclick="javascript:location.href='moveMyPage.do'"> 내 정보 보기</li>
                  <li onclick="javascript:location.href='moveMyRoom.do?userid=${loginMember.user_id }'"> 저장 목록</li>
                  <li onclick="winOpen2()"> 알림</li>

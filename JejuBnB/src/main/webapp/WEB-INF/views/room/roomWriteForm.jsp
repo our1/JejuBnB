@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>JejuBnB</title>
-
+<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
 <style type="text/css">
 	body {
 		margin : 0;
@@ -206,7 +206,7 @@
 침실 수 : <input type="number" name="bedroom" placeholder="1" required> 개 <br>
 욕실 수 : <input type="number" name="bathroom" placeholder="1" required> 칸 <br> <br>
 
-<h4>편의 시설 </h4>
+<h4 class="first">편의 시설 </h4>
 <div id="container1">
 <c:forEach var="count1" begin="0" end="${fn:length(Alist)}" step="4">
 <c:forEach items="${Alist }" var="alist" begin="${count1 }" end="${count1 + 3}">

@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>JejuBnB</title>
+<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
 <script type="text/javascript" src="/JejuBnB/resources/js/jquery-3.5.1.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>

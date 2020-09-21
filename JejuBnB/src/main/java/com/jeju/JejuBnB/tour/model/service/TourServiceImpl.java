@@ -1,12 +1,14 @@
 package com.jeju.JejuBnB.tour.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jeju.JejuBnB.tour.model.dao.TourDao;
 import com.jeju.JejuBnB.tour.model.vo.Tour;
+import com.jeju.JejuBnB.tour.model.vo.Tour_Image;
 import com.jeju.JejuBnB.tour.model.vo.Tour_Review;
 
 @Service("tourService")
@@ -21,15 +23,13 @@ public class TourServiceImpl implements TourService {
 	}
 
 	@Override
-	public ArrayList<Tour> SelectSearchTour(String tour_address, int currentPage, int limit) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Tour> SelectSearchTour(Tour tour) {
+		return tourDao.selectSearchTour(tour);
 	}
 
 	@Override
 	public ArrayList<Tour> SelectOrderBy(int currentPage, int limit, int orderby) {
-		// TODO Auto-generated method stub
-		return null;
+		return tourDao.selectOrderBy(currentPage, limit, orderby);
 	}
 
 	@Override
@@ -39,8 +39,7 @@ public class TourServiceImpl implements TourService {
 
 	@Override
 	public Tour SelectTourLike(int count) {
-		// TODO Auto-generated method stub
-		return null;
+		return tourDao.selectTourLike(count);
 	}
 
 	@Override
@@ -50,38 +49,57 @@ public class TourServiceImpl implements TourService {
 
 	@Override
 	public int updateTour(Tour tour) {
-		// TODO Auto-generated method stub
-		return 0;
+		return tourDao.updateTour(tour);
 	}
 
 	@Override
 	public int deleteTour(int tour_no) {
-		// TODO Auto-generated method stub
-		return 0;
+		return tourDao.deleteTour(tour_no);
 	}
 
 	@Override
 	public int insertTourReview(Tour_Review tour_review) {
-		// TODO Auto-generated method stub
-		return 0;
+		return tourDao.insertTourReview(tour_review);
 	}
 
 	@Override
 	public int updateTourReview(Tour_Review tour_review) {
-		// TODO Auto-generated method stub
-		return 0;
+		return tourDao.updateTourReview(tour_review);
 	}
 
 	@Override
 	public int deleteTourReview(int tour_review_no) {
-		// TODO Auto-generated method stub
-		return 0;
+		return tourDao.deleteTourReview(tour_review_no);
 	}
 
 	@Override
-	public int SelectTourReadCount(Tour tour) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateTourReadCount(int tour_no) {
+		return tourDao.updateTourReadCount(tour_no);
+	}
+
+	@Override
+	public ArrayList<Tour_Image> selectTourImage(int touno) {
+		return tourDao.selectTourImage(touno);
+	}
+
+	@Override
+	public int insertTourImage(ArrayList<Tour_Image> tilist) {
+		return tourDao.insertTourImage(tilist);
+	}
+
+	@Override
+	public Tour selectTourNo(String user_id) {
+		return tourDao.selectTourNo(user_id);
+	}
+
+	@Override
+	public List<Tour_Review> selectTourReview(Tour_Review tour_review) {
+		return tourDao.selectTourReview(tour_review);
+	}
+
+	@Override
+	public Tour SelectTourScore(int tour_score) {
+		return tourDao.selectTourScore(tour_score);
 	}
 
 }

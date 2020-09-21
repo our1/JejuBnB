@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.jeju.JejuBnB.notice.model.vo.Notice;
-import com.jeju.JejuBnB.notice.model.vo.Notice_Type;
 import com.jeju.JejuBnB.notice.model.vo.User_Notice;
 
 @Repository("noticdDao")
@@ -20,8 +19,7 @@ public class NoticeDao {
 	
 
 	public int insertUNotice(User_Notice unotice) {
-		// TODO Auto-generated method stub
-		return 0;
+		return session.insert("noticeMapper.insertUserNotice", unotice);
 	}
 
 	public int deleteUNotice(int unoticeno) {
@@ -34,14 +32,16 @@ public class NoticeDao {
 		return 0;
 	}
 
-	public int deleteNotice(int noticeno) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public ArrayList<Notice_Type> selectNType() {
-		List<Notice_Type> list = session.selectList("noticeMapper.selectNType");
-		return (ArrayList<Notice_Type>) list;
+	public int deleteNotice(Notice notice) {
+		ArrayList list = new ArrayList();
+		String[] noticeNo = notice.getNotice_type_no().split(",");
+		for(int i = 0; i < noticeNo.length; i++) {
+			list.add(noticeNo[i]);
+		}
+		int result = session.delete("noticeMapper.deleteNotice", list);
+		System.out.println(result);
+		System.out.println("확인용 : " + session.delete("noticeMapper.deleteNotice", list));
+		return result;
 	}
 
 	public ArrayList<User_Notice> selectUserNotice(String userid) {

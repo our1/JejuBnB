@@ -35,16 +35,12 @@ public class FilterController {
 		model.addAttribute("Blist", Blist);
 		model.addAttribute("Flist", Flist);
 		model.addAttribute("Rlist", Rlist);
-		model.addAttribute("AlistSize", Alist.size());
-		model.addAttribute("BlistSize", Blist.size());
-		model.addAttribute("FlistSize", Flist.size());
-		model.addAttribute("RlistSize", Rlist.size());
+		logger.info(Rlist.toString());
 		return "filter/filterListView";
 	}
 	
 	@RequestMapping(value="Ainsert.do", method=RequestMethod.POST)
 	public String insertAmenity(@RequestParam("amenity_name") String amenity_name, Model model) {
-		logger.info("테스트 확인 용 : " + amenity_name);
 		int result = filterService.insertAmenity(amenity_name);
 		
 		if(result > 0) {
@@ -55,7 +51,7 @@ public class FilterController {
 		}
 	}
 	
-	@RequestMapping(value="Adelete.do", method=RequestMethod.POST)
+	@RequestMapping(value="Adelete.do")
 	public String deleteAmenity(@RequestParam("amenity_no") int ano ,Model model) {
 		int result = filterService.deleteAmenity(ano);
 		
@@ -79,7 +75,7 @@ public class FilterController {
 		}
 	}
 	
-	@RequestMapping(value="Fdelete.do", method=RequestMethod.POST)
+	@RequestMapping(value="Fdelete.do")
 	public String deleteFacility(@RequestParam("facility_no") int fno ,Model model) {
 		int result = filterService.deleteFacility(fno);
 		
@@ -103,7 +99,7 @@ public class FilterController {
 		}
 	}
 	
-	@RequestMapping(value="Bdelete.do", method=RequestMethod.POST)
+	@RequestMapping(value="Bdelete.do")
 	public String deleteBuildType(@RequestParam("bu_type_no") int bno ,Model model) {
 		int result = filterService.deleteBuildType(bno);
 		
@@ -127,7 +123,7 @@ public class FilterController {
 		}
 	}
 	
-	@RequestMapping(value="rdelete.do", method=RequestMethod.POST)
+	@RequestMapping(value="rdelete.do")
 	public String deleteRule(@RequestParam("rule_no") int ruleno ,Model model) {
 		int result = filterService.deleteRule(ruleno);
 		

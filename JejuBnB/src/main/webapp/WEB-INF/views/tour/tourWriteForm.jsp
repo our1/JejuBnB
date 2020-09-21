@@ -5,36 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-<!-- include summernote css/js-->
-<link href="resources/summernote/summernote-bs4.css" rel="stylesheet">
-<script src="resources/summernote/summernote-bs4.js"></script>
-<!-- include summernote-ko-KR -->
-<script src="resources/summernote/lang/summernote-ko-KR.js"></script>
-
+<link href="resources/css/tourWriteForm.css" rel="stylesheet">
+<!-- jquery -->
+<script type="text/javascript" src="resources/js/jquery-3.5.1.min.js" ></script>
+<!-- ckeditor 4 -->
+<link rel="stylesheet" href="resources/ckeditor/contents.css">
+﻿
 <title>JejuBnB</title> 
-<style type="text/css">
-	
-	form {
-	  position : relative;
-	}
-	.thead{
-  width: 100%;
-  height: 329px;
-  background: linear-gradient( to right,
-                     rgba(20, 20, 20, 0.85) 0%,
-                     rgba(20, 20, 20, 0.75) 25%,
-                     rgba(20, 20, 20, 0.5) 50%,
-                     rgba(20, 20, 20, 0.25) 75%,
-                     rgba(20, 20, 20, 0) 100%
-               ),
-               url('resources/images/29.jpg');
- background-size: cover;
- background-repeat: no-repeat;
-}
-</style>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
 <!-- !!중요. - autoload=false 를 반드시 붙혀주셔야 합니다.-->
 <script>
@@ -61,41 +38,43 @@
 </script>
 </head>
 <body>
-<c:import url="/WEB-INF/views/common/header.jsp"/>
+<c:import url="/WEB-INF/views/common/header.jsp" />
 <div class="thead"></div>
-	<form action="tinsert.do"  method="post" onsubmit="return validate();"  enctype="multipart/form-data" >
+<div style="padding: 100px 0px 0px 0px;"></div>
+	<form action="imageUpload.do" method="post">
+	<fieldset class="fh">
 	 <select name="카테고리">
 	 	<option value="live">자연</option>
 	 	<option value="food">음식</option>
-	 	<option value="act">액티비티</option>
+	 	<option value="act">체험</option>
 	 </select>
-	 <input type="text" placeholder="관광지 이름 을 입력하세요" required> <br>
-	 <c:if test="${ tour_category_no eq 3 }">
+	 <input type="text" placeholder="관광지 이름 을 입력하세요" required>
+	 </fieldset>
+	 <fieldset class="fs">
 	 	<input type="date" placeholder="시작 날짜">
 	 	<input type="date" placeholder="끝나는 날짜">
-	 </c:if>
-	 <textarea id="summernote" name="editordata"></textarea> <br>
+	 </fieldset>
+	 <fieldset class="ft">
+	 <script type="text/javascript">
+		CKEDITOR.replace('ckeditor'); // 에디터로 생성
+     </script>
+	 <textarea id="ckeditor" name="tour_content" placeholder="상품설명을 입력하세요"></textarea>
+         <br>
+	 </fieldset>
+	 <fieldset class="ff">
 	 <input type="text" id="PostNumber" placeholder="우편번호" required readonly><br>
 		<button onclick="PostCall()" type="button">우편번호 검색</button><br>
 		<input type="text" id="tour_roadaddress" name="tour_roadaddress" placeholder="도로명주소" readonly><br>
 		<input type="text" id="DetailAddress" name="address" placeholder="상세주소" required><br>
-	    <textarea id="summernote" name="editordata"></textarea> <br>
-	 <input type="text" placeholder=" 알아두어야 할 사항 을 입력하세요"> <br>
-<input type="submit" value="작성 완료">
-</form>
-    <script type="text/javascript">
-      $(document).ready(function() {
-  $('#summernote').summernote({
-    lang: 'ko-KR' // default: 'en-US'
-  });
-});
-$('#summernote').summernote({
-  height: 300,                 // set editor height
-  minHeight: null,             // set minimum height of editor
-  maxHeight: null,             // set maximum height of editor
-  focus: true                  // set focus to editable area after initializing summernote
-});
-    </script>
+	  </fieldset>
+	  <fieldset class="fb">
+	 <textarea id="moreinfo" placeholder=" 알아두어야 할 사항 을 입력하세요"></textarea> <br>
+	 </fieldset>
+<input type="submit" value="작성 완료" class="co">
+</form> 
+<div style="padding: 100px 0px 0px 0px;"></div>
 <c:import url="/WEB-INF/views/common/footer.jsp"/>
+<script src="//cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
+<script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
 </body>
 </html>

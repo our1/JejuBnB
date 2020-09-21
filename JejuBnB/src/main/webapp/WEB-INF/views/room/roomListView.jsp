@@ -2,13 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"  %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>JejuBnB</title>
-
+<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
+<script src="/JejuBnB/resources/js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 	function moveFilterPage()
 		{	
@@ -17,126 +18,249 @@
 	    	
 		}
 	
-	
-    
+		
+		function insertH(room_no){
+			var roomNo = room_no;
+			var user_id = '${loginMember.user_id}';
+			var id = 'insertHeart' + roomNo;
+			$.ajax({
+				url : "insertMyRoom.do",
+				data : {user_id:user_id, room_no:roomNo},
+				type : "post",
+				success : function(result){
+					if(result == "ok") {
+						$("#"+id).empty();
+						$("#"+id).append('<li style="float:right;"id="deleteHeart'+roomNo+'"><button class="heart" onclick="deleteH('+roomNo+')"><img id="like" src="${ pageContext.servletContext.contextPath}/resources/images/하트.png" style="width:20px;height:20px;"></button></li>');
+						$("#"+id).show();
+					}else {
+						alert('잘못된 접근 입니다.');
+					}
+				},
+				error : function(request, status, errorData){
+					console.log("error code : " + request.satus + "\nMessage : " + request.responseText + "\nError" + errorData);
+				}								
+			});
+			
+		};
+		
+		function deleteH(room_no){
+			var roomNo = room_no;
+			var id = 'deleteHeart' + roomNo;
+			$.ajax({
+				url : "deleteMyRoom.do",
+				data : {room_no:roomNo},
+				type : "post",
+				success : function(result){
+					if(result == "ok"){
+						$("#"+id).empty();
+						$("#"+id).append('<li style="float:right;" id="insertHeart'+roomNo+'"><button class="heart" onclick="insertH('+roomNo+');"><img id="nolike" src="${ pageContext.servletContext.contextPath}/resources/images/빈하트.png" style="width:20px;height:20px;"></button></li>');
+						$("#"+id).show();
+					}else {
+						alert('잘못된 접근 입니다.');
+					}
+				},
+				error : function(request, status, errorData){
+					console.log("error code : " + request.satus + "\nMessage : " + request.responseText + "\nError" + errorData);
+				}			
+			});
+			
+		}
+
 </script>
     <style type="text/css">
 
       html,
       body {
-        height: 100%;
         margin: 0;
         padding: 0;
       }
       
-      #roomList {
-		width : 50%;
-		height : 80%;
-		position : relative;
-		right : 50%;
-		top : 30%;
-	}
+      a{
+      	text-decoration : none;
+      }
+      
+      #main {
+      	height  : 800px;
+      	position : relative;
+      }
+      
+      .container {
+      	width : 40%;
+      	height : 1600px;
+		display : grid;
+		grid-template-columns : 200px 500px;
+		grid-template-rows : repeat(8, 200px);
+		gap : 10px 5px;
+		padding-left : 10px;
+		}
+		
+		.container img{
+			width : 200px;
+			height : 200px;
+			padding : 0;
+		}
+		
+		.container #roomImg{
+			width : 200px;
+			height : 200px;
+			margin : 0;
+			border-radius : 5px;
+			
+		}
+		
+		.container #roomImg img{
+			width : 100%;
+			height : 100%;
+			margin : 0;
+			padding : 0;
+			border-radius : 5px;
+			
+		}
+		
+		.container li{
+			list-style : none;
+		}
+		
+		#RoomContent{
+			margin-left : 0;
+			border-top : 1px solid gray;
+			padding : 0;
+		}
+		
+		#items{	
+			height : 50px;	
+			padding : 10px;
+			
+		}
+		
+		#page{
+			padding : 10px;
+		}
 	
-	#map {
-		width : 50%;
-		height : 80%;
-		position : absolute;
-		left : 50%;
-		top : 30%;
-	}
-    img {
-    	width : 300px;
-    	height : 300px;
-    }
+		#map {	
+			width : 1100px;
+			height : 1000px;
+			position: sticky;			
+			left : 40%;
+ 			bottom : 150px;
+		}
+    
+    
+	    #moveNext{
+	    	width : 25px;
+	    	height : 25px;
+	    	border-radius : 50%;
+	    	background:#ffffff;
+	    	text-align : center;
+	    	line-height : 10px;
+	    	border : 1px solid gray;
+	    	box-shadow : 0 0 1px rgb(221,221,221);
+	    	font-weidth : bold;
+	    }    
+	    
+	    #page{
+	    	width : 40%;
+	    	height : 50px;
+	    }
+	    
+	    .heart {
+	    	background : none;
+	    	border : none;
+	    }
+	    
+	    
+	   
     </style>
 
 </head>
 <body>
-
-<c:import url="/WEB-INF/views/common/header.jsp"/>
+<c:import url="/WEB-INF/views/common/header.jsp" />
 <hr>
-    
+<div>
 <h1 align="center">숙소 리스트 페이지</h1>
-<div id="roomList">
-<button onclick="javascript:location.href='moveRoomBList.do'">리스트로 보기</button>
-
-<form action=""></form>
-<button onclick="javascript:location.href='moveRoomBList.do'">예약 가능 숙소 보기</button>
-
-
+<div id="main">
+<div id="items">
+${listCount }개 숙소 검색 . ${inMonth }월${inday }일 - ${outMonth }월${outday }일 . 게스트 ${people }명 <br>
 <button onclick="javascript:location.href='moveRoomBList.do'">리스트로 보기</button>
 
 <button onclick="moveFilterPage()">필터 추가하기</button>
-
-
-<c:forEach items="${list }" var="room">
-<table align="center" border="1" cellspacing="0" width="700">
-<tr><th colspan="3"><img src="${ pageContext.servletContext.contextPath}/resources/roomThumbnail/${ room.room_rename_file }" /></th></tr>
-<tr><td> 숙소 이름 </td> <td>숙소 주소 </td></tr>
-<tr><td><a href="moveDetailView.do?roomno=${room.room_no}">${room.room_name }</a>  </td><td id="address">${room.room_address }</td>
-</table>
+</div>
+<div class="container">
+<c:forEach items="${list }" var="room" >
+	<div id="roomImg" >
+		<img src="${ pageContext.servletContext.contextPath}/resources/roomThumbnail/${ room.room_rename_file }">
+	</div>
+	<div id="RoomContent">
+		<ul>
+			<li> 숙소 이름 : <a href="moveDetailView.do?room_no=${room.room_no}">${room.room_name }</a> </li>
+			<li> 숙소 주소 : ${room.room_address } </li>
+			<li> 금액 : 
+			<c:if test="${week eq 6 || week eq 7}">
+				<fmt:formatNumber value="${room.room_weekday }" type="currency" />
+			</c:if>
+			<c:if test="${week ne 6 && week ne 7}">
+				<fmt:formatNumber value="${room.room_weekend }" type="currency" />
+			</c:if>
+			</li>
+			<c:if test="${!empty loginMember}" >
+				<c:if test="${!empty mlist }">
+				
+					<c:set var="check" value="true" />				
+					<c:forEach items="${mlist }" var="roomNo">
+					
+						<c:if test="${check }" >
+							<c:if test="${room.room_no eq roomNo.room_no }">
+								<li style="float:right;"id="deleteHeart${room.room_no }"><button class="heart" onclick="deleteH(${room.room_no})"><img id="like" src="${ pageContext.servletContext.contextPath}/resources/images/하트.png" style="width:20px;height:20px;"></button></li>
+								<c:set var="check" value="false"/>
+							</c:if>
+						</c:if>	
+											
+					</c:forEach>
+					
+					<c:if test="${check}">
+						<li style="float:right;" id="insertHeart${room.room_no }"><button class="heart" onclick="insertH(${room.room_no});"><img id="nolike" src="${ pageContext.servletContext.contextPath}/resources/images/빈하트.png" style="width:20px;height:20px;"></button></li>
+					</c:if>
+					
+				</c:if>
+				<c:if test="${empty mlist }" >
+					<li style="float:right;" id="insertHeart${room.room_no }"><button class="heart" onclick="insertH(${room.room_no});"><img id="nolike" src="${ pageContext.servletContext.contextPath}/resources/images/빈하트.png" style="width:20px;height:20px;"></button></li>
+				</c:if>
+			
+			</c:if>
+			<c:if test="${empty loginMember }">
+				<li style="float:right;"><button class="heart" onclick="javascript:alert('로그인 후 이용해주세요.')"><img src="${ pageContext.servletContext.contextPath}/resources/images/빈하트.png" style="width:20px;height:20px;"></button></li>
+			
+			</c:if>
+			
+		</ul>
+	</div>
 </c:forEach>
-
-<div style="text-align:center;">
-	<c:if test="${ currentPage <= 1 }">
-	[맨처음] &nbsp;
-	</c:if>
-	<c:if test="${ currentPage > 1 }">
-	<a href="roomlist.do?page=1"> [맨처음]</a>
-	</c:if>
-
-<!-- 이전 그룹 으로 이동 처리 -->
-	<c:if test="${ (currentPage -10) < startPage and (currentPage - 10) > 1 }" >
-	<c:url var="list" value="roomlist.do">
-		<c:param name="page" value="${ startPage - 10 }" />
-	</c:url>
-	<a href="${ list }">[이전그룹]</a>
-	</c:if>
-	<c:if test="${ !((currentPage -10) < startPage and (currentPage - 10) > 1)  }" >
-	[이전그룹]&nbsp;
-	</c:if>
-
-<!-- 현재 페이지가 속한 Page Group의 숫자 출력 처리-->
+</div>
+<div id="page" style="text-align:center;">
+	<c:if test="${ currentPage == 1 }">
+	<button id="moveNext" onclick="moveNext(${currentPage})">&lt;</button>
+	</c:if>	
 
 <c:forEach var="p" begin="${ startPage }" end="${ endPage }" step="1">
-	<c:if test="${ p eq currentPage }">
-		<font color="red" size="4"><b>[${ p }]</b></font>
+	<c:if test="${ p eq currentPage }">	
+			<font weight="bold"><b>${ p }</b></font>			
 	</c:if>
 	<c:if test="${ p ne currentPage }">
-	<c:url var="ubl3" value="roomlist.do">
-		<c:param name="page" value="${ p }" />
-	</c:url>
-		<a href="${ ubl3 }">${ p }</a>	
+		<button id="moveBack" onclick="moveNext(${currentPage})">&gt;</button>
 	</c:if>
-</c:forEach>>
-
-<!-- 다음그룹으로 이동 처리 -->
-<c:if test="${ (currentPage + 10) > endPage and (currentPage + 10) < maxPage }" >
-<c:url var="list3" value="roomlist.do" >
-	<c:param name="page" value="${ endPage + 10 }" />
-</c:url>
-	<a href="${ list3 }">[다음그룹]</a>
-	</c:if>
-	<c:if test="${ (currentPage + 10) < endPage and (currentPage + 10) > maxPage }">
-	[다음그룹]&nbsp;
-</c:if>
-
-<!-- 맨끝 페이지로 이동 처리 -->
-<c:if test="${ currentpage >= maxPage }" >
-	[맨끝] &nbsp;
-	</c:if>
-	<c:if test="${ currentPage < maxPage }">
-	<c:url var="list4" value="roomlist.do">
-		<c:param name="page" value="${ maxPage }" />
-	</c:url>
-	<a href="${ list4 }">[맨끝]</a>
+</c:forEach>
+	
+	<c:if test="${ currentPage == maxPage }">
+	<button id="moveNext" onclick="moveNext(${currentPage})">&gt;</button>
 	</c:if>
 
 </div>
 
-
 </div>
-<div id="map" style="width:50%;height:100%;"></div>
+
+
+<div id="map"></div>
+</div>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=44262f7a543c0f64c3a92e6841cb0ddb&libraries=services"></script>
 <script>
@@ -157,62 +281,81 @@ var roomName = [];
 roomName.push('${room.room_name}');
 list.push('${room.room_roadaddress}');
 </c:forEach>
-
-
-
+var markerArr = [];
 for(var i = 0; i < '${fn:length(list)}'; i++){
-	console.log(roomName[i]);
+	var name = roomName[i];
+	var coords ="";
 	geocoder.addressSearch(list[i], function(result, status) {
-	 if (status === kakao.maps.services.Status.OK) {
-	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-	        // 결과값으로 받은 위치를 마커로 표시합니다
-	        var marker = new kakao.maps.Marker({
-	            map: map,
-	            position: coords
-	        });
-	        
-	     /* // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-	        var content = '<div class="customoverlay"><span class="title">'+
-	        roomName[i] + '</span></div>';
-	        // 커스텀 오버레이가 표시될 위치입니다 
-	        var position = coords;  
+		 if (status === kakao.maps.services.Status.OK) {
+			 coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+		        // 결과값으로 받은 위치를 마커로 표시합니다
+		        var marker = new kakao.maps.Marker({
+		            map: map,
+		            position: coords
+		        });
+		        markerArr.push('marker');
+		        console.log(markerArr);
 
-	        // 커스텀 오버레이를 생성합니다
-	        var customOverlay = new kakao.maps.CustomOverlay({
-	            map: map,
-	            position: position,
-	            content: content,
-	            yAnchor: 1 
-	        }); */
-	    } 
-	})   
+		    	/* 
+		    	 var content = '<div class="customoverlay"><span class="title">'+name+ '</span></div>';
+		    	    // 커스텀 오버레이를 생성합니다
+		    	    var customOverlay = new kakao.maps.CustomOverlay({
+		    	        map: map,
+		    	        position: coords,
+		    	        content: content,
+		    	        yAnchor: 1 
+		    	    });
+		        */
+		        var radius = 100;
+
+		     // 마커들이 담긴 배열
+		     markerArr.forEach(function(m) {
+		         var c1 = map.getCenter();
+		         var c2 = m.getPosition();
+		         var poly = new Polyline({
+		           // map: map, 을 하지 않아도 거리는 구할 수 있다.
+		           path: [c1, c2]
+		         });
+		         var dist = poly.getLength(); // m 단위로 리턴
+
+		         if (dist < radius) {
+		             m.setMap(map);
+		         } else {
+		             m.setMap(null);
+		         }
+		     });
+		}   
+	});
 }
 
-// 주소로 좌표를 검색합니다
-/* geocoder.addressSearch("제주특별자치도 서귀포시 토평로 15", function(result, status) {
+/* kakao.maps.event.addListener(map, 'center_changed', function() {
+    var radius = 100;
 
-    // 정상적으로 검색이 완료됐으면 
-     if (status === kakao.maps.services.Status.OK) {
-
-        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-        // 결과값으로 받은 위치를 마커로 표시합니다
-        var marker = new kakao.maps.Marker({
-            map: map,
-            position: coords
+    // 마커들이 담긴 배열
+    markers.forEach(function(m) {
+        var c1 = map.getCenter();
+        var c2 = m.getPosition();
+        console.log(c1);
+        console.log(c2);
+        var poly = new Polyline({
+          // map: map, 을 하지 않아도 거리는 구할 수 있다.
+          path: [c1, c2]
         });
+        var dist = poly.getLength(); // m 단위로 리턴
 
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">${room.room_name}</div>'
-        });
-        infowindow.open(map, marker);
+        if (dist < radius) {
+            m.setMap(map);
+        } else {
+            m.setMap(null);
+        }
+    });
+   });
+     */
 
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        map.setCenter(coords);
-    } 
-});     */
+
+
 </script>
+<c:import url="/WEB-INF/views/common/footer.jsp"/>
 
 </body>
 </html>

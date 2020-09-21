@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -13,18 +14,43 @@
   <body>
     <div class="mainhead">
          <div class="logo">
-           <img src="resources/images/무제.png" >
+           <a href="main.do"><img src="resources/images/무제.png"></a>
          </div>
     <div class="dropdown"><span class="myimg"></span></div>
-      <ul class="dropdown-list">
-          <li><a href="#">마이페이지</a></li>
-          <li><a href="#">내 쿠폰</a></li>
-          <li><a href="#">내가 정한 숙소</a></li>
-          <li><a href="#">사장님 신청</a></li>
-          <li><a href="#">알림</a></li>
-          <li><a href="#">고객센터</a></li>
-          <li><a href="#">로그아웃</a></li>
-      </ul>
+          <c:if test="${ !empty loginMember and  loginMember.admin_check eq 'Y' }">
+     	<ul class="dropdown-list">
+	     	<li onclick="javascript:location.href='moveAdminPage.do'"> 관리자 </li>
+	        <li onclick="winOpen1()"> 필터 관리</li>
+       		<li onclick="winOpen3()"> 알림 관리</li>
+	        <li onclick="winOpen2()"> 알림</li>
+	        <hr class="divider">
+	        <li> 고객센터</li>
+	        <li onclick="javascript:location.href='logout.do'"> 로그아웃</li>
+        </ul>
+     </c:if>
+     <c:if test="${empty loginMember }">
+     	<ul class="dropdown-list">
+     	   <li onclick="javascript:location.href='roomlist.do'"> 숙소</li>
+     	   <li onclick="javascript:location.href='tlist.do'"> 관광지</li>
+     	   <hr class="divider">
+	       <li> 고객센터</li>
+	       <li onclick="movePage()">로그인</li>
+        </ul>
+     </c:if>
+     <c:if test="${!empty loginMember and  empty loginMember.admin_check}">
+     <ul class="dropdown-list">
+       <li onclick="javascript:location.href='moveMyPage.do'"> 내 정보 보기</li>
+       <li onclick="javascript:location.href='moveMyRoom.do?userid=${loginMember.user_id }'"> 저장 목록</li>
+       <li onclick="winOpen2()"> 알림</li>
+       <li onclick="javascript:location.href='moveRoomWrite.do'"> 사장님 신청하기</li>
+       <hr class="divider">
+       <li onclick="javascript:location.href='roomlist.do'"> 숙소</li>
+       <li onclick="javascript:location.href='tlist.do'"> 관광지</li>
+       <hr class="divider">
+       <li> 고객센터</li>
+       <li onclick="javascript:location.href='logout.do'"> 로그아웃</li>
+     </ul>
+     </c:if>
   </div>
    <div class="thead"></div>
    		<div style="padding: 100px 0px 0px 0px;"></div>
@@ -80,6 +106,10 @@
 					  requestUrl: 'https://developers.kakao.com'
 					});
 				  }
+				function moveReviewPage() {
+					window.open("trlist.do", "리뷰",
+							"width=800, height=900, left=300, top=50, toolbar=no, menubar=no, scrollbars=no, menubar=no");
+				}
 			</script>
              <input type="checkbox" class="checkbox" id="checkbox" />
               <label for="checkbox">
@@ -129,57 +159,96 @@
             <span>&#9733;</span> 4.8 ( 135 ) &nbsp;&nbsp; ${ tour.tour_address }
               <hr class="tshr">
         </div>
+        <div style="padding: 190px 0px 0px 0px;"></div>
         <div class="tcontent"><div class="tct">프로그램</div><br>
-             ${ tour.tour_content }
+             <div class="tcon">${ tour.tour_content }</div>
             <hr class="tchr">
         </div>
+        <div style="padding: 190px 0px 0px 0px;"></div>
         <div class="tmap">
-          방문 장소
-          <div class="tcmap">
-        </div>
+          방문 장소<br>
+	<div id="map" style="width:1300px;height:400px;z-index:0;"></div>
+
+	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f30a1bf673317be5978a11f2b404a16b"></script>
+	<script>
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		    mapOption = {
+		        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+		        level: 6, // 지도의 확대 레벨
+		        mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
+		    }; 
+
+		// 지도를 생성한다 
+		var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+		// 지도 타입 변경 컨트롤을 생성한다
+		var mapTypeControl = new kakao.maps.MapTypeControl();
+
+		// 지도의 상단 우측에 지도 타입 변경 컨트롤을 추가한다
+		map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);	
+
+		// 지도에 확대 축소 컨트롤을 생성한다
+		var zoomControl = new kakao.maps.ZoomControl();
+
+		// 지도의 우측에 확대 축소 컨트롤을 추가한다
+		map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+		// 지도 중심 좌표 변화 이벤트를 등록한다
+		kakao.maps.event.addListener(map, 'center_changed', function () {
+			console.log('지도의 중심 좌표는 ' + map.getCenter().toString() +' 입니다.');
+		});
+
+		// 지도 확대 레벨 변화 이벤트를 등록한다
+		kakao.maps.event.addListener(map, 'zoom_changed', function () {
+			console.log('지도의 현재 확대레벨은 ' + map.getLevel() +'레벨 입니다.');
+		});
+
+		// 지도 영역 변화 이벤트를 등록한다
+		kakao.maps.event.addListener(map, 'bounds_changed', function () {
+			var mapBounds = map.getBounds(),
+				message = '지도의 남서쪽, 북동쪽 영역좌표는 ' +
+							mapBounds.toString() + '입니다.';
+
+			console.log(message);	
+		});
+
+		// 지도 시점 변화 완료 이벤트를 등록한다
+		kakao.maps.event.addListener(map, 'idle', function () {
+			var message = '지도의 중심좌표는 ' + map.getCenter().toString() + ' 이고,' + 
+							'확대 레벨은 ' + map.getLevel() + ' 레벨 입니다.';
+			console.log(message);
+		});
+
+		// 지도 클릭 이벤트를 등록한다 (좌클릭 : click, 우클릭 : rightclick, 더블클릭 : dblclick)
+		kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
+			console.log('지도에서 클릭한 위치의 좌표는 ' + mouseEvent.latLng.toString() + ' 입니다.');
+		});	
+
+		// 지도 드래깅 이벤트를 등록한다 (드래그 시작 : dragstart, 드래그 종료 : dragend)
+		kakao.maps.event.addListener(map, 'drag', function () {
+			var message = '지도를 드래그 하고 있습니다. ' + 
+							'지도의 중심 좌표는 ' + map.getCenter().toString() +' 입니다.';
+			console.log(message);
+		});
+	</script>
         <hr class="tmhr">
       </div>
+      <div style="padding: 80px 0px 0px 0px;"></div>
       <div class="treview">
         <span>&#9733;</span> 4.8 점 ( 135 ) 개
             <div class="reviewlist">
+            <c:forEach items="${ requestScope.list }" var="tour_review">
               <div class="one">
-                작성자 아이디 <br>
-                <div class="reviewdate">2020 / 09 / 10 </div><br>
-                너무 좋았습니다 ㅠㅠㅠㅠ 예상보다 훨씬 큰 감동과 경험을 하고 갑니다.
-                다음 번 제주도에 온다면 또 하고, 주변에도 추천해드릴려구요 !!
+                ${ tour_review.user_id } <br>
+                <div class="reviewdate"><fmt:formatDate value="${ tour_review.tour_review_date }" pattern="yyyy-MM-dd" /></div><br>
+					${ tour_review.tour_review_content }
               </div>
-              <div class="two">
-                작성자 아이디 <br>
-                <div class="reviewdate">2020 / 09 / 10 </div><br>
-                너무 좋았습니다 ㅠㅠㅠㅠ 예상보다 훨씬 큰 감동과 경험을 하고 갑니다.
-                다음 번 제주도에 온다면 또 하고, 주변에도 추천해드릴려구요 !!
-              </div>
-              <div class="three">
-                작성자 아이디 <br>
-                <div class="reviewdate">2020 / 09 / 10 </div><br>
-                소중한 경험이었습니다! 사진도 너무 예쁘게 나왔고 호스트분이 너무 친절하셨어요 ㅎㅎ
-              </div>
-              <div class="four">
-                작성자 아이디 <br>
-                <div class="reviewdate">2020 / 09 / 10 </div><br>
-                딸과 함께 예쁜 사진 찍고 싶어서 했는데 정말 특별한 경험으로 인생사진 남겼어요.
-                보는것보다 훨씬 더 좋았고요 원색이 사진이 잘나온다고 하셨는데 빨간색 원피스 강추입니다!! 정말 사진이 예술로 나와요
-              </div>
-              <div class="five">
-                작성자 아이디 <br>
-                <div class="reviewdate">2020 / 09 / 10 </div><br>
-                너무 친절하시고 센스있게 촬영해주셨어요!! 별자리도 보여주시고 밤하늘 별사진도 찍었구요
-                ㅠㅠ진짜 후회없이 체험했습니다! 다음 제주도에서도 또 이용하고싶어요^^
-              </div>
-              <div class="six">
-                작성자 아이디 <br>
-                <div class="reviewdate">2020 / 09 / 10 </div><br>
-                늦은시간이라 걱정했는데 위험하지도않고 너무 재밌고 특별한 경험이었어요^^
-                한번은 꼭 체험해봐야될 경험인거같아요 담번에 항마력좀 키워서 다시 재도전할 계획입니다^^
-              </div>
-              <button class="reviewmore">리뷰 더보기</button>
+             </c:forEach>
+              <button class="reviewmore" onclick="moveReviewPage()">리뷰 더보기</button>
          <hr class="trhr">
       </div>
+      </div>
+      <div style="padding: 140px 0px 0px 0px;"></div>
       <div class="moreimpo">
         알아두어야 할 사항 <br>
           <div class="moreimpocontent">

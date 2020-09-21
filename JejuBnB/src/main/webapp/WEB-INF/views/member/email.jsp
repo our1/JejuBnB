@@ -9,10 +9,8 @@
     <link rel="stylesheet" href="resources/css/bootstrap.min.css" >
     <link rel="stylesheet" href="resources/css/email.css" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
   </head>
   <body>
-
     <div class="container-fluid">
         <div class="row no-gutter">
             <div class="col-md-6 d-none d-md-flex bg-image"></div>
@@ -22,7 +20,7 @@
                         <div class="row">
                             <div class="col-lg-10 col-xl-7 mx-auto">
                               <div class="logo">
-                                <img src="resources/images/무제.png" >
+                                <a onclick='history.back(-1);'><img src="resources/images/무제.png" ></a>
                               </div>
                                <div class="em"> 이메일 인증 을 받아야 다음 단계 로 넘어 갈 수 있습니다 . </div>
                                 <form action="auth.do" method="post">

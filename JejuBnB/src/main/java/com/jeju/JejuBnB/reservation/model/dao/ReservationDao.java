@@ -14,12 +14,9 @@ public class ReservationDao {
 	@Autowired
 	private SqlSessionTemplate session;
 	
-	public Room selectOne(int room_no) {
-		return session.selectOne("reservationMapper.selectOne");
-	}
 	
 	public int insertReserv(Reservation reserv) {
-		return session.insert("reservationMapper.insertReserv");
+		return session.insert("reservationMapper.insertReserv", reserv);
 	}
 	
 	public Reservation selectReserv(int room_no) {

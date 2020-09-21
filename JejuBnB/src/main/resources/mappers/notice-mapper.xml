@@ -5,6 +5,7 @@
 <mapper namespace="noticeMapper">
 	<resultMap type="Notice" id="resultNotice">
 		<id column="notice_type_no" property="notice_type_no" />
+		<result property="notice_name" column="notice_name" />
 		<result property="notice_content1" column="notice_content1" />
 		<result property="notice_content2" column="notice_content2" />
 	</resultMap>	
@@ -18,17 +19,9 @@
 		<result property="from_user" column="from_user" />	
 	</resultMap>
 	
-	<resultMap type="Notice_Type" id="resultNType">
-		<id property="notice_type_no" column="notice_type_no"/>
-		<result property="notice_type_name" column="notice_type_name"/>
-	</resultMap>
 	
 	<select id="selectUserNotice" parameterType="string" resultMap="resultUNotice">
-		select * from user_notice where to_user = #{userid}
-	</select>
-	
-	<select id="selectNType" resultMap="resultNType">
-		select * from notice_type
+		select * from user_notice where from_user = #{userid}
 	</select>
 	
 	<select id="selectNotice" parameterType="int" resultMap="resultNotice">
@@ -49,5 +42,17 @@
 	
 	<delete id="deleteUserNotice" parameterType="int">
 		delete from user_notice where notice_no = #{noticeno}
+	</delete>
+	
+	<delete id="deleteNotice" parameterType="java.util.List" statementType="CALLABLE">
+		{
+		call
+		declare
+		begin
+		<foreach collection="list" item="noticeNo">
+			delete notice where notice_type_no = #{noticeNo};
+		</foreach>
+		end
+		}
 	</delete>
 </mapper>

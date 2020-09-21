@@ -21,3 +21,4 @@ tabLink.forEach((el) => {
 document.querySelector("#" + content).classList.add("active");
 btnTarget.classList.add("active");
 }
+

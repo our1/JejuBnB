@@ -29,8 +29,6 @@
 
 .footer__logo {
   font-family: 'Alex Brush', cursive;
-  font-weight: 400;
-  font-size: 2rem;
 }
 
 .footer__addr h2 {
@@ -108,7 +106,7 @@
 }
 
 .heart {
-  color: #2f2f2f;
+  color: #F15F5F;
 }
 
 @media screen and (min-width: 24.375em) {
@@ -146,7 +144,7 @@
     <address>
       jbk3148@gmail.com / 010 7151 3148<br>
 
-      <a class="footer__btn" href="mailto:example@gmail.com">Email Us</a>
+      <a class="footer__btn" href="mailto:jbk3148@gmail.com">Email Us</a>
     </address>
   </div>
 
@@ -222,7 +220,7 @@
     <p>&copy; 2020 Something. All rights reserved.</p>
 
     <div class="legal__links">
-      <span>Made with <span class="heart">♥</span> remotely from Anywhere</span>
+      <span>Made with <span class="heart">♥</span> remotely from ManDoRong</span>
     </div>
   </div>
 </footer>

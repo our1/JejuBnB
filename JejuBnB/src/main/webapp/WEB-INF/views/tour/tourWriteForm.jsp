@@ -5,11 +5,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
-<script src="//cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
-
 <link href="resources/css/tourWriteForm.css" rel="stylesheet">
-
+<!-- jquery -->
+<script type="text/javascript" src="resources/js/jquery-3.5.1.min.js" ></script>
+<!-- ckeditor 4 -->
+<link rel="stylesheet" href="resources/ckeditor/contents.css">
+﻿
 <title>JejuBnB</title> 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
 <!-- !!중요. - autoload=false 를 반드시 붙혀주셔야 합니다.-->
@@ -54,7 +55,10 @@
 	 	<input type="date" placeholder="끝나는 날짜">
 	 </fieldset>
 	 <fieldset class="ft">
-	 <textarea id = "description" name = "description" rows = "5" cols = "80" placeholder = "상품설명을 입력하세요"></textarea>
+	 <script type="text/javascript">
+		CKEDITOR.replace('ckeditor'); // 에디터로 생성
+     </script>
+	 <textarea id="ckeditor" name="tour_content" placeholder="상품설명을 입력하세요"></textarea>
          <br>
 	 </fieldset>
 	 <fieldset class="ff">
@@ -67,9 +71,10 @@
 	 <textarea id="moreinfo" placeholder=" 알아두어야 할 사항 을 입력하세요"></textarea> <br>
 	 </fieldset>
 <input type="submit" value="작성 완료" class="co">
-</form>
+</form> 
 <div style="padding: 100px 0px 0px 0px;"></div>
 <c:import url="/WEB-INF/views/common/footer.jsp"/>
+<script src="//cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
 <script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
 </body>
 </html>

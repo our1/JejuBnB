@@ -14,7 +14,7 @@
 <c:import url="/WEB-INF/views/common/header.jsp" />
 
 <body onload="window.open('cou.do','쿠폰',
-		'width=400px, height=450px, left=300px, top=50px, toolbar=0, status=yes, menubars=0, scrollbars=0, resizable=0, location=0, directories=0')">
+		'width=400px, height=430px, left=300px, top=50px, toolbar=0, status=yes, menubars=0, scrollbars=0, resizable=0, location=0, directories=0')">
 
 
      <video autoplay muted loop id="myVideo">

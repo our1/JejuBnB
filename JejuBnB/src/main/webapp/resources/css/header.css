@@ -1,9 +1,15 @@
+	@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+	body {
+      margin : 0;
+      padding : 0;
+	}
     .logo {
       font-family: 'Alex Brush', cursive;
       font-size: 35px;
       position: relative;
       left: 14%;
       top: 17%;
+      color: lightcoral;
     }
     .form-inline {
         display: inline-block;
@@ -12,13 +18,12 @@
 		background: transparent;;
 		padding-left: 16px;
 		padding-right: 16px;
-		border-bottom: 1px solid #d6d6d6;
 		box-shadow: 0 0 4px rgba(0,0,0,.1);
 		position: fixed;
     	width: 100%;
     	border : none;
     	z-index: 10000;
-        transition: all 0.5s ease-in-out;
+        transition: all 0.4s ease-in-out;
 	}
 	.nav img {
 		border-radius: 50%;
@@ -32,34 +37,12 @@
 		color: #555;
 		padding-left: 0;
 		padding-right: 50px;
-		font-family: 'Merienda One', sans-serif;
+		font-family: 'Roboto', sans-serif;
 	}
 	.navbar .navbar-brand i {
 		font-size: 20px;
 		margin-right: 5px;
 	}
-	.search-box {
-        position: relative;
-    }
-    .search-box input {
-		box-shadow: none;
-        padding-right: 35px;
-        border-radius: 3px !important;
-    }
-	.search-box .input-group-addon {
-        min-width: 35px;
-        border: none;
-        background: transparent;
-        position: absolute;
-        right: 0;
-        z-index: 9;
-        padding: 7px;
-		height: 100%;
-    }
-    .search-box i {
-        color: #a0a5b1;
-		font-size: 19px;
-    }
 	.navbar ul li i {
 		font-size: 18px;
 	}
@@ -74,14 +57,15 @@
 		border-radius: 1px;
 		border-color: #e5e5e5;
 		box-shadow: 0 2px 8px rgba(0,0,0,.05);
+		cursor: pointer;
 	}
 	.navbar .dropdown-menu li a {
-		color: #777;
+		color: #fff;
 		padding: 8px 20px;
 		line-height: normal;
 	}
 	.navbar .dropdown-menu li a:hover, .navbar .dropdown-menu li a:active {
-		color: #333;
+		color: #fff;
 	}
 	.navbar .dropdown-menu .material-icons {
 		font-size: 21px;
@@ -102,6 +86,7 @@
 	.navbar ul.nav li a.notifications, .navbar ul.nav li a.messages {
 		position: relative;
 		margin-right: 10px;
+		color : #fff;
 	}
 	.navbar ul.nav li a.messages {
 		margin-right: 20px;
@@ -132,13 +117,13 @@
 	}
   .dropdown-menu li {
     margin-left: 7%;
-    font-family: 'Cafe24Oneprettynight';
+    font-family: 'Roboto', sans-serif;
     font-size: 17px;
   }
   #na.active {
-    background: #fff;
+    background-color : rgba(25, 25, 25, 0.85);
     -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
     -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
     border : none;
-}
+  }

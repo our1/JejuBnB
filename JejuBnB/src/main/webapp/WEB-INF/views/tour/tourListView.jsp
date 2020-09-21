@@ -81,7 +81,7 @@
         <div id="map" style="width:100%;height:100%"></div> <!-- 지도를 표시할 div 입니다 -->
     </div>
 </div>
-<button class="twri" onclick="javascript:location.href='tmovewrite.do'">관광지 작성 하기</button>
+<button class="twri" onclick="javascript:location.href='test.do'">관광지 작성 하기</button>
 <div style="padding: 100px 0px 0px 0px;"></div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f30a1bf673317be5978a11f2b404a16b&libraries=services"></script>
 <script>
@@ -102,7 +102,7 @@ var tourName = [];
 tourName.push('${tour.tour_name}');
 list.push('${tour.tour_roadaddress}');
 </c:forEach>
-
+console.log(list);
 
 
 for(var i = 0; i < '${fn:length(list)}'; i++){

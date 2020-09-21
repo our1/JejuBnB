@@ -8,23 +8,21 @@
 		<result property="user_id" column="user_id" />
 		<result property="coupon_no" column="coupon_no" />
 	</resultMap>
+	
+	<select id="selectList" resultType="MyCoupon" parameterType="MyCoupon">
+		select * from my_coupon 
+		 where coupon_no= #{coupon_no} and user_id = #{user_id}
+	</select>
+	
+	<insert id="insertMyCoupon" parameterType="MyCoupon">
+	insert into my_coupon
+	values(#{coupon_no},#{user_id})
+	</insert>
 
 <!-- 	
-	<insert id="insertMember" parameterType="Member">
-	insert into member
-	values (#{ user_id },#{ user_pwd }, #{user_name}, #{birthday}, #{phone},
-	<if test="facebook_id != null">
-	 #{facebook_id}, null, null) 
-	 </if>
-	 <if test="facebook_id == null">
-	  null, null, null) 
-	  </if>
-	</insert>
 	
-	<select id="loginCheck" parameterType="Member"  resultType="Member">
-		select * from member 
-		where user_id = #{user_id}
-	</select>
+	
+	
 	
 	<select id="facebookLoginCheck" parameterType="Member"  resultType="Member">
 		select * from member 

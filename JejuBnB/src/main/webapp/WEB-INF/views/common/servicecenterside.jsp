@@ -71,10 +71,10 @@
 <body>
 <div id="mysidenav" class="sidenav" value="고객센터">
 		<a href="#" class="closebtn" onclick='closeNav()'>x</a>
-		<%-- <c:if test="${!empty loginMember and  loginMember.admin_check eq 'Y' }"> --%>
-				<a href="eventPage.do">이벤트</a>
+		<a href="eventPage.do">이벤트</a>
+		<c:if test="${!empty loginMember and  loginMember.admin_check eq 'Y' }"> 		
 		<a href="couponPage.do">쿠폰</a>
-	<%-- 	</c:if> --%>
+		</c:if> 
 		<a href="policyPage.do">약관 및 개인정보</a>
 		<a href="#">1:1문의</a>
 		<a href="#">자주묻는질문(FAQ)</a>

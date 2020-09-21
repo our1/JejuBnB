@@ -4,7 +4,14 @@ import java.sql.Date;
 
 import com.jeju.JejuBnB.coupon.model.vo.Coupon;
 
-public class Collection {
+public class Collection implements java.io.Serializable{
+	
+	private static final long serialVersionUID = 9231L;
+	
+	public Collection() {
+		
+	}
+	
 	private int event_no;
 	private String event_name;
 	private String event_content;

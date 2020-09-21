@@ -21,6 +21,11 @@ public class EventServiceImpl implements EventService{
 	}
 	
 	@Override
+	public Collection selectEvent(int event_no) {
+		return eventDao.selectEvent(event_no);
+	}
+	
+	@Override
 	public int insertEvent(Event event) {
 		return eventDao.insertEvent(event);
 	}

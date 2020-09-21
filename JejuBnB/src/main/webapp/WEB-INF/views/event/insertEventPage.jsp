@@ -15,9 +15,9 @@
 <form action="insertEvent.do" method="post" enctype="multipart/form-data">
 <h1 align="center">이벤트 등록</h1>
 <input type="text" name="event_name" placeholder="이벤트 제목"><br>
-기간 : <input type="date" name="coupon_begin">&nbsp;-&nbsp;<input type="date" name="coupon_end"><br>
-썸네일 이미지 : <input type="file" name="sum_fimg"><br>
-이벤트 이미지 : <input type="file" multiple="multiple" name="event_fimg"><br>
+번호 : <input type="text" name="coupon_no"><br>
+썸네일 이미지 : <input type="file" name="sfile"><br>
+이벤트 이미지 : <input type="file" multiple="multiple" name="efile"><br>
 쿠폰 안내 내용 : <input type="text" name="event_content"> 
 <input type="submit" value="등록">
 </form>

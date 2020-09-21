@@ -37,9 +37,9 @@
 <c:forEach items="${event }" var="ev">
 <ul align="center">
 <div>${listcount }개 이벤트</div>
-<li>${ev.event_name }</li><br>
-<a>기한 : ${ev.coupon_begin } ~ ${ev.coupon_end }</a>
-<img src="">
+<li><a href="eventDetailView.do?event_no=${ev.event_no}">${ev.event_name }</li><br>
+<a>기한 : ${ev.coupon_begin } ~ ${ev.coupon_end }</a><br>
+<img src="${pageContext.servletContext.contextPath}/resources/eventsum/${ev.sum_rimg}" width="400" height="200">
 </ul>
 </c:forEach>
 <div id="page" style="text-align:center;">
@@ -63,8 +63,10 @@
 <br>
 <tr>
 	<th colspan = "2" align="center" padding="10">
+	<c:if test="${!empty loginMember and  loginMember.admin_check eq 'Y' }">
 		<a href="insertEventPage.do">등록</a>
 	<input type="submit" value="삭제">
+	</c:if>
 		<a href="main.do"> 시작페이지로 </a>
 	</th>
 </tr>

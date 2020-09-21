@@ -57,53 +57,61 @@ public class EventController {
 		return mv;
 	}
 	
+	@RequestMapping("eventDetailView.do")
+	public ModelAndView moveDetailEvent(ModelAndView mv,@RequestParam("event_no") int event_no) {
+		Collection event = eventService.selectEvent(event_no);
+		if(event != null) {
+			mv.setViewName("event/eventDetailView");
+			mv.addObject("event", event);
+		}else {
+			mv.setViewName("common/error");
+			mv.addObject("message", "이벤트 페이지 조회 실패");
+		}
+		return mv;
+	}
+	
 	@RequestMapping(value="insertEvent.do", method=RequestMethod.POST)
 	public String EventInsert(Event event, Model model, MultipartHttpServletRequest mrequest,
-			HttpServletRequest request,@RequestParam(value="ofile", required = false) MultipartFile ofile) {
+			HttpServletRequest request,@RequestParam(value="efile") MultipartFile efile,
+			@RequestParam(value="sfile") MultipartFile sfile) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		
-		if(ofile != null) {
-			String orgname = ofile.getOriginalFilename();
+		if(efile != null) {
+			String orgname = efile.getOriginalFilename();
 			
-			String savePath = request.getSession().getServletContext().getRealPath("resources/eventsum");
-			event.setEvent_fimg(ofile.getOriginalFilename());
+			String savePath = request.getSession().getServletContext().getRealPath("resources/eventimg");
+			event.setEvent_fimg(efile.getOriginalFilename());
 			String rename = sdf.format(new java.sql.Date(System.currentTimeMillis()));
-			rename += "." + ofile.getOriginalFilename().substring(ofile.getOriginalFilename().lastIndexOf(".") + 1);
+			rename += "." + efile.getOriginalFilename().substring(efile.getOriginalFilename().lastIndexOf(".") + 1);
 			
 			try {
-				ofile.transferTo(new File(savePath + "\\" + rename));
+				efile.transferTo(new File(savePath + "\\" + rename));
 			}catch(IllegalStateException | IOException e){
 				e.printStackTrace();
 			}
-			event.setEvent_fimg(ofile.getOriginalFilename());
+			event.setEvent_fimg(efile.getOriginalFilename());
 			event.setEvent_rimg(rename);
 		}
 		
-		List<MultipartFile> fileList = mrequest.getFiles("file");
-		ArrayList<Event> eflist = new ArrayList<Event>();
-		String savePath1 = request.getSession().getServletContext().getRealPath("resources/eventimg");
-		
-		for(MultipartFile mf : fileList) {
-			Event eimg = new Event();
-			String original = mf.getOriginalFilename();
-			eimg.setEvent_fimg(original);
-			String rename = sdf.format(new java.sql.Date(System.currentTimeMillis()));
-			rename += "." + original.substring(original.lastIndexOf(".") + 1);
+		if(sfile != null) {
+			String orgname1 = sfile.getOriginalFilename();
+			
+			String savePath1 = request.getSession().getServletContext().getRealPath("resources/eventsum");
+			event.setSum_fimg(sfile.getOriginalFilename());
+			String rename1 = sdf.format(new java.sql.Date(System.currentTimeMillis()));
+			rename1 += "." + sfile.getOriginalFilename().substring(sfile.getOriginalFilename().lastIndexOf(".") + 1);
 			
 			try {
-				mf.transferTo(new File(savePath1 + "\\" + rename));
-			}catch(IllegalStateException | IOException e) {
+				sfile.transferTo(new File(savePath1 + "\\" + rename1));
+			}catch(IllegalStateException | IOException e){
 				e.printStackTrace();
-				model.addAttribute("message", "추가사진 저장 실패");
-				return "common/error";
 			}
-			eimg.setEvent_fimg(original);
-			eimg.setEvent_rimg(rename);
-			eflist.add(eimg);
+			event.setSum_fimg(sfile.getOriginalFilename());
+			event.setSum_rimg(rename1);
 		}
-		
+	
 		int result = eventService.insertEvent(event);
-		if(result > 0){
+		if(result > 0){	
 			return "redirect:eventPage.do";
 		}else {
 			model.addAttribute("message", event + "이벤트 등록 실패");

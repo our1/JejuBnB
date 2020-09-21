@@ -14,5 +14,6 @@ public interface EventService {
 	int insertEvent(Event event);
 	int updateEvent(Event event);
 	int deleteEvent(String event_no);
+	Collection selectEvent(int event_no);
 	
 }

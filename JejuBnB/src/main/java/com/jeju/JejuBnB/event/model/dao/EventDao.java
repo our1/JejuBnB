@@ -29,6 +29,10 @@ public class EventDao {
 		return (ArrayList<Collection>)list;
 	}
 	
+	public Collection selectEvent(int event_no) {
+		return session.selectOne("eventMapper.selectEvent", event_no);
+	}
+	
 	public int getListCount() {
 		return session.selectOne("eventMapper.getListCount");
 	}

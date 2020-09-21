@@ -42,7 +42,6 @@ public class PolicyController {
 	public String policyInsert(Policy policy, Model model) {
 		
 		if(policyService.insertPolicy(policy) > 0) {
-			logger.info(policy.toString());
 			return "redirect:/policyPage.do";
 		
 		}else {

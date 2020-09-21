@@ -71,6 +71,20 @@ public class MessageController {
 		return mv;
 	}
 	
+	// 회원 메세지 리스트 페이지
+	@RequestMapping("moveMessageList.do")
+	public ModelAndView moveMessageList(ModelAndView mv, Message message) {
+		ArrayList<Message> messagelist = messageService.selectMessageList(message);
+		if(messagelist != null) {
+			mv.addObject("messagelist", messagelist);
+			mv.setViewName("message/messageList");
+		}else {
+			mv.addObject("message", "message 리스트를 가지고 오지 못했습니다.");
+			mv.setViewName("common/error");
+		}
+		return mv;
+	}	
+	
 	// 임시 메세지 버튼 페이지 이동
 	@RequestMapping("moveMessageTemp.do")
 	public String moveMessageTemp() {

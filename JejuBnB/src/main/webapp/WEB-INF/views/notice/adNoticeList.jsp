@@ -10,14 +10,25 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-	
+	$("#update").on('click', function(){
+		$.ajax({
+			url : "adNoticeUpdate.do",
+			type : "post",
+			data : {notice_name=$("#notice_name").val() , notice_content1 = $("#notice_content1").val() , notice_content2=$("#notice_content2").val(), notice_type_no=},
+			success : function(data) {
+				
+			}
+		});
+	});
 });
 
 function updateN(name, content1, content2){
+	 $().html('<input type="text" name="notice_type_no" value="${notice.notice_type_no}">');
 	 $("#type").html('<input type="text" name="notice_name" value="'+name+'">');
      $("#content1").html('<input type="text" name="notice_content1" value="'+content1+'">');
      $("#content2").html('<input type="text" name="notice_content2" value="'+content2+'">');
      $("#updateForm").html('<button id="update" onclick="update()">수정</button>')
+     
 }
 
 function noch(){

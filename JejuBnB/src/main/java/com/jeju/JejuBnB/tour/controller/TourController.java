@@ -1,13 +1,19 @@
 package com.jeju.JejuBnB.tour.controller;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.sql.Date;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.jeju.JejuBnB.tour.model.service.TourService;
 import com.jeju.JejuBnB.tour.model.vo.Tour;
 import com.jeju.JejuBnB.tour.model.vo.Tour_Image;
+import com.jeju.JejuBnB.tour.model.vo.Tour_Review;
 
 @Controller
 public class TourController {
@@ -88,11 +95,6 @@ public class TourController {
 		return "tour/tourWriteForm";
 	}
 	
-	@RequestMapping("summer.do")
-	public String MoveSummer() {
-		return "tour/test";
-	}
-	
 	@RequestMapping(value="tinsert.do", method = RequestMethod.POST)
 	public String TourInsert(Tour tour, Model model, MultipartHttpServletRequest mrequest, HttpServletRequest request,
 	        @RequestParam(value = "ofile", required = false) MultipartFile ofile, @RequestParam("address") String address ) {
@@ -152,6 +154,101 @@ public class TourController {
 			model.addAttribute("message", "등록 실패");
 			return "common/error";
 		}
+	}
+	
+	
+	@RequestMapping("trwrite.do")
+	public String MoveReviewWrite() {
+		return "tour/tourReviewWriteForm";
+	}
+	
+	@RequestMapping("cou.do")
+	public String cou() {
+		return "tour/cou";
+	}
+	
+	@RequestMapping("test.do")
+	public String test() {
+		return "tour/test";
+	}
+	
+	@RequestMapping("tdelete.do")
+	public String deleteTour(@RequestParam("tour_no") int tour_no, Model model) {
+		int result = tourService.deleteTour(tour_no);
+		if (result > 0) {
+			return "redirect:/tlist.do";
+		} else {
+			model.addAttribute("message", "관광지 게시글  삭제 실패");
+			return "common/error";
+		}
+	}
+	
+    @RequestMapping("imageUpload.do")
+    public void imageUpload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile upload)
+            throws Exception {
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/html; charset=utf-8");
+        String fileName = upload.getOriginalFilename();
+        byte[] bytes = upload.getBytes();
+        String uploadPath = "resources/tourImage";
+        
+        OutputStream out = new FileOutputStream(new File(uploadPath + fileName));
+ 
+        out.write(bytes);
+ 
+        String callback = request.getParameter("CKEditorFuncNum");
+ 
+        PrintWriter printWriter = response.getWriter();
+        String fileUrl = request.getContextPath() + "/tourImage/" + fileName;
+        printWriter.println("<script>window.parent.CKEDITOR.tools.callFunction(" + callback + ",'" + fileUrl
+                + "','이미지가 업로드되었습니다.')" + "</script>");
+        printWriter.flush();
+    }
+    
+    @RequestMapping("trlist.do")
+    public ModelAndView ReviewList(ModelAndView mv,Tour_Review tour_review) {
+    	List<Tour_Review> list = tourService.selectTourReview(tour_review);
+    	
+    	Map<String,Object> map = new HashMap<>();
+    	
+    	map.put("list", list);
+    	
+    	mv.addObject("map", map);
+    	
+    	mv.setViewName("tour/tourReviewList");
+    	
+    	return mv;
+    }
+
+    @RequestMapping("trinsert.do")
+    public void insertReview(Tour_Review tour_review, HttpSession session, @RequestParam(value="tour_review_no") int tour_review_no, @RequestParam(value="tour_review_content") String tour_review_content, @RequestParam(value="tour_score") int tour_score) {
+    	logger.info("" + tour_review);
+    	
+    	if ( session.getAttribute("user_id") != null) {
+    		String user_id = (String)session.getAttribute("user_id");
+    		tour_review.setUser_id(user_id);
+    	}
+    	
+    	tour_review.setTour_review_content(tour_review_content);
+    	tour_review.setTour_score(tour_score);
+    	
+    	tourService.insertTourReview(tour_review);
+    	
+    }
+
+
+	@RequestMapping("trupdate.do")
+	public String updateReview(@RequestParam(value="tour_review_no") int tour_review_no, @RequestParam(value="tour_review_content") String tour_review_content,
+			@RequestParam(value="tour_score") int tour_score, @RequestParam(value="user_id") String user_id, Tour_Review tour_review ) {
+		
+			tour_review.setTour_review_no(tour_review_no);
+			tour_review.setTour_review_content(tour_review_content);
+			tour_review.setTour_score(tour_score);
+			tour_review.setUser_id(user_id);
+			
+			tourService.updateTourReview(tour_review);
+			
+			return "tour/tourReviewList";
 	}
 }
 

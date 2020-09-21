@@ -50,6 +50,13 @@
 	});
   FB.logout(function(response) {
 	});
+  function click() {
+	  if (event.button==2) {
+	    location.href="javascript:history.back();";
+	  }
+	}
+
+	document.onmousedown=click
   </script>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v8.0&appId=341232443584667&autoLogAppEvents=1" nonce="4fmSTMsw"></script>
 </head>
@@ -74,14 +81,14 @@
                                     </div>
                                     <div class="custom-control custom-checkbox mb-3">
                                         <input id="customCheck1" type="checkbox" checked class="custom-control-input">
-                                        <label for="customCheck1" class="custom-control-label">Remember password</label>
-                                        <a href="searchpwdPage.do" class="findpas">Forgot Password</a>
-                                        <a href="email.do" class="enroll">Sign up</a>
+                                        <label for="customCheck1" class="custom-control-label">비밀번호 기억하기</label> 
                                     </div>
-                                    <button type="submit" class="signin__btn">Sign in</button>
+                                    <button type="submit" class="signin__btn">로그인</button>
                                     <div class="separator">
                                       <p>OR</p>
                                     </div>
+                                  		<a href="email.do" class="enroll">회원 가입</a> <br>
+                                        <a href="searchpwdPage.do" class="findpas">비밀번호 찾기</a>
                                     <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" data-size="large" data-button-type="login_with" data-layout="rounded" data-auto-logout-link="false" data-use-continue-as="false" class="google__btn">
 								          <i class="fa fa-facebook"></i>
 								          Sign in with FaceBook
@@ -101,5 +108,6 @@
       <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
       <script src="resources/js/jquery-3.3.1.slim.min.js"></script>
       <script src="resources/js/bootstrap.bundle.min.js"></script>
+      <script src="http://oxtag.com/html/js/js1/back.js"></script>
 </body>
 </html>

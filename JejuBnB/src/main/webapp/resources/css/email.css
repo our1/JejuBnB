@@ -1,9 +1,4 @@
-@font-face {
-       font-family: 'Cafe24Oneprettynight';
-       src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff');
-       font-weight: normal;
-       font-style: normal;
-     }
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
     .login,
     .image {
     min-height: 100vh;
@@ -15,13 +10,13 @@
     }
     .logo img{
       position: relative;
-      left : 16%;
+      left : 6%;
     }
     .rounded-pill {
       border-radius: 8px;
     }
     .em {
-      font-family: 'Cafe24Oneprettynight';
+      font-family: 'Roboto', sans-serif;
       position: relative;
       left: 4%;
       top: -3%;
@@ -38,7 +33,7 @@
     border: none;
     cursor: pointer;
     font-size: 14px;
-    font-family: 'Cafe24Oneprettynight';
+    font-family: 'Roboto', sans-serif;
     box-shadow: 0 15px 30px rgba(255, 193, 158, 0.36);
     -webkit-transition: .2s linear;
     transition: .2s linear;

@@ -7,6 +7,7 @@
     <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>JejuBnB</title>
+   		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="resources/css/tourNoMapList.css" >
   </head>
   <body>
@@ -55,7 +56,7 @@
      <button class="live">자연</button>
      <button class="cook">맛집</button>
      <button class="act">액티비티</button>
-     <button class="movelist" onclick="javascipt:location.href='tlist.do'"></button>
+     <button class="movelist" onclick="javascipt:location.href='tlist.do'"><i class="fas fa-map-marked-alt"></i></button>
      <div style="padding: 100px 0px 0px 0px;"></div>
        <div class="tourlist">
 	       <c:forEach items="${ requestScope.list }" var="t">

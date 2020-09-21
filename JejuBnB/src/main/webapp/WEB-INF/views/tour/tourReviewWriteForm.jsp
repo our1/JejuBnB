@@ -89,52 +89,12 @@ textarea {
 </head>
 <body>
 <h1 class="footer__logo" style="margin-top : 0px;">JejuBnB</h1>
-<form action="treviewinsert.do" method="post">
+<form action="trinsert.do" method="post">
+<input type="hidden" name="tour_review_no">
+<input type="number" name="tour_score">
+<textarea rows="" cols="" placeholder="리뷰를 작성해주세요" name="tour_review_content"></textarea>
 <input type="hidden" name="user_id">
-<div class="startRadio">
-    <label class="startRadio__box">
-        <input type="radio" name="star" id="">
-        <span class="startRadio__img"><span class="blind">별 1개</span></span>
-    </label>
-    <label class="startRadio__box">
-        <input type="radio" name="star" id="">
-        <span class="startRadio__img"><span class="blind">별 1.5개</span></span>
-    </label>
-    <label class="startRadio__box">
-        <input type="radio" name="star" id="">
-        <span class="startRadio__img"><span class="blind">별 2개</span></span>
-    </label>
-    <label class="startRadio__box">
-        <input type="radio" name="star" id="">
-        <span class="startRadio__img"><span class="blind">별 2.5개</span></span>
-    </label>
-    <label class="startRadio__box">
-        <input type="radio" name="star" id="">
-        <span class="startRadio__img"><span class="blind">별 3개</span></span>
-    </label>
-    <label class="startRadio__box">
-        <input type="radio" name="star" id="">
-        <span class="startRadio__img"><span class="blind">별 3.5개</span></span>
-    </label>
-    <label class="startRadio__box">
-        <input type="radio" name="star" id="">
-        <span class="startRadio__img"><span class="blind">별 4개</span></span>
-    </label>
-    <label class="startRadio__box">
-        <input type="radio" name="star" id="">
-        <span class="startRadio__img"><span class="blind">별 4.5개</span></span>
-    </label>
-    <label class="startRadio__box">
-        <input type="radio" name="star" id="">
-        <span class="startRadio__img"><span class="blind">별 5개</span></span>
-    </label>
-        <label class="startRadio__box">
-        <input type="radio" name="star" id="">
-        <span class="startRadio__img"><span class="blind">별 5.5개</span></span>
-    </label>
-</div>
-<textarea rows="" cols="" placeholder="리뷰를 작성해주세요"></textarea>
-</form>
 <button type="submit" value="작성 완료">리뷰 달기</button>
+</form>
 </body>
 </html>

@@ -76,14 +76,25 @@
 		select * from (select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
 		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from room where room_no != 0
 		<foreach collection="list" item="room">
-		and room_no != #{room.room_no}
+			and room_no != #{room.room_no}
 		</foreach>
+		<if test="Stpeople != null" >
+			<![CDATA[
+				and st_num_people <= #{Stpeople}
+			]]>
+		</if>
+		
+		<if test="Stpeople == null" >
+			<![CDATA[
+				and st_num_people <= #{people}
+			]]>
+		</if>
 		<![CDATA[
 		and max_people >= #{people}
-		and st_num_people <= #{people}
 		
+		
+			
 		order by room_no)
-		
 		where rnum >= #{startRow} and rnum <= #{endRow}
 		]]>
 	</select>
@@ -132,8 +143,8 @@
 		select count(reply_no) from review where room_no = #{ room_no }
 	</select> 
 	
-	<select id="selectRoomNo" parameterType="string" resultMap="resultRoomNo">
-		select * from (select rownum rnum, room_no from room where user_id = #{userid} order by room_no desc) where rnum = 1
+	<select id="selectRoomNo" parameterType="string" resultType="int">
+		select nvl(max(room_no),1) from room where user_id = #{uid}
 	</select>
 	
 	<select id="selectSearchFilter" parameterType="java.util.HashMap" resultMap="resultList">
@@ -233,7 +244,7 @@
 	</insert>
 	
 	<insert id="insertRoomFile" parameterType="Room_File" >	
-			insert into room_file values((select nvl(max(room_file_no),0) from room_file ) + 1, #{room_no}, #{original_file}, #{rename_file})
+			insert into room_file values((select nvl(max(room_file_no),0) +1 from room_file ), #{room_no}, #{original_file}, #{rename_file})
 	</insert>
 	
 	<update id="updateRoom" parameterType="Room">

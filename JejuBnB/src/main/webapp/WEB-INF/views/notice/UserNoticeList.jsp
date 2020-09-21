@@ -72,8 +72,8 @@
 	.alr {
 		font-family: 'Cafe24Oneprettynight';
 		position: relative;
-    	top: -382%;
-    	left: 5%;
+    top: -382%;
+    left: 5%;
 	}
 	.xbu {
 		border : none;

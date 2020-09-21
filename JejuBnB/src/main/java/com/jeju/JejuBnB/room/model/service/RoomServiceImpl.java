@@ -51,8 +51,9 @@ public class RoomServiceImpl implements RoomService{
 		return roomDao.selectRoom(roomno);
 	}
 
+
 	@Override
-	public Room selectRoomNo(String userid) {
+	public int selectRoomNo(String userid) {
 		return roomDao.selectRoomNo(userid);
 	}
 
@@ -90,5 +91,6 @@ public class RoomServiceImpl implements RoomService{
 	public ArrayList<Room> selectSysdate() {
 		return roomDao.selectSysdate();
 	}
+
 
 }

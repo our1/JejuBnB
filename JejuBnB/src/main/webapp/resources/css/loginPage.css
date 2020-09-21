@@ -1,9 +1,4 @@
-	@font-face {
-       font-family: 'Cafe24Oneprettynight';
-       src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff');
-       font-weight: normal;
-       font-style: normal;
-     }
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 	.login,
     .image {
     min-height: 100vh;
@@ -15,7 +10,7 @@
     }
     .logo img{
       position: relative;
-      left : 14%;
+      left : 6%;
     }
     .rounded-pill {
       border-radius: 8px;
@@ -32,7 +27,7 @@
       border: none;
       cursor: pointer;
       font-size: 14px;
-      font-family: 'Cafe24Oneprettynight';
+      font-family: 'Roboto', sans-serif;
       box-shadow: 0 15px 30px rgba(233, 30, 99, 0.36);
       -webkit-transition: .2s linear;
       transition: .2s linear;
@@ -80,7 +75,7 @@
       height: 50px;
       cursor: pointer;
       font-size: 14px;
-      font-family: 'Cafe24Oneprettynight';
+      font-family: 'Roboto', sans-serif;
       border-radius: 8px;
       border: none;
       line-height: 40px;
@@ -115,12 +110,12 @@
     }
     .findpas {
       color: black;
-      margin-left: 9%;
+      margin-left: 42%;
       text-decoration: underline;
     }
     .enroll {
       color: black;
-      margin-left: 4%;
+      margin-left: 37%;
       text-decoration: underline;
     }
     .fb_iframe_widget {

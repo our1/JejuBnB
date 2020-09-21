@@ -78,7 +78,8 @@ public class RoomDao {
 		return session.selectOne("roomMapper.selectRoom", roomno);
 	}
 
-	public Room selectRoomNo(String userid) {
+
+	public int selectRoomNo(String userid) {
 		return session.selectOne("roomMapper.selectRoomNo", userid);
 	}
 
@@ -154,10 +155,13 @@ public class RoomDao {
 	}
 
 	public ArrayList<Room> selectChkList(ArrayList<Room> room, int currentPage, int limit, int people) {
+		HashMap hm = new HashMap();
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
-		
-		HashMap hm = new HashMap();
+		if((people%2) == 1) {
+			int Stpeople = people - 1;
+			hm.put("Stpeople", Stpeople);
+		}
 		hm.put("list", room);
 		hm.put("startRow", 1);
 		hm.put("endRow", 8);
@@ -179,6 +183,8 @@ public class RoomDao {
 		return (ArrayList<Room>)list;
 	}
 
+
 	
+
 
 }

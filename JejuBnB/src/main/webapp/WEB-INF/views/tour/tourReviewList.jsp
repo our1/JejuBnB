@@ -21,7 +21,6 @@
 <fieldset>
   <c:forEach items="${ requestScope.list }" var="tour_review">
     <div class="one">
-       ${ tour_review.user_id } <br>
           <div class="reviewdate"><fmt:formatDate value="${ tour_review.tour_review_date }" pattern="yyyy-MM-dd" /></div><br>
 			 ${ tour_review.tour_review_content }
            </div>

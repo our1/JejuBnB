@@ -71,6 +71,20 @@ function message() {
 			        <li onclick="javascript:location.href='logout.do'"> 로그아웃</li>
 		        </ul>
 		     </c:if>
+         <c:if test="${!empty loginMember and  empty loginMember.admin_check and loginMember.host_check ne 'Y'}">
+          <ul class="dropdown-list">
+             <li onclick="javascript:location.href='moveMyPage.do'"> 내 정보 보기</li>
+             <li onclick="javascript:location.href='moveMyRoom.do?userid=${loginMember.user_id }'"> 저장 목록</li>
+             <li onclick="winOpen2()"> 알림</li>
+             <li onclick="javascript:location.href='moveRoomWrite.do'"> 사장님 신청하기</li>
+             <li class="divider">
+             <li onclick="javascript:location.href='roomlist.do?userid=${loginMember.user_id }'"> 숙소</li>
+             <li onclick="javascript:location.href='tlist.do'"> 관광지</li>
+             <li class="divider">
+             <li onclick="javascript:location.href='policyPage.do'"> 고객센터</li>
+             <li onclick="javascript:location.href='logout.do'"> 로그아웃</li>
+          </ul>
+        </c:if>
 		     <c:if test="${empty loginMember }">
 		     	<ul class="dropdown-menu">
 		     	   <li onclick="javascript:location.href='roomlist.do'"> 숙소</li>
@@ -93,9 +107,24 @@ function message() {
 			       <li onclick="javascript:location.href='logout.do'"> 로그아웃</li>
 			     </ul>
 		     </c:if>
+         <c:if test="${!empty loginMember and  empty loginMember.admin_check and loginMember.host_check eq 'Y'}">
+               <ul class="dropdown-list">
+                 <li onclick="javascript:location.href='moveMyPage.do'"> 내 정보 보기</li>
+                 <li onclick="javascript:location.href='moveMyRoom.do?userid=${loginMember.user_id }'"> 저장 목록</li>
+                 <li onclick="winOpen2()"> 알림</li>
+                 <li onclick="javascript:location.href='moveRoomWrite.do'"> 숙소 추가 등록</li>
+                 <li onclick="#">내 숙소 보기</li>
+                 <li class="divider">
+                 <li onclick="javascript:location.href='roomlist.do?userid=${loginMember.user_id }'"> 숙소</li>
+                 <li onclick="javascript:location.href='tlist.do'"> 관광지</li>
+                 <li class="divider">
+                 <li onclick="javascript:location.href='policyPage.do'"> 고객센터</li>
+                 <li onclick="javascript:location.href='logout.do'"> 로그아웃</li>
+               </ul>
+       </c:if>
 			</li>
 		</ul>
 	</div>
-</nav>
+ </nav>
 </body>
 </html>

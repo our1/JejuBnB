@@ -14,7 +14,7 @@ public interface RoomService {
 	int insertRoom(Room room);
 	int updateRoom(Room room);
 	int deleteRoom(int room_no);
-	Room selectRoomNo(String userid);
+	int selectRoomNo(String userid);
 	int insertRoomFile(ArrayList<Room_File> rflist);
 	ArrayList<Room> selectSearchFilter(Room room);
 	ArrayList<Room_File> selectRoomFile(int roomno);

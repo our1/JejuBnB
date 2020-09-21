@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="resources/css/main.css" >
   </head>
   <body>
+
 <c:import url="/WEB-INF/views/common/header.jsp" />
 
 <body onload="window.open('cou.do','쿠폰',
@@ -97,5 +98,6 @@
  		   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	       <script src="resources/js/main.js"></script>
 <c:import url="/WEB-INF/views/common/footer.jsp" />
+
   </body>
 </html>

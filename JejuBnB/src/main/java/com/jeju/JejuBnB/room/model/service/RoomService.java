@@ -22,4 +22,7 @@ public interface RoomService {
 	ArrayList<Room> selectChkList(ArrayList<Room> room, int currentPage, int limit, int people);
 	ArrayList<Room> selectChkRNList(String checkin, String checkout);
 	ArrayList<Room> selectSysdate();
+	ArrayList<Room_File> selectRoomFileList(ArrayList<Room> list);
+	int updateRoomChangePass(String user_id);
+	int deleteRoomFile(Room_File rfile);
 }

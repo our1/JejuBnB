@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"  %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,8 +28,14 @@
 <script type="text/javascript">
 	function moveFilterPage()
 		{	
+		var popupX = (document.body.offsetWidth / 2) - (800 / 2);
+		//&nbsp;만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+
+		var popupY= (window.screen.height / 2) - (800 / 2);
+		//&nbsp;만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+
 			window.name = "ListView";
-	    	window.open("moveFilterPage.do","알림","width=1000,height=500");
+	    	window.open("moveFilterPage.do","알림","width=800,height=800, left="+ popupX + ", top="+ popupY);
 	    	
 		}
 	
@@ -82,6 +89,7 @@
 		
 </script>
     <style type="text/css">
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
       html,
       body {
@@ -166,12 +174,15 @@
 	    	border-radius : 5px;
 	    }
 	    .headButton{
-	    	background-color : #FF4A52;
-			border : none;
-			border-radius : 5px;
-			width : 100px;
-			height : 30px;
-			text-color : #ffffff;
+	    	font-family: 'Roboto', sans-serif;
+			
+			width: 140px;
+			height: 40px;
+			background: none;
+			border : 1px solid black;
+			font-size: 15px;
+			margin-left : 15px;
+			border-radius : 2em;
 	    }
 	   
     </style>
@@ -184,9 +195,11 @@
 <h1 align="center">숙소 리스트 페이지</h1>
 <div id="main">
 <div id="items">
-<h3 id="resultS">${listCount }개 숙소 검색 . ${inMonth }월${inday }일 - ${outMonth }월${outday }일 . 게스트 ${people }명 </h3>
+<h6 id="resultS" style="margin-left:15px;">${listCount }개 숙소 검색 . ${inMonth }월${inday }일 - ${outMonth }월${outday }일 . 게스트 ${people }명 </h6>
 <button class="headButton" onclick="javascript:location.href='moveRoomBList.do'">리스트로 보기</button>
-<button class="headButton" onclick="moveFilterPage()">필터 추가하기</button>
+<button class="headButton" onclick="moveFilterPage()">필터 추가하기</button> <br>
+<h3>제주도의 숙소</h3>
+<hr style="margin : 5px;">
 </div>
 <div class="container1">
 				<c:forEach items="${list }" var="room">

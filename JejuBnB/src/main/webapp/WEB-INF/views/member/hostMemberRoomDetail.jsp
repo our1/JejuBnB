@@ -15,8 +15,21 @@
 				type:"post",
 				data:{user_id: checkedValue},
 				success: function(data){
+					$.ajax({
+						url:"roomChangePass.do",
+						type:"post",
+						data:{user_id: checkedValue},
+						success: function(data){
+							console.log("success :"+ data)
+							location.reload();
+						},
+						error: function(jqXHR, textstatus, errorthrown){
+							console.log("error : " + jqXHR + ", " + textstatus + ", " + errorthrown);
+						},
+					});
+					
 					console.log("success :"+ data)
-					alert(checkedValue + "회원님을 Host계정으로 변경했습니다.");
+					alert(checkedValue + "회원님을 Host계정으로, 숙소를 전체보기로  변경했습니다.");
 					location.reload();
 				},
 				error: function(jqXHR, textstatus, errorthrown){
@@ -74,7 +87,7 @@
 			</c:forEach>
 			<tr>
 				<th colspan = "8">
-					<a href="main.do" > 시작페이지로 </a> &nbsp; <button onclick="return adminMember();">관리자 등업</button>
+					<a href="main.do" > 시작페이지로 </a> &nbsp; <button onclick="return adminMember();">호스트 변경</button>
 				</th>
 			</tr>
 		</table>

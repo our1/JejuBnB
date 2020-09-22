@@ -22,5 +22,11 @@ public class MyCouponServiceImpl implements MyCouponService{
 	public int insertMyCoupon(MyCoupon mycoupon) {
 		return mycouponDao.insertMyCoupon(mycoupon);
 	}
+
+
+	@Override
+	public ArrayList<MyCoupon> selectMyCouponList(MyCoupon mycoupon) {
+		return mycouponDao.selectMyCouponList(mycoupon);
+	}
 	
 }

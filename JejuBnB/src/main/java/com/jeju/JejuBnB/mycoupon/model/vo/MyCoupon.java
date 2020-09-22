@@ -1,6 +1,8 @@
 package com.jeju.JejuBnB.mycoupon.model.vo;
 
-public class MyCoupon implements java.io.Serializable  {
+import com.jeju.JejuBnB.coupon.model.vo.Coupon;
+
+public class MyCoupon extends Coupon implements java.io.Serializable  {
 	private static final long serialVersionUID = 1112L;
 	private String user_id;
 	private int coupon_no;

@@ -193,30 +193,18 @@ public class MemberController {
 			return "common/error";
 		}
 	}
-	// 호스트 회원 등업
+	// 호스트 일반회원으로 변경
 	@RequestMapping("beNotHostMember.do")
 	public String beNotHostMember(@RequestParam("user_id") String user_id, Model model) {
 		if (memberService.updatebeNotHostMember(user_id)> 0) {
 			model.addAttribute("user_id", user_id);
-			return "redirect:/hostListDetail.do";
+			return "redirect:/roomChangePass.do";
 		}else {
-			model.addAttribute("message", user_id + "님의 호스트 등업을 실패했습니다.");
+			model.addAttribute("message", user_id + "님을 일반 회원으로 변경 실패했습니다.");
 			return "common/error";
 		}
 	}
 	
-	/*
-	 * // 등업 완료 후 room 회원에게 보이게 만들기
-	 * 
-	 * @RequestMapping("roomChangePass.do") public String
-	 * roomChangePass(@RequestParam("user_id") String user_id, Model model) { if
-	 * (memberService.updateBeHostMember(user_id)> 0) { return
-	 * "redirect:/moveAdminMemberPage.do"; }else { model.addAttribute("message",
-	 * user_id + "님의 호스트 등업을 실패했습니다."); return "common/error"; } }
-	 */
-	
-	
-
 	// 비밀번호 확인
 	@RequestMapping("memberpwdcheck.do")
 	public void memberPwdCheck(Member member, Model model, HttpServletResponse response) {
@@ -465,7 +453,7 @@ public class MemberController {
 		}
 		return mv;
 	}
-	
+
 	// 회원가입 페이지
 	@RequestMapping("enrollPage.do")
 	public String moveEnrollPage() {

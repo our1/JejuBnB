@@ -183,8 +183,17 @@ public class RoomDao {
 		return (ArrayList<Room>)list;
 	}
 
+	public ArrayList<Room_File> selectRoomFileList(ArrayList<Room> list) {
+		List<Room_File> rlist = session.selectList("roomMapper.selectRoomFileList", list);
+		return (ArrayList<Room_File>)rlist;
+	}
 
-	
+	public int updateRoomChangePass(String user_id) {
+		return session.update("roomMapper.updateRoomChangePass", user_id);
+	}
 
+	public int deleteRoomFile(Room_File rfile) {
+		return session.delete("roomMapper.deleteRoomFile", rfile);
+	}
 
 }

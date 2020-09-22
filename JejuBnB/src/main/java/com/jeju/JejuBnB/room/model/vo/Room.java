@@ -27,8 +27,6 @@ public class Room implements java.io.Serializable {
 	private String rule;
 	private String pass_or_not;
 	private int plus_charge;
-	private String room_thumbnail_file;
-	private String room_rename_file;
 	private String room_weekday;
 	private String room_weekend;
 	
@@ -41,8 +39,7 @@ public class Room implements java.io.Serializable {
 	public Room(int room_no, String user_id, String room_name, String room_content, String room_address,
 			String room_roadaddress, int st_num_people, int max_people, String checkin_time, String checkout_time,
 			int bed, int bedroom, int bathroom, String amenity, String facility, String build_type, String rule,
-			String pass_or_not, int plus_charge, String room_thumbnail_file, String room_rename_file,
-			String room_weekday, String room_weekend) {
+			String pass_or_not, int plus_charge, String room_weekday, String room_weekend) {
 		super();
 		this.room_no = room_no;
 		this.user_id = user_id;
@@ -63,8 +60,6 @@ public class Room implements java.io.Serializable {
 		this.rule = rule;
 		this.pass_or_not = pass_or_not;
 		this.plus_charge = plus_charge;
-		this.room_thumbnail_file = room_thumbnail_file;
-		this.room_rename_file = room_rename_file;
 		this.room_weekday = room_weekday;
 		this.room_weekend = room_weekend;
 	}
@@ -260,26 +255,6 @@ public class Room implements java.io.Serializable {
 	}
 
 
-	public String getRoom_thumbnail_file() {
-		return room_thumbnail_file;
-	}
-
-
-	public void setRoom_thumbnail_file(String room_thumbnail_file) {
-		this.room_thumbnail_file = room_thumbnail_file;
-	}
-
-
-	public String getRoom_rename_file() {
-		return room_rename_file;
-	}
-
-
-	public void setRoom_rename_file(String room_rename_file) {
-		this.room_rename_file = room_rename_file;
-	}
-
-
 	public String getRoom_weekday() {
 		return room_weekday;
 	}
@@ -300,11 +275,6 @@ public class Room implements java.io.Serializable {
 	}
 
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-
 	@Override
 	public String toString() {
 		return "Room [room_no=" + room_no + ", user_id=" + user_id + ", room_name=" + room_name + ", room_content="
@@ -312,18 +282,10 @@ public class Room implements java.io.Serializable {
 				+ ", st_num_people=" + st_num_people + ", max_people=" + max_people + ", checkin_time=" + checkin_time
 				+ ", checkout_time=" + checkout_time + ", bed=" + bed + ", bedroom=" + bedroom + ", bathroom="
 				+ bathroom + ", amenity=" + amenity + ", facility=" + facility + ", build_type=" + build_type
-				+ ", rule=" + rule + ", pass_or_not=" + pass_or_not + ", plus_charge=" + plus_charge
-				+ ", room_thumbnail_file=" + room_thumbnail_file + ", room_rename_file=" + room_rename_file
-				+ ", room_weekday=" + room_weekday + ", room_weekend=" + room_weekend + "]";
+				+ ", rule=" + rule + ", pass_or_not=" + pass_or_not + ", plus_charge=" + plus_charge + ", room_weekday="
+				+ room_weekday + ", room_weekend=" + room_weekend + "]";
 	}
-
-
-
+	
 	
 
-	
-
-	
-
-	
 }

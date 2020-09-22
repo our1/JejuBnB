@@ -26,10 +26,17 @@ $(window).on("scroll", function() {
   }
 });
 function winOpen1() {
-	window.open("moveFilterList.do","필터","width=900,height=1000");
+	var popupX = (document.body.offsetWidth / 2) - (900 / 2);
+
+	var popupY= (window.screen.height / 2) - (1000 / 2);
+
+	window.open("moveFilterList.do","필터","width=900,height=1000, left="+ popupX + ", top="+ popupY);
 }
 function winOpen2() {
-	window.open("myNoticeList.do?userid=${loginMember.user_id}","알림","width=1074,height=455, left=460, top=165");
+	var popupX = (document.body.offsetWidth / 2) - (1074 / 2);
+
+	var popupY= (window.screen.height / 2) - (455 / 2);
+	window.open("myNoticeList.do?userid=${loginMember.user_id}","알림","width=1074,height=455, left="+ popupX + ", top="+ popupY);
 }
 function movePage() {
  	window.open("loginPage.do", "로그인",

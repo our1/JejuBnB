@@ -54,7 +54,7 @@
                         <div class="row">
                             <div class="col-lg-10 col-xl-7 mx-auto">
                               <div class="logo">
-                                <img src="resources/images/무제.png" >
+                                  <a onclick='history.back(-1);'><img src="resources/images/무제.png" ></a>
                               </div>
                                 <form action="searchPwd.do" method="post">
                                     <div class="form-group mb-3">

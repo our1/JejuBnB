@@ -10,6 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>JejuBnB</title>
         <link rel="stylesheet" href="resources/css/tourlist.css" >
+        <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
   </head>
   <body>
     <div class="mainhead">
@@ -54,59 +55,21 @@
   </div>
    <div class="thead"><h1 class="tour">관광지</h1></div>
    <div style="padding: 100px 0px 0px 0px;"></div>
-     <button class="live">자연</button>
-     <button class="cook">음식</button>
-     <button class="act">체험</button>
+     <button class="live">자연
+     	<div class="livecount">7 개</div>
+     </button>
+     <button class="cook">음식
+     	<div class="cookcount">10 개</div>
+     </button>
+     <button class="act">체험
+     	<div class="actcount">5 개</div>
+     </button>
      <button class="movelist" onclick="javascipt:location.href='tourNoMap.do'">X</button>
      <div style="padding: 100px 0px 0px 0px;"></div>
        <div class="tourlist">
 	       <c:forEach items="${ requestScope.list }" var="t">
 	         <div class="one">
-	           <a href="tdetail.do?tour_no=${ t.tour_no }" target="_blank"><img src="resources/images/01.jpg" width=100% height=100%>
-	                      <input type="checkbox" class="checkbox" id="checkbox" />
-              <label for="checkbox">
-                    <svg id="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg">
-                      <g id="Group" fill="none" fill-rule="evenodd" transform="translate(467 392)">
-                        <path d="M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z" id="heart" fill="#AAB8C2"/>
-                        <circle id="main-circ" fill="#E2264D" opacity="0" cx="29.5" cy="29.5" r="1.5"/>
-
-                        <g id="grp7" opacity="0" transform="translate(7 6)">
-                          <circle id="oval1" fill="#9CD8C3" cx="2" cy="6" r="2"/>
-                          <circle id="oval2" fill="#8CE8C3" cx="5" cy="2" r="2"/>
-                        </g>
-
-                        <g id="grp6" opacity="0" transform="translate(0 28)">
-                          <circle id="oval1" fill="#CC8EF5" cx="2" cy="7" r="2"/>
-                          <circle id="oval2" fill="#91D2FA" cx="3" cy="2" r="2"/>
-                        </g>
-
-                        <g id="grp3" opacity="0" transform="translate(52 28)">
-                          <circle id="oval2" fill="#9CD8C3" cx="2" cy="7" r="2"/>
-                          <circle id="oval1" fill="#8CE8C3" cx="4" cy="2" r="2"/>
-                        </g>
-
-                        <g id="grp2" opacity="0" transform="translate(44 6)">
-                          <circle id="oval2" fill="#CC8EF5" cx="5" cy="6" r="2"/>
-                          <circle id="oval1" fill="#CC8EF5" cx="2" cy="2" r="2"/>
-                        </g>
-
-                        <g id="grp5" opacity="0" transform="translate(14 50)">
-                          <circle id="oval1" fill="#91D2FA" cx="6" cy="5" r="2"/>
-                          <circle id="oval2" fill="#91D2FA" cx="2" cy="2" r="2"/>
-                        </g>
-
-                        <g id="grp4" opacity="0" transform="translate(35 50)">
-                          <circle id="oval1" fill="#F48EA7" cx="6" cy="5" r="2"/>
-                          <circle id="oval2" fill="#F48EA7" cx="2" cy="2" r="2"/>
-                        </g>
-
-                        <g id="grp1" opacity="0" transform="translate(24)">
-                          <circle id="oval1" fill="#9FC7FA" cx="2.5" cy="3" r="2"/>
-                          <circle id="oval2" fill="#9FC7FA" cx="7.5" cy="2" r="2"/>
-                        </g>
-                      </g>
-                    </svg>
-                  </label>
+	           <a href="tdetail.do?tour_no=${ t.tour_no }" target="_blank"><img src="resources/images/01.jpg" width=100% height=100%>  
 	            <span>&#9733;</span> 4.8 ( 135 )<br>
 	             <br>${ t.tour_name }
 	           </a>
@@ -118,7 +81,7 @@
         <div id="map" style="width:100%;height:100%"></div> <!-- 지도를 표시할 div 입니다 -->
     </div>
 </div>
-<button class="twri" onclick="javascript:location.href='tmovewrite.do'">관광지 작성 하기</button>
+<button class="twri" onclick="javascript:location.href='test.do'">관광지 작성 하기</button>
 <div style="padding: 100px 0px 0px 0px;"></div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f30a1bf673317be5978a11f2b404a16b&libraries=services"></script>
 <script>
@@ -139,7 +102,7 @@ var tourName = [];
 tourName.push('${tour.tour_name}');
 list.push('${tour.tour_roadaddress}');
 </c:forEach>
-
+console.log(list);
 
 
 for(var i = 0; i < '${fn:length(list)}'; i++){

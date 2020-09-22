@@ -6,69 +6,82 @@
 <head>
 <meta charset="UTF-8">
 <title>JejuBnB</title>
-<script type="text/javascript" src="/member/resources/js/jquery-3.5.1.min.js"></script>
-<script type="text/javascript">
-	
-  var focus = setInterval (function(){
-	  document.getElementById("insert").focus();
-	  
-  }, 500)
-  var interval = setInterval(function() {
-	  $.ajax({
-		    url: "selectMessageDetail.do", type: "post",
-		    data:{message_no: $("#messageNo").val()},
-		    success: function(data){
-		    	location.reload();
-		      
-		    },
-		    error: function(jqXHR, textstatus, errorthrown){
-		      console.log("error : " + jqXHR + ", " + textstatus + ", " + errorthrown);
-		    }
-		  });
-	  
-	  
-	  
-	}, 15000)
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<style type="text/css">
+ .chat {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.chat li {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #B3A9A9;
+}
+.chat li.left .chat-body {
+    margin-left: 60px;
+}
+.chat li.right .chat-body {
+    margin-right: 60px;
+}
+.chat li .chat-body p {
+    margin: 0;
+    color: #777777;
+}
+.panel .slidedown .glyphicon, .chat .glyphicon {
+    margin-right: 5px;
+}
+.panel-body {
+    overflow-y: scroll;
+    height: 500px;
+}
+.textarea {
 
- </script>
+}
+</style>
 </head>
 <body>
-<c:import url="/WEB-INF/views/common/header.jsp" /> <br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-<c:forEach items ="${list2 }" var = "ms">
-<c:if test="${ms.writer == loginMember.user_name }">
-<div align="right">
-${ms.writer } :  ${ms.content }<br>
+    <div class="container">
+	   <div class="row">
+	       <div class="col-md-6 col-md-offset-3">
+	           <div class="panel panel-primary">
+	               <div class="panel-heading">
+	                   <span class="glyphicon glyphicon-comment"></span> Message
+	                   <div class="btn-group pull-right">
+	                   </div>
+             	   </div>
+            <div class="panel-body">
+               <ul class="chat">
+					<c:forEach items ="${list2 }" var = "ms">
+					<c:if test="${ms.writer == loginMember.user_name }">
+					<div align="right">
+					${ms.writer } :  ${ms.content }<br>
+					</div>
+					</c:if>
+					<c:if test="${ms.writer != loginMember.user_name }">
+					<div align="left">
+					${ms.writer } :  ${ms.content }<br>
+					</div>
+					</c:if>
+					</c:forEach>
+ 			   </ul>
+            </div>
+                 <div class="panel-footer">
+                   <div class="input-group">
+						<form action="insertMessageDetail.do" method="post" >
+							<input id="Mensaje" type="text" name="content" class="form-control input-sm" placeholder="메세지를 입력하세요..." />
+							<input type="hidden" name="writer" value="${loginMember.user_name }">
+							<input type="hidden" name="message_no" value="${messagelist.message_no }">
+							<input type="submit" value="보내기"><span class="input-group-btn"></span>
+							<!-- <input type="reset" value="작성취소"> &nbsp;  -->
+						</form>
+					</div>
+               </div>
+           </div>
+       </div>
+   </div>
 </div>
-</c:if>
-<c:if test="${ms.writer != loginMember.user_name }">
-<div align="left">
-${ms.writer } :  ${ms.content }<br>
-</div>
-</c:if>
-</c:forEach>
-
-
-<form action="insertMessageDetail.do" method="post" >
-<table align="center" width = "500" border ="1" cellspacing = "0"
-cellpadding = "5">
-<tr><th>내용</th> <td><textarea rows="5" cols="50" name="content" id="insert"></textarea></td></tr>
-<tr><th colspan="2">
-<input type="hidden" name="writer" value="${loginMember.user_name }">
-<input type="hidden" name="message_no" value="${messagelist.message_no }" id="messageNo">
-<input type="submit" value="보내기"> &nbsp; 
-<input type="reset" value="작성취소"> &nbsp; 
-</th></tr>
-</table>
-</form>
 
 </body>
 </html>

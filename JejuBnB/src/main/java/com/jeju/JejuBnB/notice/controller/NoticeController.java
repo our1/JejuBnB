@@ -3,6 +3,7 @@ package com.jeju.JejuBnB.notice.controller;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +30,6 @@ public class NoticeController {
 	@RequestMapping("myNoticeList.do")
 	public String selectUserNoticeList(Model model, @RequestParam("userid") String userid) {
 		ArrayList<User_Notice> list = noticeService.selectUserNotice(userid);
-		logger.info(list.toString());
 
 		if(list.size() > 0) {
 			model.addAttribute("list", list);			
@@ -64,7 +64,8 @@ public class NoticeController {
 	
 	
 	@RequestMapping("insertNotice.do")
-	public ModelAndView insertNotice(HttpServletRequest request, ModelAndView mv, @RequestParam("returnPage") String returnPage) {
+	public ModelAndView insertNotice(HttpServletRequest request, HttpServletResponse response, ModelAndView mv, @RequestParam("returnPage") String returnPage) {
+		response.setHeader("Content-Type", "text/html;charset=utf-8");
 		int choice = Integer.parseInt(request.getParameter("choice"));
 		String toUser = request.getParameter("toUser");
 		String fromUser = request.getParameter("fromUser");
@@ -83,20 +84,20 @@ public class NoticeController {
 		 * XX 님 XX속소 에약완료 => 사용자에게 (toUser 는 사용자  fromUser는 사장님이 된다)
 		 * XX 님 XX숙소 예약 신청 완료 => 사장님에게  (toUser 는 사장님 fromUser 는 사용자가 된다.)
 		 */
-		
+		logger.info(room_name);
 		switch(choice) {
 		case 1 : 	
 
 			notice = noticeService.selectNotice(choice);
 			notice2 = noticeService.selectNotice(choice+1);
 
-			un1.setNotice_content(fromUser + notice.getNotice_content1() + room_name + notice.getNotice_content2());
+			un1.setNotice_content(fromUser +" "+ notice.getNotice_content1() +" " + room_name + " " +notice.getNotice_content2());
 			un1.setFrom_user(fromUser);
 			un1.setTo_user(toUser);
 			result = noticeService.insertUNotice(un1);
 			
 			un2.setFrom_user(toUser);
-			un2.setNotice_content(toUser + notice2.getNotice_content1()+ room_name + notice.getNotice_content2());
+			un2.setNotice_content(toUser + " " +notice2.getNotice_content1()+ " " +room_name + " " +notice.getNotice_content2());
 			un2.setTo_user(fromUser);
 			result2 = noticeService.insertUNotice(un2);
 			
@@ -112,7 +113,7 @@ public class NoticeController {
 			
 			notice = noticeService.selectNotice(choice);
 
-			un1.setNotice_content(room_name + notice.getNotice_content1() + toUser + notice.getNotice_content2());
+			un1.setNotice_content(room_name + " " +notice.getNotice_content1() + " " +toUser + " " +notice.getNotice_content2());
 			un1.setFrom_user(toUser);
 			un1.setTo_user(fromUser);
 			result = noticeService.insertUNotice(un1);
@@ -128,7 +129,7 @@ public class NoticeController {
 		case 4 :
 			notice = noticeService.selectNotice(choice);
 
-			un1.setNotice_content(fromUser + notice.getNotice_content1() + toUser + notice.getNotice_content2());
+			un1.setNotice_content(fromUser +" " + notice.getNotice_content1() + " " +toUser + " " +notice.getNotice_content2());
 			un1.setFrom_user(fromUser);
 			un1.setTo_user(toUser);
 			result = noticeService.insertUNotice(un1);
@@ -145,7 +146,7 @@ public class NoticeController {
 			String xx = request.getParameter("문의글 이름 ");
 			notice = noticeService.selectNotice(choice);
 
-			un1.setNotice_content(fromUser + notice.getNotice_content1() + xx + notice.getNotice_content2());
+			un1.setNotice_content(fromUser +" " + notice.getNotice_content1() + " " +xx +" " + notice.getNotice_content2());
 			un1.setFrom_user("admin");
 			un1.setTo_user(fromUser);
 			result = noticeService.insertUNotice(un1);
@@ -162,7 +163,7 @@ public class NoticeController {
 			String xxx = request.getParameter("쿠폰 이름 ");
 			notice = noticeService.selectNotice(choice);
 
-			un1.setNotice_content(fromUser + notice.getNotice_content1() + xxx + notice.getNotice_content2());
+			un1.setNotice_content(fromUser + " " +notice.getNotice_content1() + " " +xxx + " " +notice.getNotice_content2());
 			un1.setFrom_user("admin");
 			un1.setTo_user(fromUser);
 			result = noticeService.insertUNotice(un1);
@@ -177,11 +178,9 @@ public class NoticeController {
 		
 		case 7:
 			notice = noticeService.selectNotice(choice);
-			
-			un1.setNotice_content(toUser + notice.getNotice_content1() + room_name + notice.getNotice_content2());
+			un1.setNotice_content(toUser + " " +notice.getNotice_content1() + " '" +room_name + "' " +notice.getNotice_content2());
 			un1.setTo_user(toUser);
 			un1.setFrom_user(fromUser);
-			logger.info(un1.toString());
 
 			result = noticeService.insertUNotice(un1);
 			if(result > 0) {
@@ -210,34 +209,10 @@ public class NoticeController {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	@RequestMapping("moveNoticeTest.do")
-	public String moveNoticeTest() {
-		return "notice/NoticeTest";
+	@RequestMapping(value="adNoticeUpdate.do", method=RequestMethod.POST)
+	public String adNoticeUpdate() {
+		
+		return "";
 	}
 	
 	

@@ -29,8 +29,8 @@ public class Room implements java.io.Serializable {
 	private int plus_charge;
 	private String room_thumbnail_file;
 	private String room_rename_file;
-	private int room_weekday;
-	private int room_weekend;
+	private String room_weekday;
+	private String room_weekend;
 	
 	
 	public Room() {
@@ -41,8 +41,8 @@ public class Room implements java.io.Serializable {
 	public Room(int room_no, String user_id, String room_name, String room_content, String room_address,
 			String room_roadaddress, int st_num_people, int max_people, String checkin_time, String checkout_time,
 			int bed, int bedroom, int bathroom, String amenity, String facility, String build_type, String rule,
-			String pass_or_not, int plus_charge, String room_thumbnail_file, String room_rename_file, int room_weekday,
-			int room_weekend) {
+			String pass_or_not, int plus_charge, String room_thumbnail_file, String room_rename_file,
+			String room_weekday, String room_weekend) {
 		super();
 		this.room_no = room_no;
 		this.user_id = user_id;
@@ -67,37 +67,6 @@ public class Room implements java.io.Serializable {
 		this.room_rename_file = room_rename_file;
 		this.room_weekday = room_weekday;
 		this.room_weekend = room_weekend;
-	}
-
-
-
-	public int getRoom_weekday() {
-		return room_weekday;
-	}
-
-
-	public void setRoom_weekday(int room_weekday) {
-		this.room_weekday = room_weekday;
-	}
-
-
-	public int getRoom_weekend() {
-		return room_weekend;
-	}
-
-
-	public void setRoom_weekend(int room_weekend) {
-		this.room_weekend = room_weekend;
-	}
-
-
-	public String getRoom_roadaddress() {
-		return room_roadaddress;
-	}
-
-
-	public void setRoom_roadaddress(String room_roadaddress) {
-		this.room_roadaddress = room_roadaddress;
 	}
 
 
@@ -148,6 +117,16 @@ public class Room implements java.io.Serializable {
 
 	public void setRoom_address(String room_address) {
 		this.room_address = room_address;
+	}
+
+
+	public String getRoom_roadaddress() {
+		return room_roadaddress;
+	}
+
+
+	public void setRoom_roadaddress(String room_roadaddress) {
+		this.room_roadaddress = room_roadaddress;
 	}
 
 
@@ -301,6 +280,31 @@ public class Room implements java.io.Serializable {
 	}
 
 
+	public String getRoom_weekday() {
+		return room_weekday;
+	}
+
+
+	public void setRoom_weekday(String room_weekday) {
+		this.room_weekday = room_weekday;
+	}
+
+
+	public String getRoom_weekend() {
+		return room_weekend;
+	}
+
+
+	public void setRoom_weekend(String room_weekend) {
+		this.room_weekend = room_weekend;
+	}
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Room [room_no=" + room_no + ", user_id=" + user_id + ", room_name=" + room_name + ", room_content="
@@ -313,6 +317,13 @@ public class Room implements java.io.Serializable {
 				+ ", room_weekday=" + room_weekday + ", room_weekend=" + room_weekend + "]";
 	}
 
+
+
+	
+
+	
+
+	
 
 	
 }

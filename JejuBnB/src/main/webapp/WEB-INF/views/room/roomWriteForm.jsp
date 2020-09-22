@@ -8,11 +8,26 @@
 <head>
 <meta charset="UTF-8">
 <title>JejuBnB</title>
-
+<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
 <style type="text/css">
 	body {
-	  margin : 0;
-	  padding : 0;
+		margin : 0;
+		padding : 0;
+		text-align : center;
+		font-family: 'Nanum Gothic Coding', monospace;
+	}
+	
+	div {
+		text-align : left;
+	}
+	
+	h5{
+		padding : 0;
+		margin : 5px;
+	}
+	h4{
+		padding : 0;
+		margin : 0;
 	}
 	form {
 	  position : relative;
@@ -33,7 +48,78 @@
 	               url('resources/images/36.jpg');
 	 background-size: cover;
 	 background-repeat: no-repeat;
-}
+	}
+	
+	input {
+		border : 1px solid gray;
+		border-radius : 5px;		
+		margin : 5px;
+		height : 20px;
+	}
+	
+	textarea {
+		border : 1px solid gray;
+		border-radius : 5px;
+	}
+	
+	#main {
+		width : 900px;
+		position : relative;
+		left : 35%;
+		padding : 5px;
+		margin-top : 30px;
+	}
+	
+	input[type=checkbox] {
+		width : 20px;
+		height : 20px;
+	}
+	
+	.checkBox {
+		width : 250px;
+		height : 20px;
+		margin : 5px;
+		padding : 0;
+	}
+	
+	#container1{
+		width : 400px;
+		display : grid;
+		grid-template-columns : 200px 200px 200px 200px;
+		gap : 10px 5px;
+		padding : 0;
+		margin-bottom : 20px;
+	}
+	
+	#container2{
+		width : 400px;
+		display : grid;
+		grid-template-columns : 200px 200px 200px 200px;
+		gap : 10px 5px;
+		padding : 0;
+		margin-bottom : 20px;
+		
+	}
+	
+	#container3{
+		width : 400px;
+		display : grid;
+		grid-template-columns : 200px 200px 200px 200px;
+		gap : 10px 5px;
+		padding : 0;
+		margin-bottom : 20px;
+		
+	}
+	
+	#container4{
+		width : 400px;
+		display : grid;
+		grid-template-columns : 200px 200px;
+		gap : 10px 5px;
+		padding : 0;
+		margin-bottom : 20px;
+		
+	}
 </style>
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
@@ -66,22 +152,23 @@
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp"/>
 <div class="thead"></div>
+<div id="main">
 <form action="roominsert.do" method="post" enctype="multipart/form-data">
 <input type="hidden" name="user_id" value="${loginMember.user_id }" >
 
-<div id="first">
-숙소 이름 : <input type="text" name="room_name" placeholder="숙소 이름" required> <br>
-숙소 소개 : <textarea rows="5" cols="50" name="room_content" required placeholder="숙소 소개"></textarea> <br>
-
-<input type="text" id="PostNumber" placeholder="우편번호" required readonly><br>
-숙소 주소 : <button onclick="PostCall()" type="button">우편번호 검색</button><br>
-<input type="text" id="room_roadaddress" name="room_roadaddress" placeholder="도로명주소" readonly><br>
-<input type="text" id="DetailAddress" name="address" placeholder="상세주소" required><br>
-
-기준 인원 : <input type="number" name="st_num_people" placeholder="기준 인원" required>명 <br>
-최대 인원 : <input type="number" name="max_people" placeholder="최대 인원" required>명<br>
-평일 금액 : <input type="number" name="room_weekday" placeholder="평일 가격"><br>
-주말 금액 : <input type="number" name="room_weekend" placeholder="주말 가격"><br>
+<div id="first" class="write">
+	<span id="roomName" ><h5>숙소의 이름을 입력해 주세요</h5>  <input type="text" name="room_name" placeholder="숙소 이름" required>  </span><br>
+	<span id="roomContent"><h5>숙소를 소개해 주세요</h5> <textarea rows="5" cols="50" name="room_content" required placeholder="숙소 소개"></textarea> </span><br>
+	
+	<input type="text" id="PostNumber" placeholder="우편번호" required readonly><br>
+	숙소 주소 : <button onclick="PostCall()" type="button">우편번호 검색</button><br>
+	<input type="text" id="room_roadaddress" name="room_roadaddress" placeholder="도로명주소" readonly><br>
+	<input type="text" id="DetailAddress" name="address" placeholder="상세주소" required><br>
+	
+	기준 인원 : <input type="number" name="st_num_people" placeholder="기준 인원" required>명 <br>
+	최대 인원 : <input type="number" name="max_people" placeholder="최대 인원" required>명<br>
+	평일 금액 : <input type="number" name="room_weekday" placeholder="평일 가격"><br>
+	주말 금액 : <input type="number" name="room_weekend" placeholder="주말 가격"><br>
 
 체크인 시간 : <select name="inhour">
 				<option value="12">12</option>
@@ -114,48 +201,57 @@
 				<option value="50">50</option>
 			</select> <br>
 </div>
-
-<div id="second">
+<div id="second" class="write">
 침대 수 : <input type="number" name="bed" placeholder="1" required> 개 <br>
 침실 수 : <input type="number" name="bedroom" placeholder="1" required> 개 <br>
-욕실 수 : <input type="number" name="bathroom" placeholder="1" required> 칸 <br>
-편의 시설 :  <br>
+욕실 수 : <input type="number" name="bathroom" placeholder="1" required> 칸 <br> <br>
+
+<h4 class="first">편의 시설 </h4>
+<div id="container1">
 <c:forEach var="count1" begin="0" end="${fn:length(Alist)}" step="4">
 <c:forEach items="${Alist }" var="alist" begin="${count1 }" end="${count1 + 3}">
-${ alist } <input type="checkbox" name="amenity" value="${alist }"> &nbsp; &nbsp;
-</c:forEach> <br>
+<div class="checkBox"><input type="checkbox" name="amenity" value="${alist }"> ${ alist }</div>
 </c:forEach>
- <br>
-시설 :<br>
+</c:forEach>
+</div>
+ 
+
+<h4>시설 </h4>
+<div id="container2">
 <c:forEach var="count2" begin="0" end="${fn:length(Flist)}" step="4">
 <c:forEach items="${Flist }" var="flist" begin="${count2 }" end="${count2 + 2}">
-${ flist } <input type="checkbox" name="facility" value="${flist }"> &nbsp; &nbsp;
-</c:forEach> <br>
+<div class="checkBox"><input type="checkbox" name="facility" value="${flist }"> ${ flist }</div>
+</c:forEach> 
 </c:forEach>
-<br>
-건물 유형 :<br>
+</div>
+
+<h4>건물 유형 </h4>
+<div id="container3">
 <c:forEach var="count3" begin="0" end="${fn:length(Blist)}" step="4">
 <c:forEach items="${Blist }" var="blist" begin="${count3 }" end="${count3 + 3}">
-${ blist } <input type="checkbox" name="build" value="${blist }"> &nbsp; &nbsp;
-</c:forEach> <br>
+<div class="checkBox"><input type="checkbox" name="build" value="${blist }"> ${ blist }</div>
+</c:forEach> 
 </c:forEach>
-<br>
+</div>
 
-이용 규칙 :<br>
+<h4>이용 규칙 </h4>
+<div id="container4">
 <c:forEach var="count4" begin="0" end="${fn:length(Rlist)}" step="4">
 <c:forEach items="${Rlist }" var="rlist" begin="${count4 }" end="${count4 + 3 }">
-${rlist } <input type="checkbox" name="rule" value="${rlist }"> &nbsp; &nbsp;
+<div class="checkBox"><input type="checkbox" name="rule" value="${rlist }">${rlist }</div>
 </c:forEach>
 </c:forEach>
-<br><br>
+</div>
+<br>
 인원 추가 금액 : <input type="number" name="plus_charge" required><br>
 </div>
-<div id="third">
-숙소 대표 사진 : <input type="file" name="ofile"> <br>
+<div id="third" class="write">
+숙소 대표 사진 : <input type="file" name="ofile" required> <br>
 숙소 사진들 : <input multiple="multiple" type="file" name="file" />
 <input type="submit" value="전송">
 </div>
 </form>
+</div>
 <c:import url="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>

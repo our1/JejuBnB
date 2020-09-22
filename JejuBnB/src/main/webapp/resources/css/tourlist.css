@@ -1,9 +1,4 @@
-@font-face {
-   font-family: 'Cafe24Oneprettynight';
-   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff');
-   font-weight: normal;
-   font-style: normal;
- }
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 body {
   margin: 0;
   padding: 0;
@@ -76,7 +71,7 @@ color: #74809d;
 .dropdown-list li {
 list-style: none;
 padding: 12px 16px;
-font-family: 'Cafe24Oneprettynight';
+font-family: 'Roboto', sans-serif;
 font-weight: bold;
 height: 50px;
 line-height: 25px;
@@ -141,52 +136,71 @@ top : 5px;
 }
 .tour {
   position: relative;
-  font-family: 'Cafe24Oneprettynight';
+  font-family: 'Roboto', sans-serif;
   top : 53%;
   left : 5%;
   color : white;
   width : 200px;
 }
 .live {
-  font-family: 'Cafe24Oneprettynight';
+  font-family: 'Roboto', sans-serif;
   position: relative;
   top : 47%;
   left: 1.5%;
-  width: 90px;
-  height: 50px;
+  width: 140px;
+  height: 65px;
   background: none;
   border-radius: 5px;
-  border: 1px solid gray;
   font-size: 20px;
+  border: none;
+  box-shadow: 2px 2px 6px 0px grey;
 }
 
 .cook {
-  font-family: 'Cafe24Oneprettynight';
+  font-family: 'Roboto', sans-serif;
   position: relative;
   top : 47%;
   left : 9.5%;
-  width: 90px;
-  height: 50px;
+  width: 140px;
+  height: 65px;
   background: none;
   border-radius: 5px;
-  border: 1px solid gray;
   font-size: 20px;
+  border: none;
+  box-shadow: 2px 2px 6px 0px grey;
 }
 
 .act {
-  font-family: 'Cafe24Oneprettynight';
+  font-family: 'Roboto', sans-serif;
   position: relative;
   top : 47%;
   left : 17.5%;
-  width: 90px;
-  height: 50px;
+  width: 140px;
+  height: 65px;
   background: none;
   border-radius: 5px;
   border: 1px solid gray;
   font-size: 20px;
+  border: none;
+  box-shadow: 2px 2px 6px 0px grey;
+}
+.livecount {
+	font-family: 'Roboto', sans-serif;
+	font-size : 15px;
+	color : gray;
+}
+.cookcount {
+	font-family: 'Roboto', sans-serif;
+	font-size : 15px;
+	color : gray;
+}
+.actcount {
+	font-family: 'Roboto', sans-serif;
+	font-size : 15px;
+	color : gray;
 }
 .movelist {
-    font-family: 'Cafe24Oneprettynight';
+    font-family: 'Roboto', sans-serif;
     position: absolute;
     top: 41%;
     left: 68.5%;
@@ -206,7 +220,7 @@ top : 5px;
   position: relative;
   top : 60%;
   left : 10px;
-  font-family: 'Cafe24Oneprettynight';
+  font-family: 'Roboto', sans-serif;
 }
 
 .tourlist img {
@@ -280,271 +294,14 @@ top : 5px;
 	height: 14px;
 }
 .twri {
-  font-family: 'Cafe24Oneprettynight';
+  font-family: 'Roboto', sans-serif;
   position: relative;
   width: 148px;
   height: 50px;
   background: none;
   border-radius: 5px;
   border: 1px solid gray;
-  font-size: 20px;
+  font-size: 17px;
   position : absolute;
   left : 58.5%;
-}
-svg {
-  position: relative;
-  left: calc(50% - 30px);
-  top: calc(50% - 30px);
-}
-
-/* Necessary CSS */
-svg {
-  cursor: pointer;
-  overflow: visible;
-  width: 40px;
-  margin: 20px;
-  position: absolute;
-  left: 81.8%;
-  top: 102%;
-}
-
-svg #heart {
-  transform-origin: center;
-  animation: animateHeartOut .3s linear forwards;
-}
-
-svg #main-circ {
-  transform-origin: 29.5px 29.5px;
-}
-
-.checkbox {
-  display: none;
-}
-
-.checkbox:checked+label svg #heart {
-  transform: scale(0.2);
-  fill: #E2264D;
-  animation: animateHeart .3s linear forwards .25s;
-}
-
-.checkbox:checked+label svg #main-circ {
-  transition: all 2s;
-  animation: animateCircle .3s linear forwards;
-  opacity: 1;
-}
-
-.checkbox:checked+label svg #grp1 {
-  opacity: 1;
-  transition: .1s all .3s;
-}
-
-.checkbox:checked+label svg #grp1 #oval1 {
-  transform: scale(0) translate(0, -30px);
-  transform-origin: 0 0 0;
-  transition: .5s transform .3s;
-}
-
-.checkbox:checked+label svg #grp1 #oval2 {
-  transform: scale(0) translate(10px, -50px);
-  transform-origin: 0 0 0;
-  transition: 1.5s transform .3s;
-}
-
-.checkbox:checked+label svg #grp2 {
-  opacity: 1;
-  transition: .1s all .3s;
-}
-
-.checkbox:checked+label svg #grp2 #oval1 {
-  transform: scale(0) translate(30px, -15px);
-  transform-origin: 0 0 0;
-  transition: .5s transform .3s;
-}
-
-.checkbox:checked+label svg #grp2 #oval2 {
-  transform: scale(0) translate(60px, -15px);
-  transform-origin: 0 0 0;
-  transition: 1.5s transform .3s;
-}
-
-.checkbox:checked+label svg #grp3 {
-  opacity: 1;
-  transition: .1s all .3s;
-}
-
-.checkbox:checked+label svg #grp3 #oval1 {
-  transform: scale(0) translate(30px, 0px);
-  transform-origin: 0 0 0;
-  transition: .5s transform .3s;
-}
-
-.checkbox:checked+label svg #grp3 #oval2 {
-  transform: scale(0) translate(60px, 10px);
-  transform-origin: 0 0 0;
-  transition: 1.5s transform .3s;
-}
-
-.checkbox:checked+label svg #grp4 {
-  opacity: 1;
-  transition: .1s all .3s;
-}
-
-.checkbox:checked+label svg #grp4 #oval1 {
-  transform: scale(0) translate(30px, 15px);
-  transform-origin: 0 0 0;
-  transition: .5s transform .3s;
-}
-
-.checkbox:checked+label svg #grp4 #oval2 {
-  transform: scale(0) translate(40px, 50px);
-  transform-origin: 0 0 0;
-  transition: 1.5s transform .3s;
-}
-
-.checkbox:checked+label svg #grp5 {
-  opacity: 1;
-  transition: .1s all .3s;
-}
-
-.checkbox:checked+label svg #grp5 #oval1 {
-  transform: scale(0) translate(-10px, 20px);
-  transform-origin: 0 0 0;
-  transition: .5s transform .3s;
-}
-
-.checkbox:checked+label svg #grp5 #oval2 {
-  transform: scale(0) translate(-60px, 30px);
-  transform-origin: 0 0 0;
-  transition: 1.5s transform .3s;
-}
-
-.checkbox:checked+label svg #grp6 {
-  opacity: 1;
-  transition: .1s all .3s;
-}
-
-.checkbox:checked+label svg #grp6 #oval1 {
-  transform: scale(0) translate(-30px, 0px);
-  transform-origin: 0 0 0;
-  transition: .5s transform .3s;
-}
-
-.checkbox:checked+label svg #grp6 #oval2 {
-  transform: scale(0) translate(-60px, -5px);
-  transform-origin: 0 0 0;
-  transition: 1.5s transform .3s;
-}
-
-.checkbox:checked+label svg #grp7 {
-  opacity: 1;
-  transition: .1s all .3s;
-}
-
-.checkbox:checked+label svg #grp7 #oval1 {
-  transform: scale(0) translate(-30px, -15px);
-  transform-origin: 0 0 0;
-  transition: .5s transform .3s;
-}
-
-.checkbox:checked+label svg #grp7 #oval2 {
-  transform: scale(0) translate(-55px, -30px);
-  transform-origin: 0 0 0;
-  transition: 1.5s transform .3s;
-}
-
-.checkbox:checked+label svg #grp2 {
-  opacity: 1;
-  transition: .1s opacity .3s;
-}
-
-.checkbox:checked+label svg #grp3 {
-  opacity: 1;
-  transition: .1s opacity .3s;
-}
-
-.checkbox:checked+label svg #grp4 {
-  opacity: 1;
-  transition: .1s opacity .3s;
-}
-
-.checkbox:checked+label svg #grp5 {
-  opacity: 1;
-  transition: .1s opacity .3s;
-}
-
-.checkbox:checked+label svg #grp6 {
-  opacity: 1;
-  transition: .1s opacity .3s;
-}
-
-.checkbox:checked+label svg #grp7 {
-  opacity: 1;
-  transition: .1s opacity .3s;
-}
-
-@keyframes animateCircle {
-  40% {
-    transform: scale(10);
-    opacity: 1;
-    fill: #DD4688;
-  }
-  55% {
-    transform: scale(11);
-    opacity: 1;
-    fill: #D46ABF;
-  }
-  65% {
-    transform: scale(12);
-    opacity: 1;
-    fill: #CC8EF5;
-  }
-  75% {
-    transform: scale(13);
-    opacity: 1;
-    fill: transparent;
-    stroke: #CC8EF5;
-    stroke-width: .5;
-  }
-  85% {
-    transform: scale(17);
-    opacity: 1;
-    fill: transparent;
-    stroke: #CC8EF5;
-    stroke-width: .2;
-  }
-  95% {
-    transform: scale(18);
-    opacity: 1;
-    fill: transparent;
-    stroke: #CC8EF5;
-    stroke-width: .1;
-  }
-  100% {
-    transform: scale(19);
-    opacity: 1;
-    fill: transparent;
-    stroke: #CC8EF5;
-    stroke-width: 0;
-  }
-}
-
-@keyframes animateHeart {
-  0% {
-    transform: scale(0.2);
-  }
-  40% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-@keyframes animateHeartOut {
-  0% {
-    transform: scale(1.4);
-  }
-  100% {
-    transform: scale(1);
-  }
 }

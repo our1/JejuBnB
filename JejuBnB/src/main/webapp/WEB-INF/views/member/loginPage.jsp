@@ -81,14 +81,14 @@
                                     </div>
                                     <div class="custom-control custom-checkbox mb-3">
                                         <input id="customCheck1" type="checkbox" checked class="custom-control-input">
-                                        <label for="customCheck1" class="custom-control-label">Remember password</label>
-                                        <a href="searchpwdPage.do" class="findpas">Forgot Password</a>
-                                        <a href="email.do" class="enroll">Sign up</a>
+                                        <label for="customCheck1" class="custom-control-label">비밀번호 기억하기</label> 
                                     </div>
-                                    <button type="submit" class="signin__btn">Sign in</button>
+                                    <button type="submit" class="signin__btn">로그인</button>
                                     <div class="separator">
                                       <p>OR</p>
                                     </div>
+                                  		<a href="email.do" class="enroll">회원 가입</a> <br>
+                                        <a href="searchpwdPage.do" class="findpas">비밀번호 찾기</a>
                                     <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" data-size="large" data-button-type="login_with" data-layout="rounded" data-auto-logout-link="false" data-use-continue-as="false" class="google__btn">
 								          <i class="fa fa-facebook"></i>
 								          Sign in with FaceBook

@@ -62,7 +62,7 @@
 			</tr>
 			<c:forEach items="${hostlist }" var = "host">
 			<tr>
-			<td><a href="moveDetailView.do?roomno=${host.room_no}">${host.room_no }</a></td>
+			<td><a href="moveDetailView.do?room_no=${host.room_no}">${host.room_no }</a></td>
 			<td>${host.user_id }</td>
 			<td>${host.user_name }</td>
 			<td>${host.room_name }</td>

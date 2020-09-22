@@ -90,8 +90,13 @@
 	<update id="updateBeAdminMember" parameterType="string">
 	update member set admin_check = 'Y' where user_id = #{user_id}
 	</update>
+	
 	<update id="updateBeHostMember" parameterType="string">
 	update member set host_check = 'Y' where user_id = #{user_id}
+	</update>
+	
+	<update id="updatebeNotHostMember" parameterType="string">
+	update member set host_check = null where user_id = #{user_id}
 	</update>
 	
 	<delete id="deleteMember" parameterType="string">

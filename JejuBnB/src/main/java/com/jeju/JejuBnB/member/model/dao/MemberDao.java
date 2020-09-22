@@ -109,6 +109,10 @@ public int updateBeHostMember(String user_id) {
 	return session.update("memberMapper.updateBeHostMember", user_id);
 }
 
+public int updatebeNotHostMember(String user_id) {
+	return session.update("memberMapper.updatebeNotHostMember", user_id);
+}
+
 
 }
 

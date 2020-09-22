@@ -83,6 +83,11 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.updateBeHostMember(user_id);
 	}
 
+	@Override
+	public int updatebeNotHostMember(String user_id) {
+		return memberDao.updatebeNotHostMember(user_id);
+	}
+
 	
 
 }

@@ -193,6 +193,18 @@ public class MemberController {
 			return "common/error";
 		}
 	}
+	// 호스트 회원 등업
+	@RequestMapping("beNotHostMember.do")
+	public String beNotHostMember(@RequestParam("user_id") String user_id, Model model) {
+		if (memberService.updatebeNotHostMember(user_id)> 0) {
+			model.addAttribute("user_id", user_id);
+			return "redirect:/hostListDetail.do";
+		}else {
+			model.addAttribute("message", user_id + "님의 호스트 등업을 실패했습니다.");
+			return "common/error";
+		}
+	}
+	
 	/*
 	 * // 등업 완료 후 room 회원에게 보이게 만들기
 	 * 

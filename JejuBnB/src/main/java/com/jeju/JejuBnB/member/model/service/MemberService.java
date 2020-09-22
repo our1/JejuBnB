@@ -20,5 +20,6 @@ public interface MemberService {
 	ArrayList<Member> selectHostList();
 	ArrayList<HostMemberRoomDetail> selectHostListDetail(HostMemberRoomDetail hostmember);
 	int updateBeHostMember(String user_id);
+	int updatebeNotHostMember(String user_id);
 	
 }

@@ -87,6 +87,28 @@
 			
 		}
 		
+		var slideIndex = 2;
+		showSlides(slideIndex);
+
+		function plusSlides(n) {
+		  showSlides(slideIndex += n);
+		}
+
+		function currentSlide(n) {
+		  showSlides(slideIndex = n);
+		}
+
+		function showSlides(n) {
+		  var i;
+		  var slides = document.getElementsByClassName("mySlides");
+		  if (n > slides.length) {slideIndex = 1}    
+		  if (n < 1) {slideIndex = slides.length}
+		  for (i = 0; i < slides.length; i++) {
+		      slides[i].style.display = "none";  
+		  }		 
+		  slides[slideIndex-1].style.display = "block";  
+		}
+		
 </script>
     <style type="text/css">
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
@@ -164,7 +186,7 @@
 	    	background : none;
 	    	border : none;
 	    }
-	    .col-lg-6 col-md-6{
+	    .main_one{
 	    	width : 100%;
 	    }
 	    
@@ -185,6 +207,49 @@
 			border-radius : 2em;
 	    }
 	   
+	   .mySlides {
+	 		display: none
+	   }
+	   
+		img {
+			vertical-align: middle;
+		}
+		
+		/* Slideshow container */
+		.slideshow-container {
+			max-width: 1000px;
+			position: relative;
+			margin: auto;
+		}
+		
+		/* Next & previous buttons */
+		.prev, .next {
+		  position: absolute;
+		  top: 50%;
+		  width: auto;
+		  padding: 16px;
+		  margin-top: -22px;
+		  color: white;
+		  font-weight: bold;
+		  font-size: 18px;
+		  transition: 0.6s ease;
+		  border-radius: 0 3px 3px 0;
+		}
+		
+		/* Position the "next button" to the right */
+		.next {
+		  right: 0;
+		  border-radius: 3px 0 0 3px;
+		}
+		
+		/* On hover, add a black background color with a little bit see-through */
+		.prev:hover, .next:hover {
+		  background-color: rgba(0,0,0,0.8);
+		}
+		
+		
+		
+	
     </style>
 
 </head>
@@ -203,10 +268,21 @@
 </div>
 <div class="container1">
 				<c:forEach items="${list }" var="room">
-					<div class="col-lg-6 col-md-6">
-						<div class="single_place">
-							<div id="roomImg">
-								<img src="${ pageContext.servletContext.contextPath}/resources/roomThumbnail/${ room.room_rename_file }">
+					<div class="main_one">
+						<div id="roomImg">
+								<div class="slideshow-container">	
+									<c:forEach items="${rflist }" var="rf">
+										<c:if test="${room.room_no eq rf.room_no }">
+											<div class="mySlides fade">
+												<img src="${ pageContext.servletContext.contextPath}/resources/roomFiles/${ rf.rename_file }">
+											</div>
+										</c:if>
+									</c:forEach>
+									
+									<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+									<a class="next" onclick="plusSlides(1)">&#10095;</a>
+									
+								</div>
 							</div>
 							<div class="place_info">
 								<a href="moveDetailView.do?room_no=${room.room_no}"><h3>${room.room_name }</h3></a>
@@ -277,8 +353,6 @@
 								</div>
 							</div>
 						</div>
-					</div>
-
 				</c:forEach>
 			</div>
 <div id="page" style="text-align:center;">
@@ -326,7 +400,7 @@ var roomName = [];
 roomName.push('${room.room_name}');
 list.push('${room.room_roadaddress}');
 </c:forEach>
-var markerArr = [];
+
 for(var i = 0; i < '${fn:length(list)}'; i++){
 	var name = roomName[i];
 	var coords ="";
@@ -338,8 +412,6 @@ for(var i = 0; i < '${fn:length(list)}'; i++){
 		            map: map,
 		            position: coords
 		        });
-		        markerArr.push('marker');
-		        console.log(markerArr);
 
 		    	/* 
 		    	 var content = '<div class="customoverlay"><span class="title">'+name+ '</span></div>';

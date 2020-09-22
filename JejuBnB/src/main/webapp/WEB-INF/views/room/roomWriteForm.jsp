@@ -122,6 +122,16 @@
 		
 	}
 	
+	#imgContainer{
+		display : grid;
+		width : 90%;
+		grid-template-columns : 1fr 1fr 1fr;
+		gap : 10px 10px;
+		padding : 0;
+		margin : 10px;
+		margin-left : 0;
+	}
+	
 	.filebox label { 
 	display: inline-block; 
 	padding: .5em .75em; 
@@ -147,6 +157,51 @@
 	 clip:rect(0,0,0,0); 
 	 border: 0; 
 	 }
+	 
+	 .dropBox{
+	 	border:2px dotted #3292A2;
+        width:90%;
+        height:200px;
+        color:#92AAB0;
+        text-align:center;
+        font-size:24px;
+        padding-top:80px;
+        margin-top:10px;
+	 }
+	 
+	 .images{
+	 	width : 200px;
+	 	height : 200px;
+	 	border-radius : 2em;
+	 	padding : 0;
+	 }
+	 
+	 .images img {
+	 	width : 200px;
+	 	height : 200px;
+	 	margin : 0;
+	 }
+	 
+	 .btn{
+	 	border : none;
+	 	background : none;
+	 	padding : 0;
+	 	margin : 5px;
+	 }
+	 
+	 .btnImg{
+	 	width : 20px;
+	 	height : 20px;
+	 	margin : 0;
+	 }
+	 
+	 .right img {
+	 	width : 200px;
+	 	height : 200px;
+	 	margin : 0;
+	 	border-radius : 5%;
+	 }
+	 
 
 </style>
 
@@ -177,23 +232,173 @@
     })
     }
     
-    $(function(){
-    	$("#thumbnail").on('change', function(){
- 
-    		var thumbnail = $("#thumbnail").val().split("\\");
-    		var fileName = thumbnail[thumbnail.length-1];
-    		$("#ThBox").empty();
-    		$("#ThBox").append('<label for="thumbnail" id="Tlabel">대표 사진</label> <input type="file" id="thumbnail" name="ofile" required />'+fileName);
-    		$("#ThBox").show();
-    	});
-    });
+   
+// 파일 리스트 번호
+   var fileIndex = 0;
+   // 등록할 전체 파일 사이즈
+   var totalFileSize = 0;
+   // 파일 리스트
+   var fileList = new Array();
+   // 파일 사이즈 리스트
+   var fileSizeList = new Array();
+   // 등록 가능한 파일 사이즈 MB
+   var uploadSize = 50;
+   // 등록 가능한 총 파일 사이즈 MB
+   var maxUploadSize = 500;
+
+   $(function (){
+       // 파일 드롭 다운
+       fileDropDown();
+   });
+
+   // 파일 드롭 다운
+   function fileDropDown(){
+       var dropZone = $("#dropBox");
+       //Drag기능 
+       dropZone.on('dragenter',function(e){
+           e.stopPropagation();
+           e.preventDefault();
+           // 드롭다운 영역 css
+           $(this).css('border', '2px solid #5272A0');
+       });
+       dropZone.on('dragleave',function(e){
+           e.stopPropagation();
+           e.preventDefault();
+           // 드롭다운 영역 css
+           $(this).css('border', '2px dotted #8296C2');
+       });
+       dropZone.on('dragover',function(e){
+           e.stopPropagation();
+           e.preventDefault();
+           // 드롭다운 영역 css
+       });
+       dropZone.on('drop',function(e){
+           e.preventDefault();
+           // 드롭다운 영역 css
+           $(this).css('border', '2px dotted #8296C2');
+           
+           var files = e.originalEvent.dataTransfer.files;
+           if(files != null){
+               if(files.length >= 1){
+	           		selectFile(files)
+               }else{
+            	   alert("폴더 업로드 불가");
+                   return;
+               }
+           }else{
+               alert("ERROR");
+           }
+       });
+   }
+
+   // 파일 선택시
+   function selectFile(files){
+       // 다중파일 등록
+       if(files != null){
+           for(var i = 0; i < files.length; i++){
+               // 파일 이름
+               var fileName = files[i].name;
+               var fileNameArr = fileName.split("\.");
+               // 확장자
+               var ext = fileNameArr[fileNameArr.length - 1];
+               // 파일 사이즈(단위 :MB)
+               var fileSize = files[i].size / 1024 / 1024;
+               
+               if($.inArray(ext, ['exe', 'bat', 'sh', 'java', 'jsp', 'html', 'js', 'css', 'xml']) >= 0){
+                   // 확장자 체크
+                   alert("등록 불가 확장자");
+                   break;
+               }else if(fileSize > uploadSize){
+                   // 파일 사이즈 체크
+                   alert("용량 초과\n업로드 가능 용량 : " + uploadSize + " MB");
+                   break;
+               }else{
+                   // 전체 파일 사이즈
+                   totalFileSize += fileSize;
+                   
+                   // 파일 배열에 넣기
+                   fileList[fileIndex] = files[i];
+                   
+                   // 파일 사이즈 배열에 넣기
+                   fileSizeList[fileIndex] = fileSize;
+
+                   // 업로드 파일 목록 생성
+                   addFileList(fileIndex, fileName, fileSize, files);
+
+                   // 파일 번호 증가
+                   fileIndex++;
+               }
+           }
+       }else{
+           alert("ERROR");
+       }
+   }
+
+   // 업로드 파일 목록 생성
+   function addFileList(fIndex, fileName, fileSize, files){
+	  
+       var html = "";
+       html += "<div id='fileTr_" + fIndex + "'>";
+       html += " 	<div class='right' >";
+       html += "	   <img src="+window.URL.createObjectURL(files[fIndex])+"></div>"
+       html += "    <div class='left' >";
+       html += "<h5>"+        fileName + "</5><button onclick='deleteFile(" + fIndex + "); return false;' class='btn'><img class='btnImg' src='${pageContext.servletContext.contextPath }/resources/images/x버튼.png'></a>"
+       html += "    </div>";
+       html += "</div>";
+
+       $('#imgContainer').append(html);
+   }
+
+   // 업로드 파일 삭제
+   function deleteFile(fIndex){
+       // 전체 파일 사이즈 수정
+       totalFileSize -= fileSizeList[fIndex];
+       
+       // 파일 배열에서 삭제
+       delete fileList[fIndex];
+       
+       // 파일 사이즈 배열 삭제
+       delete fileSizeList[fIndex];
+       
+       // 업로드 파일 테이블 목록에서 삭제
+       $("#fileTr_" + fIndex).remove();
+   }
+
+   // 파일 등록
+   function uploadFile(){
+       // 등록할 파일 리스트
+       var uploadFileList = Object.keys(fileList);
+       console.log(formData);
+       // 파일이 있는지 체크
+       if(uploadFileList.length == 0){
+           // 파일등록 경고창
+           alert("파일이 없습니다.");
+           return;
+       }
+       
+       // 용량을 500MB를 넘을 경우 업로드 불가
+       if(totalFileSize > maxUploadSize){
+           // 파일 사이즈 초과 경고창
+           alert("총 용량 초과\n총 업로드 가능 용량 : " + maxUploadSize + " MB");
+           return;
+       }
+   }
+   
+   $(document).on("dragover drop", function(e) {
+	    e.preventDefault();
+	}).on("drop", function(e) {
+	    $("input[type='file']")
+	        .prop("files", e.originalEvent.dataTransfer.files)
+	        .closest("form")
+	});
 </script>
+
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp"/>
 <div class="thead"></div>
 <div id="main">
-<form action="roominsert.do" method="post" enctype="multipart/form-data">
+<form action="roominsert.do" method="post" id="uploadForm" enctype="multipart/form-data">
 <input type="hidden" name="user_id" value="${loginMember.user_id }" >
 
 <div id="first" class="write">
@@ -292,8 +497,11 @@
 <br>
 </div>
 <div id="third" class="write">
-<div class="filebox" id="ThBox"> <label for="thumbnail" id="Tlabel">대표 사진</label> <input type="file" id="thumbnail" name="ofile" required /> </div>
 <div class="filebox"><label for="files">숙소 사진 추가</label><input multiple="multiple" type="file" id="files" name="file" style="display:none;"/></div>
+<div class="dropBox" id="dropBox">사진 업로드</div>
+<div id="imgContainer">
+
+</div>
 <input type="submit" value="전송">
 </div>
 </form>

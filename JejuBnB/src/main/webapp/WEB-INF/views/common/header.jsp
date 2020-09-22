@@ -8,7 +8,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>JejuBnB</title>
       <link rel="stylesheet" href="resources/css/header.css">
-
+	
+	<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
       <script type="text/javascript">
          function winOpen1() {
             window.open("moveFilterList.do","필터","width=900,height=1000");

@@ -25,11 +25,11 @@
 </tr>
 <tr>
 <th>약관 제목</th>
-<input type="text" name="policy_title"><br>
+<input type="text" name="policy_title" required><br>
 </tr>
 <tr>
 <th>약관 정보</th>
-<input type="text" name="policy_content"><br>
+<input type="text" name="policy_content" required><br>
 </tr>
 <th colspan="2">
 <input type="submit" value="추가">

@@ -87,8 +87,18 @@
 	</insert>
 	
 	<update id="updateEvent" parameterType="Event">
-		update event set event_name = #{evnet_name}, event_content = #{event_content},
-		 event_fimg = #{event_fimg}, coupon_no = #{coupon_no}, sum_fimg = #{sum_fimg} where event_no = #{event_no}
+		update event set event_name = #{event_name}, event_content = #{event_content},
+		
+		<if test="event_fimg != null">
+		event_fimg = #{event_fimg}, event_rimg = #{event_rimg},
+		</if>
+				
+		<if test="sum_fimg != null">
+		sum_fimg = #{sum_fimg}, sum_rimg = #{sum_rimg},
+		</if>
+		
+		coupon_no = #{coupon_no}
+		where event_no = #{event_no}
 	</update>
 	
 	<delete id="deleteEvent" parameterType="string">

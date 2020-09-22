@@ -46,7 +46,7 @@
 			padding-top: 0;
 			margin-top: 15%;
 		    margin-left: 5%;
-			width: 15%;
+			
    			height: 5%;
 			font-size: 45px;
 			cursor:pointer;

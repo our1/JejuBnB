@@ -83,11 +83,10 @@ var tourName = [];
 tourName.push('${tour.tour_name}');
 list.push('${tour.tour_roadaddress}');
 </c:forEach>
-console.log(list);
+console.log("확인 : " + list);
 
 
 for(var i = 0; i < '${fn:length(list)}'; i++){
-	console.log(tourName[i]);
 	geocoder.addressSearch(list[i], function(result, status) {
 	 if (status === kakao.maps.services.Status.OK) {
 	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);

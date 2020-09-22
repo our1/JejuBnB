@@ -15,7 +15,7 @@
 		<result property="admin_check" column="admin_check" />
 	</resultMap>
 	
-		<resultMap id="resultList" type="Member">
+	<resultMap id="resultList" type="Member">
 		<id property="user_id" column="user_id" />
 		<result property="user_pwd" column="user_pwd" />
 		<result property="user_name" column="user_name" />
@@ -24,6 +24,16 @@
 		<result property="facebook_id" column="facebook_id" />
 		<result property="host_check" column="host_check" />
 		<result property="admin_check" column="admin_check" />
+	</resultMap>
+	
+	<resultMap id="hostList" type="com.jeju.JejuBnB.member.model.vo.HostMemberRoomDetail">
+		<result property="room_no" column="room_no" />
+		<result property="user_id" column="user_id" />
+		<result property="user_name" column="user_name" />
+		<result property="room_name" column="room_name" />
+		<result property="room_address" column="room_address" />
+		<result property="phone" column="phone" />
+		<result property="host_check" column="host_check" />
 	</resultMap>
 	
 
@@ -60,6 +70,15 @@
 	select * from member
 	</select>
 	
+	<select id="selectHostList" resultMap="resultList">
+	select user_id, user_name, phone, host_check from member join (select user_id from room where pass_or_not = 'N'
+	intersect select user_id from member where host_check is null) using (user_id)
+	</select>
+	
+	<select id="selectHostListDetail" resultMap="hostList">
+	select room_no, user_id, user_name, room_name, room_address, phone, host_check from member join room using(user_id) where user_id = #{user_id}
+	</select>
+	
 	<update id="updatePwdMember" parameterType="Member">
 	update member set user_pwd = #{user_pwd} where user_id = #{user_id}
 	</update>
@@ -71,7 +90,9 @@
 	<update id="updateBeAdminMember" parameterType="string">
 	update member set admin_check = 'Y' where user_id = #{user_id}
 	</update>
-	
+	<update id="updateBeHostMember" parameterType="string">
+	update member set host_check = 'Y' where user_id = #{user_id}
+	</update>
 	
 	<delete id="deleteMember" parameterType="string">
 	delete from member where user_id = #{uid}

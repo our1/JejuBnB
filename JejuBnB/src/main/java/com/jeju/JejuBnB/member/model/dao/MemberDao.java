@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.jeju.JejuBnB.member.model.vo.HostMemberRoomDetail;
 import com.jeju.JejuBnB.member.model.vo.Member;
 @Repository("memberDao")
 public class MemberDao {
@@ -92,6 +93,20 @@ public ArrayList<Member> selectMemberList() {
 
 public int updateBeAdminMember(String user_id) {
 	return session.update("memberMapper.updateBeAdminMember", user_id);
+}
+
+public ArrayList<Member> selectHostList() {
+	List<Member> list = session.selectList("memberMapper.selectHostList");
+	return (ArrayList<Member>)list;
+}
+
+public ArrayList<HostMemberRoomDetail> selectHostListDetail(HostMemberRoomDetail hostmember) {
+	List<HostMemberRoomDetail> list = session.selectList("memberMapper.selectHostListDetail", hostmember);
+	return (ArrayList<HostMemberRoomDetail>)list;
+}
+
+public int updateBeHostMember(String user_id) {
+	return session.update("memberMapper.updateBeHostMember", user_id);
 }
 
 

@@ -2,6 +2,7 @@ package com.jeju.JejuBnB.member.model.service;
 
 import java.util.ArrayList;
 
+import com.jeju.JejuBnB.member.model.vo.HostMemberRoomDetail;
 import com.jeju.JejuBnB.member.model.vo.Member;
 public interface MemberService {
 	
@@ -16,5 +17,8 @@ public interface MemberService {
 	int updatPwdMember(Member member);
 	ArrayList<Member> selectMemberList(); 
 	int updateBeAdminMember(String user_id);
+	ArrayList<Member> selectHostList();
+	ArrayList<HostMemberRoomDetail> selectHostListDetail(HostMemberRoomDetail hostmember);
+	int updateBeHostMember(String user_id);
 	
 }

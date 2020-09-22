@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jeju.JejuBnB.member.model.service.MemberService;
+import com.jeju.JejuBnB.member.model.vo.HostMemberRoomDetail;
 import com.jeju.JejuBnB.member.model.vo.Member;
 
 @Controller
@@ -157,7 +158,7 @@ public class MemberController {
 		if (memberService.deleteMember(user_id) > 0) {
 			return "redirect:/logout.do";
 		} else {
-			model.addAttribute("message", user_id + "회원 탈퇴를 실패했습니다.");
+			model.addAttribute("message", user_id + "님 탈퇴를 실패했습니다.");
 			return "common/error";
 		}
 	}
@@ -167,7 +168,7 @@ public class MemberController {
 		if (memberService.deleteMember(user_id) > 0) {
 			return "redirect:/moveAdminMemberPage.do";
 		}else {
-			model.addAttribute("message", user_id + "회원 탈퇴를 실패했습니다.");
+			model.addAttribute("message", user_id + "회원의 계정탈퇴를 실패했습니다.");
 			return "common/error";
 		}
 	}
@@ -177,10 +178,32 @@ public class MemberController {
 		if (memberService.updateBeAdminMember(user_id)> 0) {
 			return "redirect:/moveAdminMemberPage.do";
 		}else {
-			model.addAttribute("message", user_id + "회원 탈퇴를 실패했습니다.");
+			model.addAttribute("message", user_id + "님의 관리자 등업을 실패했습니다.");
 			return "common/error";
 		}
 	}
+	// 호스트 회원 등업
+	@RequestMapping("beHostMember.do")
+	public String beHostMember(@RequestParam("user_id") String user_id, Model model) {
+		if (memberService.updateBeHostMember(user_id)> 0) {
+			model.addAttribute("user_id", user_id);
+			return "redirect:/hostListDetail.do";
+		}else {
+			model.addAttribute("message", user_id + "님의 호스트 등업을 실패했습니다.");
+			return "common/error";
+		}
+	}
+	/*
+	 * // 등업 완료 후 room 회원에게 보이게 만들기
+	 * 
+	 * @RequestMapping("roomChangePass.do") public String
+	 * roomChangePass(@RequestParam("user_id") String user_id, Model model) { if
+	 * (memberService.updateBeHostMember(user_id)> 0) { return
+	 * "redirect:/moveAdminMemberPage.do"; }else { model.addAttribute("message",
+	 * user_id + "님의 호스트 등업을 실패했습니다."); return "common/error"; } }
+	 */
+	
+	
 
 	// 비밀번호 확인
 	@RequestMapping("memberpwdcheck.do")
@@ -353,13 +376,27 @@ public class MemberController {
 		}
 		return mv;
 	}
-	
 
 	/*
 	 * view 이동
 	 * -----------------------------------------------------------------------------
 	 * ---------------------------------------
 	 */
+	
+	// 호스트 신청 디테일 
+	@RequestMapping("hostListDetail.do")
+	public ModelAndView movehostListDetail(ModelAndView mv, HostMemberRoomDetail hostmember ) {
+		ArrayList<HostMemberRoomDetail> member = memberService.selectHostListDetail(hostmember);
+		if(member != null) {
+			mv.setViewName("member/hostMemberRoomDetail");
+			mv.addObject("hostlist", member);
+		}else {
+			mv.addObject("message", "회원에 대한 정보 조회 실패 했습니다.");
+			mv.setViewName("common/error");
+		}
+		return mv;
+	}	
+	
 	// 회원 관리 페이지
 		@RequestMapping("moveAdminMemberPage.do")
 		public ModelAndView moveadminMemberList(ModelAndView mv) {
@@ -368,7 +405,7 @@ public class MemberController {
 				mv.setViewName("member/adminMemberList");
 				mv.addObject("memberlist", member);
 			}else {
-				mv.addObject("message", "회원에 대한 정보 조회 실패 했습니다.");
+				mv.addObject("message", "관리자 정보 조회 실패 했습니다.");
 				mv.setViewName("common/error");
 			}
 			return mv;
@@ -383,7 +420,7 @@ public class MemberController {
 			mv.setViewName("member/myinfoPage");
 			mv.addObject("member", member);
 		} else {
-			mv.addObject("message", user_id + "에 대한 정보 조회 실패 했습니다.");
+			mv.addObject("message", user_id + "님  정보 조회 실패 했습니다.");
 			mv.setViewName("common/error");
 		}
 		return mv;
@@ -397,12 +434,26 @@ public class MemberController {
 			mv.addObject("member", member);
 			mv.setViewName("member/memberUpdatePage");
 		} else {
-			mv.addObject("message", user_id + "에 대한 수정 페이지 이동 실패 했습니다.");
+			mv.addObject("message", user_id + "님  수정 페이지 이동을 실패 했습니다.");
 			mv.setViewName("common/error");
 		}
 		return mv;
 	}
 
+	// 호스트 신청 페이지 
+	@RequestMapping("moveHostRequestPage.do")
+	public ModelAndView moveHostRequestPage(ModelAndView mv) {
+		ArrayList<Member> member = memberService.selectHostList();
+		if(member != null) {
+			mv.setViewName("member/hostRequestListPage");
+			mv.addObject("hostlist", member);
+		}else {
+			mv.addObject("message", "호스트  정보 조회를 실패 했습니다.");
+			mv.setViewName("common/error");
+		}
+		return mv;
+	}
+	
 	// 회원가입 페이지
 	@RequestMapping("enrollPage.do")
 	public String moveEnrollPage() {
@@ -437,7 +488,6 @@ public class MemberController {
 	public String moveUpdatePwdPage() {
 		return "member/memberUpdatePwdPage";
 	}
-	
 	// 마이 페이지 
 	@RequestMapping("moveMyPage.do")
 	public String moveMyPage() {
@@ -448,7 +498,5 @@ public class MemberController {
 	public String moveAdminPage() {
 		return "member/adminPage";
 	}	
-	
-		
 
 }

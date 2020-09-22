@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jeju.JejuBnB.member.model.dao.MemberDao;
+import com.jeju.JejuBnB.member.model.vo.HostMemberRoomDetail;
 import com.jeju.JejuBnB.member.model.vo.Member;
 
 @Service("memberService")
@@ -65,6 +66,21 @@ public class MemberServiceImpl implements MemberService{
 	public int updateBeAdminMember(String user_id) {
 		return memberDao.updateBeAdminMember(user_id);
 		
+	}
+
+	@Override
+	public ArrayList<Member> selectHostList() {
+		return memberDao.selectHostList();
+	}
+
+	@Override
+	public ArrayList<HostMemberRoomDetail> selectHostListDetail(HostMemberRoomDetail hostmember) {
+		return memberDao.selectHostListDetail(hostmember);
+	}
+
+	@Override
+	public int updateBeHostMember(String user_id) {
+		return memberDao.updateBeHostMember(user_id);
 	}
 
 	

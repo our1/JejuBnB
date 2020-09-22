@@ -689,12 +689,13 @@
   <script src="resources/js/demo/chart-area-demo.js"></script>
   <script src="resources/js/demo/chart-pie-demo.js"></script>
   
-<%--   <h1>관리자 페이지</h1>
+<h1 align="center">관리자 페이지</h1>
 		<c:url var="adminMemberList" value="moveAdminMemberPage.do"/>
+		<c:url var="moveHostRequestPage" value="moveHostRequestPage.do"/>
 		<a href="${adminMemberList}">회원 관리 페이지로 이동하는 버튼  </a> <br>
-		<a href="${callMyinfo}">사장님 신청 페이지로 이동하는 버튼	 </a>  <br>
+		<a href="${moveHostRequestPage}">사장님 신청 페이지로 이동하는 버튼	 </a>  <br>
 		회원 관리 페이지로 이동하는 버튼             <!--  adminMemberPage.do    adminMemberPage-->  <br>
-		사장님 신청 페이지로 이동하는 버튼		<!-- behostPage.do     behostPage-->  <br> --%>
+		사장님 신청 페이지로 이동하는 버튼		<!-- behostPage.do     behostPage-->  <br>
 
 </body>
 

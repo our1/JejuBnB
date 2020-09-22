@@ -34,10 +34,14 @@ public class EventController {
 	private EventService eventService;
 	
 	@RequestMapping("eventPage.do")
-	public ModelAndView EventListMethod(ModelAndView mv) {
+	public ModelAndView EventListMethod(HttpServletRequest request ,ModelAndView mv) {
 		int limit = 9;
 		int currentPage = 1;
 		int listCount = eventService.getListCount();
+		
+		if(request.getParameter("page") != null) {
+			currentPage = Integer.parseInt(request.getParameter("page"));
+		}
 		
 		int maxPage = (int) (((double) listCount / limit) + 0.9);
 		int startPage = (((int) ((double) currentPage / limit + 0.9)) - 1) * limit + 1;
@@ -46,10 +50,16 @@ public class EventController {
 			endPage = maxPage;
 		}
 		
+		
 		ArrayList<Collection> event = eventService.selectList(currentPage, limit);
 		
 		if(event != null) {
 			mv.setViewName("event/eventListView");
+			mv.addObject("maxPage", maxPage);
+			mv.addObject("startPage", startPage);
+			mv.addObject("endPage", endPage);
+			mv.addObject("currentPage", currentPage);
+			mv.addObject("listCount", listCount);
 			mv.addObject("event", event);
 		}else {
 			mv.addObject("message", event + "이벤트조회 실패");

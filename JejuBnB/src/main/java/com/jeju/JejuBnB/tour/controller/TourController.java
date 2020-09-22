@@ -95,7 +95,7 @@ public class TourController {
 		return "tour/tourWriteForm";
 	}
 	
-	@RequestMapping(value="tinsert.do", method = RequestMethod.POST)
+	/*@RequestMapping(value="tinsert.do", method = RequestMethod.POST)
 	public String TourInsert(Tour tour, Model model, MultipartHttpServletRequest mrequest, HttpServletRequest request,
 	        @RequestParam(value = "ofile", required = false) MultipartFile ofile, @RequestParam("address") String address ) {
 		String orgname = ofile.getOriginalFilename();
@@ -154,7 +154,7 @@ public class TourController {
 			model.addAttribute("message", "등록 실패");
 			return "common/error";
 		}
-	}
+	}*/
 	
 	
 	@RequestMapping("trwrite.do")
@@ -236,7 +236,6 @@ public class TourController {
     	
     }
 
-
 	@RequestMapping("trupdate.do")
 	public String updateReview(@RequestParam(value="tour_review_no") int tour_review_no, @RequestParam(value="tour_review_content") String tour_review_content,
 			@RequestParam(value="tour_score") int tour_score, @RequestParam(value="user_id") String user_id, Tour_Review tour_review ) {
@@ -249,6 +248,12 @@ public class TourController {
 			tourService.updateTourReview(tour_review);
 			
 			return "tour/tourReviewList";
+	}
+	
+	@RequestMapping("tinsert.do") 
+	public String insertTour(Tour tour) {
+		tourService.insertTour(tour);
+		return "redirect:tlist.do";
 	}
 }
 

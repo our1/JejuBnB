@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>JejuBnB</title>
+<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
 <script type="text/javascript">
 		function moveReviewWrite() {
 			window.open("trwrite.do", "리뷰 작성",

@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>JejuBnB</title>
       <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap" rel="stylesheet">
+      <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
 <style type="text/css">
 .blind {
   position: absolute;

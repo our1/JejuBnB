@@ -51,6 +51,6 @@
 			</tr>
 		</table>
 		<hr>
-			<c:import url="/WEB-INF/views/common/header.jsp" />
+			<c:import url="/WEB-INF/views/common/footer.jsp" />
 	</body>
 </html>

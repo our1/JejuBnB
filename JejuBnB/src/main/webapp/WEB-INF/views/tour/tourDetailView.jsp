@@ -10,59 +10,40 @@
     <title>JejuBnB</title>
       <link rel="stylesheet" href="resources/css/tourDetail.css" >
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
+      <style type="text/css">
+      		.trhead {
+				  position : relative;
+				  width : 100%;
+				  height : 600px;
+				  background-image : url('resources/images/40.jpg');
+				  background-size: cover;
+			}
+			.dt {
+				position : relative;
+				left : 18%;
+			}
+			.dmt {
+			       position: absolute;
+				    display: grid;
+				    left: 71.8%;
+				    top: 73.55%;
+			}
+      </style>
   </head>
   <body>
-    <div class="mainhead">
-         <div class="logo">
-           <a href="main.do"><img src="resources/images/무제.png"></a>
-         </div>
-    <div class="dropdown"><span class="myimg"></span></div>
-          <c:if test="${ !empty loginMember and  loginMember.admin_check eq 'Y' }">
-     	<ul class="dropdown-list">
-	     	<li onclick="javascript:location.href='moveAdminPage.do'"> 관리자 </li>
-	        <li onclick="winOpen1()"> 필터 관리</li>
-       		<li onclick="winOpen3()"> 알림 관리</li>
-	        <li onclick="winOpen2()"> 알림</li>
-	        <hr class="divider">
-	        <li> 고객센터</li>
-	        <li onclick="javascript:location.href='logout.do'"> 로그아웃</li>
-        </ul>
-     </c:if>
-     <c:if test="${empty loginMember }">
-     	<ul class="dropdown-list">
-     	   <li onclick="javascript:location.href='roomlist.do'"> 숙소</li>
-     	   <li onclick="javascript:location.href='tlist.do'"> 관광지</li>
-     	   <hr class="divider">
-	       <li> 고객센터</li>
-	       <li onclick="movePage()">로그인</li>
-        </ul>
-     </c:if>
-     <c:if test="${!empty loginMember and  empty loginMember.admin_check}">
-     <ul class="dropdown-list">
-       <li onclick="javascript:location.href='moveMyPage.do'"> 내 정보 보기</li>
-       <li onclick="javascript:location.href='moveMyRoom.do?userid=${loginMember.user_id }'"> 저장 목록</li>
-       <li onclick="winOpen2()"> 알림</li>
-       <li onclick="javascript:location.href='moveRoomWrite.do'"> 사장님 신청하기</li>
-       <hr class="divider">
-       <li onclick="javascript:location.href='roomlist.do'"> 숙소</li>
-       <li onclick="javascript:location.href='tlist.do'"> 관광지</li>
-       <hr class="divider">
-       <li> 고객센터</li>
-       <li onclick="javascript:location.href='logout.do'"> 로그아웃</li>
-     </ul>
-     </c:if>
-  </div>
-   <div class="thead"></div>
+   <div class="trhead">
+</div>
    		<div style="padding: 100px 0px 0px 0px;"></div>
-         <div class="container">
+<!--          <div class="container">
           <div data-am-fadeshow="next-prev-navigation">
 
-            <!-- Radio -->
+            Radio
             <input type="radio" name="css-fadeshow" id="slide-1" />
             <input type="radio" name="css-fadeshow" id="slide-2" />
             <input type="radio" name="css-fadeshow" id="slide-3" />
 
-            <!-- Slides -->
+            Slides
             <div class="fs-slides">
               <div class="fs-slide" style="background-image: url('resources/images/01.jpg');">
               </div>
@@ -70,21 +51,21 @@
               <div class="fs-slide" style="background-image: url('resources/images/03.jpg');"></div>
             </div>
 
-            <!-- Quick Navigation -->
+            Quick Navigation
             <div class="fs-quick-nav">
               <label class="fs-quick-btn" for="slide-1"></label>
               <label class="fs-quick-btn" for="slide-2"></label>
               <label class="fs-quick-btn" for="slide-3"></label>
             </div>
 
-            <!-- Prev Navigation -->
+            Prev Navigation
             <div class="fs-prev-nav">
               <label class="fs-prev-btn" for="slide-1"></label>
               <label class="fs-prev-btn" for="slide-2"></label>
               <label class="fs-prev-btn" for="slide-3"></label>
             </div>
 
-            <!-- Next Navigation -->
+            Next Navigation
             <div class="fs-next-nav">
               <label class="fs-next-btn" for="slide-1"></label>
               <label class="fs-next-btn" for="slide-2"></label>
@@ -92,7 +73,22 @@
             </div>
 
           </div>
+         </div> -->
+         <div class="dt">
+         	 <img src="resources/images/25.jpg" width="1000" height="700" id="big">
+         </div> 
+         <div class="dmt">
+	         <img src="resources/images/25.jpg" width="200" height="158.9" onmouseover="showBig('25.jpg');"> <br>
+	         <img src="resources/images/21.jpg" width="200" height="158.9" onmouseover="showBig('21.jpg');"> <br>
+	         <img src="resources/images/07.jpg" width="200" height="158.9" onmouseover="showBig('07.jpg');"> <br>
+	         <img src="resources/images/23.jpg" width="200" height="158.9" onmouseover="showBig('23.jpg');"> <br>
          </div>
+         <script type="text/javascript">
+         	function showBig(val) {
+         		var obj = document.getElementById("big");
+         		obj.src="resources/images/" + val ;
+         	}
+         </script>
       <div class="tname">${ tour.tour_name }</div>
              <div class="facebook"><img src="resources/images/face.png"></div>
              <div class="instagram"><img src="resources/images/insta.png"></div>
@@ -154,7 +150,7 @@
                         </g>
                       </g>
                     </svg>
-                  </label>
+                  </label> 
         <div class="ts">
             <span>&#9733;</span> 4.8 ( 135 ) &nbsp;&nbsp; ${ tour.tour_address }
               <hr class="tshr">
@@ -166,8 +162,8 @@
         </div>
         <div style="padding: 190px 0px 0px 0px;"></div>
         <div class="tmap">
-          방문 장소<br>
-	<div id="map" style="width:1300px;height:400px;z-index:0;"></div>
+          방문 장소 <br><br>
+	<div id="map" style="width:1100px;height:400px;z-index:0;margin-left:3%;"></div>
 
 	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f30a1bf673317be5978a11f2b404a16b"></script>
 	<script>

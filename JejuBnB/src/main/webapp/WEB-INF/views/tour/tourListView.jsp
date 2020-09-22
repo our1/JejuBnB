@@ -10,51 +10,32 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>JejuBnB</title>
         <link rel="stylesheet" href="resources/css/tourlist.css" >
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
+       	<style type="text/css">
+       			.trhead {
+				  position : relative;
+				  width : 100%;
+				  height : 600px;
+				  background-image : url('resources/images/40.jpg');
+				  background-size: cover;
+			}
+			.fa-eye {
+				color : gray;
+			}
+			.fa-heart {
+				color : #D57777;
+			}
+			.wh {
+				float : right;
+				color : gray;
+			}
+       	</style>
   </head>
   <body>
-    <div class="mainhead">
-         <div class="logo">
-           <a href="main.do"><img src="resources/images/무제.png"></a>
-         </div>
-    <div class="dropdown"><span class="myimg"></span></div>
-          <c:if test="${ !empty loginMember and  loginMember.admin_check eq 'Y' }">
-     	<ul class="dropdown-list">
-	     	<li onclick="javascript:location.href='moveAdminPage.do'"> 관리자 </li>
-	        <li onclick="winOpen1()"> 필터 관리</li>
-       		<li onclick="winOpen3()"> 알림 관리</li>
-	        <li onclick="winOpen2()"> 알림</li>
-	        <hr class="divider">
-	        <li> 고객센터</li>
-	        <li onclick="javascript:location.href='logout.do'"> 로그아웃</li>
-        </ul>
-     </c:if>
-     <c:if test="${empty loginMember }">
-     	<ul class="dropdown-list">
-     	   <li onclick="javascript:location.href='roomlist.do'"> 숙소</li>
-     	   <li onclick="javascript:location.href='tlist.do'"> 관광지</li>
-     	   <hr class="divider">
-	       <li> 고객센터</li>
-	       <li onclick="movePage()">로그인</li>
-        </ul>
-     </c:if>
-     <c:if test="${!empty loginMember and  empty loginMember.admin_check}">
-     <ul class="dropdown-list">
-       <li onclick="javascript:location.href='moveMyPage.do'"> 내 정보 보기</li>
-       <li onclick="javascript:location.href='moveMyRoom.do?userid=${loginMember.user_id }'"> 저장 목록</li>
-       <li onclick="winOpen2()"> 알림</li>
-       <li onclick="javascript:location.href='moveRoomWrite.do'"> 사장님 신청하기</li>
-       <hr class="divider">
-       <li onclick="javascript:location.href='roomlist.do'"> 숙소</li>
-       <li onclick="javascript:location.href='tlist.do'"> 관광지</li>
-       <hr class="divider">
-       <li> 고객센터</li>
-       <li onclick="javascript:location.href='logout.do'"> 로그아웃</li>
-     </ul>
-     </c:if>
-  </div>
-   <div class="thead"><h1 class="tour">관광지</h1></div>
-   <div style="padding: 100px 0px 0px 0px;"></div>
+   <div class="trhead">
+	<!-- <h1 class="tour">관광지</h1> --></div>
+   <div style="padding: 70px 0px 0px 0px;"></div>
      <button class="live">자연
      	<div class="livecount">7 개</div>
      </button>
@@ -65,13 +46,13 @@
      	<div class="actcount">5 개</div>
      </button>
      <button class="movelist" onclick="javascipt:location.href='tourNoMap.do'">X</button>
-     <div style="padding: 100px 0px 0px 0px;"></div>
+     <div style="padding: 70px 0px 0px 0px;"></div>
        <div class="tourlist">
 	       <c:forEach items="${ requestScope.list }" var="t">
 	         <div class="one">
-	           <a href="tdetail.do?tour_no=${ t.tour_no }" target="_blank"><img src="resources/images/01.jpg" width=100% height=100%>  
-	            <span>&#9733;</span> 4.8 ( 135 )<br>
-	             <br>${ t.tour_name }
+	           <a href="tdetail.do?tour_no=${ t.tour_no }" target="_blank"><img src="resources/images/28.jpg" width=100% height=100%>  
+	            <span class="st">&#9733;</span> 4.8 ( 135 )<br>
+	             <br>${ t.tour_name } <span class="wh"> <i class="fa fa-eye"></i> ${ t.tour_readcount } <i class="fa fa-heart"></i> </span> 
 	           </a>
 	         </div>
 	        </c:forEach>

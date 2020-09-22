@@ -18,11 +18,8 @@
 </c:url>
 <a href="${callMyinfo}">회원 정보 보기 페이지 버튼 </a> <br>
 <a href="${callMyinfo}">내 쿠폰함 보기 페이지 버튼 </a> <br>
-<a href="${callMyinfo}">내가 저장한 숙소 보기 페이지 버튼 </a>  <br>
-<a href="moveMessageTemp.do">메세지함 보기 버튼 </a>  <br>
+<a href="${callMyinfo}">내가 저장한 숙소 보기 페이지 버튼 </a>
 
-
-
-
+<c:import url="/WEB-INF/views/common/footer.jsp" />
 </body>
 </html>

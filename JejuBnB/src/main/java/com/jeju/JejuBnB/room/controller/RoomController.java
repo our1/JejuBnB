@@ -40,6 +40,7 @@ import com.jeju.JejuBnB.review.model.vo.Review;
 import com.jeju.JejuBnB.room.model.service.RoomService;
 import com.jeju.JejuBnB.room.model.vo.CheckTime;
 import com.jeju.JejuBnB.room.model.vo.Room;
+import com.jeju.JejuBnB.room.model.vo.RoomLatLng;
 import com.jeju.JejuBnB.room.model.vo.Room_File;
 
 @Controller
@@ -127,6 +128,7 @@ public class RoomController {
 		ArrayList<Review> rvlist = reviewService.selectReviewList(list);		
 		model.addAttribute("rvlist", rvlist);
 		
+		logger.info("week : " + week);
 		if (list != null) {
 			logger.info("룸 객체 : " + list.toString());
 			model.addAttribute("inMonth", inMonth);
@@ -151,14 +153,15 @@ public class RoomController {
 	}
 	
 	@RequestMapping(value = "roominsert.do", method = RequestMethod.POST)
-	public String insertRoom(Room room, Model model, CheckTime ct, MultipartHttpServletRequest mrequest,
+	public String insertRoom(Room room, RoomLatLng rll, Model model, CheckTime ct, MultipartHttpServletRequest mrequest,
 			HttpServletRequest request,	@RequestParam("address") String address) throws UnsupportedEncodingException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		
 		room.setCheckout_time(ct.getOuthour() + ct.getOutminute());
 		room.setCheckin_time(ct.getInhour() + ct.getInminute());
-		room.setRoom_address(room.getRoom_roadaddress() +" " + address);
-		int result = roomService.insertRoom(room);
+		if(address != null) {
+			room.setRoom_address(room.getRoom_roadaddress() +" " + address);
+		}		int result = roomService.insertRoom(room);
 
 		int roomno = roomService.selectRoomNo(room.getUser_id());
 		
@@ -188,8 +191,11 @@ public class RoomController {
 			rflist.add(rf);
 		}
 		
-			String encoderName = URLEncoder.encode(room.getRoom_name(), "utf-8");
+		String encoderName = URLEncoder.encode(room.getRoom_name(), "utf-8");
 		
+		rll.setRoom_no(roomno);
+		logger.info(rll.toString());
+		int result3 = roomService.insertRoomLatLnt(rll);
 		int result2 = roomService.insertRoomFile(rflist);
 		if (result > 0) {
 			return "redirect:/insertNotice.do?toUser=" + room.getUser_id()+"&fromUser=admin&room_name="+encoderName+"&returnPage=redirect:/moveDetailView.do?room_no="+roomno +"&choice=7";
@@ -284,7 +290,9 @@ public class RoomController {
 			@RequestParam(name="address", required=false) String address) {
 		room.setCheckout_time("" + ct.getOuthour() + ct.getOutminute());
 		room.setCheckin_time(""+ct.getInhour() + ct.getInminute());
-		room.setRoom_address(room.getRoom_roadaddress() +" " + address);
+		if(address != null) {
+			room.setRoom_address(room.getRoom_roadaddress() +" " + address);
+		}
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		List<MultipartFile> fileList = mrequest.getFiles("files");
 		String fileName = fileList.get(0).getOriginalFilename();

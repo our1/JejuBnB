@@ -73,8 +73,8 @@ public class TourServiceImpl implements TourService {
 	}
 
 	@Override
-	public int updateTourReadCount(int tour_no) {
-		return tourDao.updateTourReadCount(tour_no);
+	public int updateTourReadCount(int tour_readcount) {
+		return tourDao.updateTourReadCount(tour_readcount);
 	}
 
 	@Override
@@ -101,5 +101,4 @@ public class TourServiceImpl implements TourService {
 	public Tour SelectTourScore(int tour_score) {
 		return tourDao.selectTourScore(tour_score);
 	}
-
 }

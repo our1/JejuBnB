@@ -253,8 +253,8 @@
     </style>
 
 </head>
-<body>
 <c:import url="/WEB-INF/views/common/header.jsp" />
+<body>
 <hr>
 <div>
 <h1 align="center">숙소 리스트 페이지</h1>

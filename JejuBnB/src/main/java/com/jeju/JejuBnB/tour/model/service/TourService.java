@@ -24,6 +24,6 @@ public interface TourService {
 	int insertTourReview (Tour_Review tour_review);
 	int updateTourReview (Tour_Review tour_review);
 	int deleteTourReview (int tour_review_no);
-    int updateTourReadCount (int tour_no);
+    int updateTourReadCount (int tour_readcount);
 	int insertTourImage(ArrayList<Tour_Image> tilist);
 }

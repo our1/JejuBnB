@@ -1,7 +1,7 @@
 package com.jeju.JejuBnB.tour.model.vo;
 
 public class TourPage implements java.io.Serializable{
-	public static final long serialVersionUid = 5666L;
+	public static final long serialVersionUid = 5777L;
 	
 	
 	private int startRow ;

@@ -122,22 +122,16 @@
 	
 	<update id="updateTour" parameterType="Tour">
 		update tour 
-		set tour_no = #{ tour_no }, tour_name = #{ tour_name }, tour_content = #{ tour_content }, tour_address = #{ tour_address }, tour_act_start_date = #{ tour_act_start_date },
-				      tour_act_end_date = #{ tour_act_end_date }, 
-	    <if test="tour_thumbnail_original_file == null">
-	    	null, null,
-	    </if>
-	    <if test="tour_thumbnail_original_file != null">
-	    	#{ tour_thumbnail_original_file }, #{ tour_thumbnail_rename_file },
-	    </if>
-	    #{ tour_moreinfo }, #{ user_id } 
+		set tour_name = #{ tour_name }, tour_act_start_date = #{ tour_act_start_date },
+				      tour_act_end_date = #{ tour_act_end_date },  tour_content = #{ tour_content }, tour_address = #{ tour_address }, tour_roadaddress = #{ tour.roadaddress },
+				       #{ tour_moreinfo }, #{ user_id } 
 	    where tour_no = #{ tour_no }
 	</update>
 	
 	<update id="updateTourReadCount" parameterType="_int" >
 		update tour
-		set tour_readcount = ( select tour_readcount from tour
-				      where tour_no = #{ tour_no } + 1 where tour_no = #{ tour_no })
+		set tour_readcount = tour_readcount + 1
+		where tour_no = #{ tour_no }
 	</update> 
 	
 	<update id="updateTourReview">
@@ -150,7 +144,7 @@
 		delete from tour where tour_no = #{ tour_no }
 	</delete>
 	
-	<delete id="">
+	<delete id="deleteTourReview" parameterType="_int">
 		delete from tour_review where tour_review_no = #{ tour_review_no }
 	</delete>
 

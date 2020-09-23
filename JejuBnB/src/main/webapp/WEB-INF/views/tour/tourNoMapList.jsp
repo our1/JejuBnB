@@ -14,7 +14,7 @@
        			.trhead {
 				  position : relative;
 				  width : 100%;
-				  height : 600px;
+				  height : 480px;
 				  background-image : url('resources/images/40.jpg');
 				  background-size: cover;
 			}

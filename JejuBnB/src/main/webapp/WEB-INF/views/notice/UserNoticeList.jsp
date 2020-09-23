@@ -23,15 +23,6 @@
       left: 27%;
       color: lightcoral;
      }
-    .name {
-	    font-family: 'Roboto', sans-serif;
-	    position: fixed;
-        left: 64%;
-        top: 21%;
-	    font-size: 28px;
-	    width: 300px;
-	    height: 200px;
-    }
     .check_btn {
 	    background: #FFC19E;
 	    color: white;
@@ -49,16 +40,6 @@
 	    -webkit-transition: .2s linear;
 	    transition: .2s linear;
     }
-	.myimg {
-		width: 80px;
-		height: 80px;
-		border-radius: 50%;
-		background-image: url('resources/images/프로필.jfif');
-		background-size: cover;
-		position: fixed;
-	    left: 57%;
-	    top: 19%;
-	}
 	.alr {
 	font-family: 'Roboto', sans-serif;
 	position: relative;

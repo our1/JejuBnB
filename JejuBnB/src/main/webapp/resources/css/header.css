@@ -1,15 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
-	body {
-      margin : 0;
-      padding : 0;
-	}
     .logo {
       font-family: 'Alex Brush', cursive;
       font-size: 35px;
       position: relative;
       left: 14%;
       top: 17%;
-      color: lightcoral;
+      color: #fff;
     }
     .form-inline {
         display: inline-block;

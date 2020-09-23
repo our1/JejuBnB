@@ -85,7 +85,7 @@ body {
 .movelist {
     font-family: 'Roboto', sans-serif;
     position: absolute;
-    top: 63.4%;
+    top: 50.4%;
     left: 68.5%;
     width: 40px;
     height: 40px;
@@ -125,11 +125,11 @@ body {
 #container {
     overflow: hidden;
     position: absolute;
-    top: 63%;
+    top: 50%;
     left: 68.3%;
     border: 1px solid gray;
     width: 600px;
-    height: 1636px;
+    height: 1643px;
 }
 #mapWrapper {
 	width:100%;

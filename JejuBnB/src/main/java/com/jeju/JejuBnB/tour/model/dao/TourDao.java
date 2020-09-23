@@ -68,8 +68,8 @@ public class TourDao {
 		return session.delete("tourMapper.deleteTourReview", tour_review_no);
 	}
 
-	public int updateTourReadCount(int tour_no) {
-		return session.update("tourMapper.updateTourReadCount", tour_no);
+	public int updateTourReadCount(int tour_readcount) {
+		return session.update("tourMapper.updateTourReadCount", tour_readcount);
 	}
 
 	public ArrayList<Tour_Image> selectTourImage(int touno) {

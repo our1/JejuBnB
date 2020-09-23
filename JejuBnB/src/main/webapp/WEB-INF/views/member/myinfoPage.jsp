@@ -19,8 +19,8 @@
 		}
 		</script>
 	</head>
+				<c:import url="/WEB-INF/views/common/header.jsp" />
 	<body>
-			<c:import url="/WEB-INF/views/common/header.jsp" />
 		   <hr>
 		<h1 align="center"> 내 정보 보기 페이지  </h1>
 		<br>

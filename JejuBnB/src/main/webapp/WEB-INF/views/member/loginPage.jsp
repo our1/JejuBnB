@@ -50,13 +50,6 @@
 	});
   FB.logout(function(response) {
 	});
-  function click() {
-	  if (event.button==2) {
-	    location.href="javascript:history.back();";
-	  }
-	}
-
-	document.onmousedown=click
   </script>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v8.0&appId=341232443584667&autoLogAppEvents=1" nonce="4fmSTMsw"></script>
 </head>

@@ -11,6 +11,10 @@
       <link rel="stylesheet" href="resources/css/tourDetail.css" >
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
       <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap" rel="stylesheet">
       <style type="text/css">
       		.trhead {
 				  position : relative;
@@ -29,8 +33,56 @@
 				    left: 71.8%;
 				    top: 73.55%;
 			}
+			.reviewbutton {
+				  position: relative;
+				  top: 358%;
+				  left: 189%;
+				  width: 83px;
+				  height: 32px;
+				  background: none;
+				  border-radius: 5px;
+				  border: 1px solid gray;
+				  font-size: 13px;
+				  font-family: 'Roboto', sans-serif;
+			}
+			.rvwrite {
+				width: 83px;
+				height: 32px;
+				background: none;
+				border-radius: 5px;
+				border: 1px solid gray;
+				font-size: 11px;
+				font-family: 'Roboto', sans-serif;
+				margin-left : 84%;
+			}
+			textarea {
+				margin: 0px;
+			    width: 762px;
+			    height: 306px;
+			}
+			.rvsu {
+				width: 83px;
+				height: 32px;
+				background: none;
+				border-radius: 5px;
+				border: 1px solid gray;
+				font-size: 11px;
+				font-family: 'Roboto', sans-serif;
+				margin-left : 89.2%;
+			}
+			.starscore {
+				margin-bottom : 2%;
+			}
+			.rlh {
+			  width : 500px;
+			}
+			strong {
+			  font-family: 'Alex Brush', cursive;
+			  color : black;
+			}
       </style>
   </head>
+    <c:import url="/WEB-INF/views/common/header.jsp" />
   <body>
    <div class="trhead">
 </div>
@@ -102,10 +154,6 @@
 					  requestUrl: 'https://developers.kakao.com'
 					});
 				  }
-				function moveReviewPage() {
-					window.open("trlist.do", "리뷰",
-							"width=800, height=900, left=300, top=50, toolbar=no, menubar=no, scrollbars=no, menubar=no");
-				}
 			</script>
              <input type="checkbox" class="checkbox" id="checkbox" />
               <label for="checkbox">
@@ -240,7 +288,51 @@
 					${ tour_review.tour_review_content }
               </div>
              </c:forEach>
-              <button class="reviewmore" onclick="moveReviewPage()">리뷰 더보기</button>
+                <button type="button" class="reviewbutton" data-toggle="modal" data-target="#tour_review_more">리뷰 더보기</button>
+                  <div class="modal fade" id="tour_review_more" role="dialog" >
+					    <div class="modal-dialog" style="max-width: 100%; width: auto; display: table;">
+					    
+					      <!-- Modal content-->
+					      <div class="modal-content">
+					        <div class="modal-header">
+					         <div class="rlh">
+					          <button type="button" class="close" data-dismiss="modal">&times;</button>
+					          <h4 class="modal-title"><span>&#9733;</span> 4.8 점 ( 135 ) 개</h4>
+					          <button type="button" class="rvwrite" data-toggle="modal" data-target="#tour_review_write">리뷰 작성하기</button>
+					          </div>
+					         </div>
+					        <div class="modal-body">
+					          <p>작성자</p>
+					          	<p>작성 날짜</p>
+					          		<p>작성 내용</p>
+					        </div>
+					      </div> 
+					    </div>
+					  </div>
+					  
+					  <div class="modal fade" id="tour_review_write" role="dialog">
+					    <div class="modal-dialog" style="max-width: 100%; width: auto; display: table;">
+					    
+					      <!-- Modal content-->
+					      <div class="modal-content">
+					        <div class="modal-header">
+					          <strong>JejuBnB</strong>
+					          <button type="button" class="close" data-dismiss="modal">&times;</button>
+					         </div>
+					        <div class="modal-body">
+					          <form action="trinsert.do" method="post">
+					            <input type="hidden" name="tour_review_no">
+					            <input class="starscore" type="number" name="tour_score"> <br>
+					            <textarea class="trt" placeholder="리뷰를 작성해주세요" name="tour_review_content"></textarea> <br>
+					            <input type="hidden" name="user_id">
+					            <button type="submit" value="작성 완료" class="rvsu">리뷰 달기</button>
+					          </form>
+					        </div>
+					      </div>
+					    </div>
+					  </div>
+					  
+					  
          <hr class="trhr">
       </div>
       </div>
@@ -252,6 +344,8 @@
           </div>
           <hr class="mihr">
       </div>
+     	<button class="tupdate" onclick="javascript:location.href='movetupdate.do'">수정 하기</button>
+     	<button class="tdelete" onclick="javascript:location.href='tdelete.do'">삭제 하기</button>
       <div style="padding: 100px 0px 0px 0px;"></div>
 		   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 		   <script src="resources/js/head.js"></script>

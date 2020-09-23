@@ -16,7 +16,7 @@
        			.trhead {
 				  position : relative;
 				  width : 100%;
-				  height : 600px;
+				  height : 480px;
 				  background-image : url('resources/images/40.jpg');
 				  background-size: cover;
 			}
@@ -32,6 +32,7 @@
 			}
        	</style>
   </head>
+  <c:import url="/WEB-INF/views/common/header.jsp" />
   <body>
    <div class="trhead">
 	<!-- <h1 class="tour">관광지</h1> --></div>

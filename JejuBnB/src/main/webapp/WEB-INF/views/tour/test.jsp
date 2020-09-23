@@ -103,19 +103,17 @@ function goWrite(frm) {
                 // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
                 // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
                 var roadAddr = data.roadAddress; // 도로명 주소 변수
-               
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById("PostNumber").value = data.zonecode;
-                document.getElementById("tour_roadaddress").value = roadAddr;
-               
+                document.getElementById("tour_roadaddress").value = roadAddr;    
             }
         }).open();
     })
-    }
+}
 </script>
+<%-- <c:import url="/WEB-INF/views/common/header.jsp" />  --%>
 <body>
-<%-- <c:import url="/WEB-INF/views/common/header.jsp" /> --%>
 <div class="trhead">
 </div>
      <div style="padding: 70px 0px 0px 0px;"></div>
@@ -131,16 +129,16 @@ function goWrite(frm) {
 <input type="date" class="tdd" name="tour_act_end_date" placeholder="체험 끝나는 날짜">
 <textarea name="tour_content" id="summernote" class="summernote"></textarea>
 <script>
-$(document).ready(function() { $('#summernote').summernote(); 
-});
-$('.summernote').summernote({ 
-	height : 300, 
-	width : 1000,
-	lang : 'ko-KR',
-	placeholder : '관광지 내용 을 입력 하세요',
-	onImageUpload: function(files, editor, welEditable) { sendFile(files[0], editor, welEditable);
-	} 
-});
+	$(document).ready(function() { $('#summernote').summernote(); 
+	});
+	$('.summernote').summernote({ 
+		height : 300, 
+		width : 1000,
+		lang : 'ko-KR',
+		placeholder : '관광지 내용 을 입력 하세요',
+		onImageUpload: function(files, editor, welEditable) { sendFile(files[0], editor, welEditable);
+		} 
+	});
 </script>
 <input type="text" id="PostNumber" placeholder="우편번호" required readonly>
 <button onclick="PostCall()" type="button" class="postsea">우편번호 검색</button><br>
@@ -151,6 +149,6 @@ $('.summernote').summernote({
 <input type="submit" value="작성 완료" class="co">
 </form>
      <div style="padding: 100px 0px 0px 0px;"></div>
-<%-- <c:import url="/WEB-INF/views/common/footer.jsp" /> --%>
 </body>
+<c:import url="/WEB-INF/views/common/footer.jsp" />
 </html>

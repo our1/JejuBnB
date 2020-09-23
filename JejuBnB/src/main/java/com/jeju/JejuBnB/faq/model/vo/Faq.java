@@ -1,7 +1,7 @@
 package com.jeju.JejuBnB.faq.model.vo;
 
 public class Faq implements java.io.Serializable{
-	private static final long serialVersionUID = 2002L;
+	private static final long serialVersionUID = 2020L;
 	
 	private int faq_no;
 	private String faq_title;

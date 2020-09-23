@@ -5,7 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>JejuBnb</title>
+<title>JejuBnB</title>
+<link rel="icon" type="image/png" sizes="16x16"
+	href="resources/images/favicon.png">
 <script src="/JejuBnB/resources/js/jquery-3.3.1.min.js"></script>
 <style type="text/css">
 

@@ -1,5 +1,7 @@
 package com.jeju.JejuBnB.coupon.controller;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -63,5 +65,10 @@ public class CouponController {
 			model.addAttribute("message", "삭제 실패");
 			return "common/error";
 		}
+	}
+	@RequestMapping("deleteCouponAuto.do")
+	public void deleteCouponAuto(Coupon coupon ,Model model) {
+		
+		int result = couponService.deleteCouponAuto(coupon);
 	}
 }

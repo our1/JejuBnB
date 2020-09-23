@@ -16,6 +16,7 @@
       <typeAlias type="com.jeju.JejuBnB.coupon.model.vo.Coupon" alias="Coupon"/>
       <typeAlias type="com.jeju.JejuBnB.event.model.vo.Event" alias="Event"/>
       <typeAlias type="com.jeju.JejuBnB.faq.model.vo.Faq" alias="Faq"/>
+      <typeAlias type="com.jeju.JejuBnB.faq.model.vo.FaqPlus" alias="FaqPlus"/>
       <typeAlias type="com.jeju.JejuBnB.policy.model.vo.Policy" alias="Policy"/>
       <typeAlias type="com.jeju.JejuBnB.question.model.vo.Question" alias="Question"/>
       <typeAlias type="com.jeju.JejuBnB.reservation.model.vo.Reservation" alias="Reservation" />

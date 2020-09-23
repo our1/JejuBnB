@@ -7,6 +7,8 @@
 <title>jejuBnB</title>
 <meta charset="UTF-8" name="viewport"
 	content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" sizes="16x16"
+	href="resources/images/favicon.png">
 <style type="text/css">
 #accordian {
 	background: #333333;
@@ -82,7 +84,6 @@
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp" />
 	<c:import url="/WEB-INF/views/common/servicecenterside.jsp"/>
-	<center>
 	<br>
 	<br>
 	<hr>
@@ -136,6 +137,6 @@
 	<input type="submit" value="삭제">
 	</c:if>
 	</form>
-	</center>
+	
 </body>
 </html>

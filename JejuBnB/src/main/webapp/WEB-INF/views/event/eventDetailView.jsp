@@ -5,7 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>JejuBnB</title>
+<link rel="icon" type="image/png" sizes="16x16"
+	href="resources/images/favicon.png">
 <script type="text/javascript">
 	function eventUpdateView(){
 		location.href="moveUpdateEvent.do?event_no=${requestScope.event.event_no}";

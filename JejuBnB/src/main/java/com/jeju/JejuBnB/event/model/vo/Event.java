@@ -1,7 +1,7 @@
 package com.jeju.JejuBnB.event.model.vo;
 
 public class Event implements java.io.Serializable{
-	private static final long serialVersionUID = 2001L;
+	private static final long serialVersionUID = 2010L;
 	
 	private int event_no;
 	private String event_name;

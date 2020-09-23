@@ -8,4 +8,5 @@ public interface CouponService {
 	ArrayList<Coupon> selectList();
 	int insertCoupon(Coupon coupon);
 	int deleteCoupon(String coupon_no);
+	int deleteCouponAuto(Coupon coupon);
 }

@@ -5,7 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Coupon</title>
+<title>JejuBnB</title>
+<link rel="icon" type="image/png" sizes="16x16"
+	href="resources/images/favicon.png">
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp" />

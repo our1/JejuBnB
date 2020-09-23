@@ -12,11 +12,16 @@
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
 
 </head>
 <body>
 <script>
     $(function(){
+    	var id = '${loginMember.user_id}';
+    	var phone = '${loginMember.phone}';
+    	var pay = '${room.room_weekday*date}';
         var IMP = window.IMP; // 생략가능
         IMP.init('imp26223635'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
         var msg;
@@ -26,10 +31,10 @@
             pay_method : 'card',
             merchant_uid : 'merchant_' + new Date().getTime(),
             name : 'JejuBnB 숙소 결제',
-            amount : 1,
+            amount : pay,
             //buyer_email: 'iamport@siot.do',
-            buyer_name: '구매자이름',
-            buyer_tel: '010-1234-5678',
+            buyer_name: id,
+            buyer_tel: phone,
             //buyer_addr: '인천광역시 부평구',
             buyer_postcode : '123-456',
             //m_redirect_url : 'http://www.naver.com'
@@ -60,12 +65,12 @@
                     }
                 });
                 //성공시 이동할 페이지
-                location.href='/WEB_INF/views/reservation/Payment?msg='+msg;
+                location.href='reservationSuccess.jsp/Payment?msg='+msg;
             } else {
                 msg = '결제에 실패하였습니다.';
                 msg += '에러내용 : ' + rsp.error_msg;
                 //실패시 이동할 페이지
-                location.href="/WEB_INF/views/common/error";
+                location.href="/WEB-INF/views/common/error.jsp";
                 alert(msg);
             }
         });

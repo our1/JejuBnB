@@ -135,6 +135,9 @@ public class Review implements java.io.Serializable{
 				+ review_level + ", review_ref=" + review_ref + ", review_seq=" + review_seq + ", room_no=" + room_no
 				+ ", user_id=" + user_id + ", review_date=" + review_date + "]";
 	}
+
+	
+
 	
 	
 

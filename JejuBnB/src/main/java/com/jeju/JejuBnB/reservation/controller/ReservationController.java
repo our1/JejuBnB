@@ -39,7 +39,8 @@ public class ReservationController {
 	//값 담아서 숙소 예약페이지 이동
 	@RequestMapping(value="reserv.do", method=RequestMethod.POST)
 	public ModelAndView insertReserv(@RequestParam(value="room_no") int room_no, Reservation reserv, ModelAndView mv,
-			@RequestParam(value="checkin_date") String checkin_date, @RequestParam(value="checkout_date") String checkout_date, HttpServletRequest request) {	
+			@RequestParam(value="a_num", defaultValue="1") int a_num, @RequestParam(value="c_num", defaultValue="0") int c_num, 
+			@RequestParam(value="i_num", defaultValue="0") int i_num, HttpServletRequest request) throws Exception {	
 		logger.info("reserv: " + reserv);
 		
 		if(reserv != null) {
@@ -49,13 +50,10 @@ public class ReservationController {
 			mv.addObject("room", room);
 			mv.setViewName("reservation/reservationDetailView");
 			
-			try {
-						
-			    logger.info("checkinDate : " + checkin_date);
-				logger.info("checkoutDate : " + checkout_date);
+			try {						
 				
-				String in = request.getParameter("checkin_date");	
-				String out = request.getParameter("checkout_date");		
+				 String in = request.getParameter("checkin_date");	
+				 String out = request.getParameter("checkout_date");		
 				
 				 SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd"); 
 				 Date FirstDate = (Date) format.parse(in);
@@ -69,36 +67,60 @@ public class ReservationController {
 
 			} catch (Exception e) {
 				e.printStackTrace();
-			}
-		}		
+			}			
+		}
 		return mv;
 				
 	}
 	
 	//결제 팝업
 	@RequestMapping(value="payment.do", method=RequestMethod.GET)
-	public String reservPayment(@RequestParam(value="room_no") int room_no, Model model) throws Exception {	
+	public String reservPayment(@RequestParam(value="room_no", required=false) int room_no, 
+			@RequestParam(value="date", required=false) int date,
+			@RequestParam(value="room_weekday", required=false) int room_weekday,
+			@RequestParam(value="room_weekend", required=false) int room_weekend, Model model) throws Exception {	
 		logger.info(" 1:" + room_no);
+		logger.info(" date:" + date);
+		Room room = roomService.selectRoom(room_no);
+		logger.info(" room:" + room);
 		model.addAttribute("room_no", room_no);
+		model.addAttribute("date", date);
 		return "reservation/popupPayment";		
 	}
 	
 	//카카오페이 결제
 	@RequestMapping(value="pay.do", method=RequestMethod.GET)
-	public ModelAndView kakaoPayment(@RequestParam(value="room_no") int room_no, ModelAndView mv)  {	
+	public String kakaoPayment(@RequestParam(value="room_no", required=false) int room_no, 
+			@RequestParam(value="date", required=false) int date, Model model)  {		
 		logger.info(" 2:" + room_no);
-		mv.addObject("room_no", room_no);
-		mv.setViewName("reservation/Payment");
-		return mv;		
+		Room room = roomService.selectRoom(room_no);
+		logger.info(" room:" + room);
+		logger.info(" date:" + date);
+		model.addAttribute("room_no", room_no);	
+		model.addAttribute("date", date);
+		model.addAttribute("room", room);
+		return "reservation/Payment";			
 	}
 
 	//무통장 결제
 	@RequestMapping(value="pay2.do", method=RequestMethod.GET)
-	public String muPayment(@RequestParam(value="room_no") int room_no, Model model)  {	
+	public String muPayment(@RequestParam(value="room_no", required=false) int room_no, 
+			@RequestParam(value="date", required=false) int date,Model model)  {	
 		logger.info(" 3:" + room_no);
+		Room room = roomService.selectRoom(room_no);
+		logger.info(" room:" + room);
+		logger.info(" date:" + date);
 		model.addAttribute("room_no", room_no);
-		return "reservation/Payment2";		
+		model.addAttribute("date", date);
+		model.addAttribute("room", room);
+		return "reservation/Payment2";					
 	}
 	
+	//결제대기 페이지 이동
+	@RequestMapping(value="reservST.do", method=RequestMethod.POST)
+	public String reservStation(@RequestParam(value="room_no", required=false) int room_no, Model model) {
+		model.addAttribute("room_no", room_no);
+		return "reservation/reservationWaitView";
+	}
 	
 }

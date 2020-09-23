@@ -240,7 +240,7 @@ public class RoomController {
 
 	//숙소 상세보기  & 리뷰 리스트
 	@RequestMapping("moveDetailView.do")
-	public ModelAndView moveDetail(ModelAndView mv, @RequestParam("room_no") int room_no) {
+	public ModelAndView moveDetail(ModelAndView mv, @RequestParam("room_no") int room_no, Review review) {
 		Room room = roomService.selectRoom(room_no);
 		ArrayList<Review> list = reviewService.selectReply(room_no);
 		
@@ -248,6 +248,7 @@ public class RoomController {
 			mv.setViewName("reservation/reservationListView");
 			mv.addObject("room", room);
 			mv.addObject("list", list);
+			mv.addObject("review", review);
 			
 		}else {
 			mv.setViewName("common/error");

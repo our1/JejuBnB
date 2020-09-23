@@ -13,15 +13,16 @@
 <script>
 	window.name = "popupPayment";
 	$(document).ready(function(){	
-		$('#reservPM').click(function(){			
-			window.open("payment.do?room_no=${room.room_no}" ,"_blank","toolvar=yes,menubar=yes,width=500,height=500,left=430,top=70").focus();
+		$('#reservPM').click(function(){
+			//parameter로 데이트값이랑 주말,평일가격 값을 넘기기
+			window.open("payment.do?room_no=${room.room_no}&date=${date}&room_weekday=${room.room_weekday}&room_weekend=${room.room_weekend}", "_blank","toolvar=yes,menubar=yes,width=500,height=500,left=430,top=70").focus();
 		});
 	});
 </script>
 
 </head>
 <body>
-<c:import url="/WEB-INF/views/common/header.jsp" />
+<c:import url="/WEB-INF/views/common/header.jsp" /> <br><br><br><br><br><br><br>
 
 <h1>확인 및 결제</h1> <br>
 <h2>예약정보</h2>

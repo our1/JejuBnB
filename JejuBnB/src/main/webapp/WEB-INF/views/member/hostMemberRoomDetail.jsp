@@ -8,7 +8,7 @@
 <title>JejuBnB</title>
 		<script type="text/javascript" src="resources/js/jquery-3.5.1.min.js"></script>
 		<script>
-		function adminMember(){
+		function hostMember(){
 			var checkedValue = $("input[type=radio][name=check]:checked").val() 
 			$.ajax({
 				url:"beHostMember.do",
@@ -44,24 +44,7 @@
 <br>
 <br>
 <br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+
 		<table align = "center" width= "1500" cellspacing = "5" cellpadding = "0">
 			<tr>
 				<td> Room Number </td>
@@ -87,7 +70,7 @@
 			</c:forEach>
 			<tr>
 				<th colspan = "8">
-					<a href="main.do" > 시작페이지로 </a> &nbsp; <button onclick="return adminMember();">호스트 변경</button>
+					<a href="main.do" > 시작페이지로 </a> &nbsp; <button onclick="return hostMember();">호스트 변경</button>
 				</th>
 			</tr>
 		</table>

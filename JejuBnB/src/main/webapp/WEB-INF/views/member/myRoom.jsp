@@ -6,6 +6,25 @@
 <head>
 <meta charset="UTF-8">
 <title>JejuBnB</title>
+<script type="text/javascript" src="resources/js/jquery-3.5.1.min.js"></script>
+		<script>
+		function deleteMyRoom(){
+			var checkedValue = $("input[type=radio][name=check]:checked").val() 
+			$.ajax({
+				url:"deleteMyRoom.do",
+				type:"post",
+				data:{room_no: checkedValue},
+				success: function(data){
+				console.log("success :"+ data)
+				alert(checkedValue + "번 숙소를 삭제했습니다.");
+				location.reload();
+				},
+				error: function(jqXHR, textstatus, errorthrown){
+					console.log("error : " + jqXHR + ", " + textstatus + ", " + errorthrown);
+				}
+			});
+		}
+		</script>
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp" />
@@ -24,6 +43,10 @@
 </tr>
 <tr><td> 숙소 이름 </td> <td>숙소 주소 </td></tr>
 <tr><td>${list.room_name }</td><td>${list.room_address }</td>
+<tr>
+<td colspan="2" align="center">${list.room_no }번 숙소 <input type="radio" name="check" id ="${list.room_no }" value="${list.room_no }"><button onclick="return deleteMyRoom();">삭제</button></td>
+
+</tr>
 </table>
 </c:forEach>
 </body>

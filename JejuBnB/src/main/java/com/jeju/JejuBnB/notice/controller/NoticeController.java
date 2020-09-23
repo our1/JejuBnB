@@ -1,10 +1,14 @@
 package com.jeju.JejuBnB.notice.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,16 +31,31 @@ public class NoticeController {
 	
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
-	@RequestMapping("myNoticeList.do")
-	public String selectUserNoticeList(Model model, @RequestParam("userid") String userid) {
+	@RequestMapping(value="myNoticeList.do", method=RequestMethod.POST)
+	public String selectUserNoticeList(Model model, @RequestParam("userid") String userid, HttpServletResponse response) {
 		ArrayList<User_Notice> list = noticeService.selectUserNotice(userid);
-
-		if(list.size() > 0) {
-			model.addAttribute("list", list);			
-		}else {
-			model.addAttribute("message", "알림이 없습니다.");
+		
+		JSONObject sendJson = new JSONObject();
+		JSONArray jarr = new JSONArray();
+		
+		for(User_Notice Un : list) {
+			JSONObject job = new JSONObject();
+			job.put("notice_no", Un.getNotice_no());
+			try {
+				job.put("notice_content", URLEncoder.encode(Un.getNotice_content(),"utf-8"));
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			job.put("notice_date", Un.getNotice_date());
+			job.put("to_user", Un.getTo_user());
+			job.put("from_user", Un.getFrom_user());
+			
+			jarr.add(job);
 		}
-		return "notice/UserNoticeList";
+		
+		sendJson.put("list", jarr);
+		return sendJson.toJSONString();
+	
 	}
 	
 	@RequestMapping(value="deleteUNotice.do", method=RequestMethod.POST)

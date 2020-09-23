@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.jeju.JejuBnB.room.model.vo.PageCount;
 import com.jeju.JejuBnB.room.model.vo.Room;
+import com.jeju.JejuBnB.room.model.vo.RoomLatLng;
 import com.jeju.JejuBnB.room.model.vo.Room_File;
 
 @Repository("roomDao")
@@ -194,6 +195,10 @@ public class RoomDao {
 
 	public int deleteRoomFile(Room_File rfile) {
 		return session.delete("roomMapper.deleteRoomFile", rfile);
+	}
+
+	public int insertRoomLatLnt(RoomLatLng rll) {
+		return session.insert("roomMapper.insertRoomLatLnt", rll);
 	}
 
 }

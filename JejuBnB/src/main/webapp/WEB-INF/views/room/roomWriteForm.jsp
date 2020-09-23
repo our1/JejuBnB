@@ -8,6 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>JejuBnB</title>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=44262f7a543c0f64c3a92e6841cb0ddb&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=44262f7a543c0f64c3a92e6841cb0ddb&libraries=LIBRARY"></script>
 <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
 <style type="text/css">
 	body {
@@ -202,6 +204,9 @@
 	 	border-radius : 5%;
 	 }
 	 
+	 .address{
+	 	width : 300px;
+	 }
 
 </style>
 
@@ -213,23 +218,39 @@
 <script>
     //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
     function PostCall() {
+    	var roadAddr = "";
     	daum.postcode.load(function(){
             new daum.Postcode({
             	 oncomplete: function(data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+ 				roadAddr = data.roadAddress; // 도로명 주소 변수
 
                 // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
                 // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var roadAddr = data.roadAddress; // 도로명 주소 변수
                
-
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById("PostNumber").value = data.zonecode;
                 document.getElementById("room_roadaddress").value = roadAddr;
-               
-            }
-        }).open();
-    })
+              	updateLatLng(roadAddr);
+          		}
+       		}).open();
+   		})
+    }
+    
+    function updateLatLng(roadAddr){    	
+    	 var geocoder = new kakao.maps.services.Geocoder();
+	 	 geocoder.addressSearch(roadAddr, function(result, status) {
+	 		if (status === kakao.maps.services.Status.OK) {
+		  		coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+		  		alert(result[0].y+ " , " + result[0].x)
+			  	var html = "";
+			  	html += '<input type="hidden" name="room_lat" value="'+ result[0].y +'" >';
+			  	html += '<input type="hidden" name="room_lng" value="'+ result[0].x +'" >'
+			  	$("#roadAdd").html(html);
+			 }
+		});
+   	 
+   	 
     }
     
    
@@ -383,7 +404,6 @@
            return;
        }
    }
-   
    $(document).on("dragover drop", function(e) {
 	    e.preventDefault();
 	}).on("drop", function(e) {
@@ -391,6 +411,9 @@
 	        .prop("files", e.originalEvent.dataTransfer.files)
 	        .closest("form")
 	});
+   
+
+   
 </script>
 
 </head>
@@ -402,14 +425,15 @@
 <input type="hidden" name="user_id" value="${loginMember.user_id }" >
 
 <div id="first" class="write">
+<div id="roadAdd"></div>
 <h2>숙소</h2>
 	<span id="roomName" ><h5>숙소의 이름을 입력해 주세요</h5>  <input type="text" name="room_name" placeholder="숙소 이름" required>  </span><br>
 	<span id="roomContent"><h5>숙소를 소개해 주세요</h5> <textarea rows="5" cols="50" name="room_content" required placeholder="숙소 소개"></textarea> </span><br>
 	
-	<input type="text" id="PostNumber" placeholder="우편번호" required readonly><br>
+	<input type="text"  id="PostNumber" placeholder="우편번호" required readonly><br>
 	숙소 주소 : <button onclick="PostCall()" type="button">우편번호 검색</button><br>
-	<input type="text" id="room_roadaddress" name="room_roadaddress" placeholder="도로명주소" readonly><br>
-	<input type="text" id="DetailAddress" name="address" placeholder="상세주소" required><br>
+	<input type="text" class="address" id="room_roadaddress" name="room_roadaddress" placeholder="도로명주소" readonly><br>
+	<input type="text" class="address" id="DetailAddress" name="address" placeholder="상세주소" required><br>
 	<hr>
 	기준 인원 : <input type="number" name="st_num_people" placeholder="기준 인원" required>명 <br>
 	최대 인원 : <input type="number" name="max_people" placeholder="최대 인원" required>명<br>

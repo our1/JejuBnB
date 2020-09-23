@@ -1,15 +1,12 @@
 package com.jeju.JejuBnB.message.controller;
 
 import java.util.ArrayList;
-
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.jeju.JejuBnB.message.model.service.MessageService;
 import com.jeju.JejuBnB.message.model.vo.Message;
 import com.jeju.JejuBnB.message.model.vo.Message_Detail;
@@ -18,8 +15,6 @@ import com.jeju.JejuBnB.message.model.vo.Message_Detail;
 public class MessageController {
 
 	 @Autowired private MessageService messageService;
-	
-	 
 	 
 	 //메세지 전송
 	 @RequestMapping(value="insertMessageDetail.do",  method = RequestMethod.POST)
@@ -34,6 +29,7 @@ public class MessageController {
 		 }
 		 return mv;
 	 }
+	 
 	 //메세지 세부정보 
 	 @RequestMapping(value="selectMessageDetail.do",  method = RequestMethod.POST)
 	 public ModelAndView selectMessageDetail(ModelAndView mv, Message_Detail message_detail) {
@@ -42,7 +38,6 @@ public class MessageController {
 				mv.setViewName("message/message");
 		 return mv;
 	 }
-	
 	
 	/*
 	 * view 이동

@@ -1,7 +1,6 @@
 package com.jeju.JejuBnB.myroom.model.service;
 
 import java.util.ArrayList;
-
 import com.jeju.JejuBnB.myroom.model.vo.MyRoom;
 
 public interface MyRoomService {

@@ -3,13 +3,13 @@
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>JejuBnB</title>
-</head>
-<body>
-<h1 align="center">내 쿠폰함</h1>
-<table align = "center" width= "1500" cellspacing = "5" cellpadding = "0">
+	<head>
+		<meta charset="UTF-8">
+		<title>JejuBnB</title>
+	</head>
+	<body>
+		<h1 align="center">내 쿠폰함</h1>
+		<table align = "center" width= "1500" cellspacing = "5" cellpadding = "0">
 			<tr>
 				<td> 쿠폰 번호 </td>
 				<td> 할인 금액 </td>
@@ -18,10 +18,10 @@
 			</tr>
 			<c:forEach items="${mycouponlist }" var="list">
 			<tr>
-			<td>${list.coupon_no }</td>
-			<td>${list.coupon_money }</td>
-			<td>${list.coupon_begin }</td>
-			<td>${list.coupon_end }</td>
+				<td>${list.coupon_no }</td>
+				<td>${list.coupon_money }</td>
+				<td>${list.coupon_begin }</td>
+				<td>${list.coupon_end }</td>
 			</tr>
 			</c:forEach>
 			<tr>
@@ -30,5 +30,5 @@
 				</th>
 			</tr>
 		</table>
-</body>
+	</body>
 </html>

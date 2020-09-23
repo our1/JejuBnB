@@ -35,16 +35,15 @@
 		<result property="phone" column="phone" />
 		<result property="host_check" column="host_check" />
 	</resultMap>
-	
 
 	<insert id="insertMember" parameterType="Member">
-	insert into member
-	values (#{ user_id },#{ user_pwd }, #{user_name}, #{birthday}, #{phone},
+		insert into member
+		values (#{ user_id },#{ user_pwd }, #{user_name}, #{birthday}, #{phone},
 	<if test="facebook_id != null">
-	 #{facebook_id}, null, null) 
+	 	#{facebook_id}, null, null) 
 	 </if>
 	 <if test="facebook_id == null">
-	  null, null, null) 
+	  	null, null, null) 
 	  </if>
 	</insert>
 	
@@ -59,91 +58,48 @@
 	</select>
 	
 	<select id="selectMember" parameterType="string" resultType="Member">
-	select * from member where user_id = #{user_id}
+		select * from member where user_id = #{user_id}
 	</select>
 	
 	<select id="selectInfoCheck" parameterType="Member" resultType="int">
-	select count(user_id) from member where user_id = #{user_id} and birthday = #{birthday}
+		select count(user_id) from member where user_id = #{user_id} and birthday = #{birthday}
 	</select>
 	
 	<select id="selectMemberList" resultMap="resultList">
-	select * from member
+		select * from member
 	</select>
 	
 	<select id="selectHostList" resultMap="resultList">
-	select user_id, user_name, phone, host_check from member join (select user_id from room where pass_or_not = 'N'
-	intersect select user_id from member where host_check is null) using (user_id)
+		select user_id, user_name, phone, host_check from member join (select user_id from room where pass_or_not = 'N'
+		intersect select user_id from member where host_check is null) using (user_id)
 	</select>
 	
 	<select id="selectHostListDetail" resultMap="hostList">
-	select room_no, user_id, user_name, room_name, room_address, phone, host_check from member join room using(user_id) where user_id = #{user_id}
+		select room_no, user_id, user_name, room_name, room_address, phone, host_check from member join room using(user_id) where user_id = #{user_id}
 	</select>
 	
 	<update id="updatePwdMember" parameterType="Member">
-	update member set user_pwd = #{user_pwd} where user_id = #{user_id}
+		update member set user_pwd = #{user_pwd} where user_id = #{user_id}
 	</update>
 	
 	<update id="updateMember" parameterType="Member">
-	update member set user_name = #{user_name}, birthday =#{birthday} , phone =#{phone}  where user_id = #{user_id}
+		update member set user_name = #{user_name}, birthday =#{birthday} , phone =#{phone}  where user_id = #{user_id}
 	</update>
 	
 	<update id="updateBeAdminMember" parameterType="string">
-	update member set admin_check = 'Y' where user_id = #{user_id}
+		update member set admin_check = 'Y' where user_id = #{user_id}
 	</update>
 	
 	<update id="updateBeHostMember" parameterType="string">
-	update member set host_check = 'Y' where user_id = #{user_id}
+		update member set host_check = 'Y' where user_id = #{user_id}
 	</update>
 	
 	<update id="updatebeNotHostMember" parameterType="string">
-	update member set host_check = null where user_id = #{user_id}
+		update member set host_check = null where user_id = #{user_id}
 	</update>
 	
 	<delete id="deleteMember" parameterType="string">
-	delete from member where user_id = #{uid}
+		delete from member where user_id = #{uid}
 	</delete> 
-<!-- 	
-	
-	
-	
-	<select id="selectSearchUserid" parameterType="string" resultMap="resultList">
-	select * from member where userid like '%' || #{keyword} || '%'
-	</select>
-	
-	<select id="selectSearchGender" parameterType="string" resultMap="resultList">
-	select * from member where gender = #{keyword}
-	</select>
-	
-	<select id="selectSearchAge" parameterType="int" resultMap="resultList">
-	select * from member
-	
-	<if test="keyword == 60 " >
-		where age == #{ value}
-	</if>
-	
-	<if test="keyword != 60 ">
-	where age between #{value} and #{value +9}
-	</if>
-	
-
-	</select>
-	
-	<select id="selectSearchEnrollDate" parameterType="com.jeju.JejuBnB.member.model.vo.SearchDate" resultMap="resultList">
-	select * from member where enroll_date between #{begin) and #{end}
-	</select>
-	
-	<select id="selectSearchLoginok" parameterType="string" resultMap="resultList">
-	select * from member where login_ok = #{keyword}
-	</select>
-	
-	<select id="selectCheckId" parameterType="string" resultType="int">
-	select count(userid) from member where userid = #{userid}
-	</select>
-	
-	
-	
-	
-	
-	-->
 	
 </mapper>

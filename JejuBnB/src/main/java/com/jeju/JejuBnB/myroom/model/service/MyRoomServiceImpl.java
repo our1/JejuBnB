@@ -1,10 +1,8 @@
 package com.jeju.JejuBnB.myroom.model.service;
 
 import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.jeju.JejuBnB.myroom.model.dao.MyRoomDao;
 import com.jeju.JejuBnB.myroom.model.vo.MyRoom;
 

@@ -3,9 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>JejuBnB</title>
+	<head>
+	<meta charset="UTF-8">
+		<title>JejuBnB</title>
 		<script type="text/javascript" src="resources/js/jquery-3.5.1.min.js"></script>
 		<script>
 		function hostMember(){
@@ -38,13 +38,10 @@
 			});
 		}
 		</script>
-</head>
-<body>
-<c:import url="/WEB-INF/views/common/header.jsp" />
-<br>
-<br>
-<br>
-
+	</head>
+	<body>
+		<c:import url="/WEB-INF/views/common/header.jsp" />
+		<br>
 		<table align = "center" width= "1500" cellspacing = "5" cellpadding = "0">
 			<tr>
 				<td> Room Number </td>
@@ -58,14 +55,14 @@
 			</tr>
 			<c:forEach items="${hostlist }" var = "host">
 			<tr>
-			<td><a href="moveDetailView.do?room_no=${host.room_no}">${host.room_no }</a></td>
-			<td>${host.user_id }</td>
-			<td>${host.user_name }</td>
-			<td>${host.room_name }</td>
-			<td>${host.room_address }</td>
-			<td>${host.phone }</td>
-			<td>${(host.host_check == null)? "신청 대기중" : "Y"}</td>
-			<td><input type="radio" name="check" id ="${host.user_id }" value="${host.user_id }"></td>
+				<td><a href="moveDetailView.do?room_no=${host.room_no}">${host.room_no }</a></td>
+				<td>${host.user_id }</td>
+				<td>${host.user_name }</td>
+				<td>${host.room_name }</td>
+				<td>${host.room_address }</td>
+				<td>${host.phone }</td>
+				<td>${(host.host_check == null)? "신청 대기중" : "Y"}</td>
+				<td><input type="radio" name="check" id ="${host.user_id }" value="${host.user_id }"></td>
 			</tr>
 			</c:forEach>
 			<tr>
@@ -74,5 +71,5 @@
 				</th>
 			</tr>
 		</table>
-</body>
+	</body>
 </html>

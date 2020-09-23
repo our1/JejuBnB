@@ -26,12 +26,11 @@ public class MyRoomController {
 	@Autowired
 	MyRoomService myroomService;
 	
+	//내가 저장한 숙소 등록
 	@RequestMapping(value="insertMyRoom.do", method=RequestMethod.POST)
 	public void insertMyRoom(MyRoom mroom, HttpServletResponse response) {
-		
 		int result = myroomService.insertMyRoom(mroom);
 		response.setContentType("text/html; charset=utf-8");
-		
 		try {
 			PrintWriter out = response.getWriter();
 			if(result > 0) {
@@ -45,16 +44,14 @@ public class MyRoomController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 	}
 	
+	//내가 저장한 숙소 삭제
 	@RequestMapping(value="deleteMyRoom.do", method=RequestMethod.POST)
 	public void deleteMyRoom(@RequestParam("room_no") int roomNo, HttpServletResponse response) {
 		logger.info(""+roomNo);
 		int result = myroomService.deleteMyRoom(roomNo);
-		
 		response.setContentType("text/html; charset=utf-8");
-		
 		try {
 			PrintWriter out = response.getWriter();
 			if(result > 0) {
@@ -70,6 +67,7 @@ public class MyRoomController {
 		}
 	}
 	
+	//내가 저장한 숙소 출력
 	@RequestMapping("seleteMyRoom.do")
 	public ModelAndView seleteMyRoom(MyRoom mroom, ModelAndView mv) {
 		ArrayList<MyRoom> mlist = myroomService.selectMyRoom(mroom);
@@ -82,6 +80,5 @@ public class MyRoomController {
 			mv.setViewName("common/error");
 		return mv;
 		}
-		
 	}
 }

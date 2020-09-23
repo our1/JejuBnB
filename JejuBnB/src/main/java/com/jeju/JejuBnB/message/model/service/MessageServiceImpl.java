@@ -1,11 +1,8 @@
 package com.jeju.JejuBnB.message.model.service;
 
 import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.jeju.JejuBnB.member.model.service.MemberService;
 import com.jeju.JejuBnB.message.model.dao.MessageDao;
 import com.jeju.JejuBnB.message.model.vo.Message;
 import com.jeju.JejuBnB.message.model.vo.Message_Detail;

@@ -31,4 +31,5 @@
 	<select id="selectMyRoomList" parameterType="MyRoom" resultMap="roomdetailList">
 		select * from my_room a join room b using (room_no) where b.user_id = #{user_id}
 	</select>
+	
 </mapper>

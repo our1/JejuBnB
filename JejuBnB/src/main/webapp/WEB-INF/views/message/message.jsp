@@ -74,7 +74,6 @@
 							<input type="hidden" name="writer" value="${loginMember.user_name }">
 							<input type="hidden" name="message_no" value="${messagelist.message_no }">
 							<input type="submit" value="보내기"><span class="input-group-btn"></span>
-							<!-- <input type="reset" value="작성취소"> &nbsp;  -->
 						</form>
 					</div>
                </div>

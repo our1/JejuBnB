@@ -2,12 +2,9 @@ package com.jeju.JejuBnB.message.model.dao;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import com.jeju.JejuBnB.member.model.vo.Member;
 import com.jeju.JejuBnB.message.model.vo.Message;
 import com.jeju.JejuBnB.message.model.vo.Message_Detail;
 
@@ -33,11 +30,6 @@ public class MessageDao {
 		return (ArrayList<Message>)list;
 	}
 	
-	
-	
-	
-	
-	
 	//messageDetail 
 	public ArrayList<Message_Detail> selectListMessageDetail(Message_Detail message_detail) {
 		List<Message_Detail> list = session.selectList("message_detailMapper.selectListMessageDetail", message_detail);
@@ -47,8 +39,5 @@ public class MessageDao {
 	public int insertMessageDetail(Message_Detail message_detail) {
 		return session.insert("message_detailMapper.insertMessageDetail", message_detail);
 	}
-
-	
-	
 
 }

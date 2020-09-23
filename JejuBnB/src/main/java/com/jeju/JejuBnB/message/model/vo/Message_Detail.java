@@ -11,7 +11,6 @@ public class Message_Detail implements java.io.Serializable{
 	private String writer;
 	public Message_Detail() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public Message_Detail(int message_no, String content, Date message_date, String writer) {
 		super();
@@ -52,6 +51,5 @@ public class Message_Detail implements java.io.Serializable{
 		return "Message_Detail [message_no=" + message_no + ", content=" + content + ", message_date=" + message_date
 				+ ", writer=" + writer + "]";
 	}
-	
 	
 }

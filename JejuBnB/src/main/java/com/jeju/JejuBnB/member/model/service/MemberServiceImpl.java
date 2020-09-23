@@ -1,10 +1,8 @@
 package com.jeju.JejuBnB.member.model.service;
 
 import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.jeju.JejuBnB.member.model.dao.MemberDao;
 import com.jeju.JejuBnB.member.model.vo.HostMemberRoomDetail;
 import com.jeju.JejuBnB.member.model.vo.Member;
@@ -34,10 +32,8 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.deleteMember(userid);
 	}
 
-
 	@Override
 	public Member selectMember(String userid) {
-		
 		return memberDao.selectMember(userid);
 	}
 
@@ -45,7 +41,6 @@ public class MemberServiceImpl implements MemberService{
 	public Member selectFacebookLogin(Member member) {
 		return memberDao.selectFacebookLogin(member);
 	}
-
 
 	@Override
 	public int selectInfoCheck(Member member) {
@@ -65,7 +60,6 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int updateBeAdminMember(String user_id) {
 		return memberDao.updateBeAdminMember(user_id);
-		
 	}
 
 	@Override
@@ -87,7 +81,5 @@ public class MemberServiceImpl implements MemberService{
 	public int updatebeNotHostMember(String user_id) {
 		return memberDao.updatebeNotHostMember(user_id);
 	}
-
-	
 
 }

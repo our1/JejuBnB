@@ -10,6 +10,36 @@
     <link rel="stylesheet" href="resources/css/loginPage.css" >
     <link rel="stylesheet" href="resources/css/bootstrap.min.css" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="resources/css/xeicon.css" >
+    <style>
+		.fLogin {
+		    position: relative;
+		    overflow: hidden;
+		    width: 95%;
+		    height: 3.125rem;
+		    line-height: 3.125rem;
+		    color: #fff;
+		    margin-top: 0.625rem;
+		    cursor: pointer;
+		    background-color: #4867aa;
+		    list-style: none;
+		    text-align: center;
+		}
+		.fLogin span {
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    width: 3.125rem;
+		    height: 3.125rem;
+		    float: left;
+		    border-right: 1px solid #fff;
+		    line-height: 3rem;
+		}
+		.fLogin span i {
+		    font-size: 20px;
+		    line-height: 3rem;
+		}
+    </style>
 <script>
   function statusChangeCallback(response) {  
     console.log('statusChangeCallback');
@@ -20,6 +50,13 @@
       document.getElementById('status').innerHTML = 'Please log ' +
         'into this webpage.';
     }
+  }
+  function login() {
+      FB.login(function(response) {
+
+          statusChangeCallback(response);
+
+      }, {scope: 'public_profile,email'});            
   }
   function checkLoginState() {               
     FB.getLoginStatus(function(response) {   
@@ -46,10 +83,6 @@
   		location.href ="facebooklogin.do?name="+response.name+"&email="+response.email
     });
   }
-  FB.login(function(response){
-	});
-  FB.logout(function(response) {
-	});
   function click() {
 	  if (event.button==2) {
 	    location.href="javascript:history.back();";
@@ -87,12 +120,14 @@
                                     <div class="separator">
                                       <p>OR</p>
                                     </div>
-                                  		<a href="email.do" class="enroll">회원 가입</a> <br>
+                                   	 <li id="status" scope="public_profile,email" onclick="javascript:login();" class="fLogin">
+                               			 <span>
+                               				 <i class="xi-facebook">
+                               				 </i>
+                          				 </span>페이스북 로그인
+                           			</li>
+                            			<a href="email.do" class="enroll">회원 가입</a> 
                                         <a href="searchpwdPage.do" class="findpas">비밀번호 찾기</a>
-                                    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" data-size="large" data-button-type="login_with" data-layout="rounded" data-auto-logout-link="false" data-use-continue-as="false" class="google__btn">
-								          <i class="fa fa-facebook"></i>
-								          Sign in with FaceBook
-								    </fb:login-button>
                                 </form>
                             </div>
                         </div>

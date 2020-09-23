@@ -113,17 +113,22 @@ public class RoomController {
 		if (maxPage < endPage) {
 			endPage = maxPage;
 		}
+		
 		//회원이 좋아요 누른 룸 리스트 번호 가져오기
 		if(request.getParameter("userid") != null) {
 		ArrayList<MyRoom> mlist = myroomService.selectMyRoom(request.getParameter("userid"));
 		model.addAttribute("mlist", mlist);
 		}
-		
+		// 사진파일 가져오기
 		ArrayList<Room_File> rflist = roomService.selectRoomFileList(list);
 		model.addAttribute("rflist",rflist);
-		logger.info(rflist.toString());
-
+		
+		// 리뷰 평점 평균, 갯수 가져오기
+		ArrayList<Review> rvlist = reviewService.selectReviewList(list);		
+		model.addAttribute("rvlist", rvlist);
+		
 		if (list != null) {
+			logger.info("룸 객체 : " + list.toString());
 			model.addAttribute("inMonth", inMonth);
 			model.addAttribute("inday", inday);
 			model.addAttribute("outMonth", outMonth);
@@ -338,14 +343,14 @@ public class RoomController {
 		}
 	}
 	
-	@RequestMapping(value = "SearchFilter.do", method = RequestMethod.POST)
+	@RequestMapping(value="SearchFilter.do", method = RequestMethod.POST)
 	public String SearchFilter(Room room, Model model, HttpServletRequest request) {
 		room.setBed(Integer.parseInt(request.getParameter("bedCount")));
 		room.setBedroom(Integer.parseInt(request.getParameter("bedroomCount")));
 		room.setBathroom(Integer.parseInt(request.getParameter("bathroomCount")));
 
 		ArrayList<Room> list = roomService.selectSearchFilter(room);
-
+		logger.info("필터 검색 : " + list.toString());
 		if (list.size() > 0) {
 			model.addAttribute("list", list);
 			return "room/roomListView";

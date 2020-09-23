@@ -10,20 +10,7 @@
 <meta charset="UTF-8">
 <title>JejuBnB</title>
 <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
-<link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/themify-icons.css">
-    <link rel="stylesheet" href="css/nice-select.css">
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/jquery-ui.css">
-    <link rel="stylesheet" href="css/gijgo.css">
-    <link rel="stylesheet" href="css/animate.css">
-    <link rel="stylesheet" href="css/slick.css">
-    <link rel="stylesheet" href="css/slicknav.css">
 
-    <link rel="stylesheet" href="css/style.css">
 <script src="/JejuBnB/resources/js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 	function moveFilterPage()
@@ -87,28 +74,38 @@
 			
 		}
 		
-		var slideIndex = 2;
-		showSlides(slideIndex);
-
-		function plusSlides(n) {
-		  showSlides(slideIndex += n);
-		}
-
-		function currentSlide(n) {
-		  showSlides(slideIndex = n);
-		}
-
-		function showSlides(n) {
-		  var i;
-		  var slides = document.getElementsByClassName("mySlides");
-		  if (n > slides.length) {slideIndex = 1}    
-		  if (n < 1) {slideIndex = slides.length}
-		  for (i = 0; i < slides.length; i++) {
-		      slides[i].style.display = "none";  
-		  }		 
-		  slides[slideIndex-1].style.display = "block";  
-		}
 		
+	$(function(){
+		var slideIndex = 1;
+		<c:forEach items="${list}" var="room">
+			showSlides(slideIndex,${room.room_no});
+			console.log("실행");
+		</c:forEach>
+	
+		// 사진 슬라이드 js
+	
+		
+	});
+	var slideIndex = 1;
+	function plusSlides(n, roomNo) {
+		showSlides(slideIndex += n, roomNo);
+	}
+	
+	function currentSlide(n, roomNo) {
+		 showSlides(slideIndex = n, roomNo);
+	}
+	
+	function showSlides(n, roomNo) {
+	  var i;
+	  var slides = document.getElementsByClassName("mySlides"+roomNo);
+	  if (n > slides.length) {slideIndex = 1}    
+	  if (n < 1) {slideIndex = slides.length}
+	  
+	  for (i = 0; i < slides.length; i++) {
+	      slides[i].style.display = 'none';  
+	  }
+	  slides[slideIndex-1].style.display = "block";  
+	}
 </script>
     <style type="text/css">
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
@@ -190,66 +187,97 @@
 	    	width : 100%;
 	    }
 	    
-	    #roomImg img {
-	    	width : 300px;
-	    	height : 300px;
-	    	border-radius : 5px;
-	    }
+	    
 	    .headButton{
 	    	font-family: 'Roboto', sans-serif;
-			
 			width: 140px;
 			height: 40px;
-			background: none;
-			border : 1px solid black;
+			border:1px  #FFF999 solid;
 			font-size: 15px;
 			margin-left : 15px;
 			border-radius : 2em;
+			outline : none;
+			background-color: #FF9999;
+			text-align:center; 
+			cursor: pointer; 
+			color:#ffffff; 
+			transition:all 0.9s, color 0.3;
 	    }
-	   
-	   .mySlides {
-	 		display: none
-	   }
-	   
-		img {
-			vertical-align: middle;
-		}
-		
-		/* Slideshow container */
-		.slideshow-container {
-			max-width: 1000px;
-			position: relative;
-			margin: auto;
-		}
-		
-		/* Next & previous buttons */
-		.prev, .next {
-		  position: absolute;
-		  top: 50%;
-		  width: auto;
-		  padding: 16px;
-		  margin-top: -22px;
-		  color: white;
-		  font-weight: bold;
-		  font-size: 18px;
-		  transition: 0.6s ease;
-		  border-radius: 0 3px 3px 0;
-		}
-		
-		/* Position the "next button" to the right */
-		.next {
-		  right: 0;
-		  border-radius: 3px 0 0 3px;
-		}
-		
-		/* On hover, add a black background color with a little bit see-through */
-		.prev:hover, .next:hover {
-		  background-color: rgba(0,0,0,0.8);
-		}
-		
-		
-		
-	
+	    
+	    .headButton:hover{color:#FFF999;}
+	    .hover1:hover{ box-shadow:200px 0 0 0 rgba(0,0,0,0.5) inset; }
+	    
+	    .place_info span {
+		 	color: #FF9999;
+		 }
+
+/* 	   ///////////////////////////////////////////////   슬라이드 css*/	
+
+.roomImg{
+	width : 300px;
+	height : 300px;
+	border-radius : 5%;
+}
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .prev, .next,.text {font-size: 11px}
+}
+
+ 
+ 
+ 
+ 
     </style>
 
 </head>
@@ -261,40 +289,39 @@
 <div id="main">
 <div id="items">
 <h6 id="resultS" style="margin-left:15px;">${listCount }개 숙소 검색 . ${inMonth }월${inday }일 - ${outMonth }월${outday }일 . 게스트 ${people }명 </h6>
-<button class="headButton" onclick="javascript:location.href='moveRoomBList.do'">리스트로 보기</button>
-<button class="headButton" onclick="moveFilterPage()">필터 추가하기</button> <br>
+<button class="headButton hover1" onclick="javascript:location.href='moveRoomBList.do'">리스트로 보기</button>
+<button class="headButton hover1" onclick="moveFilterPage()">필터 추가하기</button> <br>
 <h3>제주도의 숙소</h3>
 <hr style="margin : 5px;">
 </div>
 <div class="container1">
 				<c:forEach items="${list }" var="room">
 					<div class="main_one">
-						<div id="roomImg">
-								<div class="slideshow-container">	
-									<c:forEach items="${rflist }" var="rf">
-										<c:if test="${room.room_no eq rf.room_no }">
-											<div class="mySlides fade">
-												<img src="${ pageContext.servletContext.contextPath}/resources/roomFiles/${ rf.rename_file }">
-											</div>
-										</c:if>
-									</c:forEach>
-									
-									<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-									<a class="next" onclick="plusSlides(1)">&#10095;</a>
-									
-								</div>
-							</div>
+						<div class="slideshow-container">
+							<c:forEach items="${rflist }" var="rf">
+								<c:if test="${room.room_no eq rf.room_no }">
+									<div class="mySlides${rf.room_no}">
+										<img class="roomImg" src="${ pageContext.servletContext.contextPath}/resources/roomFiles/${ rf.rename_file }">
+									</div>
+								</c:if>
+							</c:forEach>
+							
+							<a class="prev" onclick="plusSlides(-1, ${room.room_no});">&#10094;</a>
+							<a class="next" onclick="plusSlides(1, ${room.room_no});">&#10095;</a>
+							
+						</div>
+							
 							<div class="place_info">
 								<a href="moveDetailView.do?room_no=${room.room_no}"><h3>${room.room_name }</h3></a>
 								<p style="width:300px;">${room.room_address }</p>
 								<div class="rating_days d-flex justify-content-between" style="width:300px;">
 									<span class="d-flex justify-content-center align-items-center">
-										<i class="fa fa-star"></i> 
-										<i class="fa fa-star"></i> 
-										<i class="fa fa-star"></i> 
-										<i class="fa fa-star"></i> 
-										<i class="fa fa-star"></i> 
-										<a href="#">(20 Review)</a>
+										<c:forEach items="${rvlist }" var="rv">
+											<c:if test="${rv.room_no eq room.room_no }">
+												<span >&#9733;</span> 
+												<a href="#"><fmt:formatNumber value="${(rv.clean_score +  rv.value_score + rv.service_score)/3 }" pattern=".0"/> (${rv.reply_no } Review)</a>
+											</c:if>
+										</c:forEach>
 									</span>
 									<div class="days">
 									<c:if

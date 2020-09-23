@@ -201,4 +201,9 @@ public class RoomDao {
 		return session.insert("roomMapper.insertRoomLatLnt", rll);
 	}
 
+	public ArrayList<RoomLatLng> selectRoomLatLng() {
+		List<RoomLatLng> roomlist = session.selectList("roomMapper.selectRoomLatLng");
+		return (ArrayList<RoomLatLng>)roomlist;
+	}
+
 }

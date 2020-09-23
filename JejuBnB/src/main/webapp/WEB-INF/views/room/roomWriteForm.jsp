@@ -242,7 +242,6 @@
 	 	 geocoder.addressSearch(roadAddr, function(result, status) {
 	 		if (status === kakao.maps.services.Status.OK) {
 		  		coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-		  		alert(result[0].y+ " , " + result[0].x)
 			  	var html = "";
 			  	html += '<input type="hidden" name="room_lat" value="'+ result[0].y +'" >';
 			  	html += '<input type="hidden" name="room_lng" value="'+ result[0].x +'" >'

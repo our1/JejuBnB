@@ -150,11 +150,11 @@
 		}
 	
 		#map {	
-			width : 1100px;
-			height : 1000px;
-			position: sticky;			
-			left : 40%;
- 			bottom : 150px;
+			width: 1130px;
+		    height: 1000px;
+		    position: sticky;
+		    left: 42%;
+		    bottom: 50px;
 		}
     
     
@@ -216,9 +216,10 @@
 }
 /* Slideshow container */
 .slideshow-container {
-  max-width: 1000px;
   position: relative;
-  margin: auto;
+  margin: 300px;
+  padding : 0;
+  margin : 0;
 }
 
 /* Next & previous buttons */
@@ -226,26 +227,26 @@
   cursor: pointer;
   position: absolute;
   top: 50%;
-  width: auto;
-  padding: 16px;
-  margin-top: -22px;
-  color: white;
+  width: 30px;
+  height : 30px;
   font-weight: bold;
   font-size: 18px;
   transition: 0.6s ease;
-  border-radius: 0 3px 3px 0;
+  border-radius: 50%;
+  padding : 7px;
+  text-decoration : none;
+}
+
+.prev:hover, .next:hover {
+  background-color: #ffffff;
 }
 
 /* Position the "next button" to the right */
 .next {
-  right: 0;
-  border-radius: 3px 0 0 3px;
+  right: 50px;
+  border-radius: 50%;
 }
 
-/* On hover, add a black background color with a little bit see-through */
-.prev:hover, .next:hover {
-  background-color: rgba(0,0,0,0.8);
-}
 
 /* Fading animation */
 .fade {
@@ -290,6 +291,8 @@
  
 	    .markerInfo:hover{color:#FFF999;}
 	    .hover1:hover{ box-shadow:200px 0 0 0 rgba(0,0,0,0.5) inset; }
+	    
+	    
     </style>
 
 </head>
@@ -328,14 +331,22 @@
 								<p style="width:300px;font-size:12px;">${room.room_address }</p>
 								<div class="rating_days d-flex justify-content-between" style="width:300px;">
 									<span class="d-flex justify-content-center align-items-center">
-										<c:forEach items="${rvlist }" var="rv">
-											<c:if test="${rv.room_no eq room.room_no }">
-												<span >&#9733;</span> 
-												<a href="#"><fmt:formatNumber value="${(rv.clean_score +  rv.value_score + rv.service_score)/3 }" pattern=".0"/> (${rv.reply_no } Review)</a>
-											</c:if>
-										</c:forEach>
+										<c:set var="rvCheck" value="true" />
+											<c:forEach items="${rvlist }" var="rv">
+												<c:if test="${rvCheck }">												
+													<c:if test="${rv.room_no eq room.room_no }">
+														<span >&#9733;</span> 
+														<fmt:formatNumber value="${(rv.clean_score +  rv.value_score + rv.service_score)/3 }" pattern=".0"/> (${rv.reply_no } Review)
+														<c:set var="rvCheck" value="false" />
+													</c:if>
+												</c:if>
+											</c:forEach>
+										<c:if test="${rvCheck }">
+											<span >&#9733;</span> 
+											0.0 (0 Review)
+										</c:if>
 									</span>
-									<div class="days">
+									<div class="days" style="font:bold;">
 									<c:if
 										test="${week eq 6 || week eq 7}">
 										<fmt:formatNumber value="${room.room_weekend }"
@@ -431,7 +442,8 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 // 지도를 생성합니다    
 var map = new kakao.maps.Map(mapContainer, mapOption); 
 
-// 주소-좌표 변환 객체를 생성합니다
+var markers = [];
+
 $(function(){
 	var list = [];
 	var roomName = [];
@@ -442,10 +454,20 @@ $(function(){
 			insertMarker('${room.room_roadaddress}', ${room.room_weekday},'${room.room_no}');
 		}
 	</c:forEach>
+	
+	/*  실행시 마지막 하나만 적용됨
+	<c:forEach items="${roomLL}" var="LL">
+		var position = new kakao.maps.LatLng(${LL.room_lat}, ${LL.room_lng}); 
+		var marker = new kakao.maps.Marker({
+			position : position
+		});
+		markers.push(marker);
+	</c:forEach> */
+	
+	
 });
 
-var lat = [];
-var lng = [];
+
 	function insertMarker(roadaddress, roomWeek, roomNo){
 		var money = roomWeek;
 		var payMoney = money.toLocaleString();
@@ -453,16 +475,7 @@ var lng = [];
 			geocoder.addressSearch(roadaddress, function(result, status) {
 			 if (status === kakao.maps.services.Status.OK) {
 				 coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-			     /*    // 결과값으로 받은 위치를 마커로 표시합니다
-			        var marker = new kakao.maps.Marker({
-			            map: map,
-			            position: coords
-			        });
-	
-			        */
-			      
-			        lat.push(result[0].y);
-			        lng.push(result[0].x);
+			     
 			        var content = '<button id="markerInfo'+roomNo+'" class="markerInfo hover1" onclick="javascript:location.href="moveDetailView.do?room_no='+ roomNo +'">&#8361;'+payMoney+'</button>';
 
 				    // 커스텀 오버레이가 표시될 위치입니다 
@@ -474,47 +487,63 @@ var lng = [];
 				        position: position,
 				        content: content,
 				        yAnchor: 1 
-				    });
+				    });				    
 			}   
 		});
 	}
 	
+/* kakao.maps.event.addListener(map, 'center_changed', function() {
+	var i = 1;
+	<c:forEach items="${roomLL}" var="LL">
+		if(i <= 7){
+			var position = new kakao.maps.LatLng(${LL.room_lat}, ${LL.room_lng}); 
+			var marker = new kakao.maps.Marker({
+				position : position
+			});
+			markerCheck(marker);
+			console.log(i);
+		}else {
+			braek;
+		}
+		i += 1;
+	</c:forEach>	
+}) */
+
+
+/* 마커찍는 곳에서 markers 에 추가하면 작동이 되지만 다르게 추가하면 안된다. */
 kakao.maps.event.addListener(map, 'center_changed', function() {
-    var radius = 100;
-    
-    var markers = [];
-    for(var i = 0; i< lat.length; i++){
-    	var markerPosition  = new kakao.maps.LatLng(lat[i], lng[i]);
-    	var marker = new kakao.maps.Marker({
-    		position : markerPosition
-    	});
-    	markers.push(marker);
-    }    
-	console.log(markers);
-    // 마커들이 담긴 배열
-    markers.forEach(function(m) {
-        var c1 = map.getCenter();
-        var c2 = m.getPosition();
-        console.log(c1);
-        console.log(c2);
-        var poly = new Polyline({
-          // map: map, 을 하지 않아도 거리는 구할 수 있다.
-          path: [c1, c2]
-        });
-        var dist = poly.getLength(); // m 단위로 리턴
-
-        if (dist < radius) {
-            m.setMap(map);
-        } else {
-            m.setMap(null);
-        }
-        
-    });
-   })
-
-
-
-
+	var radius = 65000;
+	var MapLevel = map.getLevel();
+	if(MapLevel == 8){
+		radius = 25000;
+	}else if(MapLevel == 7){
+		radius = 13000;
+	}else if(MapLevel == 6){
+		radius = 7200;
+	}else if(MapLevel == 5){
+		radius = 3500;
+	}else if(MapLevel == 4){
+		radius = 2000;
+	}	
+	markers.forEach(function(m) {
+		var c1 = map.getCenter();
+		var c2 = m.getPosition();
+	
+	    var poly = new kakao.maps.Polyline({
+	      map: map,
+	      path: [c1, c2],
+	      strokeOpacity : 1
+	    });
+	    var dist = poly.getLength(); // m 단위로 리턴
+	    console.log("레벨 거리 : " + radius + ", 레벨 : " + MapLevel + ", 거리 : " + dist);
+	    if (dist < radius) {
+	        m.setMap(map);
+	    } else {
+	        m.setMap(null);
+	    }		
+	})
+})
+	
 </script>
 <c:import url="/WEB-INF/views/common/footer.jsp"/>
 

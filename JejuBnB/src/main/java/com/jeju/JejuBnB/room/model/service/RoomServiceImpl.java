@@ -113,4 +113,9 @@ public class RoomServiceImpl implements RoomService{
 		return roomDao.insertRoomLatLnt(rll);
 	}
 
+	@Override
+	public ArrayList<RoomLatLng> selectRoomLatLng() {
+		return roomDao.selectRoomLatLng();
+	}
+
 }

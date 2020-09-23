@@ -79,6 +79,11 @@
 		select count(room_no) from room
 	</select>
 	
+	<!-- 모든 숙소 좌표 select -->
+	<select id="selectRoomLatLng" resultMap="resultRoomLatLng">
+		select * from room_latlng
+	</select>
+	
 	<!-- 예약된 게시글 번호 조회애 와서 값을 넣어서 예약되지 않은 게시글 조회 -->
 	<select id="selectChkList" parameterType="java.util.HashMap" resultMap="resultList">
 		select * from (select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 

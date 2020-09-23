@@ -66,6 +66,7 @@ public class RoomController {
 		int currentPage = 1;
 		int listCount = roomService.getListCount();
 		
+		//오늘 월 일 요일 인원 설정
 		Calendar cal = Calendar.getInstance();
 		String inMonth = "" + (cal.get(Calendar.MONTH) + 1);
 		String inday = "" + cal.get(Calendar.DAY_OF_MONTH);
@@ -74,14 +75,15 @@ public class RoomController {
 		int week = cal.get(Calendar.DAY_OF_WEEK);
 		int people = 1;
 		
+		// 페이지 변경
 		if (request.getParameter("page") != null) {
-
 			currentPage = Integer.parseInt(request.getParameter("page"));
 		}
 		
 		ArrayList<Room> list = null;
+		// 체크인날짜가 전송된 경우
 		if (request.getParameter("checkin") != null) {
-			
+			// 전송받은 날짜와 인원수 입력
 			String checkin = request.getParameter("checkin");
 			String checkout = request.getParameter("checkout");
 			people = Integer.parseInt(request.getParameter("people"));
@@ -89,8 +91,11 @@ public class RoomController {
 			session.setAttribute("checkout", checkout);
 			session.setAttribute("people",people);
 			
+			// 전달받은 체크인 날짜에 예약된 숙소 번호 가져오기
 			ArrayList<Room> roomNo = roomService.selectChkRNList(checkin, checkout);
+			// 예약된 숙소번호를 제외한 숙소를 조회
 			list = roomService.selectChkList(roomNo, currentPage, limit, people);
+			// 체크인날짜 체크아웃날짜 설정
 			inMonth = checkin.substring(5, 7);
 			inday = checkin.substring(8);
 			outMonth = checkout.substring(5,7);
@@ -104,7 +109,8 @@ public class RoomController {
 			}
 			cal.setTime(chDate);
 			week = cal.get(Calendar.DAY_OF_WEEK);
-		} else {
+			
+		} else {  // 체크인날짜가 전송되지 않아 오늘 날짜로 설정한 경우
 			list = roomService.selectList(currentPage, limit);
 			
 		}
@@ -120,6 +126,7 @@ public class RoomController {
 		ArrayList<MyRoom> mlist = myroomService.selectMyRoom(request.getParameter("userid"));
 		model.addAttribute("mlist", mlist);
 		}
+		
 		// 사진파일 가져오기
 		ArrayList<Room_File> rflist = roomService.selectRoomFileList(list);
 		model.addAttribute("rflist",rflist);
@@ -128,9 +135,11 @@ public class RoomController {
 		ArrayList<Review> rvlist = reviewService.selectReviewList(list);		
 		model.addAttribute("rvlist", rvlist);
 		
-		logger.info("week : " + week);
+		// 숙소 위도경도 찾아오기
+		ArrayList<RoomLatLng> roomLL = roomService.selectRoomLatLng();
+		model.addAttribute("roomLL", roomLL);
+		
 		if (list != null) {
-			logger.info("룸 객체 : " + list.toString());
 			model.addAttribute("inMonth", inMonth);
 			model.addAttribute("inday", inday);
 			model.addAttribute("outMonth", outMonth);

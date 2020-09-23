@@ -27,4 +27,5 @@ public interface RoomService {
 	int updateRoomChangePass(String user_id);
 	int deleteRoomFile(Room_File rfile);
 	int insertRoomLatLnt(RoomLatLng rll);
+	ArrayList<RoomLatLng> selectRoomLatLng();
 }

@@ -60,6 +60,11 @@
 		
 	</resultMap>
 	
+	<resultMap id="resultMyRoom" type="MyRoom">
+		<result property="room_no" column="room_no"/>
+		<result property="user_id" column="user_id" />
+	</resultMap>
+	
 	<resultMap id="resultRoomNo" type="Room">
 		<id property="room_no" column="room_no" />
 	</resultMap>
@@ -131,7 +136,7 @@
 	
 	<!-- 게시글 사진파일들 조회 -->
 	<select id="selectRoomFileList" parameterType="java.util.List" resultMap="resultRfList">
-			select * from room_file
+			select * from room_file where room_no = 0
 		<foreach collection="list" item="room">
 			union select * from room_file where room_no = #{room.room_no} 
 		</foreach>
@@ -284,7 +289,7 @@
 		<if test="room_weekend != null">
 			, room_weekend = #{room_weekend}
 		</if>
-		
+		where room_no = #{room_no}
 	</update>
 	
 	<update id="updateRoomChangePass" parameterType="String">

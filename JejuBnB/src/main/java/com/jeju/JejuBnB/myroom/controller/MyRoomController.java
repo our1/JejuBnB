@@ -2,6 +2,7 @@ package com.jeju.JejuBnB.myroom.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.jeju.JejuBnB.myroom.model.service.MyRoomService;
 import com.jeju.JejuBnB.myroom.model.vo.MyRoom;
@@ -66,5 +68,20 @@ public class MyRoomController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@RequestMapping("seleteMyRoom.do")
+	public ModelAndView seleteMyRoom(MyRoom mroom, ModelAndView mv) {
+		ArrayList<MyRoom> mlist = myroomService.selectMyRoom(mroom);
+		if(mlist != null) {
+		mv.addObject("mlist", mlist);
+		mv.setViewName("member/myRoom");
+		return mv;
+		}else {
+			mv.addObject("message", "내가 저장한 숙소를 찾지 못했습니다.");
+			mv.setViewName("common/error");
+		return mv;
+		}
+		
 	}
 }

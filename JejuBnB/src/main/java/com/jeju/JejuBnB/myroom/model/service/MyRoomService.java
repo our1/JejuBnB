@@ -8,4 +8,5 @@ public interface MyRoomService {
 	int insertMyRoom(MyRoom mroom);
 	ArrayList<MyRoom> selectMyRoom(String userid);
 	int deleteMyRoom(int roomNo);
+	ArrayList<MyRoom> selectMyRoom(MyRoom mroom);
 }

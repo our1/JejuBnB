@@ -29,4 +29,9 @@ public class MyRoomDao {
 		return session.delete("myroomMapper.deleteMyRoom", roomNo);
 	}
 
+	public ArrayList<MyRoom> selectMyRoom(MyRoom mroom) {
+		List<MyRoom> list = session.selectList("myroomMapper.selectMyRoomList", mroom);
+		return (ArrayList<MyRoom>)list;
+	}
+
 }

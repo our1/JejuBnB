@@ -29,4 +29,9 @@ public class MyRoomServiceImpl implements MyRoomService {
 		return myroomDao.deleteMyRoom(roomNo);
 	}
 
+	@Override
+	public ArrayList<MyRoom> selectMyRoom(MyRoom mroom) {
+		return myroomDao.selectMyRoom(mroom);
+	}
+
 }

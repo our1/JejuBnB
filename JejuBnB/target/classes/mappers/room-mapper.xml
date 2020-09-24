@@ -4,7 +4,6 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="roomMapper">
-
 	<resultMap type="Room" id="resultRoom">
 		<id property="room_no" column="room_no" />
 		<result property="user_id" column="user_id" />	
@@ -57,8 +56,7 @@
 		<id property="room_file_no" column="room_file_no" />
 		<result property="room_no" column="room_no" />
 		<result property="original_file" column="original_file" />
-		<result property="rename_file" column="rename_file" />
-		
+		<result property="rename_file" column="rename_file" />		
 	</resultMap>
 	
 	<resultMap id="resultMyRoom" type="MyRoom">
@@ -70,9 +68,30 @@
 		<id property="room_no" column="room_no" />
 	</resultMap>
 	
+	<resultMap id="resultRoomLatLng" type="RoomLatLng">
+		<id property="room_no" column="room_no" />
+		<result property="room_lat" column="room_lat" />
+		<result property="room_lng" column="room_lng" />
+	</resultMap>
+	
 	<!-- 전체 게시글 갯수 조회 -->
-	<select id="getListCount" resultType="_int">
-		select count(room_no) from room
+	<select id="getListCount" parameterType="java.util.HashMap" resultType="_int">
+		select count(room_no) from room join room_latlng using(room_no) where room_no != 0
+		<if test="seR != null">
+		<![CDATA[
+			and  room_lat >= #{seR.room_lat} and room_lat <= #{neR.room_lat} and room_lng >= #{seR.room_lng} and room_lng <= #{neR.room_lng} 
+			]]>
+		</if>
+		<if test="roomNo != null">
+			<foreach collection="list" item="room">
+				and room_no != #{room.room_no}
+			</foreach>
+		</if> 
+	</select>
+	
+	<!-- 모든 숙소 좌표 select -->
+	<select id="selectRoomLatLng" resultMap="resultRoomLatLng">
+		select * from room_latlng
 	</select>
 	
 	<!-- 예약된 게시글 번호 조회애 와서 값을 넣어서 예약되지 않은 게시글 조회 -->
@@ -163,6 +182,42 @@
 	
 	<select id="selectRoomNo" parameterType="string" resultType="int">
 		select nvl(max(room_no),1) from room where user_id = #{uid}
+	</select>
+	
+	<select id="selectLatLng" parameterType="java.util.HashMap" resultMap="resultList">
+		select * 
+		from (select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from room join room_latlng using(room_no)
+		<![CDATA[
+		where room_lat >= #{seR.room_lat} and room_lat <= #{neR.room_lat} and room_lng >= #{seR.room_lng} and room_lng <= #{neR.room_lng} 
+		]]>
+		and
+		checkin_date = to_date(#{checkin},'YY/MM/DD') and
+		checkout_date = to_date(#{checkout}, 'YY/MM/DD'
+		
+		<foreach collection="list" item="room">
+			and room_no != #{room.room_no}
+		</foreach>
+		
+		<![CDATA[
+		and st_num_people <= #{people}
+		and max_people >= #{people}
+		
+		order by room_no)
+		where rnum >= #{startRow} and rnum <= #{endRow}
+		]]>
+	</select>
+	
+	<select id="selectLatLngJustList" parameterType="java.util.HashMap" resultMap="resultList">
+	<![CDATA[
+		select * from (select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from room
+		join room_latlng using(room_no)
+		where room_lat >= #{seR.room_lat} and room_lat <= #{neR.room_lat} and room_lng >= #{seR.room_lng} and room_lng <= #{neR.room_lng} 
+		
+		order by room_no desc)
+		where rnum >= #{startRow} and rnum <= #{endRow} 
+		]]>
 	</select>
 	
 	<select id="selectSearchFilter" parameterType="java.util.HashMap" resultMap="resultList">
@@ -313,4 +368,3 @@
 		delete from review where room_no = #{ room_no}
 	</delete>
 </mapper>
-

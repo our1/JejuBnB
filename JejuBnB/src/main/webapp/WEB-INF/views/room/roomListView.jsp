@@ -110,6 +110,15 @@
         padding: 0;
       }
       
+        .all{
+	    	dispaly : grid;
+	    	grid-template-column : 800px 1fr;
+	    	gap : 0;
+	    	margin : 0;
+	    	padding : 0;
+	    	height : 100%;
+	    }
+      
       #main {
       	height  : 800px;
       	position : relative;
@@ -127,7 +136,9 @@
 		margin-top : 100px;
 		}
 		
-		
+		.main_one{
+			padding : 20px;
+		}
 		.container1 li{
 			list-style : none;
 		}
@@ -154,10 +165,10 @@
 	
 		#map {	
 			width: 1130px;
-		    height: 1000px;
+		    height: 900px;
 		    position: sticky;
 		    left: 42%;
-		    bottom: 50px;
+		   	bottom : 0;
 		}
     
     
@@ -229,7 +240,7 @@
 .prev, .next {
   cursor: pointer;
   position: absolute;
-  top: 50%;
+  top: 130px;
   width: 30px;
   height : 30px;
   font-weight: bold;
@@ -246,7 +257,7 @@
 
 /* Position the "next button" to the right */
 .next {
-  right: 50px;
+  right: 20px;
   border-radius: 50%;
 }
 
@@ -295,14 +306,14 @@
 	    .markerInfo:hover{color:#FFF999;}
 	    .hover1:hover{ box-shadow:200px 0 0 0 rgba(0,0,0,0.5) inset; }
 	    
-	    
+	  
     </style>
 
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp" />
-
-<div style="margin:0;padding:0;height:2300px;">
+<div id="back" style="height:50px;"></div>
+<div id="all">
 <div id="main">
 <div id="items">
 <h6 id="resultS" style="margin-left:15px;">${listCount }개 숙소 검색 . ${inMonth }월${inday }일 - ${outMonth }월${outday }일 . 게스트 ${people }명 </h6>
@@ -437,19 +448,15 @@
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=44262f7a543c0f64c3a92e6841cb0ddb&libraries=services"></script>
 <script>
-$(function() {	
+$(function() {
 	var checkin = null;
 	var checkout = null;
 	var people = 1;
-	var userid = null;
 
 	if(${!empty checkin}){
-	    checkin = ${checkin};
-		checkout = ${checkout};
+	    checkin = '${checkin}';
+		checkout = '${checkout}';
 		people = ${people};
-		if(${!empty loginMember}){
-		userid = '${loginMember.user_id}';	
-		}
 	}
 	
 	
@@ -475,7 +482,7 @@ $(function() {
 	   // 영역정보를 문자열로 얻어옵니다. ((남,서), (북,동)) 형식입니다
 		var boundsStr = bounds.toString();
 	   
-	   moveCenter(swLat, swLng, neLat, neLng, checkin, checkout, people, userid, center, level);
+	   moveCenter(swLat, swLng, neLat, neLng, checkin, checkout, people, center, level);
 		
 	})
 }); 
@@ -509,7 +516,11 @@ var roomName = [];
 </c:forEach>
 
 
-function moveCenter(swLat, swLng, neLat, neLng, checkin, checkout, people, userid,center, level){	
+function moveCenter(swLat, swLng, neLat, neLng, checkin, checkout, people, center, level){	
+	var userid = null;
+	if(${!empty loginMember}){
+		userid = '${loginMember.user_id}';	
+		}
 	location.href="roomlist.do?swLat="+swLat+"&swLng="+swLng+"&neLat="+neLat+"&neLng="+neLng+"&checkin="+checkin+"&checkout="+checkout+"&people="+people+"&userid="+userid +"&center="+center + "&level="+level;	
 }
 
@@ -534,6 +545,8 @@ function insertMarker(roadaddress, roomWeek, roomNo){
 	});
 }
 </script>
+
+<hr>
 <c:import url="/WEB-INF/views/common/footer.jsp"/>
 
 </body>

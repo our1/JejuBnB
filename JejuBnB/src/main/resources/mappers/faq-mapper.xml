@@ -10,24 +10,26 @@
 		<result property="faqcategory_no" column="faqcategory_no" />	
 	</resultMap>
 	
-	<resultMap type="Faq" id="resultList">
-		<id property="faq_no" column="faq_no" />
+	<resultMap type="FaqPlus" id="resultFaqPlus">
+		<result property="faq_no" column="faq_no" />
 		<result property="faq_title" column="faq_title" />	
 		<result property="faq_rcontent" column="faq_rcontent" />	
 		<result property="faqcategory_no" column="faqcategory_no" />
+		<result property="faqcategory_name" column="faqcategory_name" />
 	</resultMap>
 	
 	
-	<!-- <select id="">
-
+	<select id="selectList" resultMap="resultFaqPlus">
+		select * from faq
+		join faq_type using(faqcategory_no)
 	</select>
 	
-	<insert id="">
+	<insert id="insertFaq" parameterType="Faq">
+		insert into faq
+		values((select nvl(max(faq_no)+1,1) from faq),#{faq_title},#{faq_rcontent},#{faqcategory_no})
 	</insert>
 	
-	<update id="">
-	</update>
-	
-	<delete id="">
-	</delete> -->
+	<delete id="deleteFaq" parameterType="string">
+		delete from faq where faq_no = #{faq_no}
+	</delete>
 </mapper>

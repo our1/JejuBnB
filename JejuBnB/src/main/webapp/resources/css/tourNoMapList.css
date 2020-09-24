@@ -1,9 +1,4 @@
-@font-face {
-   font-family: 'Cafe24Oneprettynight';
-   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff');
-   font-weight: normal;
-   font-style: normal;
- }
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 body {
   margin: 0;
   padding: 0;
@@ -75,7 +70,7 @@ box-shadow: 0px 0px 3px 0px gray;
 .dropdown-list li {
 list-style: none;
 padding: 12px 16px;
-font-family: 'Cafe24Oneprettynight';
+font-family: 'Roboto', sans-serif;
 font-weight: bold;
 height: 50px;
 line-height: 25px;
@@ -140,14 +135,14 @@ top : 5px;
 }
 .tour {
   position: relative;
-  font-family: 'Cafe24Oneprettynight';
+  font-family: 'Roboto', sans-serif;
   top : 53%;
   left : 5%;
   color : white;
   width : 200px;
 }
 .live {
-  font-family: 'Cafe24Oneprettynight';
+  font-family: 'Roboto', sans-serif;
   position: relative;
   top : 47%;
   left: 1.5%;
@@ -160,7 +155,7 @@ top : 5px;
 }
 
 .cook {
-  font-family: 'Cafe24Oneprettynight';
+  font-family: 'Roboto', sans-serif;
   position: relative;
   top : 47%;
   left : 9.5%;
@@ -173,7 +168,7 @@ top : 5px;
 }
 
 .act {
-  font-family: 'Cafe24Oneprettynight';
+  font-family: 'Roboto', sans-serif;;
   position: relative;
   top : 47%;
   left : 17.5%;
@@ -185,7 +180,7 @@ top : 5px;
   font-size: 20px;
 }
 .movelist {
-  font-family: 'Cafe24Oneprettynight';
+  font-family: 'Roboto', sans-serif;
   position: relative;
   top: 47%;
   left: 80.3%;
@@ -204,7 +199,7 @@ top : 5px;
   position: relative;
   top : 60%;
   left : 1.5%;
-  font-family: 'Cafe24Oneprettynight';
+  font-family: 'Roboto', sans-serif;
 }
 
 .tourlist img {

@@ -19,7 +19,7 @@
                         <div class="row">
                             <div class="col-lg-10 col-xl-7 mx-auto">
                               <div class="logo">
-                                <img src="resources/images/무제.png" >
+                                  <a onclick='history.back(-1);'><img src="resources/images/무제.png" ></a>
                               </div>
                                <div class="em"> 인증 번호가 맞아야 다음 단계로 넘어 가실 수 있습니다 . </div>
                                 <form action="join_injeung.do" method="post">

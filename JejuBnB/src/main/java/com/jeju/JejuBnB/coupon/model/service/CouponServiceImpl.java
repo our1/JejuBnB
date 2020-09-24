@@ -27,5 +27,10 @@ public class CouponServiceImpl implements CouponService{
 	public int deleteCoupon(String coupon_no) {
 		return couponDao.deleteCoupon(coupon_no);
 	}
+
+	@Override
+	public int deleteCouponAuto(Coupon coupon) {
+		return couponDao.deleteCouponAuto(coupon);
+	}
 	
 }

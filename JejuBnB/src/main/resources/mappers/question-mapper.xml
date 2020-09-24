@@ -23,16 +23,25 @@
 		<result property="questiontype_no" column="questiontype_no" />		
 	</resultMap>
 	
+	<resultMap type="Question" id="QuestionDetail">
+		<id property="question_no" column="question_no" />
+		<result property="question_rcontent" column="question_rcontent" />	
+		<result property="question_content" column="question_content" />	
+		<result property="question_fimg" column="question_fimg" />	
+		<result property="question_rimg" column="question_rimg" />	
+		<result property="user_id" column="user_id" />	
+		<result property="questiontype_no" column="questiontype_no" />	
+		
+	</resultMap>
 	
-<!-- 	<select id="">
+	<select id="selectList" resultMap="resultList">
+		select * from question
 	</select>
 	
-	<insert id="">
+	<insert id="insertMyQuestion" parameterType="Question">
+		insert into question
+		values((select nvl(max(question_no)+1,1) from question),#{question_content},#{question_rcontent},#{question_fimg},#{question_rimg}.#{user_id},#{questiontype_no})
 	</insert>
 	
-	<update id="">
-	</update>
 	
-	<delete id="">
-	</delete> -->
 </mapper>

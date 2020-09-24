@@ -40,5 +40,9 @@ public class CouponDao {
 			return 0;
 		}
 	}
+
+	public int deleteCouponAuto(Coupon coupon) {
+		return session.delete("couponMapper.deleteCouponAuto", coupon);
+	}
 	
 }

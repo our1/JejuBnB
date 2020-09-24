@@ -1,10 +1,4 @@
-@font-face {
-   font-family: 'Cafe24Oneprettynight';
-   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff');
-   font-weight: normal;
-   font-style: normal;
- }
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 body {
   margin: 0;
   padding: 0;
@@ -76,7 +70,7 @@ box-shadow: 0px 0px 3px 0px gray;
 .dropdown-list li {
 list-style: none;
 padding: 12px 16px;
-font-family: 'Cafe24Oneprettynight';
+font-family: 'Roboto', sans-serif;
 font-weight: bold;
 height: 50px;
 line-height: 25px;
@@ -825,7 +819,7 @@ top : 5px;
 
 .tname {
   position: relative;
-  font-family: 'Cafe24Oneprettynight';
+  font-family: 'Roboto', sans-serif;
   top : 100%;
   left : 13%;
   color : black;
@@ -1120,7 +1114,7 @@ svg #main-circ {
   }
 }
 .ts {
-  font-family: 'Cafe24Oneprettynight';
+  font-family: 'Roboto', sans-serif;
   position: relative;
   top : 107%;
   left : 13.3%;
@@ -1142,6 +1136,9 @@ svg #main-circ {
   left: 13%;
   font-size: 20px;
   width: 100%;
+}
+.tcon {
+	width: 1360px; 
 }
 .tchr {
   width: 1380px;
@@ -1224,7 +1221,7 @@ svg #main-circ {
   border-radius: 5px;
   border: 1px solid gray;
   font-size: 20px;
-  font-family: 'Cafe24Oneprettynight';
+  font-family: 'Roboto', sans-serif;
 }
 .moreimpo {
     position: relative;

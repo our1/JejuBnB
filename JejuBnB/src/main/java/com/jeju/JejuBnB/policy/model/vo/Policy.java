@@ -1,7 +1,7 @@
 package com.jeju.JejuBnB.policy.model.vo;
 
 public class Policy implements java.io.Serializable{
-	private static final long serialVersionUID = 2003L;
+	private static final long serialVersionUID = 2030L;
 	
 	private int policy_no;	
 	private String policy_type;

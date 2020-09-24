@@ -32,4 +32,10 @@ public class ReviewDao {
 	public int deleteReview(int reply_no) {
 		return session.update("reviewMapper.deleteReview", reply_no);
 	}
+
+	public ArrayList<Review> selectReviewList(ArrayList<Room> list) {
+		List<Review> rvlist = session.selectList("reviewMapper.selectReviewList", list);
+		return (ArrayList<Review>) rvlist;
+	}
+
 }

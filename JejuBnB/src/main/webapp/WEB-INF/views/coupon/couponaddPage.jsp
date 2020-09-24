@@ -4,21 +4,23 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>JejuBnB</title>
+<link rel="icon" type="image/png" sizes="16x16"
+	href="resources/images/favicon.png">
 </head>
 <body>
 <form action="insertCoupon.do" method="post">
 <h1>쿠폰 등록</h1>
 <tr>
 <th>금액</th>
-<td><input type="number" name="coupon_money">
+<td><input type="number" name="coupon_money" required>
 </tr>
 <tr>
 <th>시작날짜</th>
 <td><input type="date" name="coupon_begin" max="99-12-31" id="begin">
 </tr>
 <tr>
-<th>금액</th>
+<th>끝 날짜</th>
 <td><input type="date" name="coupon_end" max="99-12-31" id="end">
 
 </tr>

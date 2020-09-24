@@ -10,8 +10,7 @@
 <meta charset="UTF-8">
 <title>JejuBnB</title>
 <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
-
-<script src="/JejuBnB/resources/js/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="/JejuBnB/resources/js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 	function moveFilterPage()
 		{	
@@ -105,12 +104,20 @@
 </script>
     <style type="text/css">
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
-
       html,
       body {
         margin: 0;
         padding: 0;
       }
+      
+        .all{
+	    	dispaly : grid;
+	    	grid-template-column : 800px 1fr;
+	    	gap : 0;
+	    	margin : 0;
+	    	padding : 0;
+	    	height : 100%;
+	    }
       
       #main {
       	height  : 800px;
@@ -119,6 +126,7 @@
       }
       
       .container1 {
+      	position : relative;
       	width : 40%;
 		display : grid;
 		grid-template-columns : 1fr 1fr;
@@ -128,7 +136,9 @@
 		margin-top : 100px;
 		}
 		
-		
+		.main_one{
+			padding : 20px;
+		}
 		.container1 li{
 			list-style : none;
 		}
@@ -148,13 +158,17 @@
 		#page{
 			padding : 10px;
 		}
+		
+		#right {
+			height : 100%;
+		}
 	
 		#map {	
-			width : 1100px;
-			height : 1000px;
-			position: sticky;			
-			left : 40%;
- 			bottom : 150px;
+			width: 1130px;
+		    height: 900px;
+		    position: sticky;
+		    left: 42%;
+		   	bottom : 0;
 		}
     
     
@@ -216,36 +230,37 @@
 }
 /* Slideshow container */
 .slideshow-container {
-  max-width: 1000px;
   position: relative;
-  margin: auto;
+  margin: 300px;
+  padding : 0;
+  margin : 0;
 }
 
 /* Next & previous buttons */
 .prev, .next {
   cursor: pointer;
   position: absolute;
-  top: 50%;
-  width: auto;
-  padding: 16px;
-  margin-top: -22px;
-  color: white;
+  top: 130px;
+  width: 30px;
+  height : 30px;
   font-weight: bold;
   font-size: 18px;
   transition: 0.6s ease;
-  border-radius: 0 3px 3px 0;
+  border-radius: 50%;
+  padding : 7px;
+  text-decoration : none;
+}
+
+.prev:hover, .next:hover {
+  background-color: #ffffff;
 }
 
 /* Position the "next button" to the right */
 .next {
-  right: 0;
-  border-radius: 3px 0 0 3px;
+  right: 20px;
+  border-radius: 50%;
 }
 
-/* On hover, add a black background color with a little bit see-through */
-.prev:hover, .next:hover {
-  background-color: rgba(0,0,0,0.8);
-}
 
 /* Fading animation */
 .fade {
@@ -290,14 +305,15 @@
  
 	    .markerInfo:hover{color:#FFF999;}
 	    .hover1:hover{ box-shadow:200px 0 0 0 rgba(0,0,0,0.5) inset; }
+	    
+	  
     </style>
 
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp" />
-<hr>
-<div>
-<h1 align="center">숙소 리스트 페이지</h1>
+<div id="back" style="height:50px;"></div>
+<div id="all">
 <div id="main">
 <div id="items">
 <h6 id="resultS" style="margin-left:15px;">${listCount }개 숙소 검색 . ${inMonth }월${inday }일 - ${outMonth }월${outday }일 . 게스트 ${people }명 </h6>
@@ -328,14 +344,22 @@
 								<p style="width:300px;font-size:12px;">${room.room_address }</p>
 								<div class="rating_days d-flex justify-content-between" style="width:300px;">
 									<span class="d-flex justify-content-center align-items-center">
-										<c:forEach items="${rvlist }" var="rv">
-											<c:if test="${rv.room_no eq room.room_no }">
-												<span >&#9733;</span> 
-												<a href="#"><fmt:formatNumber value="${(rv.clean_score +  rv.value_score + rv.service_score)/3 }" pattern=".0"/> (${rv.reply_no } Review)</a>
-											</c:if>
-										</c:forEach>
+										<c:set var="rvCheck" value="true" />
+											<c:forEach items="${rvlist }" var="rv">
+												<c:if test="${rvCheck }">												
+													<c:if test="${rv.room_no eq room.room_no }">
+														<span >&#9733;</span> 
+														<fmt:formatNumber value="${(rv.clean_score +  rv.value_score + rv.service_score)/3 }" pattern=".0"/> (${rv.reply_no } Review)
+														<c:set var="rvCheck" value="false" />
+													</c:if>
+												</c:if>
+											</c:forEach>
+										<c:if test="${rvCheck }">
+											<span >&#9733;</span> 
+											0.0 (0 Review)
+										</c:if>
 									</span>
-									<div class="days">
+									<div class="days" style="font:bold;">
 									<c:if
 										test="${week eq 6 || week eq 7}">
 										<fmt:formatNumber value="${room.room_weekend }"
@@ -413,109 +437,116 @@
 	</c:if>
 
 </div>
+<div id="testAjax">
 
 </div>
 
+</div>
 
 <div id="map"></div>
 </div>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=44262f7a543c0f64c3a92e6841cb0ddb&libraries=services"></script>
 <script>
+$(function() {
+	var checkin = null;
+	var checkout = null;
+	var people = 1;
+
+	if(${!empty checkin}){
+	    checkin = '${checkin}';
+		checkout = '${checkout}';
+		people = ${people};
+	}
+	
+	
+	
+	kakao.maps.event.addListener(map, 'idle', function() {
+		// 현재 맵 정보
+		var bounds = map.getBounds();
+		// 중심 좌표
+		var center = map.getCenter(); 
+		
+		// 레벨
+		var level = map.getLevel();
+			
+		// 남서쪽 좌표
+		var swLatLng = bounds.getSouthWest(); 
+	   	var swLat = swLatLng.getLat();
+	   	var swLng = swLatLng.getLng();
+	   	
+	   // 영역의 북동쪽 좌표를 얻어옵니다 
+		var neLatLng = bounds.getNorthEast(); 
+	    var neLat = neLatLng.getLat();
+	    var neLng = neLatLng.getLng();
+	   // 영역정보를 문자열로 얻어옵니다. ((남,서), (북,동)) 형식입니다
+		var boundsStr = bounds.toString();
+	   
+	   moveCenter(swLat, swLng, neLat, neLng, checkin, checkout, people, center, level);
+		
+	})
+}); 
+var centerLat = 33.450701;
+var centerLng = 126.570667;
+var levelNum = 9;
+if(${!empty centerLat and !empty centerLng}){
+	 centerLat = '${centerLat}';
+	 centerLng = '${centerLng}';
+	 levelNum = '${level}';
+}
+
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 9 // 지도의 확대 레벨
-    };  
+mapOption = {
+    center: new kakao.maps.LatLng(centerLat, centerLng), // 지도의 중심좌표
+    level: levelNum // 지도의 확대 레벨
+};  
 
 // 지도를 생성합니다    
 var map = new kakao.maps.Map(mapContainer, mapOption); 
 
-// 주소-좌표 변환 객체를 생성합니다
-$(function(){
-	var list = [];
-	var roomName = [];
-	<c:forEach items="${list }" var="room">
-		if(${week eq 6 || week eq 7}){
-			insertMarker('${room.room_roadaddress}', ${room.room_weekend},'${room.room_no}');
-		}else {
-			insertMarker('${room.room_roadaddress}', ${room.room_weekday},'${room.room_no}');
-		}
-	</c:forEach>
-});
 
-var lat = [];
-var lng = [];
-	function insertMarker(roadaddress, roomWeek, roomNo){
-		var money = roomWeek;
-		var payMoney = money.toLocaleString();
-		var geocoder = new kakao.maps.services.Geocoder();
-			geocoder.addressSearch(roadaddress, function(result, status) {
-			 if (status === kakao.maps.services.Status.OK) {
-				 coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-			     /*    // 결과값으로 받은 위치를 마커로 표시합니다
-			        var marker = new kakao.maps.Marker({
-			            map: map,
-			            position: coords
-			        });
-	
-			        */
-			      
-			        lat.push(result[0].y);
-			        lng.push(result[0].x);
-			        var content = '<button id="markerInfo'+roomNo+'" class="markerInfo hover1" onclick="javascript:location.href="moveDetailView.do?room_no='+ roomNo +'">&#8361;'+payMoney+'</button>';
-
-				    // 커스텀 오버레이가 표시될 위치입니다 
-				    var position = coords; 
-	
-				    // 커스텀 오버레이를 생성합니다
-				    var customOverlay = new kakao.maps.CustomOverlay({
-				        map: map,
-				        position: position,
-				        content: content,
-				        yAnchor: 1 
-				    });
-			}   
-		});
+var list = [];
+var roomName = [];
+<c:forEach items="${list }" var="room">
+	if(${week eq 6 || week eq 7}){
+		insertMarker('${room.room_roadaddress}', ${room.room_weekend},'${room.room_no}');
+	}else {
+		insertMarker('${room.room_roadaddress}', ${room.room_weekday},'${room.room_no}');
 	}
-	
-kakao.maps.event.addListener(map, 'center_changed', function() {
-    var radius = 100;
-    
-    var markers = [];
-    for(var i = 0; i< lat.length; i++){
-    	var markerPosition  = new kakao.maps.LatLng(lat[i], lng[i]);
-    	var marker = new kakao.maps.Marker({
-    		position : markerPosition
-    	});
-    	markers.push(marker);
-    }    
-	console.log(markers);
-    // 마커들이 담긴 배열
-    markers.forEach(function(m) {
-        var c1 = map.getCenter();
-        var c2 = m.getPosition();
-        console.log(c1);
-        console.log(c2);
-        var poly = new Polyline({
-          // map: map, 을 하지 않아도 거리는 구할 수 있다.
-          path: [c1, c2]
-        });
-        var dist = poly.getLength(); // m 단위로 리턴
-
-        if (dist < radius) {
-            m.setMap(map);
-        } else {
-            m.setMap(null);
-        }
-        
-    });
-   })
+</c:forEach>
 
 
+function moveCenter(swLat, swLng, neLat, neLng, checkin, checkout, people, center, level){	
+	var userid = null;
+	if(${!empty loginMember}){
+		userid = '${loginMember.user_id}';	
+		}
+	location.href="roomlist.do?swLat="+swLat+"&swLng="+swLng+"&neLat="+neLat+"&neLng="+neLng+"&checkin="+checkin+"&checkout="+checkout+"&people="+people+"&userid="+userid +"&center="+center + "&level="+level;	
+}
 
 
+function insertMarker(roadaddress, roomWeek, roomNo){
+	var money = roomWeek;
+	var payMoney = money.toLocaleString();
+	var geocoder = new kakao.maps.services.Geocoder();
+		geocoder.addressSearch(roadaddress, function(result, status) {
+		if (status === kakao.maps.services.Status.OK) {
+			coords = new kakao.maps.LatLng(result[0].y, result[0].x);			     
+		    var content = '<button id="markerInfo'+roomNo+'" class="markerInfo hover1" onclick="javascript:location.href="moveDetailView.do?room_no='+ roomNo +'">&#8361;'+payMoney+'</button>';
+			// 커스텀 오버레이가 표시될 위치입니다 
+			// 커스텀 오버레이를 생성합니다
+			var customOverlay = new kakao.maps.CustomOverlay({
+			    map: map,
+			    position: coords,
+			    content: content,
+			    yAnchor: 1 
+			});				    
+		}   
+	});
+}
 </script>
+
+<hr>
 <c:import url="/WEB-INF/views/common/footer.jsp"/>
 
 </body>

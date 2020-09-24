@@ -207,6 +207,48 @@
 	 .address{
 	 	width : 300px;
 	 }
+	 
+	 /* BUTTON 2 */
+#submit{
+  background:#1AAB8A;
+  color:#fff;
+  border:none;
+  position:relative;
+  height:60px;
+  font-size:1.6em;
+  padding:0 2em;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+  border-radius : 2em;
+  margin-left : 200px;
+}
+#submit:hover{
+  background:#fff;
+  color:#1AAB8A;
+}
+#submit:before,#submit:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #1AAB8A;
+  transition:400ms ease all;
+}
+#submit:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+#submit:hover:before,#submit:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}
+
+
 
 </style>
 
@@ -242,7 +284,6 @@
 	 	 geocoder.addressSearch(roadAddr, function(result, status) {
 	 		if (status === kakao.maps.services.Status.OK) {
 		  		coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-		  		alert(result[0].y+ " , " + result[0].x)
 			  	var html = "";
 			  	html += '<input type="hidden" name="room_lat" value="'+ result[0].y +'" >';
 			  	html += '<input type="hidden" name="room_lng" value="'+ result[0].x +'" >'
@@ -526,7 +567,7 @@
 <div id="imgContainer">
 
 </div>
-<input type="submit" value="전송">
+<button type="submit" id="submit">글 등록하기</button>
 </div>
 </form>
 </div>

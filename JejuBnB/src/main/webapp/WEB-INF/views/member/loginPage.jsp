@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="resources/css/loginPage.css" >
     <link rel="stylesheet" href="resources/css/bootstrap.min.css" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap" rel="stylesheet">
 <script>
   function statusChangeCallback(response) {  
     console.log('statusChangeCallback');
@@ -62,9 +63,8 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-10 col-xl-7 mx-auto">
-                              <div class="logo">
-                                <img src="resources/images/무제.png" >
-                              </div>
+                               <strong>JejuBnB</strong>
+                              	 <div style="padding: 50px 0px 0px 0px;"></div>
                                 <form action="login.do" method="post">	
                                     <div class="form-group mb-3">
                                         <input id="inputEmail" type="text" placeholder="Email address" required="" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4" name="user_id">

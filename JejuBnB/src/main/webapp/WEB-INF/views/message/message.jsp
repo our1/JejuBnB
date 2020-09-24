@@ -37,17 +37,53 @@
     overflow-y: scroll;
     height: 500px;
 }
-button {
-	width : 104px;
-	height : 26px;
-	border : none;
+.input-group .form-control {
+    position: relative;
+    z-index: 2;
+    float: left;
+    width: 84%;
+    margin-bottom: 0;
 }
+.sma {
+	background-color: #337ab7;
+    color: #fff;
+    border: none;
+    height: 29px;
+    font-size: 12px;
+    width: 54px;
+}
+.sma:hover {
+	background-color : #33619e;
+}
+.messagelistgo {
+    width: 33px;
+    height: 23px;
+    border: none;
+    float: right;
+    background: none;
+    color: #fff;
+    padding-bottom: 4%;
+    padding-left: 6%;
+}
+.icon-bar {
+    background-color: #fff;
+    border-radius: 1px;
+    cursor: pointer;
+    display: block;
+    height: 2px;
+    margin-top: 3px;
+    width: 18px;
+ }
 </style>
 <script type="text/javascript">
-		function message() {
-		 	window.open("message.do?user_one=${ loginMember.user_id }&user_two=user02" , "메세지함",
-			"width=800, height=900, left=100, top=50, toolbar=no, menubar=no, scrollbars=no, resizable=yes" ); 
-			}
+	function message() {
+	 	window.open("message.do?user_one=${loginMember.user_id }&user_two=user02" , "메세지함",
+		"width=800, height=900, left=100, top=50, toolbar=no, menubar=no, scrollbars=no, resizable=yes" ); 
+		}
+	 	function moveMessageListPage() {
+	 	 	window.open("moveMessageList.do?user_one=${loginMember.user_id }", "메세지창",
+	 		"width=1700, height=900, left=100, top=50, toolbar=no, menubar=no, scrollbars=no, resizable=yes" ); 
+	 	}
 </script>
 </head>
 <body>
@@ -57,8 +93,11 @@ button {
 	           <div class="panel panel-primary">
 	               <div class="panel-heading">
 	                   <span class="glyphicon glyphicon-comment"></span> Message
-	                   <div class="btn-group pull-right">
-	                   </div>
+		                   	<button class="messagelistgo" onclick="javascript:location.href='${ message }'">
+						       <span class="icon-bar"></span>
+						       <span class="icon-bar"></span>
+						       <span class="icon-bar"></span>
+						     </button>
              	   </div>
             <div class="panel-body">
                <ul class="chat">
@@ -82,9 +121,8 @@ button {
 							<input id="Mensaje" type="text" name="content" class="form-control input-sm" placeholder="메세지를 입력하세요..." />
 							<input type="hidden" name="writer" value="${ loginMember.user_name }">
 							<input type="hidden" name="message_no" value="${ messagelist.message_no }">
-							<input type="submit" value="보내기"><span class="input-group-btn"></span>		
+							<input type="submit" value="보내기" class="sma">		
 						</form>
-						<button onclick="javascript:location.href='${ message }'">메시지 리스트</button>
 					</div>
                </div>
            </div>

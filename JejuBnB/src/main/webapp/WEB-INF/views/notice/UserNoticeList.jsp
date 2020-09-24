@@ -18,10 +18,11 @@
      }
      .logo {
       font-family: 'Alex Brush', cursive;
-      font-size: 45px;
+      font-size: 50px;
       position: relative;
       left: 27%;
-      color: lightcoral;
+      color: #444141;
+      width : 100px;
      }
     .check_btn {
 	    background: #FFC19E;

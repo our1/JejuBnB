@@ -33,7 +33,7 @@ function winOpen1() {
 	window.open("moveFilterList.do","필터","width=900,height=1000, left="+ popupX + ", top="+ popupY);
 }
 function winOpen2() {
-	window.open("myNoticeList.do?userid=${loginMember.user_id}","알림","width=376,height=600, left=1290, top=120");
+	window.open("myNoticeList.do?userid=${loginMember.user_id}","알림","width=415,height=600, left=1290, top=120");
 }
 function winOpen3() {
 	window.open("adUNoticeList.do","알림","width=488,height=133, left=600, top=120");
@@ -48,7 +48,7 @@ function movePage() {
 }
 function message() {
 	window.open("message.do?user_one=${loginMember.user_id }&user_two=user02" , "메세지함",
-"width=400, height=670, left=1320, top=110, toolbar=no, menubar=no, scrollbars=no, resizable=yes" ); 
+"width=400, height=650, left=1320, top=110, toolbar=no, menubar=no, scrollbars=no, resizable=yes" ); 
 }
 </script>
 </head>
@@ -66,7 +66,7 @@ function message() {
 	<div id="navbarCollapse" class="collapse navbar-collapse">
 		<ul class="nav navbar-nav navbar-right">
 			<li onclick="winOpen2();"><a class="notifications"><i class="fa fa-bell-o"></i><span class="badge">1</span></a></li>
-			<li onclick="message();"><a class="messages" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-envelope-o"></i><span class="badge">10</span></a></li>
+			<li onclick="message();"><a class="messages" ><i class="fa fa-envelope-o"></i><span class="badge">10</span></a></li>
 			<li class="dropdown">
 				<a href="#" data-toggle="dropdown" class="dropdown-toggle user-action"><img src="resources/images/프로필.jfif" class="avatar" alt="Avatar">${ loginMember.user_name } 님<b class="caret"></b></a>
 				<c:if test="${ !empty loginMember and  loginMember.admin_check eq 'Y' }">

@@ -58,7 +58,7 @@ public class MemberController {
 				return "common/error";
 			} else {
 				session.setAttribute("loginMember", loginMember);
-				return "member/temPage";
+				return "member/tempPage";
 			}
 		/*
 		 * } else { model.addAttribute("message", "회원 정보와 일치하지 않습니다."); return

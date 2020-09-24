@@ -18,7 +18,7 @@
 		position: fixed;
     	width: 100%;
     	border : none;
-    	z-index: 10000;
+    	z-index: 10;
         transition: all 0.4s ease-in-out;
 	}
 	.nav img {

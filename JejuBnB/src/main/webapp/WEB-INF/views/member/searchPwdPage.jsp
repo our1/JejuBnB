@@ -54,7 +54,7 @@
                         <div class="row">
                             <div class="col-lg-10 col-xl-7 mx-auto">
                               <div class="logo">
-                                  <a onclick='history.back(-1);'><img src="resources/images/무제.png" ></a>
+                                  <strong><a onclick='history.back(-1);'>JejuBnB</a></strong>
                               </div>
                                 <form action="searchPwd.do" method="post">
                                     <div class="form-group mb-3">
@@ -75,8 +75,8 @@
                                       <div class="separator">
                                   <p>OR</p>
                                 </div>
-                                <a href="email.do" class="findpas">Create an Account</a> <br>
-                                <a href="login.do" class="enroll">Already have an account? Login</a>
+                                <a href="email.do" class="findpas">계정을 생성하세요</a> <br>
+                                <a href="login.do" class="enroll">아이디가 있다면 ? 로그인 하세요</a>
                             </div>
                         </div>
                     </div>

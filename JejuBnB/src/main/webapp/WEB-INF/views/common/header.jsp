@@ -7,6 +7,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>JejuBnB</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -29,6 +30,7 @@ function winOpen1() {
 	var popupX = (document.body.offsetWidth / 2) - (900 / 2);
 
 	var popupY= (window.screen.height / 2) - (1000 / 2);
+
 
 	window.open("moveFilterList.do","필터","width=900,height=1000, left="+ popupX + ", top="+ popupY);
 }

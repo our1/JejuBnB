@@ -5,7 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>final</title>
+<title>JejuBnB</title>
+<link rel="icon" type="image/png" sizes="16x16"
+	href="resources/images/favicon.png">
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp" />
@@ -25,11 +27,11 @@
 </tr>
 <tr>
 <th>약관 제목</th>
-<input type="text" name="policy_title"><br>
+<input type="text" name="policy_title" required><br>
 </tr>
 <tr>
 <th>약관 정보</th>
-<input type="text" name="policy_content"><br>
+<input type="text" name="policy_content" required><br>
 </tr>
 <th colspan="2">
 <input type="submit" value="추가">

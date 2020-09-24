@@ -10,8 +10,7 @@
 <meta charset="UTF-8">
 <title>JejuBnB</title>
 <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
-
-<script src="/JejuBnB/resources/js/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="/JejuBnB/resources/js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 	function moveFilterPage()
 		{	
@@ -105,7 +104,6 @@
 </script>
     <style type="text/css">
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
-
       html,
       body {
         margin: 0;
@@ -119,6 +117,7 @@
       }
       
       .container1 {
+      	position : relative;
       	width : 40%;
 		display : grid;
 		grid-template-columns : 1fr 1fr;
@@ -147,6 +146,10 @@
 		
 		#page{
 			padding : 10px;
+		}
+		
+		#right {
+			height : 100%;
 		}
 	
 		#map {	
@@ -298,9 +301,8 @@
 </head>
 <body>
 <c:import url="/WEB-INF/views/common/header.jsp" />
-<hr>
-<div>
-<h1 align="center">숙소 리스트 페이지</h1>
+
+<div style="margin:0;padding:0;height:2300px;">
 <div id="main">
 <div id="items">
 <h6 id="resultS" style="margin-left:15px;">${listCount }개 숙소 검색 . ${inMonth }월${inday }일 - ${outMonth }월${outday }일 . 게스트 ${people }명 </h6>
@@ -424,126 +426,113 @@
 	</c:if>
 
 </div>
+<div id="testAjax">
 
 </div>
 
+</div>
 
 <div id="map"></div>
 </div>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=44262f7a543c0f64c3a92e6841cb0ddb&libraries=services"></script>
 <script>
+$(function() {	
+	var checkin = null;
+	var checkout = null;
+	var people = 1;
+	var userid = null;
+
+	if(${!empty checkin}){
+	    checkin = ${checkin};
+		checkout = ${checkout};
+		people = ${people};
+		if(${!empty loginMember}){
+		userid = '${loginMember.user_id}';	
+		}
+	}
+	
+	
+	
+	kakao.maps.event.addListener(map, 'idle', function() {
+		// 현재 맵 정보
+		var bounds = map.getBounds();
+		// 중심 좌표
+		var center = map.getCenter(); 
+		
+		// 레벨
+		var level = map.getLevel();
+			
+		// 남서쪽 좌표
+		var swLatLng = bounds.getSouthWest(); 
+	   	var swLat = swLatLng.getLat();
+	   	var swLng = swLatLng.getLng();
+	   	
+	   // 영역의 북동쪽 좌표를 얻어옵니다 
+		var neLatLng = bounds.getNorthEast(); 
+	    var neLat = neLatLng.getLat();
+	    var neLng = neLatLng.getLng();
+	   // 영역정보를 문자열로 얻어옵니다. ((남,서), (북,동)) 형식입니다
+		var boundsStr = bounds.toString();
+	   
+	   moveCenter(swLat, swLng, neLat, neLng, checkin, checkout, people, userid, center, level);
+		
+	})
+}); 
+var centerLat = 33.450701;
+var centerLng = 126.570667;
+var levelNum = 9;
+if(${!empty centerLat and !empty centerLng}){
+	 centerLat = '${centerLat}';
+	 centerLng = '${centerLng}';
+	 levelNum = '${level}';
+}
+
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 9 // 지도의 확대 레벨
-    };  
+mapOption = {
+    center: new kakao.maps.LatLng(centerLat, centerLng), // 지도의 중심좌표
+    level: levelNum // 지도의 확대 레벨
+};  
 
 // 지도를 생성합니다    
 var map = new kakao.maps.Map(mapContainer, mapOption); 
 
-var markers = [];
 
-$(function(){
-	var list = [];
-	var roomName = [];
-	<c:forEach items="${list }" var="room">
-		if(${week eq 6 || week eq 7}){
-			insertMarker('${room.room_roadaddress}', ${room.room_weekend},'${room.room_no}');
-		}else {
-			insertMarker('${room.room_roadaddress}', ${room.room_weekday},'${room.room_no}');
-		}
-	</c:forEach>
-	
-	/*  실행시 마지막 하나만 적용됨
-	<c:forEach items="${roomLL}" var="LL">
-		var position = new kakao.maps.LatLng(${LL.room_lat}, ${LL.room_lng}); 
-		var marker = new kakao.maps.Marker({
-			position : position
-		});
-		markers.push(marker);
-	</c:forEach> */
-	
-	
-});
-
-
-	function insertMarker(roadaddress, roomWeek, roomNo){
-		var money = roomWeek;
-		var payMoney = money.toLocaleString();
-		var geocoder = new kakao.maps.services.Geocoder();
-			geocoder.addressSearch(roadaddress, function(result, status) {
-			 if (status === kakao.maps.services.Status.OK) {
-				 coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-			     
-			        var content = '<button id="markerInfo'+roomNo+'" class="markerInfo hover1" onclick="javascript:location.href="moveDetailView.do?room_no='+ roomNo +'">&#8361;'+payMoney+'</button>';
-
-				    // 커스텀 오버레이가 표시될 위치입니다 
-				    var position = coords; 
-	
-				    // 커스텀 오버레이를 생성합니다
-				    var customOverlay = new kakao.maps.CustomOverlay({
-				        map: map,
-				        position: position,
-				        content: content,
-				        yAnchor: 1 
-				    });				    
-			}   
-		});
+var list = [];
+var roomName = [];
+<c:forEach items="${list }" var="room">
+	if(${week eq 6 || week eq 7}){
+		insertMarker('${room.room_roadaddress}', ${room.room_weekend},'${room.room_no}');
+	}else {
+		insertMarker('${room.room_roadaddress}', ${room.room_weekday},'${room.room_no}');
 	}
-	
-/* kakao.maps.event.addListener(map, 'center_changed', function() {
-	var i = 1;
-	<c:forEach items="${roomLL}" var="LL">
-		if(i <= 7){
-			var position = new kakao.maps.LatLng(${LL.room_lat}, ${LL.room_lng}); 
-			var marker = new kakao.maps.Marker({
-				position : position
-			});
-			markerCheck(marker);
-			console.log(i);
-		}else {
-			braek;
-		}
-		i += 1;
-	</c:forEach>	
-}) */
+</c:forEach>
 
 
-/* 마커찍는 곳에서 markers 에 추가하면 작동이 되지만 다르게 추가하면 안된다. */
-kakao.maps.event.addListener(map, 'center_changed', function() {
-	var radius = 65000;
-	var MapLevel = map.getLevel();
-	if(MapLevel == 8){
-		radius = 25000;
-	}else if(MapLevel == 7){
-		radius = 13000;
-	}else if(MapLevel == 6){
-		radius = 7200;
-	}else if(MapLevel == 5){
-		radius = 3500;
-	}else if(MapLevel == 4){
-		radius = 2000;
-	}	
-	markers.forEach(function(m) {
-		var c1 = map.getCenter();
-		var c2 = m.getPosition();
-	
-	    var poly = new kakao.maps.Polyline({
-	      map: map,
-	      path: [c1, c2],
-	      strokeOpacity : 1
-	    });
-	    var dist = poly.getLength(); // m 단위로 리턴
-	    console.log("레벨 거리 : " + radius + ", 레벨 : " + MapLevel + ", 거리 : " + dist);
-	    if (dist < radius) {
-	        m.setMap(map);
-	    } else {
-	        m.setMap(null);
-	    }		
-	})
-})
-	
+function moveCenter(swLat, swLng, neLat, neLng, checkin, checkout, people, userid,center, level){	
+	location.href="roomlist.do?swLat="+swLat+"&swLng="+swLng+"&neLat="+neLat+"&neLng="+neLng+"&checkin="+checkin+"&checkout="+checkout+"&people="+people+"&userid="+userid +"&center="+center + "&level="+level;	
+}
+
+
+function insertMarker(roadaddress, roomWeek, roomNo){
+	var money = roomWeek;
+	var payMoney = money.toLocaleString();
+	var geocoder = new kakao.maps.services.Geocoder();
+		geocoder.addressSearch(roadaddress, function(result, status) {
+		if (status === kakao.maps.services.Status.OK) {
+			coords = new kakao.maps.LatLng(result[0].y, result[0].x);			     
+		    var content = '<button id="markerInfo'+roomNo+'" class="markerInfo hover1" onclick="javascript:location.href="moveDetailView.do?room_no='+ roomNo +'">&#8361;'+payMoney+'</button>';
+			// 커스텀 오버레이가 표시될 위치입니다 
+			// 커스텀 오버레이를 생성합니다
+			var customOverlay = new kakao.maps.CustomOverlay({
+			    map: map,
+			    position: coords,
+			    content: content,
+			    yAnchor: 1 
+			});				    
+		}   
+	});
+}
 </script>
 <c:import url="/WEB-INF/views/common/footer.jsp"/>
 

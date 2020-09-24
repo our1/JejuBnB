@@ -77,7 +77,7 @@ FB.login(function(response){
 FB.logout(function(response) {
    });
     */
-$(function(){
+/* $(function(){
 		if('${loginMember.user_id}' != null){
 			$.ajax ({
 			      url : "myNoticeList.do",
@@ -109,7 +109,7 @@ $(function(){
 		   alert("로그인 후 이용해 주세요");
 		}
 	
-});
+}); */
 </script>
 <style type="text/css">
     .alarmlogo {

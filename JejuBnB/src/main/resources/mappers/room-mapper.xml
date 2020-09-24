@@ -75,8 +75,18 @@
 	</resultMap>
 	
 	<!-- 전체 게시글 갯수 조회 -->
-	<select id="getListCount" resultType="_int">
-		select count(room_no) from room
+	<select id="getListCount" parameterType="java.util.HashMap" resultType="_int">
+		select count(room_no) from room join room_latlng using(room_no) where room_no != 0
+		<if test="seR != null">
+		<![CDATA[
+			and  room_lat >= #{seR.room_lat} and room_lat <= #{neR.room_lat} and room_lng >= #{seR.room_lng} and room_lng <= #{neR.room_lng} 
+			]]>
+		</if>
+		<if test="roomNo != null">
+			<foreach collection="list" item="room">
+				and room_no != #{room.room_no}
+			</foreach>
+		</if> 
 	</select>
 	
 	<!-- 모든 숙소 좌표 select -->
@@ -172,6 +182,42 @@
 	
 	<select id="selectRoomNo" parameterType="string" resultType="int">
 		select nvl(max(room_no),1) from room where user_id = #{uid}
+	</select>
+	
+	<select id="selectLatLng" parameterType="java.util.HashMap" resultMap="resultList">
+		select * 
+		from (select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from room join room_latlng using(room_no)
+		<![CDATA[
+		where room_lat >= #{seR.room_lat} and room_lat <= #{neR.room_lat} and room_lng >= #{seR.room_lng} and room_lng <= #{neR.room_lng} 
+		]]>
+		and
+		checkin_date = to_date(#{checkin},'YY/MM/DD') and
+		checkout_date = to_date(#{checkout}, 'YY/MM/DD'
+		
+		<foreach collection="list" item="room">
+			and room_no != #{room.room_no}
+		</foreach>
+		
+		<![CDATA[
+		and st_num_people <= #{people}
+		and max_people >= #{people}
+		
+		order by room_no)
+		where rnum >= #{startRow} and rnum <= #{endRow}
+		]]>
+	</select>
+	
+	<select id="selectLatLngJustList" parameterType="java.util.HashMap" resultMap="resultList">
+	<![CDATA[
+		select * from (select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from room
+		join room_latlng using(room_no)
+		where room_lat >= #{seR.room_lat} and room_lat <= #{neR.room_lat} and room_lng >= #{seR.room_lng} and room_lng <= #{neR.room_lng} 
+		
+		order by room_no desc)
+		where rnum >= #{startRow} and rnum <= #{endRow} 
+		]]>
 	</select>
 	
 	<select id="selectSearchFilter" parameterType="java.util.HashMap" resultMap="resultList">

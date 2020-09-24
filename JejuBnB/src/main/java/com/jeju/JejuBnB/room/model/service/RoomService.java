@@ -19,7 +19,7 @@ public interface RoomService {
 	int insertRoomFile(ArrayList<Room_File> rflist);
 	ArrayList<Room> selectSearchFilter(Room room);
 	ArrayList<Room_File> selectRoomFile(int roomno);
-	int getListCount();
+	int getListCount(RoomLatLng seR, RoomLatLng neR, ArrayList<Room> roomNo);
 	ArrayList<Room> selectChkList(ArrayList<Room> room, int currentPage, int limit, int people);
 	ArrayList<Room> selectChkRNList(String checkin, String checkout);
 	ArrayList<Room> selectSysdate();
@@ -28,4 +28,7 @@ public interface RoomService {
 	int deleteRoomFile(Room_File rfile);
 	int insertRoomLatLnt(RoomLatLng rll);
 	ArrayList<RoomLatLng> selectRoomLatLng();
+	ArrayList<Room> selectLatLng(ArrayList<Room> roomNo, int currentPage, int limit, int people, RoomLatLng seR,
+			RoomLatLng neR);
+	ArrayList<Room> selectLatLngJustList(int currentPage, int limit, RoomLatLng seR, RoomLatLng neR);
 }

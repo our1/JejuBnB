@@ -74,11 +74,6 @@ public class RoomServiceImpl implements RoomService{
 	}
 
 	@Override
-	public int getListCount() {
-		return roomDao.getListCount();
-	}
-
-	@Override
 	public ArrayList<Room> selectChkList(ArrayList<Room> room, int currentPage, int limit, int people) {
 		return roomDao.selectChkList(room, currentPage, limit, people);
 	}
@@ -116,6 +111,22 @@ public class RoomServiceImpl implements RoomService{
 	@Override
 	public ArrayList<RoomLatLng> selectRoomLatLng() {
 		return roomDao.selectRoomLatLng();
+	}
+
+	@Override
+	public ArrayList<Room> selectLatLng(ArrayList<Room> roomNo, int currentPage, int limit, int people, RoomLatLng seR,
+			RoomLatLng neR) {
+		return roomDao.selectLatLng(roomNo, currentPage, limit, people, seR, neR);
+	}
+
+	@Override
+	public ArrayList<Room> selectLatLngJustList(int currentPage, int limit, RoomLatLng seR, RoomLatLng neR) {
+		return roomDao.selectLatLngJustList(currentPage, limit, seR, neR);
+	}
+
+	@Override
+	public int getListCount(RoomLatLng seR, RoomLatLng neR, ArrayList<Room> roomNo) {
+		return roomDao.getListCount(seR, neR, roomNo);
 	}
 
 }

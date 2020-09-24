@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -64,7 +65,6 @@ public class RoomController {
 	public String SelectList(HttpServletRequest request, Model model, HttpSession session) {
 		int limit = 8;
 		int currentPage = 1;
-		int listCount = roomService.getListCount();
 		
 		//오늘 월 일 요일 인원 설정
 		Calendar cal = Calendar.getInstance();
@@ -75,26 +75,72 @@ public class RoomController {
 		int week = cal.get(Calendar.DAY_OF_WEEK);
 		int people = 1;
 		
+		// 좌표값 입력 받았을 때
+		RoomLatLng seR = new RoomLatLng();
+		RoomLatLng neR = new RoomLatLng();
+		if(request.getParameter("swLat") != null) {
+			double swLat = Double.parseDouble(request.getParameter("swLat"));
+			double swLng = Double.parseDouble(request.getParameter("swLng"));
+			double neLat = Double.parseDouble(request.getParameter("neLat"));
+			double neLng = Double.parseDouble(request.getParameter("neLng"));
+			seR = new RoomLatLng();
+			neR = new RoomLatLng();
+			
+			seR.setRoom_lat(swLat);
+			seR.setRoom_lng(swLng);
+			neR.setRoom_lat(neLat);
+			neR.setRoom_lng(neLng);
+		}
+		
 		// 페이지 변경
 		if (request.getParameter("page") != null) {
 			currentPage = Integer.parseInt(request.getParameter("page"));
 		}
-		
+		if(request.getParameter("center") != null) {
+			String center = request.getParameter("center");
+			String[] srr = center.split(",");
+			String centerLat = srr[0].substring(1);
+			String centerLng = srr[1].substring(1, srr[1].length()-1);
+			
+			String level = request.getParameter("level");
+			
+			model.addAttribute("level",level);
+			model.addAttribute("centerLat",centerLat);
+			model.addAttribute("centerLng",centerLng);
+
+		}
+		//룸 조회
 		ArrayList<Room> list = null;
+		// 룸번호 조회(예약된거)
+		ArrayList<Room> roomNo = null;
+		
 		// 체크인날짜가 전송된 경우
-		if (request.getParameter("checkin") != null) {
+		if (request.getParameter("checkin") != null && request.getParameter("checkin").length() > 1 && !request.getParameter("checkin").equals("null")) {
 			// 전송받은 날짜와 인원수 입력
+			
 			String checkin = request.getParameter("checkin");
 			String checkout = request.getParameter("checkout");
 			people = Integer.parseInt(request.getParameter("people"));
 			session.setAttribute("checkin", checkin);
 			session.setAttribute("checkout", checkout);
 			session.setAttribute("people",people);
-			
+
 			// 전달받은 체크인 날짜에 예약된 숙소 번호 가져오기
-			ArrayList<Room> roomNo = roomService.selectChkRNList(checkin, checkout);
+			roomNo = roomService.selectChkRNList(checkin, checkout);
+			
+			// 좌표값에 따라 select 가 변경됨
+			if(request.getParameter("swLat") != null) {
+				
+				// 체크인 체크아웃 인원 검색에서 지도 움직여 검색
+				list = roomService.selectLatLng(roomNo, currentPage, limit, people, seR, neR);
+
+			}else {
+				// 체크인 체크아웃 인원 검색
+				list = roomService.selectChkList(roomNo, currentPage, limit, people);
+
+			}
+			
 			// 예약된 숙소번호를 제외한 숙소를 조회
-			list = roomService.selectChkList(roomNo, currentPage, limit, people);
 			// 체크인날짜 체크아웃날짜 설정
 			inMonth = checkin.substring(5, 7);
 			inday = checkin.substring(8);
@@ -111,9 +157,17 @@ public class RoomController {
 			week = cal.get(Calendar.DAY_OF_WEEK);
 			
 		} else {  // 체크인날짜가 전송되지 않아 오늘 날짜로 설정한 경우
-			list = roomService.selectList(currentPage, limit);
 			
+			if(request.getParameter("swLat") != null) {
+				// 체크인 체크아웃 인원 업고 지도 움직여 검색
+				list = roomService.selectLatLngJustList(currentPage, limit, seR, neR);
+			}else {
+				// 체크인 체크아웃 인원 업고 기본 지도 상태
+				list = roomService.selectList(currentPage, limit);		
+			}
 		}
+		int listCount = roomService.getListCount(seR, neR, roomNo);
+
 		int maxPage = (int) (((double) listCount / limit) + 0.9);
 		int startPage = (((int) ((double) currentPage / limit + 0.9)) - 1) * limit + 1;
 		int endPage = startPage + limit - 1;
@@ -140,6 +194,7 @@ public class RoomController {
 		model.addAttribute("roomLL", roomLL);
 		
 		if (list != null) {
+			logger.info("룸 조회 결과 : " + list.toString());
 			model.addAttribute("inMonth", inMonth);
 			model.addAttribute("inday", inday);
 			model.addAttribute("outMonth", outMonth);
@@ -427,7 +482,7 @@ public class RoomController {
 			e.printStackTrace();
 		}
 	}
-
+	
 	
 	
 }

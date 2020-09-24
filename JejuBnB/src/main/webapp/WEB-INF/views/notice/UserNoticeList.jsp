@@ -26,18 +26,18 @@
     background-position: center center;
     }
     .logo img{
-      position: absolute;
-	  left: 16%;
-	  top: -529%;
+     position: fixed;
+	 left: 66%;
+	 top: -1%;
     }
     .rounded-pill {
       border-radius: 8px;
     }
     .name {
 	    font-family: 'Cafe24Oneprettynight';
-	    position: absolute;
-	    left: 11%;
-	    top: -322%;
+	    position: fixed;
+        left: 64%;
+        top: 21%;
 	    font-size: 28px;
 	    width: 300px;
 	    height: 200px;
@@ -65,14 +65,15 @@
 		border-radius: 50%;
 		background-image: url('resources/images/프로필.jfif');
 		background-size: cover;
-		position: absolute;
-    	left: -15%;
-    	top: -350%;
+		position: fixed;
+	    left: 57%;
+	    top: 19%;
 	}
 	.alr {
 		font-family: 'Cafe24Oneprettynight';
 		position: relative;
-    	top: -188%;
+    top: -382%;
+    left: 5%;
 	}
 	.xbu {
 		border : none;

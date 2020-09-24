@@ -92,5 +92,19 @@ public class RoomServiceImpl implements RoomService{
 		return roomDao.selectSysdate();
 	}
 
+	@Override
+	public ArrayList<Room_File> selectRoomFileList(ArrayList<Room> list) {
+		return roomDao.selectRoomFileList(list);
+	}
+	
+	@Override
+	public int updateRoomChangePass(String user_id) {
+		return roomDao.updateRoomChangePass(user_id);
+	}
+
+	@Override
+	public int deleteRoomFile(Room_File rfile) {
+		return roomDao.deleteRoomFile(rfile);
+	}
 
 }

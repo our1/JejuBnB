@@ -64,31 +64,30 @@
 		padding : 0;
 		margin : 0;
 	}
-</style>
-<script type="text/javascript">
-	/* function nameCheck1(){
-	var amenity = $("input[name=amenity_no]:checked").val();
-	
-	if(amenity != null){
-		return true;
-	} else {
-		alert("선택 없음"); 
-		return false;
+	button {
+		border : none;
+		background : none;
 	}
 	
-	};
-	 */
-</script>
+	button img {
+		width : 20px;
+		height : 20px;
+	}
+</style>
+
 </head>
 <body>
-<h1> Filter 관리</h1>
+<h1> 필터 관리</h1>
 
 <div id="Adiv" class="list">
 <h4>편의 시설</h4>
 	<div id="alist">
 		<c:forEach var="count1" begin="0" end="${fn:length(Alist)}" step="2">
 		<c:forEach items="${Alist }" var="alist" begin="${count1 }" end="${count1 + 1}">
-			<span class="Cbox">${ alist.amenity_name } <button onclick="javascript:location.href='Adelete.do?amenity_no=${alist.amenity_no }'">X</button></span>
+			<span class="Cbox">${ alist.amenity_name } 
+			<button onclick="javascript:location.href='Adelete.do?amenity_no=${alist.amenity_no }'">
+			<img src="${pageContext.servletContext.contextPath }/resources/images/x버튼.png">
+			</button></span>
 		</c:forEach>
 		</c:forEach>
 	</div>
@@ -107,7 +106,9 @@
 	<div id="flist">
 		<c:forEach var="count2" begin="0" end="${fn:length(Flist) }" step="2">
 		<c:forEach items="${Flist }" var="flist" begin="${count2 }" end="${count2 + 1}">
-			<span class="Cbox">${ flist.facility_name } <button onclick="javascript:location.href='Fdelete.do?facility_no=${flist.facility_no }'">X</button></span>
+			<span class="Cbox">${ flist.facility_name } <button onclick="javascript:location.href='Fdelete.do?facility_no=${flist.facility_no }'">
+			<img src="${pageContext.servletContext.contextPath }/resources/images/x버튼.png">
+			</button></span>
 		</c:forEach>
 		</c:forEach>
 	</div>
@@ -126,7 +127,9 @@
 	<div id="blist">
 		<c:forEach var="count3" begin="0" end="${fn:length(Blist) }" step="2">
 		<c:forEach items="${Blist }" var="blist" begin="${count3 }" end="${count3 + 1}">
-			<span class="Cbox">${ blist.bu_type_name } <button onclick="javascript:location.href='Bdelete.do?bu_type_no=${blist.bu_type_no }'">X</button></span>
+			<span class="Cbox">${ blist.bu_type_name } <button onclick="javascript:location.href='Bdelete.do?bu_type_no=${blist.bu_type_no }'">
+			<img src="${pageContext.servletContext.contextPath }/resources/images/x버튼.png">
+			</button></span>
 		</c:forEach>
 		</c:forEach>
 	</div>
@@ -145,7 +148,9 @@
 	<div id="rlist">
 		<c:forEach var="count4" begin="0" end="${fn:length(Rlist) }" step="2">
 		<c:forEach items="${Rlist }" var="rlist" begin="${count4 }" end="${count4 + 1}">
-			<span class="Cbox">${rlist.rule_name } <button onclick="javascript:location.href='rdelete.do?rule_no=${rlist.rule_no }'">X</button></span>
+			<span class="Cbox">${rlist.rule_name } <button onclick="javascript:location.href='rdelete.do?rule_no=${rlist.rule_no }'">
+			<img src="${pageContext.servletContext.contextPath }/resources/images/x버튼.png">
+			</button></span>
 		</c:forEach>
 		</c:forEach>
 	</div>

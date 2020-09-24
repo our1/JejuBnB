@@ -5,7 +5,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="icon" type="image/png" sizes="16x16"
+	href="resources/images/favicon.png">
 	<style>
 		/* 사이드바 스타일 */
 		.sidenav {
@@ -46,7 +48,7 @@
 			padding-top: 0;
 			margin-top: 15%;
 		    margin-left: 5%;
-			width: 15%;
+			
    			height: 5%;
 			font-size: 45px;
 			cursor:pointer;
@@ -66,7 +68,7 @@
 			}
 		}
 	</style>
-<title>Insert title here</title>
+<title>JejuBnB</title>
 </head>
 <body>
 <div id="mysidenav" class="sidenav" value="고객센터">
@@ -76,8 +78,8 @@
 		<a href="couponPage.do">쿠폰</a>
 		</c:if> 
 		<a href="policyPage.do">약관 및 개인정보</a>
-		<a href="#">1:1문의</a>
-		<a href="#">자주묻는질문(FAQ)</a>
+		<a href="QuestionListView.do">1:1문의</a>
+		<a href="faqUsing.do">자주묻는질문(FAQ)</a>
 	</div>
 	<span class="openmenu" onclick='openNav()'><i class="fa fa-angle-double-left fa-5" aria-hidden="true"></i> 고객센터</span>
 

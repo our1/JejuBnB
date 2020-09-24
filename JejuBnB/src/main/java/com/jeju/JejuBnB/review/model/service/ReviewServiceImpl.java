@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.jeju.JejuBnB.review.model.dao.ReviewDao;
 import com.jeju.JejuBnB.review.model.vo.Review;
+import com.jeju.JejuBnB.room.model.vo.Room;
 
 @Service("reviewService")
 public class ReviewServiceImpl implements ReviewService{
@@ -34,7 +35,11 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDao.selectReply(room_no);
 	}
 
-	
+	@Override
+	public ArrayList<Review> selectReviewList(ArrayList<Room> list) {
+		return reviewDao.selectReviewList(list);
+	}
+
 
 	
 	

@@ -1,8 +1,11 @@
 package com.jeju.JejuBnB.question.model.vo;
 
+import com.jeju.JejuBnB.member.model.vo.Member;
+
 public class Question implements java.io.Serializable{
-	private static final long serialVersionUID = 2004L;
+	private static final long serialVersionUID = 2040L;
 	
+		
 	private int question_no;
 	private String question_rcontent;
 	private String question_content;

@@ -9,6 +9,23 @@
     <title>JejuBnB</title>
 	<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
     <link rel="stylesheet" href="resources/css/main.css" >
+    
+    <script type="text/javascript" src="resources/js/jquery-3.5.1.min.js"></script>
+		<script>
+		$( document ).ready(
+		function deleteMember(){
+			$.ajax({
+				url:"deleteCouponAuto.do",
+				type:"post",
+				success: function(data){
+				},
+				error: function(jqXHR, textstatus, errorthrown){
+					console.log("error : " + jqXHR + ", " + textstatus + ", " + errorthrown);
+				},
+			});
+		}
+		);
+	</script>	
   </head>
   <body>
 

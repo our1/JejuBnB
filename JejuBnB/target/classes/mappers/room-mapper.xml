@@ -4,13 +4,14 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="roomMapper">
+
 	<resultMap type="Room" id="resultRoom">
 		<id property="room_no" column="room_no" />
 		<result property="user_id" column="user_id" />	
 		<result property="room_name" column="room_name" />	
 		<result property="room_content" column="room_content" />	
 		<result property="room_address" column="room_address" />
-		<result property="room_roadaddress" column="room_readaddress" />
+		<result property="room_roadaddress" column="room_roadaddress" />
 		<result property="st_num_people" column="st_num_people" />		
 		<result property="max_people" column="max_people" />	
 		<result property="checkin_time" column="checkin_time" />	
@@ -24,8 +25,6 @@
 		<result property="rule" column="rule" />	
 		<result property="pass_or_not" column="pass_or_not" />	
 		<result property="plus_charge" column="plus_charge" />	
-		<result property="room_original_file" column="room_original_file" />	
-		<result property="room_rename_file" column="room_rename_file" />	
 		<result property="room_weekday" column="room_weekday" />	
 		<result property="room_weekend" column="room_weekend" />			
 	</resultMap>
@@ -50,8 +49,6 @@
 		<result property="rule" column="rule" />	
 		<result property="pass_or_not" column="pass_or_not" />	
 		<result property="plus_charge" column="plus_charge" />	
-		<result property="room_thumbnail_file" column="room_thumbnail_file" />	
-		<result property="room_rename_file" column="room_rename_file" />	
 		<result property="room_weekday" column="room_weekday" />	
 		<result property="room_weekend" column="room_weekend" />	
 	</resultMap>
@@ -64,17 +61,24 @@
 		
 	</resultMap>
 	
+	<resultMap id="resultMyRoom" type="MyRoom">
+		<result property="room_no" column="room_no"/>
+		<result property="user_id" column="user_id" />
+	</resultMap>
+	
 	<resultMap id="resultRoomNo" type="Room">
 		<id property="room_no" column="room_no" />
 	</resultMap>
 	
+	<!-- 전체 게시글 갯수 조회 -->
 	<select id="getListCount" resultType="_int">
 		select count(room_no) from room
 	</select>
 	
+	<!-- 예약된 게시글 번호 조회애 와서 값을 넣어서 예약되지 않은 게시글 조회 -->
 	<select id="selectChkList" parameterType="java.util.HashMap" resultMap="resultList">
 		select * from (select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
-		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from room where room_no != 0
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from room where room_no != 0
 		<foreach collection="list" item="room">
 			and room_no != #{room.room_no}
 		</foreach>
@@ -99,34 +103,48 @@
 		]]>
 	</select>
 	
+	<!-- 날짜입력받아 그날짜에 예약된 숙소 번호 조회 -->
 	<select id="selectChkRNList" parameterType="java.util.HashMap" resultMap="resultRoomNo">
 		select room_no from reservation
 		where checkin_date = to_date(#{checkin},'YY/MM/DD') and
 		checkout_date = to_date(#{checkout}, 'YY/MM/DD')
 	</select>
 	
+	<!-- 예약 여부 없이 숙소 조회 -->
 	<select id="selectList" parameterType="com.jeju.JejuBnB.room.model.vo.PageCount" resultMap="resultList">
 	<![CDATA[
 		select * from(select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
-		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from room order by room_no desc)
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from room order by room_no desc)
 		where rnum >= #{startRow} and rnum <= #{endRow}
 		]]>
 	</select>
 	
+	<!-- 게시판형 숙소 조회 -->
 	<select id="selectBList" parameterType="com.jeju.JejuBnB.room.model.vo.PageCount" resultMap="resultList">
 	<![CDATA[
 		select * from(select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
-		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file,  room_rename_file, room_weekday, room_weekend from room order by room_no desc)
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from room order by room_no desc)
 		where rnum >= #{startRow} and rnum <= #{endRow}
 		]]>
 	</select>
 	
+	<!-- 오늘 날짜 예약 내역 조회 -->
 	<select id="selectSysdate" resultMap="resultRoomNo">
 		select room_no from reservation
 		where checkin_date like sysdate and
 		checkout_date like sysdate + 1
 	</select>
 	
+	<!-- 게시글 사진파일들 조회 -->
+	<select id="selectRoomFileList" parameterType="java.util.List" resultMap="resultRfList">
+			select * from room_file where room_no = 0
+		<foreach collection="list" item="room">
+			union select * from room_file where room_no = #{room.room_no} 
+		</foreach>
+		
+	</select>
+	
+	<!-- 한개의 게시글 사진파일 조회 -->
 	<select id="selectRoomFile" parameterType="int" resultMap="resultRfList">
 		select * from room_file where room_no = #{roomno}
 	</select>
@@ -150,51 +168,51 @@
 	<select id="selectSearchFilter" parameterType="java.util.HashMap" resultMap="resultList">
 		select * from 
 			(select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
-			bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from   
+			bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from   
  				(select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
-				bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend
+				bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend
      		    from room 
 		<if test="alist != null">
 			<foreach collection="alist" item="amenity">
 				intersect select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
-		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from room where amenity like '%'||#{amenity}||'%'				
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from room where amenity like '%'||#{amenity}||'%'				
 			</foreach>
 		</if>
 		
 		<if test="flist != null">
 			<foreach collection="flist" item="facility">
 				intersect select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
-		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from room where facility like '%'||#{facility}||'%'
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from room where facility like '%'||#{facility}||'%'
 			</foreach>		
 		</if>
 		
 		<if test="blist != null">
 			<foreach collection="blist" item="build">
 				intersect select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
-		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from room where build_type like '%'||#{build}||'%'
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from room where build_type like '%'||#{build}||'%'
 			</foreach>
 		</if>
 		
 		<if test="rlist != null">
 			<foreach collection="rlit" item="rule">
 			intersect select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
-		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from room where rule like '%'||#{rule}||'%'
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from room where rule like '%'||#{rule}||'%'
 			</foreach>		
 		</if>
 		
 		<if test="bed != 0">
 		intersect select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
-		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from room desc where bed = #{bed}
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from room desc where bed = #{bed}
 		</if>
 		
 		<if test="bedroom != 0">
 		intersect select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
-		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from room where bedroom = #{bedroom}
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from room where bedroom = #{bedroom}
 		</if>
 		
 		<if test="bathroom != 0">
 		intersect select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
-		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_thumbnail_file, room_rename_file, room_weekday, room_weekend from room where bathroom = #{bathroom}
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from room where bathroom = #{bathroom}
 		</if>
 		order by room_no))
 		<![CDATA[
@@ -233,12 +251,7 @@
 		 	#{rule },
 		 </if>
 			default,  #{plus_charge }, 
-		<if test="room_thumbnail_file == null">
-			null, null,
-		</if>
-		<if test="room_thumbnail_file != null">
-			#{room_thumbnail_file }, #{room_rename_file },
-		</if>
+		
 		#{room_weekday}, #{room_weekend})
 		
 	</insert>
@@ -269,9 +282,6 @@
 		
 		plus_charge = #{plus_charge}
 		
-		<if test="room_thumbnail_file != null">
-			,room_thumbnail_file = #{room_thumbnail_file },room_rename_file= #{room_rename_file }
-		</if>
 		
 		<if test="room_weekday != null">
 			, room_weekday = #{room_weekday}
@@ -280,18 +290,23 @@
 		<if test="room_weekend != null">
 			, room_weekend = #{room_weekend}
 		</if>
-		
+		where room_no = #{room_no}
+	</update>
+	
+	<update id="updateRoomChangePass" parameterType="String">
+	update room set pass_or_not = 'Y' where user_id = #{user_id}
 	</update>
 	
 	<delete id="deleteRoom" parameterType="int">
 		delete from room where room_no = #{ room_no }
 	</delete>
 	
-	<delete id="deleteRoomFile" parameterType="int">
-		delete from room_file where room_no = #{ room_no}
+	<delete id="deleteRoomFile" parameterType="Room_File">
+		delete from room_file where room_no = #{ room_no} and room_file_no = #{room_file_no}
 	</delete>
 	
 	<delete id="deleteRoomRivew" parameterType="int">
 		delete from review where room_no = #{ room_no}
 	</delete>
 </mapper>
+

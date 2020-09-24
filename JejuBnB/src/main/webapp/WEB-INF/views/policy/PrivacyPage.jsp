@@ -4,8 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>JejuBnB</title>
+<link rel="icon" type="image/png" sizes="16x16"
+	href="resources/images/favicon.png">
 <style type="text/css">
 #accordian {
 	background: #333333;

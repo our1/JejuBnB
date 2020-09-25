@@ -51,7 +51,7 @@
        <div class="tourlist">
 	       <c:forEach items="${ requestScope.list }" var="t">
 	         <div class="one">
-	           <a href="tdetail.do?tour_no=${ t.tour_no }" target="_blank"><img src="resources/images/28.jpg" width=100% height=100%>  
+	           <a href="tdetail.do?tour_no=${ t.tour_no }" target="_blank"><img src="${ tour.contnet }" width=100% height=100%>  
 	            <span class="st">&#9733;</span> 4.8 ( 135 )<br>
 	             <br>${ t.tour_name } <span class="wh"> <i class="fa fa-eye"></i> ${ t.tour_readcount } <i class="fa fa-heart"></i> </span> 
 	           </a>

@@ -81,6 +81,14 @@
 			  color : black;
 			}
       </style>
+      <script type="text/javascript">
+	function updatePage(){
+		location.href="movetupdate.do?tour_no=" + ${ tour.tour_no};
+	}
+	function deleteTour(){
+		location.href="tdelete.do?tour_no=" + ${ tour.tour_no };
+	}
+</script>
   </head>
     <c:import url="/WEB-INF/views/common/header.jsp" />
   <body>
@@ -344,8 +352,8 @@
           </div>
           <hr class="mihr">
       </div>
-     	<button class="tupdate" onclick="javascript:location.href='movetupdate.do'">수정 하기</button>
-     	<button class="tdelete" onclick="javascript:location.href='tdelete.do'">삭제 하기</button>
+     	<button class="tupdate" onclick="updatePage()">수정 하기</button>
+     	<button class="tdelete" onclick="deleteTour()">삭제 하기</button>
       <div style="padding: 100px 0px 0px 0px;"></div>
 		   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 		   <script src="resources/js/head.js"></script>

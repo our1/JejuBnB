@@ -12,17 +12,17 @@ public class Tour implements java.io.Serializable{
 	private String tour_act_end_date;
 	private String tour_content;
 	private java.sql.Date tour_date;
-	private String tour_address;
 	private String tour_roadaddress;
 	private String tour_moreinfo;
+	private String tour_thum_image;
 	private int tour_readcount;
 	private String user_id;
 	
 	public Tour() {}
 
 	public Tour(int tour_no, int tour_category_no, String tour_name, String tour_act_start_date,
-			String tour_act_end_date, String tour_content, Date tour_date, String tour_address, String tour_roadaddress,
-			String tour_moreinfo, int tour_readcount, String user_id) {
+			String tour_act_end_date, String tour_content, Date tour_date, String tour_roadaddress,
+			String tour_moreinfo, String tour_thum_image, int tour_readcount, String user_id) {
 		super();
 		this.tour_no = tour_no;
 		this.tour_category_no = tour_category_no;
@@ -31,9 +31,9 @@ public class Tour implements java.io.Serializable{
 		this.tour_act_end_date = tour_act_end_date;
 		this.tour_content = tour_content;
 		this.tour_date = tour_date;
-		this.tour_address = tour_address;
 		this.tour_roadaddress = tour_roadaddress;
 		this.tour_moreinfo = tour_moreinfo;
+		this.tour_thum_image = tour_thum_image;
 		this.tour_readcount = tour_readcount;
 		this.user_id = user_id;
 	}
@@ -94,14 +94,6 @@ public class Tour implements java.io.Serializable{
 		this.tour_date = tour_date;
 	}
 
-	public String getTour_address() {
-		return tour_address;
-	}
-
-	public void setTour_address(String tour_address) {
-		this.tour_address = tour_address;
-	}
-
 	public String getTour_roadaddress() {
 		return tour_roadaddress;
 	}
@@ -116,6 +108,14 @@ public class Tour implements java.io.Serializable{
 
 	public void setTour_moreinfo(String tour_moreinfo) {
 		this.tour_moreinfo = tour_moreinfo;
+	}
+
+	public String getTour_thum_image() {
+		return tour_thum_image;
+	}
+
+	public void setTour_thum_image(String tour_thum_image) {
+		this.tour_thum_image = tour_thum_image;
 	}
 
 	public int getTour_readcount() {
@@ -142,10 +142,10 @@ public class Tour implements java.io.Serializable{
 	public String toString() {
 		return "Tour [tour_no=" + tour_no + ", tour_category_no=" + tour_category_no + ", tour_name=" + tour_name
 				+ ", tour_act_start_date=" + tour_act_start_date + ", tour_act_end_date=" + tour_act_end_date
-				+ ", tour_content=" + tour_content + ", tour_date=" + tour_date + ", tour_address=" + tour_address
-				+ ", tour_roadaddress=" + tour_roadaddress + ", tour_moreinfo=" + tour_moreinfo + ", tour_readcount="
-				+ tour_readcount + ", user_id=" + user_id + "]";
+				+ ", tour_content=" + tour_content + ", tour_date=" + tour_date + ", tour_roadaddress="
+				+ tour_roadaddress + ", tour_moreinfo=" + tour_moreinfo + ", tour_thum_image=" + tour_thum_image
+				+ ", tour_readcount=" + tour_readcount + ", user_id=" + user_id + "]";
 	}
-
+	
 	
 }

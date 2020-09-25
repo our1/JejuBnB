@@ -15,8 +15,6 @@ import com.jeju.JejuBnB.tour.model.vo.Tour_Review;
 @Repository("tourDao")
 public class TourDao {
 	
-	public TourDao() {}
-	
 	@Autowired
 	private SqlSessionTemplate session;
 	

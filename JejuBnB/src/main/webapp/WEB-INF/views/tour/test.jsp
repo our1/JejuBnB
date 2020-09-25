@@ -74,6 +74,21 @@
 .co {
 	float : right;
 }
+.imagePreview{
+
+width: 180px;
+
+height: 180px;
+
+ background-position: center center;
+
+ background-size: cover;
+
+ -webkit-box-shadow: 0 0 1px 1px rgba(0, 0, 0, .3);
+
+ display: inline-block;
+
+}
 </style>
 <script>
 function goWrite(frm) {
@@ -90,6 +105,39 @@ function goWrite(frm) {
 	}
 	frm.submit();
 }
+</script>
+<script type="text/javascript">
+
+$(function() {
+
+    $("#uploadFile").on("change", function(){
+
+        var files = !!this.files ? this.files : [];
+
+        if (!files.length || !window.FileReader) return; 
+
+ 
+
+        if (/^image/.test( files[0].type)){ 
+
+            var reader = new FileReader(); 
+
+            reader.readAsDataURL(files[0]); 
+
+ 
+
+            reader.onloadend = function(){ 
+
+             $('.imagePreview').css("background-image", "url("+this.result+")"); 
+
+            };
+
+        }
+
+    });
+
+});
+
 </script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
 <script>
@@ -145,6 +193,8 @@ function goWrite(frm) {
 <input type="text" id="tour_roadaddress" name="tour_roadaddress" placeholder="도로명주소" readonly><br>
 <input type="text" id="DetailAddress" name="address" placeholder="상세주소"><br>
 <textarea name="tour_moreinfo" class="moin" placeholder="알아야 할 사항 을 입력 하세요"></textarea>	
+<div class="imagePreview"></div>
+<input id="uploadFile" type="file" name="tour_thum_Image" class="img">
 <input type="hidden" name="user_id" value="${loginMember.user_id }" >
 <input type="submit" value="작성 완료" class="co">
 </form>

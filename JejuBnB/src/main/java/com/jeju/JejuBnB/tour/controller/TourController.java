@@ -1,21 +1,15 @@
 package com.jeju.JejuBnB.tour.controller;
 
-import java.awt.PageAttributes.MediaType;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -25,19 +19,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jeju.JejuBnB.tour.model.service.TourService;
 import com.jeju.JejuBnB.tour.model.vo.Tour;
-import com.jeju.JejuBnB.tour.model.vo.Tour_Image;
 import com.jeju.JejuBnB.tour.model.vo.Tour_Review;
-import com.sun.media.jfxmediaimpl.MediaUtils;
 
 @Controller
 public class TourController {
@@ -180,19 +171,20 @@ public class TourController {
 	}
 	
 	@RequestMapping("movetupdate.do")
-	public String moveTourUpdate(Model model, @RequestParam("tour_no") int tour_no) {
+	public ModelAndView moverTourView(@RequestParam("tour_no") int tour_no, ModelAndView mv) {
 		Tour tour = tourService.SelectTourDetail(tour_no);
-		if ( tour != null) {
-		model.addAttribute("tour", tour);
-		return "tour/tourUpdateForm";
-	} else {
-		model.addAttribute("message", "수정페이지 이동 실패");
-		return "common/error";
+		if ( tour != null ) {
+			mv.addObject("tour", tour);
+			mv.setViewName("tour/tourUpdateForm");
+		} else {
+			mv.addObject("message", "수정 페이지 이동 실패");
+			mv.setViewName("common/error");
+		}
+		return mv;
 	}
-}
 	
 	@RequestMapping("tdelete.do")
-	public String deleteTour(@RequestParam("tour_no") int tour_no, Model model) {
+	public String deleteTourMethod(@RequestParam("tour_no") int tour_no, Model model) {
 		int result = tourService.deleteTour(tour_no);
 		if (result > 0) {
 			return "redirect:/tlist.do";
@@ -202,28 +194,6 @@ public class TourController {
 		}
 	}
 	
-    @RequestMapping("imageUpload.do")
-    public void imageUpload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile upload)
-            throws Exception {
-        response.setCharacterEncoding("utf-8");
-        response.setContentType("text/html; charset=utf-8");
-        String fileName = upload.getOriginalFilename();
-        byte[] bytes = upload.getBytes();
-        String uploadPath = "resources/tourImage";
-        
-        OutputStream out = new FileOutputStream(new File(uploadPath + fileName));
- 
-        out.write(bytes);
- 
-        String callback = request.getParameter("CKEditorFuncNum");
- 
-        PrintWriter printWriter = response.getWriter();
-        String fileUrl = request.getContextPath() + "/tourImage/" + fileName;
-        printWriter.println("<script>window.parent.CKEDITOR.tools.callFunction(" + callback + ",'" + fileUrl
-                + "','이미지가 업로드되었습니다.')" + "</script>");
-        printWriter.flush();
-    }
-    
     @RequestMapping("trlist.do")
     public ModelAndView ReviewList(ModelAndView mv,Tour_Review tour_review) {
     	List<Tour_Review> list = tourService.selectTourReview(tour_review);
@@ -238,7 +208,6 @@ public class TourController {
     	
     	return mv;
     }
-
     @RequestMapping("trinsert.do")
     public void insertReview(Tour_Review tour_review, HttpSession session, @RequestParam(value="tour_review_no") int tour_review_no, @RequestParam(value="tour_review_content") String tour_review_content, @RequestParam(value="tour_score") int tour_score) {
     	logger.info("" + tour_review);
@@ -252,9 +221,7 @@ public class TourController {
     	tour_review.setTour_score(tour_score);
     	
     	tourService.insertTourReview(tour_review);
-    	
     }
-
 	@RequestMapping("trupdate.do")
 	public String updateReview(@RequestParam(value="tour_review_no") int tour_review_no, @RequestParam(value="tour_review_content") String tour_review_content,
 			@RequestParam(value="tour_score") int tour_score, @RequestParam(value="user_id") String user_id, Tour_Review tour_review ) {
@@ -268,71 +235,23 @@ public class TourController {
 			
 			return "tour/tourReviewList";
 	}
+	@RequestMapping("tinsert.do") 
+	public String insertTour(Tour tour) {
+		tourService.insertTour(tour); 
+		return "redirect:tlist.do";
+		}
+
 	
+	@GetMapping("tupdate.do")
+	public String modify(@RequestParam("tour_no") int tour_no, Model model) {
+		model.addAttribute("tour", tourService.SelectTourDetail(tour_no));
+		return "tour/tourDetailView";
+	}
 
-	@RequestMapping("tinsert.do") public String insertTour(Tour tour) {
-		tourService.insertTour(tour); return "redirect:tlist.do";
-}
-
-
-//	@ResponseBody 
-//	@RequestMapping(value ="/image_upload", method=RequestMethod.POST, produces = "application/json;charset=UTF-8") 
-//	public Map<String, String> update_file_upload(MultipartFile file,HttpServletRequest request)throws Exception{ 
-//		Map<String, String[]> 
-//		paramMap=request.getParameterMap();
-//		Iterator keyData = paramMap.keySet().iterator(); 
-//		CommonData dto = new CommonData(); 
-//		while (keyData.hasNext()) { 
-//			String key = ((String)keyData.next()); String[] value = paramMap.get(key); 
-//			dto.put(key, value[0].toString()); 
-//			smsp.print_String("key : " + key + ", value : " + value[0].toString()); 
-//		} 
-//		MediaUtils MediaUtils = new MediaUtils(); 
-//		String formatName = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")+1); 
-//		MediaType mType = MediaUtils.getMediaType(formatName); 
-//		BufferedImage resizeimg; 
-//			if(mType!=null) { 
-//				BufferedImage srcImg = ImageIO.read(file.getInputStream()); 
-//				/* if(srcImg.getWidth()>1920) //사이즈 조절 할때 { smsp.print_String("사이즈 조절 1920"); 
-//				 * resizeimg = Scalr.resize(srcImg , Scalr.Method.QUALITY , Scalr.Mode.FIT_TO_WIDTH , 1920 ,Scalr.OP_ANTIALIAS); 
-//				 * ByteArrayOutputStream baos_re = new ByteArrayOutputStream(); 
-//				 * boolean foundWriter_re = ImageIO.write(resizeimg, formatName.toLowerCase(), baos_re);
-//				 * baos_re.flush(); 
-//				 * byte[] imageInByte_re = baos_re.toByteArray(); 
-//				 * dto.put("mt_contentlength",baos_re.toByteArray().length); 
-//				 * dto.put("mt_data", imageInByte_re); baos_re.close(); 
-//				 * } else //사이즈 조절안할때. */ 
-//				{
-//					smsp.print_String("사이즈 조절안함. 1920"); 
-//				dto.put("mt_contentlength",file.getBytes().length); 
-//				dto.put("mt_data", file.getBytes()); 
-//			} 
-//				BufferedImage destImg = Scalr.resize(srcImg, Scalr.Method.BALANCED, 180,180 ,Scalr.OP_ANTIALIAS); 
-//				ByteArrayOutputStream baos = new ByteArrayOutputStream(); 
-//				boolean foundWriter = ImageIO.write(destImg, "png", baos); 
-//				baos.flush(); byte[] imageInByte = baos.toByteArray(); 
-//				dto.put("mt_s_data", imageInByte); 
-//				baos.close(); 
-//			} 
-//				Map<String, String> result = new HashMap<>(); 
-//				result.put("result", "NOT_AN_IMAGE"); 
-//				if(mType!=null) {
-//					dto.put("mt_filename",file.getOriginalFilename()); 
-//					dto.put("mt_type",file.getContentType()); 
-//					HttpSession session = request.getSession(); 
-//					Member vo = (Member) session.getAttribute("login"); 
-//					dto.put("mt_input_id", vo.idx); 
-//					dto.put("mt_update_id", vo.idx); 
-//					tourService.insert(dto, "File_UpDown_Mapper.insert_editor_image_upload");
-//					int idx= tourService.listSearchCount(dto, "File_UpDown_Mapper.select_editor_image_upload"); 
-//					result.put("result", "IMAGE_OK"); 
-//					String url = "/tour/tourImage/?user_id="+user_id; 
-//					String id = ""+idx; 
-//					result.put("url", url); 
-//					result.put("id", id);
-//				} 
-//			return result; 
-//		}
-
+	@PostMapping("tupdate.do")
+	public String modify(Tour tour) {
+		tourService.updateTour(tour);
+		return "redirect:tdetail.do?tour_no="+ tour.getTour_no();
+	}
 }
 

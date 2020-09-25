@@ -50,6 +50,11 @@ public class ReviewServiceImpl implements ReviewService{
 		return reviewDao.selectOne(reply_no);
 	}
 
+	@Override
+	public Review selectReviewAvg(int room_no) {
+		return reviewDao.selectReviewAvg(room_no);
+	}
+
 	
 
 	

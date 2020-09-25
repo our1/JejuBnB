@@ -14,8 +14,8 @@ public class MyCouponDao {
 	
 	public MyCouponDao() {}
 	
-	public MyCoupon selectList(MyCoupon mycoupon){
-		return session.selectOne("mycouponMapper.selectList", mycoupon);
+	public MyCoupon selectList(String user_id){
+		return session.selectOne("mycouponMapper.selectList", user_id);
 	}
 	
 	public int insertMyCoupon(MyCoupon mycoupon) {

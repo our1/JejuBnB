@@ -2,7 +2,7 @@ package com.jeju.JejuBnB.room.controller;
 
 import java.io.File;
 import java.io.IOException;
-
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.ParseException;
@@ -10,10 +10,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -33,7 +33,6 @@ import com.jeju.JejuBnB.filter.model.vo.Amenity;
 import com.jeju.JejuBnB.filter.model.vo.Build_type;
 import com.jeju.JejuBnB.filter.model.vo.Facility;
 import com.jeju.JejuBnB.filter.model.vo.Rule;
-
 import com.jeju.JejuBnB.myroom.model.service.MyRoomService;
 import com.jeju.JejuBnB.myroom.model.vo.MyRoom;
 import com.jeju.JejuBnB.review.model.service.ReviewService;
@@ -41,6 +40,7 @@ import com.jeju.JejuBnB.review.model.vo.Review;
 import com.jeju.JejuBnB.room.model.service.RoomService;
 import com.jeju.JejuBnB.room.model.vo.CheckTime;
 import com.jeju.JejuBnB.room.model.vo.Room;
+import com.jeju.JejuBnB.room.model.vo.RoomLatLng;
 import com.jeju.JejuBnB.room.model.vo.Room_File;
 
 @Controller
@@ -90,7 +90,6 @@ public class RoomController {
 			session.setAttribute("people",people);
 			
 			ArrayList<Room> roomNo = roomService.selectChkRNList(checkin, checkout);
-			logger.info(roomNo.toString());
 			list = roomService.selectChkList(roomNo, currentPage, limit, people);
 			inMonth = checkin.substring(5, 7);
 			inday = checkin.substring(8);
@@ -106,7 +105,6 @@ public class RoomController {
 			cal.setTime(chDate);
 			week = cal.get(Calendar.DAY_OF_WEEK);
 		} else {
-			ArrayList<Room> roomNo = roomService.selectSysdate();
 			list = roomService.selectList(currentPage, limit);
 			
 		}
@@ -116,13 +114,23 @@ public class RoomController {
 		if (maxPage < endPage) {
 			endPage = maxPage;
 		}
+		
 		//회원이 좋아요 누른 룸 리스트 번호 가져오기
 		if(request.getParameter("userid") != null) {
 		ArrayList<MyRoom> mlist = myroomService.selectMyRoom(request.getParameter("userid"));
 		model.addAttribute("mlist", mlist);
 		}
+		// 사진파일 가져오기
+		ArrayList<Room_File> rflist = roomService.selectRoomFileList(list);
+		model.addAttribute("rflist",rflist);
 		
+		// 리뷰 평점 평균, 갯수 가져오기
+		ArrayList<Review> rvlist = reviewService.selectReviewList(list);		
+		model.addAttribute("rvlist", rvlist);
+		
+		logger.info("week : " + week);
 		if (list != null) {
+			logger.info("룸 객체 : " + list.toString());
 			model.addAttribute("inMonth", inMonth);
 			model.addAttribute("inday", inday);
 			model.addAttribute("outMonth", outMonth);
@@ -145,44 +153,28 @@ public class RoomController {
 	}
 	
 	@RequestMapping(value = "roominsert.do", method = RequestMethod.POST)
-	public String insertRoom(Room room, Model model, CheckTime ct, MultipartHttpServletRequest mrequest,
-			HttpServletRequest request, @RequestParam(value = "ofile", required = false) MultipartFile ofile,
-			@RequestParam("address") String address) throws UnsupportedEncodingException {
+	public String insertRoom(Room room, RoomLatLng rll, Model model, CheckTime ct, MultipartHttpServletRequest mrequest,
+			HttpServletRequest request,	@RequestParam("address") String address) throws UnsupportedEncodingException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-
-		if (ofile != null) {
-			String orgname = ofile.getOriginalFilename();
-
-			String savePath = request.getSession().getServletContext().getRealPath("resources/roomThumbnail");
-			room.setRoom_thumbnail_file(ofile.getOriginalFilename());
-			String rename = sdf.format(new java.sql.Date(System.currentTimeMillis()));
-			rename += "." + ofile.getOriginalFilename().substring(ofile.getOriginalFilename().lastIndexOf(".") + 1);
-
-			try {
-				ofile.transferTo(new File(savePath + "\\" + rename));
-			} catch (IllegalStateException | IOException e) {
-				e.printStackTrace();
-			}
-			room.setRoom_thumbnail_file(ofile.getOriginalFilename());
-			room.setRoom_rename_file(rename);
-		}
-
+		
 		room.setCheckout_time(ct.getOuthour() + ct.getOutminute());
 		room.setCheckin_time(ct.getInhour() + ct.getInminute());
-		room.setRoom_address(room.getRoom_roadaddress() + address);
-		int result = roomService.insertRoom(room);
+		if(address != null) {
+			room.setRoom_address(room.getRoom_roadaddress() +" " + address);
+		}		int result = roomService.insertRoom(room);
 
-		
 		int roomno = roomService.selectRoomNo(room.getUser_id());
+		
 		List<MultipartFile> fileList = mrequest.getFiles("file");
 		ArrayList<Room_File> rflist = new ArrayList<Room_File>();
 		String savePath1 = request.getSession().getServletContext().getRealPath("resources/roomFiles");
-
+		int i = 0;
 		for (MultipartFile mf : fileList) {
+			i += 1;
 			Room_File rf = new Room_File();
 			String original = mf.getOriginalFilename();
 			rf.setOriginal_file(original);
-			String rename = sdf.format(new java.sql.Date(System.currentTimeMillis()));
+			String rename = sdf.format(new java.sql.Date(System.currentTimeMillis())) + i;
 			rename += "." + original.substring(original.lastIndexOf(".") + 1);
 
 			try {
@@ -199,9 +191,11 @@ public class RoomController {
 			rflist.add(rf);
 		}
 		
-			String encoderName = URLEncoder.encode(room.getRoom_name(), "utf-8");
+		String encoderName = URLEncoder.encode(room.getRoom_name(), "utf-8");
 		
-		logger.info(room.getRoom_name());
+		rll.setRoom_no(roomno);
+		logger.info(rll.toString());
+		int result3 = roomService.insertRoomLatLnt(rll);
 		int result2 = roomService.insertRoomFile(rflist);
 		if (result > 0) {
 			return "redirect:/insertNotice.do?toUser=" + room.getUser_id()+"&fromUser=admin&room_name="+encoderName+"&returnPage=redirect:/moveDetailView.do?room_no="+roomno +"&choice=7";
@@ -240,16 +234,18 @@ public class RoomController {
 
 	//숙소 상세보기  & 리뷰 리스트
 	@RequestMapping("moveDetailView.do")
-	public ModelAndView moveDetail(ModelAndView mv, @RequestParam("room_no") int room_no, Review review) {
+	public ModelAndView moveDetail(ModelAndView mv, @RequestParam("room_no") int room_no) {
+
 		Room room = roomService.selectRoom(room_no);
 		ArrayList<Review> list = reviewService.selectReply(room_no);
+		Review review = reviewService.selectReviewAvg(room_no);
 		
 		if(room != null) {
 			mv.setViewName("reservation/reservationListView");
 			mv.addObject("room", room);
 			mv.addObject("list", list);
 			mv.addObject("review", review);
-			
+			logger.info("reviewAvg :" + review);
 		}else {
 			mv.setViewName("common/error");
 			mv.addObject("message", "게시글 조회 실패");
@@ -261,6 +257,7 @@ public class RoomController {
 	@RequestMapping("moveUpdatView.do")
 	public String moveUPdate(Model model, @RequestParam("roomno") int roomno) {
 		Room room = roomService.selectRoom(roomno);
+		ArrayList<Room_File> rflist = roomService.selectRoomFile(roomno);
 		ArrayList<Amenity> Alist = filterService.selectAmenity();
 		ArrayList<Build_type> Blist = filterService.selectBuild_type();
 		ArrayList<Facility> Flist = filterService.selectFacility();
@@ -269,6 +266,7 @@ public class RoomController {
 		model.addAttribute("Blist", Blist);
 		model.addAttribute("Flist", Flist);
 		model.addAttribute("Rlist", Rlist);
+		model.addAttribute("rflist", rflist);
 		if(room != null) {
 			model.addAttribute("room", room);
 			return "room/roomUpdateForm";
@@ -290,19 +288,52 @@ public class RoomController {
 		}
 	}
 	
-	@RequestMapping("roomupdate.do")
-	public String roomUpdate(Room room, CheckTime ct, Model model) {
+	@RequestMapping("roomUpdate.do")
+	public String roomUpdate(Room room, CheckTime ct, Model model, MultipartHttpServletRequest mrequest, HttpServletRequest request,
+			@RequestParam(name="address", required=false) String address) {
 		room.setCheckout_time("" + ct.getOuthour() + ct.getOutminute());
 		room.setCheckin_time(""+ct.getInhour() + ct.getInminute());
+		if(address != null) {
+			room.setRoom_address(room.getRoom_roadaddress() +" " + address);
+		}
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		List<MultipartFile> fileList = mrequest.getFiles("files");
+		String fileName = fileList.get(0).getOriginalFilename();
+		if(fileName.length() != 0) {
+		ArrayList<Room_File> rflist = new ArrayList<Room_File>();
+		String savePath1 = request.getSession().getServletContext().getRealPath("resources/roomFiles");
+		int i = 0;
+			for (MultipartFile mf : fileList) {
+				i += 1;
+				Room_File rf = new Room_File();
+				String original = mf.getOriginalFilename();
+				rf.setOriginal_file(original);
+				String rename = sdf.format(new java.sql.Date(System.currentTimeMillis())) + i;
+				rename += "." + original.substring(original.lastIndexOf(".") + 1);
+				try {
+					mf.transferTo(new File(savePath1 + "\\" + rename));
+				} catch (IllegalStateException | IOException e) {
+					e.printStackTrace();
+					model.addAttribute("message", "추가사진 저장 실패");
+					return "common/error";
+				}
+	
+				rf.setOriginal_file(original);
+				rf.setRename_file(rename);
+				rf.setRoom_no(room.getRoom_no());
+				rflist.add(rf);
+			}
+			int result2 = roomService.insertRoomFile(rflist);
+		}
 		int result = roomService.updateRoom(room);
 		
 		if(result > 0) {
-			model.addAttribute("roomno", room.getRoom_no());
-			return "redirect:/moveDetailView.do";
+			return "redirect:/moveDetailView.do?room_no="+room.getRoom_no();
 		}else {
-			model.addAttribute("message", "글 수정 실패");
+			model.addAttribute("message", "수정 실패");
 			return "common/error";
 		}
+
 	}
 	
 	@RequestMapping("moveRoomBList.do")
@@ -322,6 +353,75 @@ public class RoomController {
 			return "common/error";
 		}
 	}
+	
+	@RequestMapping(value="SearchFilter.do", method = RequestMethod.POST)
+	public String SearchFilter(Room room, Model model, HttpServletRequest request) {
+		room.setBed(Integer.parseInt(request.getParameter("bedCount")));
+		room.setBedroom(Integer.parseInt(request.getParameter("bedroomCount")));
+		room.setBathroom(Integer.parseInt(request.getParameter("bathroomCount")));
+
+		ArrayList<Room> list = roomService.selectSearchFilter(room);
+		logger.info("필터 검색 : " + list.toString());
+		if (list.size() > 0) {
+			model.addAttribute("list", list);
+			return "room/roomListView";
+		} else {
+			model.addAttribute("message", "조회 실패");
+			return "common/error";
+		}
+	}
+
+	@RequestMapping("moveFilterPage.do")
+	public String moveFilterPage(Model model) {
+		ArrayList<Amenity> Alist = filterService.selectAmenity();
+		ArrayList<Build_type> Blist = filterService.selectBuild_type();
+		ArrayList<Facility> Flist = filterService.selectFacility();
+		ArrayList<Rule> Rlist = filterService.selectRule();
+		model.addAttribute("Alist", Alist);
+		model.addAttribute("Blist", Blist);
+		model.addAttribute("Flist", Flist);
+		model.addAttribute("Rlist", Rlist);
+		return "room/roomFilterView";
+	}
+
+	@RequestMapping("moveSearchList.do")
+	public String moveSearchList(@RequestParam("list") ArrayList<Room> list, Model model) {
+		model.addAttribute("list", list);
+		return "room/roomListView";
+	}
+	
+	@RequestMapping("roomChangePass.do") 
+	public String roomChangePass(@RequestParam("user_id") String user_id, Model model) {
+		if(roomService.updateRoomChangePass(user_id)> 0) { 
+			return "redirect:/moveAdminMemberPage.do"; }
+		else {
+			model.addAttribute("message", user_id + "님의 호스트 등업을 실패했습니다."); 
+			return "common/error"; 
+			} 
+	}
+	
+	@RequestMapping(value="deleteFile.do", method=RequestMethod.POST)
+	public void deleteFile(Model model, Room_File rfile, HttpServletResponse response) {
+		logger.info(rfile.toString());
+		int result = roomService.deleteRoomFile(rfile);
+		
+		response.setContentType("text/html; charset=utf-8");
+		
+		try {
+			PrintWriter out = response.getWriter();
+			if(result > 0) {
+				out.append("ok");
+				out.flush();
+			}else {
+				out.append("no");
+				out.flush();
+			}
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	
 	
 }

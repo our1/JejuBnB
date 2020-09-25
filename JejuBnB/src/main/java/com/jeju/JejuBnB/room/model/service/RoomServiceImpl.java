@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.jeju.JejuBnB.room.model.dao.RoomDao;
 import com.jeju.JejuBnB.room.model.vo.Room;
 import com.jeju.JejuBnB.room.model.vo.RoomFilter;
+import com.jeju.JejuBnB.room.model.vo.RoomLatLng;
 import com.jeju.JejuBnB.room.model.vo.Room_File;
 
 @Service("roomService")
@@ -92,5 +93,24 @@ public class RoomServiceImpl implements RoomService{
 		return roomDao.selectSysdate();
 	}
 
+	@Override
+	public ArrayList<Room_File> selectRoomFileList(ArrayList<Room> list) {
+		return roomDao.selectRoomFileList(list);
+	}
+	
+	@Override
+	public int updateRoomChangePass(String user_id) {
+		return roomDao.updateRoomChangePass(user_id);
+	}
+
+	@Override
+	public int deleteRoomFile(Room_File rfile) {
+		return roomDao.deleteRoomFile(rfile);
+	}
+
+	@Override
+	public int insertRoomLatLnt(RoomLatLng rll) {
+		return roomDao.insertRoomLatLnt(rll);
+	}
 
 }

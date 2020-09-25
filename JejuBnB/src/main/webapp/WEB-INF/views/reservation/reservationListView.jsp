@@ -26,6 +26,7 @@ img.ui-datepicker-trigger {
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/datepicker-ko.js"></script>
 <script>
 	$(function() {
+		
 		//오늘 날짜를 출력
 		$("#today").text(new Date().toLocaleDateString());
 
@@ -36,36 +37,38 @@ img.ui-datepicker-trigger {
 		// 종료일(toDate)은 시작일(fromDate) 이전 날짜 선택 불가
 
 		//시작일.
-		$('#checkinDate').datepicker({
-			//showOn: "both",                     // 달력을 표시할 타이밍 (both: focus or button)
-			//buttonImage: "images/calendar.gif", // 버튼 이미지
-			buttonImageOnly : true, // 버튼 이미지만 표시할지 여부
-			//buttonText: "날짜선택",             // 버튼의 대체 텍스트
-			dateFormat : "yy-mm-dd", // 날짜의 형식
-			changeMonth : true, // 월을 이동하기 위한 선택상자 표시여부
-			minDate : 0, // 선택할수있는 최소날짜, ( 0 : 오늘 이전 날짜 선택 불가)
-			onClose : function(selectedDate) {
-				// 시작일(fromDate) datepicker가 닫힐때
-				// 종료일(toDate)의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
-				$("#checkoutDate").datepicker("option", "minDate", selectedDate);
-			}
-		});
+		$('#checkinDate').datepicker(
+				{
+					//showOn: "both",                     // 달력을 표시할 타이밍 (both: focus or button)
+					//buttonImage: "images/calendar.gif", // 버튼 이미지
+					buttonImageOnly : true, // 버튼 이미지만 표시할지 여부
+					//buttonText: "날짜선택",             // 버튼의 대체 텍스트
+					dateFormat : "yy-mm-dd", // 날짜의 형식
+					changeMonth : true, // 월을 이동하기 위한 선택상자 표시여부
+					minDate : 0, // 선택할수있는 최소날짜, ( 0 : 오늘 이전 날짜 선택 불가)
+					onClose : function(selectedDate) {
+						// 시작일(fromDate) datepicker가 닫힐때
+						// 종료일(toDate)의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
+						$("#checkoutDate").datepicker("option", "minDate", selectedDate);			
+					}
+				});
 
 		//종료일
-		$('#checkoutDate').datepicker({
-			//showOn: "both",
-			//buttonImage: "images/calendar.gif",
-			buttonImageOnly : true,
-			//buttonText: "날짜선택",
-			dateFormat : "yy-mm-dd",
-			changeMonth : true,
-			minDate : 0, // 오늘 이전 날짜 선택 불가
-			onClose : function(selectedDate) {
-				// 종료일(toDate) datepicker가 닫힐때
-				// 시작일(fromDate)의 선택할수있는 최대 날짜(maxDate)를 선택한 종료일로 지정
-				$("#checkinDate").datepicker("option", "maxDate", selectedDate);
-			}
-		});
+		$('#checkoutDate').datepicker(
+				{
+					//showOn: "both",
+					//buttonImage: "images/calendar.gif",
+					buttonImageOnly : true,
+					//buttonText: "날짜선택",
+					dateFormat : "yy-mm-dd",
+					changeMonth : true,
+					minDate : 0, // 오늘 이전 날짜 선택 불가
+					onClose : function(selectedDate) {
+						// 종료일(toDate) datepicker가 닫힐때
+						// 시작일(fromDate)의 선택할수있는 최대 날짜(maxDate)를 선택한 종료일로 지정
+						$("#checkinDate").datepicker("option", "maxDate", selectedDate);
+					}
+				});
 	});
 </script>
  <script type="text/javascript">
@@ -836,8 +839,8 @@ ul, li {
 			<div>
 				<div>청결도 : ${ review.clean_score }</div> <br>	
 				<div>가격 대비 만족도 : ${ review.value_score }</div> <br>
-				<div>서비스 : ${ review.service_score }</td>	
-			<div>
+				<div>서비스 : ${ review.service_score }</div>	
+			<div> 
 
 	<table>	
 		<c:forEach items="${ requestScope.list }" var="review"> 

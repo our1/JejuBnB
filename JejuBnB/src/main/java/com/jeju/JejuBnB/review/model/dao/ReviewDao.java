@@ -46,4 +46,7 @@ public class ReviewDao {
 		return session.selectOne("reviewMapper.selectOne", reply_no);
 	}
 
+	public Review selectReviewAvg(int room_no) {
+		return session.selectOne("reviewMapper.selectReviewAvg", room_no);
+	}
 }

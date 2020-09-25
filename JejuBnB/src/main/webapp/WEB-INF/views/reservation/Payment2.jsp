@@ -36,9 +36,9 @@
 
 <h1>무통장입금</h1>
 <div class="bank">
-	<div class="bb">예금주 :</div> 
-	<div class="bb">은행 :</div>  
-	<div class="bb">계좌번호 :</div> 
+	<div class="bb">예금주 : ${ room.user_id }</div> 
+	<div class="bb">은행 : ${ account.bank_name }</div>  
+	<div class="bb">계좌번호 :${ account.account_num }</div> 
 	<div class="bb">결제금액 : ${ room.room_weekday*date }</div> 
 </div>
 

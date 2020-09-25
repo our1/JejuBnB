@@ -55,19 +55,16 @@ private static final Logger logger = LoggerFactory.getLogger(RoomController.clas
 	@RequestMapping(value="reinsert.do", method=RequestMethod.POST)
 	public String reinsertMethod(@RequestParam(value="room_no") int room_no, Review review, Model model, 
 			@RequestParam(value="clean_score") int clean_score, @RequestParam(value="value_score") int value_score,
-			@RequestParam(value="service_score") int service_score) {	
-	     
+			@RequestParam(value="service_score") int service_score) {		
 			logger.info("review: " + review.toString());	
-			reviewService.insertReview(review);
+			reviewService.insertReview(review);	
 			//평점 구해서 업데이트 실행 숙소에 대한update
 			//int result = reviewService.updateAvg(room_no); //같은 속소리뷰에 대한 점수 합산과 평균구해서 room 에 업데이트 처리
 			Room room = roomService.selectRoom(room_no);
-			model.addAttribute("review", review);	
-		
+			model.addAttribute("review", review);		
 			return "redirect:/moveDetailView.do?room_no="+room_no;
 	}
-	
-	//댓글 수정
+	//리뷰 수정
 	@RequestMapping(value="reup.do", method=RequestMethod.POST)
 	public String replyInsert(@RequestParam(value="room_no") int room_no, Review review, Model model, 
 			@RequestParam(value="clean_score") int clean_score, @RequestParam(value="value_score") int value_score,
@@ -82,7 +79,7 @@ private static final Logger logger = LoggerFactory.getLogger(RoomController.clas
 			return "redirect:/moveDetailView.do?room_no="+room_no;
 	}
 	
-	//댓글 삭제
+	//리뷰 삭제
 	@RequestMapping(value="replydel.do", method=RequestMethod.POST)
 	public String replyDelMethod(@RequestParam("room_no") int room_no, int reply_no, Review review, Model model) {
 		logger.info("review :" + review);

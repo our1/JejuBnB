@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.jeju.JejuBnB.room.model.vo.Room;
 import com.jeju.JejuBnB.room.model.vo.RoomFilter;
+import com.jeju.JejuBnB.room.model.vo.RoomLatLng;
 import com.jeju.JejuBnB.room.model.vo.Room_File;
 
 public interface RoomService {
@@ -22,4 +23,8 @@ public interface RoomService {
 	ArrayList<Room> selectChkList(ArrayList<Room> room, int currentPage, int limit, int people);
 	ArrayList<Room> selectChkRNList(String checkin, String checkout);
 	ArrayList<Room> selectSysdate();
+	ArrayList<Room_File> selectRoomFileList(ArrayList<Room> list);
+	int updateRoomChangePass(String user_id);
+	int deleteRoomFile(Room_File rfile);
+	int insertRoomLatLnt(RoomLatLng rll);
 }

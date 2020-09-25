@@ -49,6 +49,7 @@
                         imp_uid : rsp.imp_uid
                         //기타 필요한 데이터가 있으면 추가 전달
                     }
+             
                 }).done(function(data) {
                     //[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
                     if ( everythings_fine ) {
@@ -64,19 +65,19 @@
                         //[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
                     }
                 });
-                //성공시 이동할 페이지
-                location.href='reservationSuccess.jsp/Payment?msg='+msg;
-            } else {
-                msg = '결제에 실패하였습니다.';
-                msg += '에러내용 : ' + rsp.error_msg;
-                //실패시 이동할 페이지
-                location.href="/WEB-INF/views/common/error.jsp";
-                alert(msg);
-            }
-        });
-        
-    });
-    </script>
+                //성공시 이동할 페이지     
+                location.href='success.do?room_no=${room.room_no}&date=${date}';
+			} else {
+				msg = '결제에 실패하였습니다.';
+				msg += '에러내용 : ' + rsp.error_msg;
+				//실패시 이동할 페이지
+				alert(msg);
+				window.close();
+			}
+		});
+
+	});
+</script>
     
 </body>
 </html>

@@ -14,8 +14,8 @@ public class MyCouponServiceImpl implements MyCouponService{
 	private MyCouponDao mycouponDao;
 	
 	@Override
-	public MyCoupon selectList(MyCoupon mycoupon){
-		return mycouponDao.selectList(mycoupon);
+	public MyCoupon selectList(String user_id){
+		return mycouponDao.selectList(user_id);
 	}
 	
 	@Override

@@ -14,6 +14,7 @@
 		<result property="re_num" column="re_num" />
 		<result property="user_id" column="user_id" />
 		<result property="guest" column="guest" />
+		<result property="payment_status" column="payment_status" />
 	</resultMap>
 	
 	
@@ -30,9 +31,12 @@
 		values ((select max(room_no) from reservation) + 1, 
 				#{a_num,jdbcType=INTEGER}, #{c_num,jdbcType=INTEGER}, #{i_num,jdbcType=INTEGER}, 
 				#{checkin_date}, #{checkout_date}, (select nvl(max(re_num),0) + 1 from reservation), 
-				#{user_id,jdbcType=VARCHAR}, #{guest,jdbcType=VARCHAR})
+				#{user_id,jdbcType=VARCHAR}, #{guest,jdbcType=VARCHAR}, default)
 	</insert>
 	
+	<update id="updateReserv" parameterType="Reservation" >
+		update reservation set payment_status = 'Y' where re_num = #{re_num} 
+	</update>
 
 
 </mapper>

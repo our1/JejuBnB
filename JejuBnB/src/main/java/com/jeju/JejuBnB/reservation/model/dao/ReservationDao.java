@@ -20,11 +20,15 @@ public class ReservationDao {
 	}
 	
 	public Reservation selectReserv(int room_no) {
-		return session.selectOne("reservationMapper.selectReserv");
+		return session.selectOne("reservationMapper.selectReserv", room_no);
 	}
 	
 	public Room selectReservWait(int room_no) {
-		return session.selectOne("reservationMapper.selectReservWait");
+		return session.selectOne("reservationMapper.selectReservWait", room_no);
+	}
+	
+	public int updateReserv(Reservation reservation) {
+		return session.update("reservationMapper.updateReserv", reservation);
 	}
 	
 

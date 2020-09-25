@@ -47,7 +47,7 @@
 <body>
 <h1>JejuBnB 숙소 결제</h1>
 <h3>결제 방법 선택 :</h3>
-<form id="form_act">
+<form id="form_act" method="POST">
 <input type="hidden" name="room_no" value="${room_no}">
 <input type="hidden" name="date" value="${date}">
 <select id="sel_act" name="act">
@@ -55,7 +55,6 @@
 	<option value="kakao">카카오페이</option>
 	<option value="mu">무통장입금</option>
 </select> <br>
-<!-- <button onclick="change()">결제 진행</button> -->
 </form>
 <button id="btn">결제진행</button>
 </body>

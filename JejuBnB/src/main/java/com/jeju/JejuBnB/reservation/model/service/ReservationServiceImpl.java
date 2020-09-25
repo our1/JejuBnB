@@ -26,5 +26,11 @@ public class ReservationServiceImpl implements ReservationService {
 	public Room selectReservWait(int room_no) {
 		return reservationDao.selectReservWait(room_no);
 	}
+	
+	@Override
+	public int updateReserv(Reservation reservation) {
+		return reservationDao.updateReserv(reservation);
+		
+	}
 
 }

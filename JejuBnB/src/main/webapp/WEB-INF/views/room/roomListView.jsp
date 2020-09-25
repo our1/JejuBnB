@@ -120,9 +120,10 @@
 	    }
       
       #main {
-      	height  : 800px;
+      	height  : 2500px;
       	position : relative;
       	margin : 0;
+      	width : 850px;
       }
       
       .container1 {
@@ -437,13 +438,12 @@
 	</c:if>
 
 </div>
-<div id="testAjax">
 
 </div>
 
-</div>
-
-<div id="map"></div>
+	<div id="mapBox" style="height:100%;width:1150px;position:relative;">
+		<div id="map"></div>
+	</div>
 </div>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=44262f7a543c0f64c3a92e6841cb0ddb&libraries=services"></script>

@@ -23,4 +23,9 @@ public class HomeController {
 		return "common/main";
 	}
 	
+	@RequestMapping("cityBook.do")
+	public String cityBook() {
+		return "citybook/index2";
+	}
+	
 }

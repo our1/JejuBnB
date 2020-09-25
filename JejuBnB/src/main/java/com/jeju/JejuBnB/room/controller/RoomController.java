@@ -194,7 +194,6 @@ public class RoomController {
 		model.addAttribute("roomLL", roomLL);
 		
 		if (list != null) {
-			logger.info("룸 조회 결과 : " + list.toString());
 			model.addAttribute("inMonth", inMonth);
 			model.addAttribute("inday", inday);
 			model.addAttribute("outMonth", outMonth);
@@ -207,7 +206,7 @@ public class RoomController {
 			model.addAttribute("currentPage", currentPage);
 			model.addAttribute("listCount", listCount);
 			model.addAttribute("list", list);
-			return "room/roomListView";
+			return "citybook/listing";
 
 		} else {
 			model.addAttribute("message", "리스트 출력 실패");

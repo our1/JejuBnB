@@ -229,6 +229,7 @@ FB.logout(function(response) {
                  <li onclick="javascript:location.href='tlist.do'"> 관광지</li>
                  <li class="divider">
                 <li onclick="javascript:location.href='policyPage.do'"> 고객센터</li>
+                <li onclick="javascript:location.href='cityBook.do'">city Book</li>
                 <li data-toggle="modal" data-target="#loginPage">로그인</li>
               </ul>
            </c:if>

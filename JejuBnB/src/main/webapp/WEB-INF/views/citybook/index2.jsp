@@ -6,7 +6,7 @@
     <head>
         <!--=============== basic  ===============-->
         <meta charset="UTF-8">
-        <title>JejuBnB index2</title>
+        <title>JejuBnB</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta name="robots" content="index, follow"/>
         <meta name="keywords" content=""/>
@@ -27,10 +27,10 @@
     </head>
     <body>
          <!-- loader -->
-      <!--   <div class="loader-wrap">
+      <div class="loader-wrap">
             <div class="pin"></div>
             <div class="pulse"></div>
-        </div>  -->
+        </div> 
         <!--loader end-->
         <!-- Main  -->
         <div id="main">
@@ -40,15 +40,20 @@
                     <div class="logo-holder">
                         <a class="navbar-brand" href="main.do"><div class="logo">JejuBnB</div></a>
                     </div>
+                    <form action="roomList.do" method="post">
                     <div class="header-search vis-header-search">
                         <div class="header-search-input-item">
                             <input type="text" placeholder="checkin" value=""/>
                         </div>
                         <div class="header-search-select-item">
-                            <input type="text" placeholder="people" value=""/>
+                            <input type="text" placeholder="people" class="chosen-select"/>
                         </div>
-                        <button class="header-search-button" onclick="window.location.href='listing.html'">Search</button>
+                         <div class="header-search-select-item">
+                            <input type="text" placeholder="people" class="chosen-select"/>
+                        </div>
+                        <button class="header-search-button" type="submit">Search</button>                        
                     </div>
+                    </form>
                     <div class="show-search-button"><i class="fa fa-search"></i> <span>Search</span></div>
                     <div class="show-reg-form modal-open"><i class="fa fa-sign-in"></i>Sign In</div>
                     <!-- nav-button-wrap--> 
@@ -63,31 +68,145 @@
                     <div class="nav-holder main-menu">
                         <nav>
                             <ul>
-                                <li>
-                                    <a href="#" class="act-link">숙소 </a>
-                                   <!--second level -->   
-                                    <ul>
-                                        <li><a href="index.html">Parallax Image</a></li>
-                                        <li><a href="index2.html">Video</a></li>
-                                        <li><a href="index3.html">Map</a></li>
-                                        <li><a href="index4.html">Slideshow</a></li>
-                                        <li><a href="index5.html">Slider</a></li>
-                                    </ul> 
-                                    <!--second level end-->
+                            	<li>
+                                    <a href="#" class="act-link">Home </a>                                  
                                 </li>
                                 <li>
-                                    <a href="#">관광지 </a>                                  
+                                    <a href="#">숙소 </a>  
+                                    <ul>
+                                        <li><a href="moveRoomWrite.do">숙소 등록</a></li>                                    
+                                        <li><a href="index2.html">자주 묻는 질문</a></li>
+                                        <li><a href="index3.html">문의하기</a></li>
+                                    </ul>                                 
+                                </li>
+                                <li>
+                                    <a href="#">관광지 </a>    
+                                    <ul>
+                                        <li><a href="index.html">이벤트</a></li>
+                                        <li><a href="index2.html">자주 묻는 질문</a></li>
+                                        <li><a href="index3.html">문의하기</a></li>
+                                    </ul>                               
                                 </li>
                                
                                 <li>
-                                    <a href="#">고객센터 </a>                                                            
+                                    <a href="#">고객센터 </a>     
+                                    <ul>
+                                        <li><a href="index.html">이벤트</a></li>
+                                        <li><a href="index2.html">자주 묻는 질문</a></li>
+                                        <li><a href="index3.html">문의하기</a></li>
+                                    </ul> 
                                 </li>                               
                             </ul>
                         </nav>
                     </div>
                     </c:if>
                     <c:if test="${!empty loginMember and loginMember.admin_check eq 'Y' }">
-                    	
+                    	<div class="nav-holder main-menu">
+                        <nav>
+                            <ul>
+                            	<li>
+                                    <a href="#" class="act-link">Home </a>                                  
+                                </li>
+                                <li>
+                                    <a href="#">숙소 </a>  
+                                    <ul>
+                                        <li><a href="moveRoomWrite.do">숙소 등록</a></li>
+                                        <li><a href="index2.html">자주 묻는 질문</a></li>
+                                        <li><a href="index3.html">문의하기</a></li>
+                                    </ul>                                 
+                                </li>
+                                <li>
+                                    <a href="#">관광지 </a>    
+                                    <ul>
+                                        <li><a href="index.html">이벤트</a></li>
+                                        <li><a href="index2.html">자주 묻는 질문</a></li>
+                                        <li><a href="index3.html">문의하기</a></li>
+                                    </ul>                               
+                                </li>
+                               
+                                <li>
+                                    <a href="#">고객센터 </a>     
+                                    <ul>
+                                        <li><a href="index.html">이벤트</a></li>
+                                        <li><a href="index2.html">자주 묻는 질문</a></li>
+                                        <li><a href="index3.html">문의하기</a></li>
+                                    </ul> 
+                                </li>                               
+                            </ul>
+                        </nav>
+                    </div>
+                    </c:if>
+                    <c:if test="${!empty loginMember and loginMember.admin_check eq 'N' and loginMember.host_check eq 'Y' }">
+                    	<div class="nav-holder main-menu">
+                        <nav>
+                            <ul>
+                            	<li>
+                                    <a href="#" class="act-link">Home </a>                                  
+                                </li>
+                                <li>
+                                    <a href="#">숙소 </a>  
+                                    <ul>
+                                        <li><a href="moveRoomWrite.do">숙소 추가</a></li>
+                                        <li><a href="index2.html">자주 묻는 질문</a></li>
+                                        <li><a href="index3.html">문의하기</a></li>
+                                    </ul>                                 
+                                </li>
+                                <li>
+                                    <a href="#">관광지 </a>    
+                                    <ul>
+                                        <li><a href="index.html">이벤트</a></li>
+                                        <li><a href="index2.html">자주 묻는 질문</a></li>
+                                        <li><a href="index3.html">문의하기</a></li>
+                                    </ul>                               
+                                </li>
+                               
+                                <li>
+                                    <a href="#">고객센터 </a>     
+                                    <ul>
+                                        <li><a href="index.html">이벤트</a></li>
+                                        <li><a href="index2.html">자주 묻는 질문</a></li>
+                                        <li><a href="index3.html">문의하기</a></li>
+                                    </ul> 
+                                </li>                               
+                            </ul>
+                        </nav>
+                    </div>
+                    </c:if>
+                    <c:if test="${!empty loginMember and loginMember.admin_check eq 'N' and loginMember.host_check eq 'N'}">
+                    	<div class="nav-holder main-menu">
+                        <nav>
+                            <ul>
+                            	<li>
+                                    <a href="#" class="act-link">Home </a>                                  
+                                </li>
+                                <li>
+                                    <a href="#">숙소 </a>  
+                                    <ul>
+                                        <li><a href="moveRoomWrite.do">숙소 등록</a></li>
+                                        <li><a href="index2.html">자주 묻는 질문</a></li>
+                                        <li><a href="index3.html">문의하기</a></li>
+                                    </ul>                                 
+                                </li>
+                                <li>
+                                    <a href="#">관광지 </a>    
+                                    <ul>
+                                        <li><a href="index.html">이벤트</a></li>
+                                        <li><a href="index2.html">자주 묻는 질문</a></li>
+                                        <li><a href="index3.html">문의하기</a></li>
+                                    </ul>                               
+                                </li>
+                               
+                                <li>
+                                    <a href="#">고객센터 </a>     
+                                    <ul>
+                                        <li><a href="index.html">이벤트</a></li>
+                                        <li><a href="index2.html">자주 묻는 질문</a></li>
+                                        <li><a href="index3.html">문의하기</a></li>
+                                    </ul> 
+                                </li>                               
+                            </ul>
+                        </nav>
+                    </div>
                     </c:if>
                     <!-- navigation  end -->
                 </div>
@@ -101,7 +220,7 @@
                     <section class="scroll-con-sec hero-section" data-scrollax-parent="true" id="sec1">
                         <div class="media-container video-parallax" data-scrollax="properties: { translateY: '200px' }">
                             <div class="bg mob-bg" style="background-image: url(images/bg/1.jpg)"></div>
-                            <div class="video-container">
+                            <div class="video-container" style="width: 941px; height: 776px;">
                                 <video autoplay  loop muted  class="bgvid">
                                     <source src="resources/video/night.mp4" type="video/mp4">
                                 </video>
@@ -241,7 +360,7 @@
                     </section>
                     <!-- section end -->
                     <!--section -->
-                    <section class="gray-section">
+                    <section class="gray-section" style="height:960px;;">
                         <div class="container">
                             <div class="section-title">
                                 <h2>Popular listings</h2>
@@ -436,420 +555,12 @@
                         <!--  carousel end--> 
                     </section>
                     <!-- section end -->
-                    <!--section -->
-                    <section class="color-bg">
-                        <div class="shapes-bg-big"></div>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="images-collage fl-wrap">
-                                        <div class="images-collage-title">City<span>Book</span></div>
-                                        <div class="images-collage-main images-collage-item"><img src="resources/images/avatar/1.jpg" alt=""></div>
-                                        <div class="images-collage-other images-collage-item" data-position-left="23" data-position-top="10" data-zindex="2"><img src="resources/images/avatar/1.jpg" alt=""></div>
-                                        <div class="images-collage-other images-collage-item" data-position-left="62" data-position-top="54" data-zindex="5"><img src="resources/images/avatar/1.jpg" alt=""></div>
-                                        <div class="images-collage-other images-collage-item anim-col" data-position-left="18" data-position-top="70" data-zindex="11"><img src="resources/images/avatar/1.jpg" alt=""></div>
-                                        <div class="images-collage-other images-collage-item" data-position-left="37" data-position-top="90" data-zindex="1"><img src="resources/images/avatar/1.jpg" alt=""></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="color-bg-text">
-                                        <h3>Join our online community</h3>
-                                        <p>In ut odio libero, at vulputate urna. Nulla tristique mi a massa convallis cursus. Nulla eu mi magna. Etiam suscipit commodo gravida. Lorem ipsum dolor sit amet, conse ctetuer adipiscing elit, sed diam nonu mmy nibh euismod tincidunt ut laoreet dolore magna aliquam erat.</p>
-                                        <a href="#" class="color-bg-link modal-open">Sign In Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <!--section   end -->  
-                    <!--section -->  
-                    <section>
-                        <div class="container">
-                            <div class="section-title">
-                                <h2>How it works</h2>
-                                <div class="section-subtitle">Discover & Connect </div>
-                                <span class="section-separator"></span>
-                                <p>Explore some of the best tips from around the world.</p>
-                            </div>
-                            <!--process-wrap  -->
-                            <div class="process-wrap fl-wrap">
-                                <ul>
-                                    <li>
-                                        <div class="process-item">
-                                            <span class="process-count">01 . </span>
-                                            <div class="time-line-icon"><i class="fa fa-map-o"></i></div>
-                                            <h4> Find Interesting Place</h4>
-                                            <p>Proin dapibus nisl ornare diam varius tempus. Aenean a quam luctus, finibus tellus ut, convallis eros sollicitudin turpis.</p>
-                                        </div>
-                                        <span class="pr-dec"></span>
-                                    </li>
-                                    <li>
-                                        <div class="process-item">
-                                            <span class="process-count">02 .</span>
-                                            <div class="time-line-icon"><i class="fa fa-envelope-open-o"></i></div>
-                                            <h4> Contact a Few Owners</h4>
-                                            <p>Faucibus ante, in porttitor tellus blandit et. Phasellus tincidunt metus lectus sollicitudin feugiat pharetra consectetur.</p>
-                                        </div>
-                                        <span class="pr-dec"></span>
-                                    </li>
-                                    <li>
-                                        <div class="process-item">
-                                            <span class="process-count">03 .</span>
-                                            <div class="time-line-icon"><i class="fa fa-hand-peace-o"></i></div>
-                                            <h4> Make a Listing</h4>
-                                            <p>Maecenas pulvinar, risus in facilisis dignissim, quam nisi hendrerit nulla, id vestibulum metus nullam viverra porta.</p>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <div class="process-end"><i class="fa fa-check"></i></div>
-                            </div>
-                            <!--process-wrap   end-->
-                        </div>
-                    </section>
-                    <section class="parallax-section" data-scrollax-parent="true">
-                        <div class="bg"  data-bg="images/bg/1.jpg" data-scrollax="properties: { translateY: '100px' }"></div>
-                        <div class="overlay co lor-overlay"></div>
-                        <!--container-->
-                        <div class="container">
-                            <div class="intro-item fl-wrap">
-                                <h2>Visit the Best Places In Your City</h2>
-                                <h3>Find great places , hotels , restourants , shops.</h3>
-                                <a class="trs-btn" href="#">Add Listing + </a>
-                            </div>
-                        </div>
-                    </section>
-                    <!-- section end -->
-                    <!--section -->
-                    <section>
-                        <div class="container">
-                            <div class="section-title">
-                                <h2> Pricing Tables</h2>
-                                <div class="section-subtitle">cost of our services</div>
-                                <span class="section-separator"></span>
-                                <p>Explore some of the best tips from around the city from our partners and friends.</p>
-                            </div>
-                            <div class="pricing-wrap fl-wrap">
-                                <!-- price-item-->
-                                <div class="price-item">
-                                    <div class="price-head op1">
-                                        <h3>Basic</h3>
-                                    </div>
-                                    <div class="price-content fl-wrap">
-                                        <div class="price-num fl-wrap">
-                                            <span class="curen">$</span>
-                                            <span class="price-num-item">49</span> 
-                                            <div class="price-num-desc">Per month</div>
-                                        </div>
-                                        <div class="price-desc fl-wrap">
-                                            <ul>
-                                                <li>One Listing</li>
-                                                <li>90 Days Availability</li>
-                                                <li>Non-Featured</li>
-                                                <li>Limited Support</li>
-                                            </ul>
-                                            <a href="#" class="price-link">Choose Basic</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- price-item end-->
-                                <!-- price-item-->
-                                <div class="price-item best-price">
-                                    <div class="price-head op2">
-                                        <h3>Extended</h3>
-                                    </div>
-                                    <div class="price-content fl-wrap">
-                                        <div class="price-num fl-wrap">
-                                            <span class="curen">$</span>
-                                            <span class="price-num-item">99</span> 
-                                            <div class="price-num-desc">Per month</div>
-                                        </div>
-                                        <div class="price-desc fl-wrap">
-                                            <ul>
-                                                <li>Ten Listings</li>
-                                                <li>Lifetime Availability</li>
-                                                <li>Featured In Search Results</li>
-                                                <li>24/7 Support</li>
-                                            </ul>
-                                            <a href="#" class="price-link">Choose Extended</a>
-                                            <div class="recomm-price">
-                                                <i class="fa fa-check"></i> 
-                                                <span class="clearfix"></span>
-                                                Recommended
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- price-item end-->
-                                <!-- price-item-->
-                                <div class="price-item">
-                                    <div class="price-head">
-                                        <h3>Professional</h3>
-                                    </div>
-                                    <div class="price-content fl-wrap">
-                                        <div class="price-num fl-wrap">
-                                            <span class="curen">$</span>
-                                            <span class="price-num-item">149</span> 
-                                            <div class="price-num-desc">Per month</div>
-                                        </div>
-                                        <div class="price-desc fl-wrap">
-                                            <ul>
-                                                <li>Unlimited Listings</li>
-                                                <li>Lifetime Availability</li>
-                                                <li>Featured In Search Results</li>
-                                                <li>24/7 Support</li>
-                                            </ul>
-                                            <a href="#" class="price-link">Choose Professional</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- price-item end-->                                                    
-                            </div>
-                            <!-- about-wrap end  --> 
-                        </div>
-                    </section>
-                    <!-- section end -->
-                    <!--section -->
-                    <section class="color-bg">
-                        <div class="shapes-bg-big"></div>
-                        <div class="container">
-                            <div class=" single-facts fl-wrap">
-                                <!-- inline-facts -->
-                                <div class="inline-facts-wrap">
-                                    <div class="inline-facts">
-                                        <div class="milestone-counter">
-                                            <div class="stats animaper">
-                                                <div class="num" data-content="0" data-num="254">154</div>
-                                            </div>
-                                        </div>
-                                        <h6>New Visiters Every Week</h6>
-                                    </div>
-                                </div>
-                                <!-- inline-facts end -->
-                                <!-- inline-facts  -->
-                                <div class="inline-facts-wrap">
-                                    <div class="inline-facts">
-                                        <div class="milestone-counter">
-                                            <div class="stats animaper">
-                                                <div class="num" data-content="0" data-num="12168">12168</div>
-                                            </div>
-                                        </div>
-                                        <h6>Happy customers every year</h6>
-                                    </div>
-                                </div>
-                                <!-- inline-facts end -->
-                                <!-- inline-facts  -->
-                                <div class="inline-facts-wrap">
-                                    <div class="inline-facts">
-                                        <div class="milestone-counter">
-                                            <div class="stats animaper">
-                                                <div class="num" data-content="0" data-num="172">172</div>
-                                            </div>
-                                        </div>
-                                        <h6>Won Awards</h6>
-                                    </div>
-                                </div>
-                                <!-- inline-facts end -->                            
-                                <!-- inline-facts  -->
-                                <div class="inline-facts-wrap">
-                                    <div class="inline-facts">
-                                        <div class="milestone-counter">
-                                            <div class="stats animaper">
-                                                <div class="num" data-content="0" data-num="732">732</div>
-                                            </div>
-                                        </div>
-                                        <h6>New Listing Every Week</h6>
-                                    </div>
-                                </div>
-                                <!-- inline-facts end -->                             
-                            </div>
-                        </div>
-                    </section>
-                    <!-- section end -->
-                    <!--section -->
-                    <section>
-                        <div class="container">
-                            <div class="section-title">
-                                <h2>Testimonials</h2>
-                                <div class="section-subtitle">Clients Reviews</div>
-                                <span class="section-separator"></span>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla finibus lobortis pulvinar.</p>
-                            </div>
-                        </div>
-                        <!-- testimonials-carousel --> 
-                        <div class="carousel fl-wrap">
-                            <!--testimonials-carousel-->
-                            <div class="testimonials-carousel single-carousel fl-wrap">
-                                <!--slick-slide-item-->
-                                <div class="slick-slide-item">
-                                    <div class="testimonilas-text">
-                                        <div class="listing-rating card-popup-rainingvis" data-starrating2="5"> </div>
-                                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi arch itecto beatae vitae dicta sunt explicabo. </p>
-                                    </div>
-                                    <div class="testimonilas-avatar-item">
-                                        <div class="testimonilas-avatar"><img src="resources/images/avatar/1.jpg" alt=""></div>
-                                        <h4>Lisa Noory</h4>
-                                        <span>Restaurant Owner</span>
-                                    </div>
-                                </div>
-                                <!--slick-slide-item end-->
-                                <!--slick-slide-item-->
-                                <div class="slick-slide-item">
-                                    <div class="testimonilas-text">
-                                        <div class="listing-rating card-popup-rainingvis" data-starrating2="4"> </div>
-                                        <p>Aliquam erat volutpat. Curabitur convallis fringilla diam sed aliquam. Sed tempor iaculis massa faucibus feugiat. In fermentum facilisis massa, a consequat purus viverra.</p>
-                                    </div>
-                                    <div class="testimonilas-avatar-item">
-                                        <div class="testimonilas-avatar"><img src="resources/images/avatar/1.jpg" alt=""></div>
-                                        <h4>Antony Moore</h4>
-                                        <span>Restaurant Owner</span>
-                                    </div>
-                                </div>
-                                <!--slick-slide-item end-->
-                                <!--slick-slide-item-->
-                                <div class="slick-slide-item">
-                                    <div class="testimonilas-text">
-                                        <div class="listing-rating card-popup-rainingvis" data-starrating2="5"> </div>
-                                        <p>Feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te odio dignissim qui blandit praesent.</p>
-                                    </div>
-                                    <div class="testimonilas-avatar-item">
-                                        <div class="testimonilas-avatar"><img src="resources/images/avatar/1.jpg" alt=""></div>
-                                        <h4>Austin Harisson</h4>
-                                        <span>Restaurant Owner</span>
-                                    </div>
-                                </div>
-                                <!--slick-slide-item end-->                      
-                                <!--slick-slide-item-->
-                                <div class="slick-slide-item">
-                                    <div class="testimonilas-text">
-                                        <div class="listing-rating card-popup-rainingvis" data-starrating2="4"> </div>
-                                        <p>Qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram seacula quarta decima et quinta decima.</p>
-                                    </div>
-                                    <div class="testimonilas-avatar-item">
-                                        <div class="testimonilas-avatar"><img src="resources/images/avatar/1.jpg" alt=""></div>
-                                        <h4>Garry Colonsi</h4>
-                                        <span>Restaurant Owner</span>
-                                    </div>
-                                </div>
-                                <!--slick-slide-item end-->   
-                            </div>
-                            <!--testimonials-carousel end-->
-                            <div class="swiper-button-prev sw-btn"><i class="fa fa-long-arrow-left"></i></div>
-                            <div class="swiper-button-next sw-btn"><i class="fa fa-long-arrow-right"></i></div>
-                        </div>
-                        <!-- carousel end-->
-                    </section>
-                    <!-- section end -->
-                    <!--section -->
-                    <section class="gray-section">
-                        <div class="container">
-                            <div class="fl-wrap spons-list">
-                                <ul class="client-carousel">
-                                    <li><a href="#" target="_blank"><img src="resources/images/clients/1.png" alt=""></a></li>
-                                    <li><a href="#" target="_blank"><img src="resources/images/clients/1.png" alt=""></a></li>
-                                    <li><a href="#" target="_blank"><img src="resources/images/clients/1.png" alt=""></a></li>
-                                    <li><a href="#" target="_blank"><img src="resources/images/clients/1.png" alt=""></a></li>
-                                    <li><a href="#" target="_blank"><img src="resources/images/clients/1.png" alt=""></a></li>
-                                    <li><a href="#" target="_blank"><img src="resources/images/clients/1.png" alt=""></a></li>
-                                </ul>
-                                <div class="sp-cont sp-cont-prev"><i class="fa fa-angle-left"></i></div>
-                                <div class="sp-cont sp-cont-next"><i class="fa fa-angle-right"></i></div>
-                            </div>
-                        </div>
-                    </section>
-                    <!-- section end -->
-                    <!--section -->
-                    <section>
-                        <div class="container">
-                            <div class="section-title">
-                                <h2>Tips & Articles</h2>
-                                <div class="section-subtitle">From the blog.</div>
-                                <span class="section-separator"></span>
-                                <p>Browse the latest articles from our blog.</p>
-                            </div>
-                            <div class="row home-posts">
-                                <div class="col-md-4">
-                                    <article class="card-post">
-                                        <div class="card-post-img fl-wrap">
-                                            <a href="blog-single.html"><img src="resources/images/all/1.jpg"   alt=""></a>
-                                        </div>
-                                        <div class="card-post-content fl-wrap">
-                                            <h3><a href="blog-single.html">Gallery Post</a></h3>
-                                            <p>In ut odio libero, at vulputate urna. Nulla tristique mi a massa convallis cursus. Nulla eu mi magna. Etiam suscipit commodo gravida. </p>
-                                            <div class="post-author"><a href="#"><img src="resources/images/avatar/1.jpg" alt=""><span>By , Alisa Noory</span></a></div>
-                                            <div class="post-opt">
-                                                <ul>
-                                                    <li><i class="fa fa-calendar-check-o"></i> <span>25 April 2018</span></li>
-                                                    <li><i class="fa fa-eye"></i> <span>264</span></li>
-                                                    <li><i class="fa fa-tags"></i> <a href="#">Photography</a>  </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </article>
-                                </div>
-                                <div class="col-md-4">
-                                    <article class="card-post">
-                                        <div class="card-post-img fl-wrap">
-                                            <a href="blog-single.html"><img  src="resources/images/all/1.jpg"   alt=""></a>
-                                        </div>
-                                        <div class="card-post-content fl-wrap">
-                                            <h3><a href="blog-single.html">Video and gallery post</a></h3>
-                                            <p>In ut odio libero, at vulputate urna. Nulla tristique mi a massa convallis cursus. Nulla eu mi magna. Etiam suscipit commodo gravida. </p>
-                                            <div class="post-author"><a href="#"><img src="resources/images/avatar/1.jpg" alt=""><span>By , Mery Lynn</span></a></div>
-                                            <div class="post-opt">
-                                                <ul>
-                                                    <li><i class="fa fa-calendar-check-o"></i> <span>25 April 2018</span></li>
-                                                    <li><i class="fa fa-eye"></i> <span>264</span></li>
-                                                    <li><i class="fa fa-tags"></i> <a href="#">Design</a>  </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </article>
-                                </div>
-                                <div class="col-md-4">
-                                    <article class="card-post">
-                                        <div class="card-post-img fl-wrap">
-                                            <a href="blog-single.html"><img  src="resources/images/all/1.jpg"   alt=""></a>
-                                        </div>
-                                        <div class="card-post-content fl-wrap">
-                                            <h3><a href="blog-single.html">Post Article</a></h3>
-                                            <p>In ut odio libero, at vulputate urna. Nulla tristique mi a massa convallis cursus. Nulla eu mi magna. Etiam suscipit commodo gravida. </p>
-                                            <div class="post-author"><a href="#"><img src="resources/images/avatar/1.jpg" alt=""><span>By , Garry Dee</span></a></div>
-                                            <div class="post-opt">
-                                                <ul>
-                                                    <li><i class="fa fa-calendar-check-o"></i> <span>25 April 2018</span></li>
-                                                    <li><i class="fa fa-eye"></i> <span>264</span></li>
-                                                    <li><i class="fa fa-tags"></i> <a href="#">Stories</a>  </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </article>
-                                </div>
-                            </div>
-                            <a href="blog.html" class="btn  big-btn circle-btn  dec-btn color-bg flat-btn">Read All<i class="fa fa-eye"></i></a>
-                        </div>
-                    </section>
-                    <!-- section end -->
-                    <!--section -->
-                    <section class="gradient-bg">
-                        <div class="cirle-bg">
-                            <div class="bg" data-bg="resources/images/bg/circle.png"></div>
-                        </div>
-                        <div class="container">
-                            <div class="join-wrap fl-wrap">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <h3>Do You Have Questions ?</h3>
-                                        <p>Lorem ipsum dolor sit amet, harum dolor nec in, usu molestiae at no.</p>
-                                    </div>
-                                    <div class="col-md-4"><a href="contacts.html" class="join-wrap-btn">Get In Touch <i class="fa fa-envelope-o"></i></a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
+                  
                 </div>
                 <!-- Content end -->      
             </div>
             <!-- wrapper end -->
+            
             <!--footer -->
             <footer class="main-footer dark-footer  ">
                 <div class="container">
@@ -963,51 +674,49 @@
                 <div class="main-register-holder">
                     <div class="main-register fl-wrap">
                         <div class="close-reg"><i class="fa fa-times"></i></div>
-                        <h3>Sign In <span>City<strong>Book</strong></span></h3>
+                        <h3>Sign In <span>JejuBnB</span></h3>
                         <div class="soc-log fl-wrap">
-                            <p>For faster login or register use your social account.</p>
-                            <a href="#" class="facebook-log"><i class="fa fa-facebook-official"></i>Log in with Facebook</a>
-                            <a href="#" class="twitter-log"><i class="fa fa-twitter"></i> Log in with Twitter</a>
+                            <p>더 빨리 로그인하거나 등록하려면 소셜 계정을 사용하십시오.</p>
+                            <a href="#" class="facebook-log"><i class="fa fa-facebook-official"></i>페이스북 로그인</a>
                         </div>
-                        <div class="log-separator fl-wrap"><span>or</span></div>
+                        <div class="log-separator fl-wrap"><span>또는</span></div>
                         <div id="tabs-container">
                             <ul class="tabs-menu">
-                                <li class="current"><a href="#tab-1">Login</a></li>
-                                <li><a href="#tab-2">Register</a></li>
+                                <li class="current"><a href="#tab-1">로그인</a></li>
+                                <li><a href="#tab-2">회원가입</a></li>
                             </ul>
                             <div class="tab">
                                 <div id="tab-1" class="tab-content">
                                     <div class="custom-form">
-                                        <form method="post"  name="registerform">
-                                            <label>Username or Email Address * </label>
-                                            <input name="email" type="text"   onClick="this.select()" value=""> 
-                                            <label >Password * </label>
-                                            <input name="password" type="password"   onClick="this.select()" value="" > 
+                                        <form method="post" action="login.do"  name="registerform">
+                                            <label>이메일 * </label>
+                                            <input name="user_id" type="email"   onClick="this.select()"> 
+                                            <label >비밀번호 * </label>
+                                            <input name="user_pwd" type="password"   onClick="this.select()"> 
                                             <button type="submit"  class="log-submit-btn"><span>Log In</span></button> 
                                             <div class="clearfix"></div>
-                                            <div class="filter-tags">
-                                                <input id="check-a" type="checkbox" name="check">
-                                                <label for="check-a">Remember me</label>
-                                            </div>
+                                           
                                         </form>
                                         <div class="lost_password">
-                                            <a href="#">Lost Your Password?</a>
+                                            <a href="#">비밀번호 찾기</a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="tab">
                                     <div id="tab-2" class="tab-content">
                                         <div class="custom-form">
-                                            <form method="post"   name="registerform" class="main-register-form" id="main-register-form2">
-                                                <label >First Name * </label>
-                                                <input name="name" type="text"   onClick="this.select()" value=""> 
-                                                <label>Second Name *</label>
-                                                <input name="name2" type="text"  onClick="this.select()" value="">
-                                                <label>Email Address *</label>
-                                                <input name="email" type="text"  onClick="this.select()" value="">                                              
-                                                <label >Password *</label>
-                                                <input name="password" type="password"   onClick="this.select()" value="" > 
-                                                <button type="submit"     class="log-submit-btn"  ><span>Register</span></button> 
+                                            <form method="post" action="enroll.do"  name="registerform" class="main-register-form" id="main-register-form2">
+                                                <label >이름 * </label>
+                                                <input name="user_name" type="text" placeholder="이름"> 
+                                                <label>이메일 * </label>
+                                                <input name="user_id" type="email" placeholder="이메일 " onClick="this.select()" >
+                                                <label>비밀번호 * </label>
+                                                <input name="user_pwd" type="password" placeholder="비밀번호 " onClick="this.select()">                                              
+                                                <label >전화번호 * </label>
+                                                <input name="phone" type="tel" placeholder="전화번호 " onClick="this.select()"> 
+                                                <label >생년월일 </label>
+                                                <input name="birthday" type="text" placeholder="생년월일 "  onClick="this.select()"> 
+                                                <button type="submit"     class="log-submit-btn"  ><span>회원가입</span></button>  
                                             </form>
                                         </div>
                                     </div>

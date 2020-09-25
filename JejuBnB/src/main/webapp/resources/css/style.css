@@ -3293,7 +3293,7 @@ article .list-single-main-item {
 .custom-form .nice-select .list li:hover , .custom-form .nice-select .list li.selected  {
 	color:#fff;
 }
-.custom-form  textarea , .custom-form input[type="text"] , .custom-form  input[type=email] , .custom-form  input[type=password] , .custom-form  input[type=button]{
+.custom-form  textarea , .custom-form input[type="tel"], .custom-form input[type="text"] , .custom-form  input[type=email] , .custom-form  input[type=password] , .custom-form  input[type=button]{
     float: left;
     border: 1px solid #eee;
     background: #f9f9f9;
@@ -3471,7 +3471,7 @@ article .list-single-main-item {
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
     right: 0px;
 }
-.main-register .custom-form input[type="text"] , .main-register .custom-form  input[type=email] ,
+.main-register .custom-form input[type="tel"], .custom-form input[type="text"] , .main-register .custom-form  input[type=email] ,
 .main-register .custom-form  input[type=password]{
 	padding-left:20px;
 }

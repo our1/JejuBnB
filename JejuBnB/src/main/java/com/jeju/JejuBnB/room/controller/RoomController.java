@@ -279,7 +279,7 @@ public class RoomController {
 		model.addAttribute("Blist", Blist);
 		model.addAttribute("Flist", Flist);
 		model.addAttribute("Rlist", Rlist);
-		return "room/roomWriteForm";
+		return "citybook/roomWriteForm";
 	}
 	
 	@RequestMapping("moveMyRoom.do")

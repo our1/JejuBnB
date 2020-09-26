@@ -36,6 +36,20 @@
 		<result property="host_check" column="host_check" />
 	</resultMap>
 
+	<resultMap id="incomeList" type="com.jeju.JejuBnB.member.model.vo.HostIncome">
+		<result property="room_no" column="room_no" />
+		<result property="room_name" column="room_name" />
+		<result property="guest_id" column="g" />
+		<result property="room_weekday" column="room_weekday" />
+		<result property="room_weekend" column="room_weekend" />
+		<result property="checkin_date" column="checkin_date" />
+		<result property="checkout_date" column="checkout_date" />
+		<result property="user_id" column="user_id" />
+		<result property="payment_status" column="payment_status" />
+		<result property="re_num" column="re_num" />
+		
+	</resultMap>
+	
 	<insert id="insertMember" parameterType="Member">
 		insert into member
 		values (#{ user_id },#{ user_pwd }, #{user_name}, #{birthday}, #{phone},
@@ -76,6 +90,12 @@
 	
 	<select id="selectHostListDetail" resultMap="hostList">
 		select room_no, user_id, user_name, room_name, room_address, phone, host_check from member join room using(user_id) where user_id = #{user_id}
+	</select>
+	
+	<select id="selectIncomeHost" resultMap="incomeList">
+		select room_no, room_name, a.user_id g, room_weekday, room_weekend, checkin_date,
+		checkout_date, b.user_id , payment_status, re_num
+		from reservation a join room b using(room_no) where b.user_id = #{user_id}
 	</select>
 	
 	<update id="updatePwdMember" parameterType="Member">

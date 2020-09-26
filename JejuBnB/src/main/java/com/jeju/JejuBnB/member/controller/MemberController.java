@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jeju.JejuBnB.member.model.service.MemberService;
+import com.jeju.JejuBnB.member.model.vo.HostIncome;
 import com.jeju.JejuBnB.member.model.vo.HostMemberRoomDetail;
 import com.jeju.JejuBnB.member.model.vo.Member;
 
@@ -382,6 +383,19 @@ public class MemberController {
 	 * -----------------------------------------------------------------------------
 	 * ---------------------------------------
 	 */
+	// 호스트 신청 디테일 
+		@RequestMapping("IncomeHost.do")
+		public ModelAndView moveIncomeHost(ModelAndView mv, HostIncome income ) {
+			ArrayList<HostIncome> list = memberService.selectIncomeHost(income);
+			if(list != null) {
+				mv.setViewName("member/hostIncomePage");
+				mv.addObject("list", list);
+			}else {
+				mv.addObject("message", "숙소 결제 대기 ,결제 완료 리스트를 가져올 수 없습니다.");
+				mv.setViewName("common/error");
+			}
+			return mv;
+		}	
 	
 	// 호스트 신청 디테일 
 	@RequestMapping("hostListDetail.do")

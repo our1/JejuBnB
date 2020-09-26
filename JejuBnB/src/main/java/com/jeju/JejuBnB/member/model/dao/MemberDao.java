@@ -5,6 +5,8 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.jeju.JejuBnB.member.model.vo.HostIncome;
 import com.jeju.JejuBnB.member.model.vo.HostMemberRoomDetail;
 import com.jeju.JejuBnB.member.model.vo.Member;
 @Repository("memberDao")
@@ -105,6 +107,11 @@ public class MemberDao {
 	
 	public int updatebeNotHostMember(String user_id) {
 		return session.update("memberMapper.updatebeNotHostMember", user_id);
+	}
+
+	public ArrayList<HostIncome> selectIncomeHost(HostIncome income) {
+		List<HostIncome> list = session.selectList("memberMapper.selectIncomeHost", income);
+		return (ArrayList<HostIncome>)list;
 	}
 
 

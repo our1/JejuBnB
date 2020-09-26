@@ -32,5 +32,6 @@
 		select * from my_coupon join coupon using(coupon_no)
 		 where user_id = #{user_id}
 	</select>
+   		
 	
 </mapper>

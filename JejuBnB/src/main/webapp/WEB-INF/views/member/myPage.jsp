@@ -16,10 +16,21 @@
 <c:url var="callMyinfo" value="myinfo.do">
      <c:param name="user_id" value="${ sessionScope.loginMember.user_id }" />
 </c:url>
+<c:url var="moveMyCoupon" value="moveMyCoupon.do">
+     <c:param name="user_id" value="${ sessionScope.loginMember.user_id }" />
+</c:url>
+<c:url var="moveMyRoom" value="seleteMyRoom.do">
+     <c:param name="user_id" value="${ sessionScope.loginMember.user_id }" />
+</c:url>
+<c:url var="moveIncome" value="IncomeHost.do">
+     <c:param name="user_id" value="${ sessionScope.loginMember.user_id }" />
+</c:url>
 <a href="${callMyinfo}">회원 정보 보기 페이지 버튼 </a> <br>
-<a href="${callMyinfo}">내 쿠폰함 보기 페이지 버튼 </a> <br>
-<a href="${callMyinfo}">내가 저장한 숙소 보기 페이지 버튼 </a>  <br>
+<a href="${moveMyCoupon}">내 쿠폰함 보기 페이지 버튼 </a> <br>
+<a href="${moveMyRoom}">내가 저장한 숙소 보기 페이지 버튼 </a>  <br>
 <a href="moveMessageTemp.do">메세지함 보기 버튼 </a>  <br>
+<a href="${moveIncome }">사장님 수입 통계 페이지 </a>  <br>
+<a href="moveMessageTemp.do">예약된 숙소 보기  </a>  <br>
 
 
 

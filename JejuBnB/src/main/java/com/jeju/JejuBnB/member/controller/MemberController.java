@@ -5,12 +5,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Random;
-
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,14 +18,14 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.jeju.JejuBnB.member.model.service.MemberService;
+import com.jeju.JejuBnB.member.model.vo.HostIncome;
+import com.jeju.JejuBnB.member.model.vo.HostMemberRoomDetail;
 import com.jeju.JejuBnB.member.model.vo.Member;
 
 @Controller
@@ -48,22 +46,21 @@ public class MemberController {
 		logger.info("login.do user_id :   " + member.getUser_id() + "   password : " + member.getUser_pwd());
 		Member loginMember = memberService.selectLogin(member);
 		model.addAttribute("loginMember", loginMember);
-		/*
-		 * if (loginMember != null &&
-		 * bcryptPasswordEncoder.matches(member.getUser_pwd(),
-		 * loginMember.getUser_pwd())) {
-		 */			String facebookid = loginMember.getFacebook_id();
-			if (facebookid != null) {
-				model.addAttribute("message", "페이스북 아이디 입니다.");
-				return "common/error";
+		  if (loginMember != null &&
+		  bcryptPasswordEncoder.matches(member.getUser_pwd(),
+		  loginMember.getUser_pwd())) {
+		  String facebookid = loginMember.getFacebook_id();
+		  if (facebookid != null) {
+			model.addAttribute("message", "페이스북 아이디 입니다.");
+			return "common/error";
 			} else {
-				session.setAttribute("loginMember", loginMember);
-				return "member/tempPage";
+			session.setAttribute("loginMember", loginMember);
+			return "common/main";
 			}
-		/*
-		 * } else { model.addAttribute("message", "회원 정보와 일치하지 않습니다."); return
-		 * "common/error"; }
-		 */
+		
+		  } else { model.addAttribute("message", "회원 정보와 일치하지 않습니다."); return
+		  "common/error"; }
+		 
 	}
 
 	// 페이스북 로그인
@@ -78,7 +75,7 @@ public class MemberController {
 			String facebookid = loginMember.getFacebook_id();
 			if (facebookid != null) {
 				session.setAttribute("loginMember", loginMember);
-				return "member/tempPage";
+				return "common/main";
 			}
 			model.addAttribute("message", "페이스북 아이디가 아닙니다.");
 			return "common/error";
@@ -108,7 +105,7 @@ public class MemberController {
 		logger.info("enroll : " + member);
 		member.setUser_pwd(bcryptPasswordEncoder.encode(member.getUser_pwd()));
 		if (memberService.insertMember(member) > 0) {
-			return "member/loginPage";
+			return "common/main";
 		} else {
 			model.addAttribute("message", "회원 등록 실패했습니다.");
 		}
@@ -131,7 +128,7 @@ public class MemberController {
 	public String updateSearchPwd(Member member, Model model) {
 		member.setUser_pwd(bcryptPasswordEncoder.encode(member.getUser_pwd()));
 		if (memberService.updatPwdMember(member) > 0) {
-			return "member/tempPage";
+			return "common/main";
 		} else {
 			model.addAttribute("message", " 비밀번호 수정을 실패 했습니다.");
 			return "common/error";
@@ -157,7 +154,7 @@ public class MemberController {
 		if (memberService.deleteMember(user_id) > 0) {
 			return "redirect:/logout.do";
 		} else {
-			model.addAttribute("message", user_id + "회원 탈퇴를 실패했습니다.");
+			model.addAttribute("message", user_id + "님 탈퇴를 실패했습니다.");
 			return "common/error";
 		}
 	}
@@ -167,7 +164,7 @@ public class MemberController {
 		if (memberService.deleteMember(user_id) > 0) {
 			return "redirect:/moveAdminMemberPage.do";
 		}else {
-			model.addAttribute("message", user_id + "회원 탈퇴를 실패했습니다.");
+			model.addAttribute("message", user_id + "회원의 계정탈퇴를 실패했습니다.");
 			return "common/error";
 		}
 	}
@@ -177,11 +174,33 @@ public class MemberController {
 		if (memberService.updateBeAdminMember(user_id)> 0) {
 			return "redirect:/moveAdminMemberPage.do";
 		}else {
-			model.addAttribute("message", user_id + "회원 탈퇴를 실패했습니다.");
+			model.addAttribute("message", user_id + "님의 관리자 등업을 실패했습니다.");
 			return "common/error";
 		}
 	}
-
+	// 호스트 회원 등업
+	@RequestMapping("beHostMember.do")
+	public String beHostMember(@RequestParam("user_id") String user_id, Model model) {
+		if (memberService.updateBeHostMember(user_id)> 0) {
+			model.addAttribute("user_id", user_id);
+			return "redirect:/hostListDetail.do";
+		}else {
+			model.addAttribute("message", user_id + "님의 호스트 등업을 실패했습니다.");
+			return "common/error";
+		}
+	}
+	// 호스트 일반회원으로 변경
+	@RequestMapping("beNotHostMember.do")
+	public String beNotHostMember(@RequestParam("user_id") String user_id, Model model) {
+		if (memberService.updatebeNotHostMember(user_id)> 0) {
+			model.addAttribute("user_id", user_id);
+			return "redirect:/roomChangePass.do";
+		}else {
+			model.addAttribute("message", user_id + "님을 일반 회원으로 변경 실패했습니다.");
+			return "common/error";
+		}
+	}
+	
 	// 비밀번호 확인
 	@RequestMapping("memberpwdcheck.do")
 	public void memberPwdCheck(Member member, Model model, HttpServletResponse response) {
@@ -353,13 +372,40 @@ public class MemberController {
 		}
 		return mv;
 	}
-	
 
 	/*
 	 * view 이동
 	 * -----------------------------------------------------------------------------
 	 * ---------------------------------------
 	 */
+	// 호스트 매출  
+		@RequestMapping("IncomeHost.do")
+		public ModelAndView moveIncomeHost(ModelAndView mv, HostIncome income ) {
+			ArrayList<HostIncome> list = memberService.selectIncomeHost(income);
+			if(list != null) {
+				mv.setViewName("member/hostIncomePage");
+				mv.addObject("list", list);
+			}else {
+				mv.addObject("message", "숙소 결제 대기 ,결제 완료 리스트를 가져올 수 없습니다.");
+				mv.setViewName("common/error");
+			}
+			return mv;
+		}	
+		
+	// 호스트 신청 디테일 
+	@RequestMapping("hostListDetail.do")
+	public ModelAndView movehostListDetail(ModelAndView mv, HostMemberRoomDetail hostmember ) {
+		ArrayList<HostMemberRoomDetail> member = memberService.selectHostListDetail(hostmember);
+		if(member != null) {
+			mv.setViewName("member/hostMemberRoomDetail");
+			mv.addObject("hostlist", member);
+		}else {
+			mv.addObject("message", "회원에 대한 정보 조회 실패 했습니다.");
+			mv.setViewName("common/error");
+		}
+		return mv;
+	}	
+	
 	// 회원 관리 페이지
 		@RequestMapping("moveAdminMemberPage.do")
 		public ModelAndView moveadminMemberList(ModelAndView mv) {
@@ -368,7 +414,7 @@ public class MemberController {
 				mv.setViewName("member/adminMemberList");
 				mv.addObject("memberlist", member);
 			}else {
-				mv.addObject("message", "회원에 대한 정보 조회 실패 했습니다.");
+				mv.addObject("message", "관리자 정보 조회 실패 했습니다.");
 				mv.setViewName("common/error");
 			}
 			return mv;
@@ -383,7 +429,7 @@ public class MemberController {
 			mv.setViewName("member/myinfoPage");
 			mv.addObject("member", member);
 		} else {
-			mv.addObject("message", user_id + "에 대한 정보 조회 실패 했습니다.");
+			mv.addObject("message", user_id + "님  정보 조회 실패 했습니다.");
 			mv.setViewName("common/error");
 		}
 		return mv;
@@ -397,7 +443,21 @@ public class MemberController {
 			mv.addObject("member", member);
 			mv.setViewName("member/memberUpdatePage");
 		} else {
-			mv.addObject("message", user_id + "에 대한 수정 페이지 이동 실패 했습니다.");
+			mv.addObject("message", user_id + "님  수정 페이지 이동을 실패 했습니다.");
+			mv.setViewName("common/error");
+		}
+		return mv;
+	}
+
+	// 호스트 신청 페이지 
+	@RequestMapping("moveHostRequestPage.do")
+	public ModelAndView moveHostRequestPage(ModelAndView mv) {
+		ArrayList<Member> member = memberService.selectHostList();
+		if(member != null) {
+			mv.setViewName("member/hostRequestListPage");
+			mv.addObject("hostlist", member);
+		}else {
+			mv.addObject("message", "호스트  정보 조회를 실패 했습니다.");
 			mv.setViewName("common/error");
 		}
 		return mv;
@@ -437,7 +497,6 @@ public class MemberController {
 	public String moveUpdatePwdPage() {
 		return "member/memberUpdatePwdPage";
 	}
-	
 	// 마이 페이지 
 	@RequestMapping("moveMyPage.do")
 	public String moveMyPage() {
@@ -448,7 +507,5 @@ public class MemberController {
 	public String moveAdminPage() {
 		return "member/adminPage";
 	}	
-	
-		
 
 }

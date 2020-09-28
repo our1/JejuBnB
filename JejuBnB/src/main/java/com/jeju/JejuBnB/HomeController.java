@@ -21,11 +21,5 @@ public class HomeController {
 	public String home(Locale locale, Model model) {
 		
 		return "common/main";
-	}
-	
-	@RequestMapping("cityBook.do")
-	public String cityBook() {
-		return "citybook/index2";
-	}
-	
+	}	
 }

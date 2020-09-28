@@ -25,6 +25,22 @@
 				},
 			});
 		}
+		function beNotHostMember(){
+			var checkedValue = $("input[type=radio][name=check]:checked").val() 
+			$.ajax({
+				url:"beNotHostMember.do",
+				type:"post",
+				data:{user_id: checkedValue},
+				success: function(data){
+					console.log("success :"+ data)
+					alert(checkedValue + "회원님의 계정을 일반회원으로 변경헀습니다.");
+					location.reload();
+				},
+				error: function(jqXHR, textstatus, errorthrown){
+					console.log("error : " + jqXHR + ", " + textstatus + ", " + errorthrown);
+				},
+			});
+		}
 		function adminMember(){
 			var checkedValue = $("input[type=radio][name=check]:checked").val() 
 			$.ajax({
@@ -71,6 +87,7 @@
 		</table>
 		<div align="center">
 			<button onclick="return deleteMember();">회원 삭제</button>
+			<button onclick="return beNotHostMember();">호스트 해제</button>
 			<button onclick="return adminMember();">관리자 등업</button>
 		</div>
 	</body>

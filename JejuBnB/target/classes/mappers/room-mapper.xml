@@ -75,7 +75,7 @@
 	</resultMap>
 	
 	<!-- 전체 게시글 갯수 조회 -->
-	<select id="getListCount" parameterType="java.util.HashMap" resultType="_int">
+	<select id="getListCount" parameterType="java.util.HashMap" resultType="int">
 		select count(room_no) from room join room_latlng using(room_no) where room_no != 0
 		<if test="seR != null">
 		<![CDATA[
@@ -83,6 +83,109 @@
 			]]>
 		</if>
 		<if test="roomNo != null">
+			<foreach collection="list" item="room">
+				and room_no != #{room.room_no}
+			</foreach>
+		</if> 
+	</select>
+	
+	<!-- 서치에서 게시글 수 조회(좌표미지정) -->
+	<select id="selectSearchListCount" parameterType="java.util.HashMap" resultType="int">
+		select count(room_no) from ( select room_no from room where room_no != 0
+			<foreach collection="list" item="room">
+				and room_no != #{room.room_no}
+			</foreach>
+			<if test="alist != null">
+			<foreach collection="alist" item="amenity">
+				intersect select room_no from room where amenity like '%'||#{amenity}||'%'				
+			</foreach>
+		</if>
+		
+		<if test="flist != null">
+			<foreach collection="flist" item="facility">
+				intersect select room_no from room where facility like '%'||#{facility}||'%'
+			</foreach>		
+		</if>
+		
+		<if test="blist != null">
+			<foreach collection="blist" item="build">
+				intersect select room_no from room where build_type like '%'||#{build}||'%'
+			</foreach>
+		</if>
+		
+		<if test="rlist != null">
+			<foreach collection="rlist" item="rule">
+			intersect select room_no from room where rule like '%'||#{rule}||'%'
+			</foreach>		
+		</if>
+		
+		<if test="bed != 0">
+		intersect select room_no from room desc where bed = #{bed}
+		</if>
+		
+		<if test="bedroom != 0">
+		intersect select room_no from room where bedroom = #{bedroom}
+		</if>
+		
+		<if test="bathroom != 0">
+		intersect select room_no from room where bathroom = #{bathroom}
+		</if>
+			)
+	</select>
+	
+	<!-- 서치에서 게시글 수 조회(좌표지정) -->
+	<select id="selectSearchListCountLatLng" parameterType="java.util.HashMap" resultType="int">
+		select count(room_no) from ( select room_no from room where room_no != 0
+			<foreach collection="list" item="room">
+				and room_no != #{room.room_no}
+			</foreach>
+			<if test="alist != null">
+			<foreach collection="alist" item="amenity">
+				intersect select room_no from room where amenity like '%'||#{amenity}||'%'				
+			</foreach>
+		</if>
+		
+		<if test="flist != null">
+			<foreach collection="flist" item="facility">
+				intersect select room_no from room where facility like '%'||#{facility}||'%'
+			</foreach>		
+		</if>
+		
+		<if test="blist != null">
+			<foreach collection="blist" item="build">
+				intersect select room_no from room where build_type like '%'||#{build}||'%'
+			</foreach>
+		</if>
+		
+		<if test="rlist != null">
+			<foreach collection="rlist" item="rule">
+			intersect select room_no from room where rule like '%'||#{rule}||'%'
+			</foreach>		
+		</if>
+		
+		<if test="bed != 0">
+		intersect select room_no from room desc where bed = #{bed}
+		</if>
+		
+		<if test="bedroom != 0">
+		intersect select room_no from room where bedroom = #{bedroom}
+		</if>
+		
+		<if test="bathroom != 0">
+		intersect select room_no from room where bathroom = #{bathroom}
+		</if>
+		<if test="seR != null">
+		<![CDATA[
+		where room_lat >= #{seR.room_lat} and room_lat <= #{neR.room_lat} and room_lng >= #{seR.room_lng} and room_lng <= #{neR.room_lng} 
+		]]>
+		</if>
+			)
+	</select>
+	
+	<!-- 일반 게시판에서 게시글 수 조회(좌표 미지정) -->
+	<select id="getListCountOnlyRoom" parameterType="java.util.List" resultType="int">
+		select count(room_no) from room join room_latlng using(room_no) where room_no != 0
+		<if test="list != null">
 			<foreach collection="list" item="room">
 				and room_no != #{room.room_no}
 			</foreach>
@@ -101,22 +204,8 @@
 		<foreach collection="list" item="room">
 			and room_no != #{room.room_no}
 		</foreach>
-		<if test="Stpeople != null" >
-			<![CDATA[
-				and st_num_people <= #{Stpeople}
-			]]>
-		</if>
-		
-		<if test="Stpeople == null" >
-			<![CDATA[
-				and st_num_people <= #{people}
-			]]>
-		</if>
 		<![CDATA[
-		and max_people >= #{people}
-		
-		
-			
+
 		order by room_no)
 		where rnum >= #{startRow} and rnum <= #{endRow}
 		]]>
@@ -125,8 +214,13 @@
 	<!-- 날짜입력받아 그날짜에 예약된 숙소 번호 조회 -->
 	<select id="selectChkRNList" parameterType="java.util.HashMap" resultMap="resultRoomNo">
 		select room_no from reservation
+		join room using(room_no)
 		where checkin_date = to_date(#{checkin},'YY/MM/DD') and
 		checkout_date = to_date(#{checkout}, 'YY/MM/DD')
+		<![CDATA[
+		and st_num_people <= #{people}
+		or max_people >= #{people}
+		]]>
 	</select>
 	
 	<!-- 예약 여부 없이 숙소 조회 -->
@@ -168,22 +262,27 @@
 		select * from room_file where room_no = #{roomno}
 	</select>
 	
+	<!-- 회원이 등록한 글 조회 -->
 	<select id="selectUserRoom" parameterType="string" resultMap="resultList">
 		select * from room where user_id = #{uid}
 	</select>
 	
+	<!-- 업데이트용 룸 하나 조회 -->
 	<select id="selectRoom" parameterType="int" resultMap="resultRoom">
 		select * from room where room_no = #{roomno}
 	</select>
 	
+	<!-- 룸에 등록되어있는 리뷰 수 조회 -->
 	<select id="selectReviewCount" parameterType="int" resultType="_int">
 		select count(reply_no) from review where room_no = #{ room_no }
 	</select> 
 	
+	<!-- 회원이 등록한 방금 글 번호 조회 -->
 	<select id="selectRoomNo" parameterType="string" resultType="int">
 		select nvl(max(room_no),1) from room where user_id = #{uid}
 	</select>
 	
+	<!-- 좌표값 받고 예약 가능한 숙소 조회 -->
 	<select id="selectLatLng" parameterType="java.util.HashMap" resultMap="resultList">
 		select * 
 		from (select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
@@ -191,23 +290,18 @@
 		<![CDATA[
 		where room_lat >= #{seR.room_lat} and room_lat <= #{neR.room_lat} and room_lng >= #{seR.room_lng} and room_lng <= #{neR.room_lng} 
 		]]>
-		and
-		checkin_date = to_date(#{checkin},'YY/MM/DD') and
-		checkout_date = to_date(#{checkout}, 'YY/MM/DD'
-		
-		<foreach collection="list" item="room">
-			and room_no != #{room.room_no}
-		</foreach>
-		
-		<![CDATA[
-		and st_num_people <= #{people}
-		and max_people >= #{people}
-		
+		<if test="list != null">
+			<foreach collection="list" item="room">
+				and room_no != #{room.room_no}
+			</foreach>
+		</if>
+		<![CDATA[		
 		order by room_no)
 		where rnum >= #{startRow} and rnum <= #{endRow}
 		]]>
 	</select>
 	
+	<!-- 좌표값 받고 예약여부 상관없이 게시글 조회 -->
 	<select id="selectLatLngJustList" parameterType="java.util.HashMap" resultMap="resultList">
 	<![CDATA[
 		select * from (select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
@@ -220,13 +314,17 @@
 		]]>
 	</select>
 	
+	<!-- 필터사용하여 게시글 조회 -->
 	<select id="selectSearchFilter" parameterType="java.util.HashMap" resultMap="resultList">
 		select * from 
 			(select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
 			bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from   
  				(select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
 				bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend
-     		    from room 
+     		    from room where room_no != 0	    
+     		    <foreach collection="roomNo" item="room">
+     		    	and	room_no != #{room.room_no}
+     		    </foreach>
 		<if test="alist != null">
 			<foreach collection="alist" item="amenity">
 				intersect select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
@@ -249,7 +347,7 @@
 		</if>
 		
 		<if test="rlist != null">
-			<foreach collection="rlit" item="rule">
+			<foreach collection="rlist" item="rule">
 			intersect select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
 		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from room where rule like '%'||#{rule}||'%'
 			</foreach>		
@@ -275,10 +373,87 @@
 		]]>
 	</select>
 	
+	<!-- 좌표값 받고 필터사용하여 게시글 조회 -->
+	<select id="selectSearchLatLng" parameterType="java.util.HashMap" resultMap="resultList">
+		select * from 
+			(select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+			bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from   
+ 				(select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+				bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend
+     		    from room where room_no != 0 		    
+     		    <foreach collection="roomNo" item="room">
+     		    	and room_no != #{room.room_no}
+     		    </foreach>
+		<if test="alist != null">
+			<foreach collection="alist" item="amenity">
+				intersect select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from room where amenity like '%'||#{amenity}||'%'				
+			</foreach>
+		</if>
+		
+		<if test="flist != null">
+			<foreach collection="flist" item="facility">
+				intersect select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from room where facility like '%'||#{facility}||'%'
+			</foreach>		
+		</if>
+		
+		<if test="blist != null">
+			<foreach collection="blist" item="build">
+				intersect select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from room where build_type like '%'||#{build}||'%'
+			</foreach>
+		</if>
+		
+		<if test="rlist != null">
+			<foreach collection="rlist" item="rule">
+			intersect select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from room where rule like '%'||#{rule}||'%'
+			</foreach>		
+		</if>
+		
+		<if test="bed != 0">
+		intersect select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from room desc where bed = #{bed}
+		</if>
+		
+		<if test="bedroom != 0">
+		intersect select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from room where bedroom = #{bedroom}
+		</if>
+		
+		<if test="bathroom != 0">
+		intersect select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from room where bathroom = #{bathroom}
+		</if>
+		<if test="seR != null">
+		<![CDATA[
+			and  room_lat >= #{seR.room_lat} and room_lat <= #{neR.room_lat} and room_lng >= #{seR.room_lng} and room_lng <= #{neR.room_lng} 
+			]]>
+		</if>
+		order by room_no))
+		<![CDATA[
+		where rnum >= #{startRow} and rnum <= #{endRow}
+		]]>
+	</select>
+	
+	<!-- 룸 리뷰 순위 탑 10 -->
+	<select id="selectTop" resultMap="resultList">
+		select * from(
+			select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
+					bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from room
+			join (select count(room_no) count, room_no  from review group by room_no order by count desc) using (room_no))
+			<![CDATA[
+			where rnum >= 1 and rnum <= 10
+			]]>
+	</select>
+	
+	<!-- 룸 좌표값 등록 -->
 	<insert id="insertRoomLatLnt" parameterType="RoomLatLng">
 		insert into room_latlng values(#{room_no}, #{room_lat}, #{room_lng})
 	</insert>
 	
+	<!-- 룸 등록 -->	
 	<insert id="insertRoom" parameterType="Room">
 		insert into room values((select nvl(max(room_no),0) from room) + 1, #{user_id}, #{room_name }, #{room_content }, #{room_address }, #{room_roadaddress}, #{st_num_people }, #{ max_people},
 		 #{ checkin_time}, #{checkout_time }, #{ bed}, #{bedroom }, #{bathroom },
@@ -315,12 +490,20 @@
 		
 	</insert>
 	
+	<!-- 룸 사진 등록 -->
 	<insert id="insertRoomFile" parameterType="Room_File" >	
 			insert into room_file values((select nvl(max(room_file_no),0) +1 from room_file ), #{room_no}, #{original_file}, #{rename_file})
 	</insert>
 	
+	<!-- 룸 수정 -->	
 	<update id="updateRoom" parameterType="Room">
-		update room set room_name = #{room_name}, room_content = #{room_content}, room_address=#{room_address}, room_roadaddress=#{room_roadaddress},st_num_people = #{ st_num_people }, 
+		update room set room_name = #{room_name}, room_content = #{room_content},
+		
+		<if test="room_address != null">
+			room_address=#{room_address}, room_roadaddress=#{room_roadaddress},
+		</if>		 
+		
+		st_num_people = #{ st_num_people }, 
 		max_people = #{ max_people }, checkin_time = #{checkin_time}, checkout_time= #{checkout_time}, bed = #{ bed}, bedroom=#{bedroom}, bathroom = #{bathroom},
 		
 		 <if test="amenity != null">
@@ -352,19 +535,28 @@
 		where room_no = #{room_no}
 	</update>
 	
+	<!-- 게시글 등록 수정 -->
 	<update id="updateRoomChangePass" parameterType="String">
-	update room set pass_or_not = 'Y' where user_id = #{user_id}
+		update room set pass_or_not = 'Y' where user_id = #{user_id}
 	</update>
 	
+	<!-- 룸 삭제 -->
 	<delete id="deleteRoom" parameterType="int">
 		delete from room where room_no = #{ room_no }
 	</delete>
 	
+	<!-- 룸 사진  하나 삭제 -->
 	<delete id="deleteRoomFile" parameterType="Room_File">
 		delete from room_file where room_no = #{ room_no} and room_file_no = #{room_file_no}
 	</delete>
 	
-	<delete id="deleteRoomRivew" parameterType="int">
+	<!-- 룸에 등록된 사진들 삭제 -->
+	<delete id="deleteRoomFileList" parameterType="int">
+		delete from room_file where room_no = #{room_no}
+	</delete>
+	
+	<!-- 룸에 등록된 리뷰들 삭제 -->
+	<delete id="deleteReviewList" parameterType="int">
 		delete from review where room_no = #{ room_no}
 	</delete>
 </mapper>

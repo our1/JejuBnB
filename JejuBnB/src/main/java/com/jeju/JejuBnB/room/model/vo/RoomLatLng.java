@@ -18,6 +18,11 @@ public class RoomLatLng implements java.io.Serializable{
 		this.room_lat = room_lat;
 		this.room_lng = room_lng;
 	}
+	
+	public RoomLatLng(double room_lat, double room_lng) {
+		this.room_lat = room_lat;
+		this.room_lng = room_lng;
+	}
 
 	public int getRoom_no() {
 		return room_no;

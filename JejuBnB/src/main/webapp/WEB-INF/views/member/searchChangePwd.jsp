@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"  errorPage="/WEB-INF/views/common/error.jsp"
+    isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -20,25 +22,29 @@
 		</script>
 	</head>
 	<body>
-		<h1>비밀번호 변경</h1>
+		<c:import url="/WEB-INF/views/common/header.jsp" />
+		<br><br><br><br><br><br><br><br><br><br><br><br>
 		<form action="updatepwd.do" method="post" onsubmit="return validate();">
-			<table>
-				<tr>
-					<th> 새로운 비밀번호 </th>
-					<td> <input type="password" name="user_pwd" id = "userpwd" required></td>
-				</tr>
-				<tr>
-					<th> 비밀번호  확인 </th>
-					<td> <input type="password" id="userpwd2"></td>
-				</tr>
-				<input type="hidden" name="user_id" value="${user_id }">
-				<tr>
-					<th colspan = "2">
-						<input type="submit" value = "비밀번호 변경하기"> &nbsp;
-						<a href="main.do"> 시작페이지로 </a>
-					</th>
-				</tr>
-			</table>
-		</form>
+		<div class="profile-edit-container">
+	        <div class="profile-edit-header fl-wrap" style="margin-top:30px">
+	            <h4>Change Password</h4>
+	        </div>
+	        <div class="custom-form no-icons">
+	            <div class="pass-input-wrap fl-wrap">
+	                <label>New Password</label>
+	                <input type="password" class="pass-input" placeholder="새로운 비밀번호" id="userpwd" name="user_pwd" required/>
+	                <span class="eye"><i class="fa fa-eye" aria-hidden="true"></i> </span>
+	            </div>
+	            <div class="pass-input-wrap fl-wrap">
+	                <label>Confirm New Password</label>
+	                <input type="password" class="pass-input" placeholder="비밀번호  확인" id="userpwd2"/>
+	                <input type="hidden" name="user_id" value="${user_id }">
+	                <span class="eye"><i class="fa fa-eye" aria-hidden="true"></i> </span>
+	            </div>
+	            <button class="btn  big-btn  color-bg flat-btn">Save Changes<i class="fa fa-angle-right"></i></button>
+	        </div>
+        </div>
+        </form>                                    
+		<c:import url="/WEB-INF/views/common/footer2.jsp" />
 	</body>
 </html>

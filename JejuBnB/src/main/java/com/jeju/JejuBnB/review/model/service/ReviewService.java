@@ -10,5 +10,8 @@ public interface ReviewService {
 	int insertReview(Review review);
 	int updateReview(Review review);
 	int deleteReview(int reply_no);
+	int updateAvg(int room_no);
 	ArrayList<Review> selectReviewList(ArrayList<Room> list);
+	Review selectOne(int reply_no);
+	Review selectReviewAvg(int room_no);
 }

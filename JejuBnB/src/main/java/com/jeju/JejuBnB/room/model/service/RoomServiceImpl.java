@@ -64,23 +64,18 @@ public class RoomServiceImpl implements RoomService{
 	}
 
 	@Override
-	public ArrayList<Room> selectSearchFilter(Room room) {
-		return roomDao.selectSearchFilter(room);
-	}
-
-	@Override
 	public ArrayList<Room_File> selectRoomFile(int roomno) {
 		return roomDao.selectRoomFile(roomno);
 	}
 
 	@Override
-	public ArrayList<Room> selectChkList(ArrayList<Room> room, int currentPage, int limit, int people) {
-		return roomDao.selectChkList(room, currentPage, limit, people);
+	public ArrayList<Room> selectChkList(ArrayList<Room> room, int currentPage, int limit) {
+		return roomDao.selectChkList(room, currentPage, limit);
 	}
 
 	@Override
-	public ArrayList<Room> selectChkRNList(String checkin, String checkout) {
-		return roomDao.selectChkRNList(checkin, checkout);
+	public ArrayList<Room> selectChkRNList(String checkin, String checkout, int people) {
+		return roomDao.selectChkRNList(checkin, checkout, people);
 	}
 
 	@Override
@@ -114,9 +109,9 @@ public class RoomServiceImpl implements RoomService{
 	}
 
 	@Override
-	public ArrayList<Room> selectLatLng(ArrayList<Room> roomNo, int currentPage, int limit, int people, RoomLatLng seR,
+	public ArrayList<Room> selectLatLng(ArrayList<Room> roomNo, int currentPage, int limit, RoomLatLng seR,
 			RoomLatLng neR) {
-		return roomDao.selectLatLng(roomNo, currentPage, limit, people, seR, neR);
+		return roomDao.selectLatLng(roomNo, currentPage, limit, seR, neR);
 	}
 
 	@Override
@@ -127,6 +122,47 @@ public class RoomServiceImpl implements RoomService{
 	@Override
 	public int getListCount(RoomLatLng seR, RoomLatLng neR, ArrayList<Room> roomNo) {
 		return roomDao.getListCount(seR, neR, roomNo);
+	}
+
+	@Override
+	public ArrayList<Room> selectSearchLatLng(Room room, ArrayList<Room> roomNo, int currentPage, int limit,
+			RoomLatLng seR, RoomLatLng neR) {
+		return roomDao.selectSearchLatLng(room, roomNo, currentPage, limit, seR, neR);
+	}
+
+	@Override
+	public ArrayList<Room> selectSearchFilter(Room room, ArrayList<Room> roomNo, int currentPage, int limit, int people) {
+		return roomDao.selectSearchFilter(room, roomNo, currentPage, limit, people);
+	}
+
+	@Override
+	public int getListCountOnlyRoom(ArrayList<Room> roomNo) {
+		return roomDao.getListCountOnlyRoom(roomNo);
+	}
+
+	@Override
+	public int selectSearchListCount(Room room, ArrayList<Room> roomNo) {
+		return roomDao.selectSearchListCount(room, roomNo);
+	}
+
+	@Override
+	public int selectSearchListCountLatLng(RoomLatLng seR, RoomLatLng neR, ArrayList<Room> roomNo, Room room) {
+		return roomDao.selectSearchListCountLatLng(seR, neR, roomNo, room);
+	}
+
+	@Override
+	public int deleteRoomFileList(int roomno) {
+		return roomDao.deleteRoomFileList(roomno);
+	}
+
+	@Override
+	public int deleteReviewList(int roomno) {
+		return roomDao.deleteReviewList(roomno);
+	}
+
+	@Override
+	public ArrayList<Room> selectTop() {
+		return roomDao.selectTop();
 	}
 
 }

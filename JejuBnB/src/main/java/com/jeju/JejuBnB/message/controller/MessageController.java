@@ -1,18 +1,12 @@
 package com.jeju.JejuBnB.message.controller;
 
 import java.util.ArrayList;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.jeju.JejuBnB.member.model.vo.Member;
 import com.jeju.JejuBnB.message.model.service.MessageService;
 import com.jeju.JejuBnB.message.model.vo.Message;
 import com.jeju.JejuBnB.message.model.vo.Message_Detail;
@@ -21,10 +15,8 @@ import com.jeju.JejuBnB.message.model.vo.Message_Detail;
 public class MessageController {
 
 	 @Autowired private MessageService messageService;
-	
 	 
-	 
-	 
+	 //메세지 전송
 	 @RequestMapping(value="insertMessageDetail.do",  method = RequestMethod.POST)
 	 public ModelAndView insertMessageDetail(ModelAndView mv, Message_Detail message_detail) {
 		 if(messageService.insertMessageDetail(message_detail) > 0 ) {
@@ -38,7 +30,14 @@ public class MessageController {
 		 return mv;
 	 }
 	 
-	
+	 //메세지 세부정보 
+	 @RequestMapping(value="selectMessageDetail.do",  method = RequestMethod.POST)
+	 public ModelAndView selectMessageDetail(ModelAndView mv, Message_Detail message_detail) {
+			 ArrayList<Message_Detail> list2 = messageService.selectListMessageDetail(message_detail);
+				mv.addObject("list2", list2);
+				mv.setViewName("message/message");
+		 return mv;
+	 }
 	
 	/*
 	 * view 이동

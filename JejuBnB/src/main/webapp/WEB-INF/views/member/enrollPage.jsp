@@ -1,75 +1,98 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"  errorPage="/WEB-INF/views/common/error.jsp"
+    isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>JejuBnB</title>
-<style type="text/css">
-table th {background-color : #ffffff, }
-table#outer { border : 2x solid navy, }
-</style>
-</head>
-<script type="text/javascript" src="resources/js/jquery-3.5.1.min.js"></script>
-<script>
-	function validate(){
-	var pwdValue = document.getElementById("userpwd").value;
-	var pwdValue2 = document.getElementById("userpwd2").value;
-	if (pwdValue !== pwdValue2) {
-		alert ("암호와 암호 확인의 값이 일치하지 않습니다.")
-		document.getElementById("userpwd").select();
-		return false; 
+	<head>
+		<meta charset="UTF-8">
+		<title>JejuBnB</title>
+		<style type="text/css">
+		.input-form textarea,
+		.input-form input[type="tel"],
+		.input-form input[type="text"],
+		.input-form input[type=email],
+		.input-form input[type=password],
+		.input-form input[type=button] {
+	    float: left;
+	    border: 1px solid #eee;
+	    background: #f9f9f9;
+	    width: 50%;
+	    padding: 15px 20px 15px 55px;
+	    border-radius: 6px;
+	    color: #666;
+	    font-size: 13px;
+	    -webkit-appearance: none;
+        padding-left: 20px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+	        
+		}
+		.input-form label {
+        padding-bottom: 12px;
+	    float: left;
+	    position: relative;
+	    width: 50%;
+	    text-align: left;
+	    font-weight: 500;
+	    color: #666;
+	    
+		}
+		.input-form .log-submit-btn {
+	    float: left;
+	    padding: 13px 35px;
+	    border: none;
+	    border-radius: 4px;
+	    color: #fff;
+	    cursor: pointer;
+	    -webkit-appearance: none;
+	    margin-top: 12px;
+	    background: #4DB7FE;
+		}
+		.input-form {
+		left: 3%;
+	    float: left;
+	    width: 90%;
+	    position: relative;
+		}
+		</style>	
+	</head>
+	<script type="text/javascript" src="resources/js/jquery-3.5.1.min.js"></script>
+	<script>
+		function validate(){
+		var pwdValue = document.getElementById("userpwd").value;
+		var pwdValue2 = document.getElementById("userpwd2").value;
+		if (pwdValue !== pwdValue2) {
+			alert ("암호와 암호 확인의 값이 일치하지 않습니다.")
+			document.getElementById("userpwd").select();
+			return false; 
+		}
+		return true; 
 	}
-	return true; 
-}
-</script>
-<body>
-<center>
-<h1 align="center"> 회원 가입 페이지  </h1>
-<br>
-<form method="post" action="enroll.do" onsubmit= "return validate();">
-
-<!-- <form method="post" action="" onsubmit = "return validate();">-->
-<table align = "center" width= "500" cellspacing = "5" cellpadding = "0">
-<tr>
-	<th colspan = "2"> JejuBnB <br> 회원 정보를 입력해 주세요. </th>
-	
-</tr>
-<tr>
-	<th> 아 이 디 </th>
-	<td> <input type="text" name="user_id" id="user_id" value="${user_id }" readonly> &nbsp; 
-		</td>
-</tr>
-<tr>
-	<th width = "120"> 이 름  </th>
-	<td> <input type="text" name="user_name" id ="user_name" required ></td>
-</tr>
-<tr>
-	<th> 비밀번호 </th>
-	<td> <input type="password" name="user_pwd" id = "userpwd" required></td>
-</tr>
-<tr>
-	<th> 비밀번호 확인 </th>
-	<td> <input type="password" id="userpwd2"></td>
-</tr>
-<tr>
-	<th> 생 년 월 일  </th>
-	<td> <input type="text" name="birthday"> </td>
-</tr>
-<tr>
-	<th> 전화번호 </th>
-	<td> <input type="tel" name="phone" required> </td>
-</tr>
-
-<tr>
-	<th colspan = "2">
-		<input type="submit" value = "가입하기"> &nbsp;
-		<input type="reset" value = "작성취소"> &nbsp;
-		<a href="main.do"> 시작페이지로 </a>
-	</th>
-</tr>
-</table>
-</form>
-</center>
-</body>
+	</script>
+	<body>
+		<c:import url="/WEB-INF/views/common/header.jsp" />
+		<br>
+		<br><br><br><br><br><br><br>
+		 <div class="input-form">
+                   <form method="post" action="enroll.do"  name="input-form" class="input-form" id="input-form" onsubmit= "return validate();">
+                       <label >이름 * </label><br><br>
+                       <input type="text" name="user_name" id ="user_name" required ><br><br><br><br><br>
+                       <label>이메일 * </label><br><br><br>
+                       <input type="text" name="user_id" id="user_id" value="${user_id }" readonly><br><br><br><br><br>
+                       <label> *비밀번호 </label><br><br><br>
+                       <input type="password" name="user_pwd" id = "userpwd" required><br><br><br><br><br>
+                       <label> *비밀번호 확인 </label><br><br><br>
+                       <input type="password" id="userpwd2"><br><br><br><br><br>
+                       <label >전화번호 * </label><br><br>
+                       <input name="phone" type="tel" placeholder="전화번호 " onClick="this.select()"><br><br><br><br><br> 
+                       <label >생년월일 </label><br><br>
+                       <input name="birthday" type="text" placeholder="생년월일 "  onClick="this.select()"><br><br><br><br><br> 
+                       <button type="submit"     class="log-submit-btn"  ><span>회원가입</span></button><br><br>  
+                   <a href="main.do"> 시작페이지로 </a>
+                   </form>
+               </div>
+               
+               <c:import url="/WEB-INF/views/common/footer2.jsp" />
+	</body>
 </html>

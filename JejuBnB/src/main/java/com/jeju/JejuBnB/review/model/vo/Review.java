@@ -7,9 +7,9 @@ public class Review implements java.io.Serializable{
 	private static final long serialVersionUID = 9999L;
 
 	private int reply_no;
-	private double clean_score;
-	private double value_score;
-	private double service_score;
+	private int clean_score;
+	private int value_score;
+	private int service_score;
 	private String review_content;
 	private int review_level;
 	private int review_ref;
@@ -44,27 +44,27 @@ public class Review implements java.io.Serializable{
 		this.reply_no = reply_no;
 	}
 
-	public double getClean_score() {
+	public int getClean_score() {
 		return clean_score;
 	}
 
-	public void setClean_score(double clean_score) {
+	public void setClean_score(int clean_score) {
 		this.clean_score = clean_score;
 	}
 
-	public double getValue_score() {
+	public int getValue_score() {
 		return value_score;
 	}
 
-	public void setValue_score(double value_score) {
+	public void setValue_score(int value_score) {
 		this.value_score = value_score;
 	}
 
-	public double getService_score() {
+	public int getService_score() {
 		return service_score;
 	}
 
-	public void setService_score(double service_score) {
+	public void setService_score(int service_score) {
 		this.service_score = service_score;
 	}
 
@@ -135,6 +135,9 @@ public class Review implements java.io.Serializable{
 				+ review_level + ", review_ref=" + review_ref + ", review_seq=" + review_seq + ", room_no=" + room_no
 				+ ", user_id=" + user_id + ", review_date=" + review_date + "]";
 	}
+
+	
+
 	
 	
 

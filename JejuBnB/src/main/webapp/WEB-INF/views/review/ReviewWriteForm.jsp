@@ -8,8 +8,25 @@
 <head>
 <meta charset="UTF-8">
 <title>JejuBnB</title>
-<script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+<!--=============== basic  ===============-->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="robots" content="index, follow" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<!--=============== css  ===============-->
+<link type="text/css" rel="stylesheet" href="resources/css/reset.css">
+<link type="text/css" rel="stylesheet" href="resources/css/plugins.css">
+<link type="text/css" rel="stylesheet" href="resources/css/style.css">
+<link type="text/css" rel="stylesheet" href="resources/css/color.css">
+<!--=============== favicons ===============-->
+<link rel="shortcut icon" href="resources/images/favicon.png">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
 
 <script>
 	$(function() {
@@ -129,10 +146,10 @@
 </style>
 </head>
 <body>
-	<h3>만족도 체크</h3>
+	<%-- <h3>만족도 체크</h3>
 	<form action="reinsert.do" name="replyForm" method="post">
-		<input type="hidden" name="room_no" value="${ room_no }">
-		<input type="hidden" name="user_id" value="${ loginMember.user_id }">
+		<input type="hidden" name="room_no" value="${ room_no }"> <input
+			type="hidden" name="user_id" value="${ loginMember.user_id }">
 		<div class="make_star">
 			<div class="_cvx08b">
 				<div class="_a3qxec">
@@ -201,12 +218,104 @@
 				</div>
 			</div>
 
+
 			<table>
 				<tr>
 					<td><textarea rows="3.2" cols="75" name="review_content"></textarea></td>
-					<td><input type="button" id="popbtn" value="리뷰 등록"	style="width: 70px; height: 55px;"></td>
+					<td><input
+						type="button" id="popbtn" value="리뷰 등록"
+						style="width: 70px; height: 55px;"></td>
 				</tr>
 			</table>
-	</form>
+	</form> --%>
+
+	<div class="list-single-main-item fl-wrap" id="sec5">
+		<div class="list-single-main-item-title fl-wrap">
+			<h3>리뷰를 남겨주세요.</h3>
+		</div>
+		<!-- Add Review Box -->
+		<form action="reinsert.do" name="replyForm" method="post" class="add-comment custom-form">
+		<input type="hidden" name="room_no" value="${ room_no }"> 
+		<input type="hidden" name="user_id" value="${ loginMember.user_id }">
+		<div class="make_star">
+			<div class="_cvx08b">
+				<div class="_a3qxec">
+					<h4>청결도</h4>
+					<div class="_cvx08b1">
+						<select name="clean_score" id="makeStar">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>
+						<div class="rating" data-rate="3">
+							<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+								class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+								class="fas fa-star"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="make_star1">
+			<div class="_cvx08b">
+				<div class="_a3qxec">
+					<h4>가격대비 만족도</h4>
+					<div class="_cvx08b1">
+						<select name="value_score" id="makeStar1">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>
+						<div class="rating" data-rate="3">
+							<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+								class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+								class="fas fa-star"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="make_star2">
+			<div class="_cvx08b">
+				<div class="_a3qxec">
+					<h4>서비스</h4>
+					<div class="_cvx08b">
+						<div class="_1byskwn">
+							<select name="service_score" id="makeStar2">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+							</select>
+							<div class="rating" data-rate="3">
+								<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+									class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+									class="fas fa-star"></i>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!-- Review Comment -->		
+				<fieldset>
+					<textarea cols="40" rows="3" placeholder="Review:" name="review_content"></textarea>
+				</fieldset>
+				<button class="btn  big-btn  color-bg flat-btn" id="popbtn">리뷰 등록</button>			
+		</div>
+		</form>
+		<!-- Add Review Box / End -->
+	</div>
+	<!-- list-single-main-item end -->
+
+
+
 </body>
 </html>

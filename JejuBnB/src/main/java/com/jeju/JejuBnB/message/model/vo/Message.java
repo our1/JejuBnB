@@ -1,6 +1,5 @@
 package com.jeju.JejuBnB.message.model.vo;
 
-
 public class Message implements java.io.Serializable{
 	private static final long serialVersionUID = 1114L;
 	
@@ -52,10 +51,5 @@ public class Message implements java.io.Serializable{
 	public String toString() {
 		return "Message [message_no=" + message_no + ", user_one=" + user_one + ", user_two=" + user_two + "]";
 	}
-
-	
-
-	
-	
 	
 }	

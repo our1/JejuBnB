@@ -1,6 +1,8 @@
 package com.jeju.JejuBnB.myroom.model.vo;
 
-public class MyRoom implements java.io.Serializable {
+import com.jeju.JejuBnB.room.model.vo.Room;
+
+public class MyRoom extends Room implements java.io.Serializable {
 	private static final long serialVersionUID = 1113L;
 	private String user_id;
 	private int room_no;

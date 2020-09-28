@@ -4,225 +4,138 @@
 <!DOCTYPE html>
 <html>
   <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, user-scalable=1">
-      <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap" rel="stylesheet">
-     <style>
-.footer {
-  display: flex;
-  flex-flow: row wrap;
-  padding: 30px 30px 20px 30px;
-  color: #2f2f2f;
-  background-color: #fff;
-  border-top: 1px solid #e5e5e5;
-  margin : 0;
-}
-
-.footer > * {
-  flex:  1 100%;
-}
-
-.footer__addr {
-  margin-right: 1.25em;
-  margin-bottom: 2em;
-}
-
-.footer__logo {
-  font-family: 'Alex Brush', cursive;
-}
-
-.footer__addr h2 {
-  margin-top: 1.3em;
-  font-size: 15px;
-  font-weight: 400;
-}
-
-.nav__title {
-  font-weight: 400;
-  font-size: 15px;
-}
-
-.footer address {
-  font-style: normal;
-  color: #999;
-}
-
-.footer__btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 36px;
-  max-width: max-content;
-  background-color: rgb(33, 33, 33, 0.07);
-  border-radius: 100px;
-  color: #2f2f2f;
-  line-height: 0;
-  margin: 0.6em 0;
-  font-size: 1rem;
-  padding: 0 1.3em;
-}
-
-.footer ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-.footer li {
-  line-height: 2em;
-}
-
-.footer a {
-  text-decoration: none;
-}
-
-.footer__nav {
-  display: flex;
-	flex-flow: row wrap;
-}
-
-.footer__nav > * {
-  flex: 1 50%;
-  margin-right: 1.25em;
-}
-
-.nav__ul a {
-  color: #999;
-}
-
-.nav__ul--extra {
-  column-count: 2;
-  column-gap: 1.25em;
-}
-
-.legal {
-  display: flex;
-  flex-wrap: wrap;
-  color: #999;
-}
-
-.legal__links {
-  display: flex;
-  align-items: center;
-}
-
-.heart {
-  color: #F15F5F;
-}
-
-@media screen and (min-width: 24.375em) {
-  .legal .legal__links {
-    margin-left: auto;
-  }
-}
-
-@media screen and (min-width: 40.375em) {
-  .footer__nav > * {
-    flex: 1;
-  }
-
-  .nav__item--extra {
-    flex-grow: 2;
-  }
-
-  .footer__addr {
-    flex: 1 0px;
-  }
-
-  .footer__nav {
-    flex: 2 0px;
-  }
-}
-     </style>
+     <!--=============== basic  ===============-->
+        <meta charset="UTF-8">
+        <title>JejuBnB</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="robots" content="index, follow"/>
+        <meta name="keywords" content=""/>
+        <meta name="description" content=""/>
+        <!--=============== css  ===============-->	
+        <link type="text/css" rel="stylesheet" href="resources/css/reset.css">
+        <link type="text/css" rel="stylesheet" href="resources/css/plugins.css">
+        <link type="text/css" rel="stylesheet" href="resources/css/style.css">
+        <link type="text/css" rel="stylesheet" href="resources/css/color.css">
+        <!--=============== favicons ===============-->
+        <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap" rel="stylesheet">
+        <script type="text/javascript" src="resources/js/jquery.min.js"></script>
+        <script type="text/javascript" src="resources/js/plugins.js"></script>
+        <script type="text/javascript" src="resources/js/scripts.js"></script>
   </head>
   <body>
-<footer class="footer">
-  <div class="footer__addr">
-    <h1 class="footer__logo" style="margin-top : 0px;">JejuBnB</h1>
-
-    <h2>Contact</h2>
-
-    <address>
-      jbk3148@gmail.com / 010 7151 3148<br>
-
-      <a class="footer__btn" href="mailto:jbk3148@gmail.com">Email Us</a>
-    </address>
-  </div>
-
-  <ul class="footer__nav">
-    <li class="nav__item">
-      <h2 class="nav__title">Media</h2>
-
-      <ul class="nav__ul">
-        <li>
-          <a href="#">Online</a>
-        </li>
-
-        <li>
-          <a href="#">Print</a>
-        </li>
-
-        <li>
-          <a href="#">Alternative Ads</a>
-        </li>
-      </ul>
-    </li>
-
-    <li class="nav__item nav__item--extra">
-      <h2 class="nav__title">Technology</h2>
-
-      <ul class="nav__ul nav__ul--extra">
-        <li>
-          <a href="#">Hardware Design</a>
-        </li>
-
-        <li>
-          <a href="#">Software Design</a>
-        </li>
-
-        <li>
-          <a href="#">Digital Signage</a>
-        </li>
-
-        <li>
-          <a href="#">Automation</a>
-        </li>
-
-        <li>
-          <a href="#">Artificial Intelligence</a>
-        </li>
-
-        <li>
-          <a href="#">IoT</a>
-        </li>
-      </ul>
-    </li>
-
-    <li class="nav__item">
-      <h2 class="nav__title">Legal</h2>
-
-      <ul class="nav__ul">
-        <li>
-          <a href="#">Privacy Policy</a>
-        </li>
-
-        <li>
-          <a href="#">Terms of Use</a>
-        </li>
-
-        <li>
-          <a href="#">Sitemap</a>
-        </li>
-      </ul>
-    </li>
-  </ul>
-
-  <div class="legal">
-    <p>&copy; 2020 Something. All rights reserved.</p>
-
-    <div class="legal__links">
-      <span>Made with <span class="heart">♥</span> remotely from ManDoRong</span>
-    </div>
-  </div>
-</footer>
+<footer class="main-footer dark-footer  ">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="footer-widget fl-wrap">
+                                <h3>About Us</h3>
+                                <div class="footer-contacts-widget fl-wrap">
+                                    <p>바쁜 일상 속 현대인들에게 좋은 공간과 체험을 소개시켜주는 Jeju BnB 입니다. </p>
+                                    <ul  class="footer-contacts fl-wrap">
+                                        <li><span><i class="fa fa-envelope-o"></i> Mail :</span><a href="#" target="_blank">jbk3148@gmail.com</a></li>
+                                        <li> <span><i class="fa fa-map-marker"></i> Address :</span><a href="#" target="_blank">서울 중구 남대문로 120 대일빌딩 KH 정보 교육원</a></li>
+                                        <li><span><i class="fa fa-phone"></i> Phone :</span><a href="#">010 7151 3148</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="footer-widget fl-wrap">
+                                <h3>팀원 소개  : 팀장</h3> 
+                                <div class="widget-posts fl-wrap">
+                                    <ul>
+                                        <li class="clearfix">
+                                            <a href="#"  class="widget-posts-img"><img src="resources/images/all/1.jpg" class="respimg" alt=""></a>
+                                            <div class="widget-posts-descr">
+                                                <a href="#" title="">전 범관</a>
+                                                <span class="widget-posts-date"> 010 7151 3148 </span> 
+                                            </div>
+                                        </li>
+                                                                            
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="footer-widget fl-wrap">
+                                <h3>팀원 소개  : 팀원</h3>
+                                <div class="widget-posts fl-wrap">
+                                    <ul>
+                                        <li class="clearfix">
+                                            <a href="#"  class="widget-posts-img"><img src="resources/images/뚱이.jpg" class="respimg" alt=""></a>
+                                            <div class="widget-posts-descr">
+                                                <a href="#" title="">이 동훈</a>
+                                                <span class="widget-posts-date"> 010 8713 6648 </span> 
+                                            </div>
+                                        </li>
+                                        <li class="clearfix">
+                                            <a href="#"  class="widget-posts-img"><img src="resources/images/오승석.png" class="respimg" alt=""></a>
+                                            <div class="widget-posts-descr">
+                                                <a href="#" title=""> 오 승석</a>
+                                                <span class="widget-posts-date"> 010 5365 7917</span> 
+                                            </div>
+                                        </li>                                       
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-md-3">
+                            <div class="footer-widget fl-wrap">
+                                <h3>팀원 소개  : 팀원 </h3>
+                                <div class="widget-posts fl-wrap">
+                                    <ul>
+                                        <li class="clearfix">
+                                            <a href="#"  class="widget-posts-img"><img src="resources/images/전재우.png" class="respimg" alt=""></a>
+                                            <div class="widget-posts-descr">
+                                                <a href="#" title="">전 재우</a>
+                                                <span class="widget-posts-date"> 010 3728 6657 </span> 
+                                            </div>
+                                        </li>  
+										<li class="clearfix">
+                                            <a href="#"  class="widget-posts-img"><img src="resources/images/변근영.jpg" class="respimg" alt=""></a>
+                                            <div class="widget-posts-descr">
+                                                <a href="#" title=""> 변 근영</a>
+                                                <span class="widget-posts-date"> 010 3364 0602 </span> 
+                                            </div>
+                                        </li>                                                                          
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sub-footer fl-wrap">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="about-widget">
+                                 <a class="navbar-brand" href="main.do"><div class="logo">JejuBnB</div></a>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="copyright"> &#169; Jeju BnB 2020 .  All rights reserved.</div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="footer-social">
+                                    <ul>
+                                        <li><a href="#" target="_blank" ><i class="fa fa-facebook-official"></i></a></li>
+                                        <li><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="#" target="_blank" ><i class="fa fa-chrome"></i></a></li>
+                                        <li><a href="#" target="_blank" ><i class="fa fa-vk"></i></a></li>
+                                        <li><a href="#" target="_blank" ><i class="fa fa-whatsapp"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+             <script type="text/javascript" src="resources/js/jquery.min.js"></script>
+        <script type="text/javascript" src="resources/js/plugins.js"></script>
+        <script type="text/javascript" src="resources/js/scripts.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwJSRi0zFjDemECmFl9JtRj1FY7TiTRRo&libraries=places&callback=initAutocomplete"></script>
+   
   </body>
 </html>

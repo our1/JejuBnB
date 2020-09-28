@@ -109,80 +109,24 @@ public class RoomDao {
 	public int selectRoomNo(String userid) {
 		return session.selectOne("roomMapper.selectRoomNo", userid);
 	}
-	
-	
-	// 필터로 숙소 조회
-	public ArrayList<Room> selectSearchFilter(Room room) {
-		HashMap hm = new HashMap();
-		if(room.getAmenity() != null) {
-			ArrayList<String> amenitylist = new ArrayList<String>();
-			String [] amenity = room.getAmenity().split(",");
-			for (int i = 0; i < amenity.length; i++) {
-				amenitylist.add(amenity[i]);
-			}
-			hm.put("alist", amenitylist);
-		}
-		
-		if(room.getFacility() != null) {
-			ArrayList<String> facilitylist = new ArrayList<String>();
-			String [] fecility = room.getFacility().split(",");
-			for(int i = 0; i < fecility.length; i++) {
-				facilitylist.add(fecility[i]);
-			}
-			hm.put("flist", facilitylist);
 
-		}
-		
-		if(room.getBuild_type() != null) {
-			ArrayList<String> buildlist = new ArrayList<String>();
-			String [] build = room.getBuild_type().split(",");
-			for(int i = 0; i < build.length; i++) {
-				buildlist.add(build[i]);
-			}
-			hm.put("blist", buildlist);
-		}
-		
-		if(room.getRule() != null) {
-			ArrayList<String> rulelist = new ArrayList<String>();
-			String [] rule = room.getRule().split(",");
-			for(int i = 0; i < rule.length; i++) {
-				rulelist.add(rule[i]);
-			}
-			hm.put("rlist", rulelist);
-		}
-		
-		hm.put("bed", room.getBed());
-		hm.put("bedroom", room.getBedroom());
-		hm.put("bathroom", room.getBathroom());
-		hm.put("startRow", 1);
-		hm.put("endRow", 8);
-		List<Room> list = session.selectList("roomMapper.selectSearchFilter", hm);
-		
-		return (ArrayList<Room>) list;
-	}
 
 	// 숙소 조회 갯수
 	public int getListCount(RoomLatLng seR, RoomLatLng neR, ArrayList<Room> roomNo) {
 		HashMap hm = new HashMap();
 			hm.put("seR", seR);
 			hm.put("neR", neR);				
-			hm.put("roomNo", roomNo);
+			hm.put("list", roomNo);
 		
-		return session.selectOne("roomMapper.getListCount", hm);
+			return session.selectOne("roomMapper.getListCount", hm);
 				
 	}
 	
 	// 체크인 체크아웃 인원 입력하고 검색했을때 리스트 조회
-	public ArrayList<Room> selectChkList(ArrayList<Room> room, int currentPage, int limit, int people) {
+	public ArrayList<Room> selectChkList(ArrayList<Room> room, int currentPage, int limit) {
 		HashMap hm = new HashMap();
 		int startRow = (currentPage - 1) * limit + 1;
-		int endRow = startRow + limit - 1;
-		if((people%2) == 1) {
-			int Stpeople = people - 1;
-			hm.put("people", Stpeople);
-		}else {
-			hm.put("people", people);
-		}
+		int endRow = startRow + limit - 1;		
 		hm.put("list", room);
 		hm.put("startRow", 1);
 		hm.put("endRow", 8);
@@ -191,10 +135,11 @@ public class RoomDao {
 	}
 	
 	// 예약된 숙소 번호 조회하기
-	public ArrayList<Room> selectChkRNList(String checkin, String checkout) {
+	public ArrayList<Room> selectChkRNList(String checkin, String checkout, int people) {
 		HashMap hm = new HashMap();
 		hm.put("checkin", checkin);
 		hm.put("checkout", checkout);
+		hm.put("people", people);
 		List<Room> list = session.selectList("roomMapper.selectChkRNList", hm);
 		return (ArrayList<Room>)list;
 	}
@@ -232,19 +177,15 @@ public class RoomDao {
 		return (ArrayList<RoomLatLng>)roomlist;
 	}
 
-	public ArrayList<Room> selectLatLng(ArrayList<Room> room, int currentPage, int limit, int people, RoomLatLng seR,
+	public ArrayList<Room> selectLatLng(ArrayList<Room> room, int currentPage, int limit, RoomLatLng seR,
 			RoomLatLng neR) {
 		HashMap hm = new HashMap();
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
-		if((people%2) == 1) {
-			int Stpeople = people - 1;
-			hm.put("Stpeople", Stpeople);
-		}
+		
 		hm.put("list", room);
 		hm.put("startRow", 1);
 		hm.put("endRow", 8);
-		hm.put("people", people);
 		hm.put("seR", seR);
 		hm.put("neR", neR);
 		List<Room> list = session.selectList("roomMapper.selectLatLng", hm);
@@ -263,4 +204,215 @@ public class RoomDao {
 		return (ArrayList<Room>)list;
 	}
 
+	public ArrayList<Room> selectSearchLatLng(Room room, ArrayList<Room> roomNo, int currentPage, int limit,
+			RoomLatLng seR, RoomLatLng neR) {
+		HashMap hm = new HashMap();
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;		
+		hm.put("startRow", startRow);
+		hm.put("endRow", endRow);
+		hm.put("seR", seR);
+		hm.put("neR", neR);
+		hm.put("roomNo", roomNo);
+		hm.put("bed", room.getBed());
+		hm.put("bedroom", room.getBedroom());
+		hm.put("bathroom", room.getBathroom());
+		if(room.getAmenity() != null) {
+			ArrayList<String> amenitylist = new ArrayList<String>();
+			String [] amenity = room.getAmenity().split(",");
+			for (int i = 0; i < amenity.length; i++) {
+				amenitylist.add(amenity[i]);
+			}
+			hm.put("alist", amenitylist);
+		}
+		
+		if(room.getFacility() != null) {
+			ArrayList<String> facilitylist = new ArrayList<String>();
+			String [] fecility = room.getFacility().split(",");
+			for(int i = 0; i < fecility.length; i++) {
+				facilitylist.add(fecility[i]);
+			}
+			hm.put("flist", facilitylist);
+
+		}
+		
+		if(room.getBuild_type() != null) {
+			ArrayList<String> buildlist = new ArrayList<String>();
+			String [] build = room.getBuild_type().split(",");
+			for(int i = 0; i < build.length; i++) {
+				buildlist.add(build[i]);
+			}
+			hm.put("blist", buildlist);
+		}
+		
+		if(room.getRule() != null) {
+			ArrayList<String> rulelist = new ArrayList<String>();
+			String [] rule = room.getRule().split(",");
+			for(int i = 0; i < rule.length; i++) {
+				rulelist.add(rule[i]);
+			}
+			hm.put("rlist", rulelist);
+		}
+		List<Room> list = session.selectList("roomMapper.selectSearchLatLng", hm);
+		return (ArrayList<Room>)list;
+	}
+
+	public ArrayList<Room> selectSearchFilter(Room room, ArrayList<Room> roomNo, int currentPage, int limit,
+			int people) {
+		HashMap hm = new HashMap();
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;		
+		hm.put("startRow", startRow);
+		hm.put("endRow", endRow);		
+		hm.put("roomNo", roomNo);
+		hm.put("people", people);
+		hm.put("bed", room.getBed());
+		hm.put("bedroom", room.getBedroom());
+		hm.put("bathroom", room.getBathroom());
+		if(room.getAmenity() != null) {
+			ArrayList<String> amenitylist = new ArrayList<String>();
+			String [] amenity = room.getAmenity().split(",");
+			for (int i = 0; i < amenity.length; i++) {
+				amenitylist.add(amenity[i]);
+			}
+			hm.put("alist", amenitylist);
+		}
+		
+		if(room.getFacility() != null) {
+			ArrayList<String> facilitylist = new ArrayList<String>();
+			String [] fecility = room.getFacility().split(",");
+			for(int i = 0; i < fecility.length; i++) {
+				facilitylist.add(fecility[i]);
+			}
+			hm.put("flist", facilitylist);
+
+		}
+		
+		if(room.getBuild_type() != null) {
+			ArrayList<String> buildlist = new ArrayList<String>();
+			String [] build = room.getBuild_type().split(",");
+			for(int i = 0; i < build.length; i++) {
+				buildlist.add(build[i]);
+			}
+			hm.put("blist", buildlist);
+		}
+		
+		if(room.getRule() != null) {
+			ArrayList<String> rulelist = new ArrayList<String>();
+			String [] rule = room.getRule().split(",");
+			for(int i = 0; i < rule.length; i++) {
+				rulelist.add(rule[i]);
+			}
+			hm.put("rlist", rulelist);
+		}
+		List<Room> list = session.selectList("roomMapper.selectSearchLatLng", hm);
+		return (ArrayList<Room>)list;
+	}
+	
+	public int getListCountOnlyRoom(ArrayList<Room> list) {
+		return session.selectOne("roomMapper.getListCountOnlyRoom", list);
+	}
+
+	public int selectSearchListCount(Room room, ArrayList<Room> roomNo) {
+		HashMap hm = new HashMap();
+		hm.put("list", roomNo);
+		hm.put("bed", room.getBed());
+		hm.put("bedroom", room.getBedroom());
+		hm.put("bathroom", room.getBathroom());
+		if(room.getAmenity() != null) {
+			ArrayList<String> amenitylist = new ArrayList<String>();
+			String [] amenity = room.getAmenity().split(",");
+			for (int i = 0; i < amenity.length; i++) {
+				amenitylist.add(amenity[i]);
+			}
+			hm.put("alist", amenitylist);
+		}
+		
+		if(room.getFacility() != null) {
+			ArrayList<String> facilitylist = new ArrayList<String>();
+			String [] fecility = room.getFacility().split(",");
+			for(int i = 0; i < fecility.length; i++) {
+				facilitylist.add(fecility[i]);
+			}
+			hm.put("flist", facilitylist);
+
+		}
+		
+		if(room.getBuild_type() != null) {
+			ArrayList<String> buildlist = new ArrayList<String>();
+			String [] build = room.getBuild_type().split(",");
+			for(int i = 0; i < build.length; i++) {
+				buildlist.add(build[i]);
+			}
+			hm.put("blist", buildlist);
+		}
+		
+		if(room.getRule() != null) {
+			ArrayList<String> rulelist = new ArrayList<String>();
+			String [] rule = room.getRule().split(",");
+			for(int i = 0; i < rule.length; i++) {
+				rulelist.add(rule[i]);
+			}
+			hm.put("rlist", rulelist);
+		}
+		return session.selectOne("roomMapper.selectSearchListCount",hm);
+	}
+
+	public int selectSearchListCountLatLng(RoomLatLng seR, RoomLatLng neR, ArrayList<Room> roomNo, Room room) {
+		HashMap hm = new HashMap();
+		hm.put("list", roomNo);
+		hm.put("seR", seR);
+		hm.put("neR", neR);
+		if(room.getAmenity() != null) {
+			ArrayList<String> amenitylist = new ArrayList<String>();
+			String [] amenity = room.getAmenity().split(",");
+			for (int i = 0; i < amenity.length; i++) {
+				amenitylist.add(amenity[i]);
+			}
+			hm.put("alist", amenitylist);
+		}
+		
+		if(room.getFacility() != null) {
+			ArrayList<String> facilitylist = new ArrayList<String>();
+			String [] fecility = room.getFacility().split(",");
+			for(int i = 0; i < fecility.length; i++) {
+				facilitylist.add(fecility[i]);
+			}
+			hm.put("flist", facilitylist);
+
+		}
+		
+		if(room.getBuild_type() != null) {
+			ArrayList<String> buildlist = new ArrayList<String>();
+			String [] build = room.getBuild_type().split(",");
+			for(int i = 0; i < build.length; i++) {
+				buildlist.add(build[i]);
+			}
+			hm.put("blist", buildlist);
+		}
+		
+		if(room.getRule() != null) {
+			ArrayList<String> rulelist = new ArrayList<String>();
+			String [] rule = room.getRule().split(",");
+			for(int i = 0; i < rule.length; i++) {
+				rulelist.add(rule[i]);
+			}
+			hm.put("rlist", rulelist);
+		
+		}
+		return session.selectOne("roomMapper.selectSearchListCount",hm);
+	}
+
+	public int deleteRoomFileList(int roomno) {
+		return session.delete("roomMapper.deleteRoomFileList", roomno);
+	}
+
+	public int deleteReviewList(int roomno) {
+		return session.delete("roomMapper.deleteReviewList", roomno);
+	}
+
+	public ArrayList<Room> selectTop() {
+		List<Room> list = session.selectList("roomMapper.selectTop");
+		return (ArrayList<Room>)list;
+	}
 }

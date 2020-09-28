@@ -8,7 +8,6 @@
 <title>JejuBnB</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
 <style type="text/css">
  .chat {
     list-style: none;
@@ -37,54 +36,10 @@
     overflow-y: scroll;
     height: 500px;
 }
-.input-group .form-control {
-    position: relative;
-    z-index: 2;
-    float: left;
-    width: 84%;
-    margin-bottom: 0;
+.textarea {
+
 }
-.sma {
-	background-color: #337ab7;
-    color: #fff;
-    border: none;
-    height: 29px;
-    font-size: 12px;
-    width: 54px;
-}
-.sma:hover {
-	background-color : #33619e;
-}
-.messagelistgo {
-    width: 33px;
-    height: 23px;
-    border: none;
-    float: right;
-    background: none;
-    color: #fff;
-    padding-bottom: 4%;
-    padding-left: 6%;
-}
-.icon-bar {
-    background-color: #fff;
-    border-radius: 1px;
-    cursor: pointer;
-    display: block;
-    height: 2px;
-    margin-top: 3px;
-    width: 18px;
- }
 </style>
-<script type="text/javascript">
-	function message() {
-	 	window.open("message.do?user_one=${loginMember.user_id }&user_two=user02" , "메세지함",
-		"width=800, height=900, left=100, top=50, toolbar=no, menubar=no, scrollbars=no, resizable=yes" ); 
-		}
-	 	function moveMessageListPage() {
-	 	 	window.open("moveMessageList.do?user_one=${loginMember.user_id }", "메세지창",
-	 		"width=1700, height=900, left=100, top=50, toolbar=no, menubar=no, scrollbars=no, resizable=yes" ); 
-	 	}
-</script>
 </head>
 <body>
     <div class="container">
@@ -93,23 +48,20 @@
 	           <div class="panel panel-primary">
 	               <div class="panel-heading">
 	                   <span class="glyphicon glyphicon-comment"></span> Message
-		                   	<button class="messagelistgo" onclick="javascript:location.href='${ message }'">
-						       <span class="icon-bar"></span>
-						       <span class="icon-bar"></span>
-						       <span class="icon-bar"></span>
-						     </button>
+	                   <div class="btn-group pull-right">
+	                   </div>
              	   </div>
             <div class="panel-body">
                <ul class="chat">
-					<c:forEach items ="${ list2 }" var = "ms">
-					<c:if test="${ ms.writer == loginMember.user_name }">
+					<c:forEach items ="${list2 }" var = "ms">
+					<c:if test="${ms.writer == loginMember.user_name }">
 					<div align="right">
-					${ ms.writer } :  ${ ms.content }<br>
+					${ms.writer } :  ${ms.content }<br>
 					</div>
 					</c:if>
-					<c:if test="${ ms.writer != loginMember.user_name }">
+					<c:if test="${ms.writer != loginMember.user_name }">
 					<div align="left">
-					${ ms.writer } :  ${ ms.content }<br>
+					${ms.writer } :  ${ms.content }<br>
 					</div>
 					</c:if>
 					</c:forEach>
@@ -119,9 +71,10 @@
                    <div class="input-group">
 						<form action="insertMessageDetail.do" method="post" >
 							<input id="Mensaje" type="text" name="content" class="form-control input-sm" placeholder="메세지를 입력하세요..." />
-							<input type="hidden" name="writer" value="${ loginMember.user_name }">
-							<input type="hidden" name="message_no" value="${ messagelist.message_no }">
-							<input type="submit" value="보내기" class="sma">		
+							<input type="hidden" name="writer" value="${loginMember.user_name }">
+							<input type="hidden" name="message_no" value="${messagelist.message_no }">
+							<input type="submit" value="보내기"><span class="input-group-btn"></span>
+							<!-- <input type="reset" value="작성취소"> &nbsp;  -->
 						</form>
 					</div>
                </div>

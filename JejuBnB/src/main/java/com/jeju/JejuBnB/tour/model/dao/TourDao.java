@@ -9,11 +9,13 @@ import org.springframework.stereotype.Repository;
 
 import com.jeju.JejuBnB.tour.model.vo.Tour;
 import com.jeju.JejuBnB.tour.model.vo.TourPage;
+import com.jeju.JejuBnB.tour.model.vo.Tour_Category;
 import com.jeju.JejuBnB.tour.model.vo.Tour_Image;
-import com.jeju.JejuBnB.tour.model.vo.Tour_Review;
 
 @Repository("tourDao")
 public class TourDao {
+	
+	public TourDao() {}
 	
 	@Autowired
 	private SqlSessionTemplate session;
@@ -54,20 +56,12 @@ public class TourDao {
 		return session.delete("tourMapper.deleteTour",tour_no);
 	}
 
-	public int insertTourReview(Tour_Review tour_review) {
-		return session.insert("tourMapper.insertTourReview", tour_review);
-	}
-
-	public int updateTourReview(Tour_Review tour_review) {
-		return session.update("tourMapper.updateTourReview", tour_review);
-	}
-
 	public int deleteTourReview(int tour_review_no) {
 		return session.delete("tourMapper.deleteTourReview", tour_review_no);
 	}
 
-	public int updateTourReadCount(int tour_readcount) {
-		return session.update("tourMapper.updateTourReadCount", tour_readcount);
+	public int updateTourReadCount(int tour_no) {
+		return session.update("tourMapper.updateTourReadCount", tour_no);
 	}
 
 	public ArrayList<Tour_Image> selectTourImage(int touno) {
@@ -85,12 +79,14 @@ public class TourDao {
 		return null;
 	}
 
-	public List<Tour_Review> selectTourReview(Tour_Review tour_review) {
-		return session.selectList("tourMapper.selectTourReview", tour_review);
-	}
 
 	public Tour selectTourScore(int tour_score) {
 		return session.selectOne("tourMapper.selectTourScore", tour_score);
+	}
+
+	public ArrayList<Tour_Category> selectTourCategoryName(ArrayList<Tour> list) {
+		List<Tour_Category> tclist = session.selectList("tourMapper.selectTourCategoryName", list);
+		return (ArrayList<Tour_Category>) tclist;
 	}
 
 }

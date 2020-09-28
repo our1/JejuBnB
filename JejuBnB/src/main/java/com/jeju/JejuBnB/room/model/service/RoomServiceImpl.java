@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.jeju.JejuBnB.room.model.dao.RoomDao;
 import com.jeju.JejuBnB.room.model.vo.Room;
 import com.jeju.JejuBnB.room.model.vo.RoomFilter;
+import com.jeju.JejuBnB.room.model.vo.RoomLatLng;
 import com.jeju.JejuBnB.room.model.vo.Room_File;
 
 @Service("roomService")
@@ -73,11 +74,6 @@ public class RoomServiceImpl implements RoomService{
 	}
 
 	@Override
-	public int getListCount() {
-		return roomDao.getListCount();
-	}
-
-	@Override
 	public ArrayList<Room> selectChkList(ArrayList<Room> room, int currentPage, int limit, int people) {
 		return roomDao.selectChkList(room, currentPage, limit, people);
 	}
@@ -105,6 +101,32 @@ public class RoomServiceImpl implements RoomService{
 	@Override
 	public int deleteRoomFile(Room_File rfile) {
 		return roomDao.deleteRoomFile(rfile);
+	}
+
+	@Override
+	public int insertRoomLatLnt(RoomLatLng rll) {
+		return roomDao.insertRoomLatLnt(rll);
+	}
+
+	@Override
+	public ArrayList<RoomLatLng> selectRoomLatLng() {
+		return roomDao.selectRoomLatLng();
+	}
+
+	@Override
+	public ArrayList<Room> selectLatLng(ArrayList<Room> roomNo, int currentPage, int limit, int people, RoomLatLng seR,
+			RoomLatLng neR) {
+		return roomDao.selectLatLng(roomNo, currentPage, limit, people, seR, neR);
+	}
+
+	@Override
+	public ArrayList<Room> selectLatLngJustList(int currentPage, int limit, RoomLatLng seR, RoomLatLng neR) {
+		return roomDao.selectLatLngJustList(currentPage, limit, seR, neR);
+	}
+
+	@Override
+	public int getListCount(RoomLatLng seR, RoomLatLng neR, ArrayList<Room> roomNo) {
+		return roomDao.getListCount(seR, neR, roomNo);
 	}
 
 }

@@ -1,34 +1,21 @@
 package com.jeju.JejuBnB.tour.controller;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jeju.JejuBnB.tour.model.service.TourService;
 import com.jeju.JejuBnB.tour.model.vo.Tour;
-import com.jeju.JejuBnB.tour.model.vo.Tour_Review;
+import com.jeju.JejuBnB.tour.model.vo.Tour_Category;
 
 @Controller
 public class TourController {
@@ -45,10 +32,14 @@ public class TourController {
 			currentPage = Integer.parseInt(request.getParameter("page"));
 		}
 		ArrayList<Tour> list = tourService.selectTour(currentPage, limit);
+		ArrayList<Tour_Category> tclist = tourService.selectTourCategoryName(list);
+
 		
 		if(list != null) {
 			model.addAttribute("list", list);
+			model.addAttribute("tclist", tclist);
 			logger.info(list.toString());
+			logger.info(tclist.toString());
 			return "tour/tourListView";
 		} else {
 			model.addAttribute("message", "조회 실패");
@@ -193,65 +184,10 @@ public class TourController {
 			return "common/error";
 		}
 	}
-	
-    @RequestMapping("trlist.do")
-    public ModelAndView ReviewList(ModelAndView mv,Tour_Review tour_review) {
-    	List<Tour_Review> list = tourService.selectTourReview(tour_review);
-    	
-    	Map<String,Object> map = new HashMap<>();
-    	
-    	map.put("list", list);
-    	
-    	mv.addObject("map", map);
-    	
-    	mv.setViewName("tour/tourReviewList");
-    	
-    	return mv;
-    }
-    @RequestMapping("trinsert.do")
-    public void insertReview(Tour_Review tour_review, HttpSession session, @RequestParam(value="tour_review_no") int tour_review_no, @RequestParam(value="tour_review_content") String tour_review_content, @RequestParam(value="tour_score") int tour_score) {
-    	logger.info("" + tour_review);
-    	
-    	if ( session.getAttribute("user_id") != null) {
-    		String user_id = (String)session.getAttribute("user_id");
-    		tour_review.setUser_id(user_id);
-    	}
-    	
-    	tour_review.setTour_review_content(tour_review_content);
-    	tour_review.setTour_score(tour_score);
-    	
-    	tourService.insertTourReview(tour_review);
-    }
-	@RequestMapping("trupdate.do")
-	public String updateReview(@RequestParam(value="tour_review_no") int tour_review_no, @RequestParam(value="tour_review_content") String tour_review_content,
-			@RequestParam(value="tour_score") int tour_score, @RequestParam(value="user_id") String user_id, Tour_Review tour_review ) {
-		
-			tour_review.setTour_review_no(tour_review_no);
-			tour_review.setTour_review_content(tour_review_content);
-			tour_review.setTour_score(tour_score);
-			tour_review.setUser_id(user_id);
-			
-			tourService.updateTourReview(tour_review);
-			
-			return "tour/tourReviewList";
-	}
 	@RequestMapping("tinsert.do") 
 	public String insertTour(Tour tour) {
 		tourService.insertTour(tour); 
 		return "redirect:tlist.do";
 		}
-
-	
-	@GetMapping("tupdate.do")
-	public String modify(@RequestParam("tour_no") int tour_no, Model model) {
-		model.addAttribute("tour", tourService.SelectTourDetail(tour_no));
-		return "tour/tourDetailView";
-	}
-
-	@PostMapping("tupdate.do")
-	public String modify(Tour tour) {
-		tourService.updateTour(tour);
-		return "redirect:tdetail.do?tour_no="+ tour.getTour_no();
-	}
 }
 

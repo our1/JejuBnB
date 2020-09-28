@@ -11,9 +11,10 @@
 <script type="text/javascript" src="/JejuBnB/resources/js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 	function movePage(){		
-			frm.target="ListView";
-			frm.submit();
-			window.close();		
+		frm.target="ListView";
+		frm.submit();
+				window.close();		
+		
 	}
 	
 </script>
@@ -89,7 +90,7 @@
 		height : 20px;
 	}
 	
-	#submit {
+	#btnS {
 		background-color : #FF4A52;
 		border : none;
 		border-radius : 5px;
@@ -109,7 +110,7 @@
 		<button id="close" onclick="window.close();"><img src="${pageContext.servletContext.contextPath }/resources/images/x버튼.png"></button> <span><h2>필터 추가하기</h2></span>
 	</div>
 <hr>
-	<form action="SearchFilter.do" method="post" name="frm">
+	<form action="SearchFilter.do" method="post" name="frm" id="frm">
 		<h2>침실과 침대</h2>
 			침대 수 : <input type="number" name="bedCount" placeholder="0" value="0"> <br>
 			침실 수 : <input type="number" name="bedroomCount" placeholder="0" value="0"> <br>
@@ -153,7 +154,7 @@
 				</c:forEach>
 			</div>
 			<hr>
-		<button id="submit" type="button" onclick="movePage()">검색</button>
+		<button id="btnS" type="button" onclick="movePage()">검색</button>
 	</form>
 </div>
 </body>

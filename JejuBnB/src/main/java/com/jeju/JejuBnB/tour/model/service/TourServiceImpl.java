@@ -1,15 +1,14 @@
 package com.jeju.JejuBnB.tour.model.service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jeju.JejuBnB.tour.model.dao.TourDao;
 import com.jeju.JejuBnB.tour.model.vo.Tour;
+import com.jeju.JejuBnB.tour.model.vo.Tour_Category;
 import com.jeju.JejuBnB.tour.model.vo.Tour_Image;
-import com.jeju.JejuBnB.tour.model.vo.Tour_Review;
 
 @Service("tourService")
 public class TourServiceImpl implements TourService {
@@ -58,23 +57,13 @@ public class TourServiceImpl implements TourService {
 	}
 
 	@Override
-	public int insertTourReview(Tour_Review tour_review) {
-		return tourDao.insertTourReview(tour_review);
-	}
-
-	@Override
-	public int updateTourReview(Tour_Review tour_review) {
-		return tourDao.updateTourReview(tour_review);
-	}
-
-	@Override
 	public int deleteTourReview(int tour_review_no) {
 		return tourDao.deleteTourReview(tour_review_no);
 	}
 
 	@Override
-	public int updateTourReadCount(int tour_readcount) {
-		return tourDao.updateTourReadCount(tour_readcount);
+	public int updateTourReadCount(int tour_no) {
+		return tourDao.updateTourReadCount(tour_no);
 	}
 
 	@Override
@@ -93,12 +82,14 @@ public class TourServiceImpl implements TourService {
 	}
 
 	@Override
-	public List<Tour_Review> selectTourReview(Tour_Review tour_review) {
-		return tourDao.selectTourReview(tour_review);
-	}
-
-	@Override
 	public Tour SelectTourScore(int tour_score) {
 		return tourDao.selectTourScore(tour_score);
 	}
+
+
+	@Override
+	public ArrayList<Tour_Category> selectTourCategoryName(ArrayList<Tour> list) {
+		return tourDao.selectTourCategoryName(list);
+	}
+
 }

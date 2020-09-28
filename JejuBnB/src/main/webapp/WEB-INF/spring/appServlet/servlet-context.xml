@@ -39,7 +39,6 @@
 	<beans:bean class="net.sf.json.spring.web.servlet.view.JsonView" id="jsonView">
 	</beans:bean>
 	
-	
 	<!-- <interceptors>
 		<interceptor>
 			<mapping path="/**" />

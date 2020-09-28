@@ -453,6 +453,10 @@ body {
 	 	margin : 0;
 	 	border-radius : 5%;
 	 }
+	 
+	 h4{
+	 	font : bold;
+	 }
 </style>
 </head>
 <body>

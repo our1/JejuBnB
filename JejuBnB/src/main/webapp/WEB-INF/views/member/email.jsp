@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="resources/css/bootstrap.min.css" >
     <link rel="stylesheet" href="resources/css/email.css" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap" rel="stylesheet">
   </head>
   <body>
     <div class="container-fluid">
@@ -20,8 +19,9 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-10 col-xl-7 mx-auto">
-                                <strong><a onclick='history.back(-1);'>JejuBnB</a></strong>
-                                <div style="padding: 50px 0px 0px 0px;"></div>
+                              <div class="logo">
+                                <a onclick='history.back(-1);'><img src="resources/images/무제.png" ></a>
+                              </div>
                                <div class="em"> 이메일 인증 을 받아야 다음 단계 로 넘어 갈 수 있습니다 . </div>
                                 <form action="auth.do" method="post">
                                     <div class="form-group mb-3">

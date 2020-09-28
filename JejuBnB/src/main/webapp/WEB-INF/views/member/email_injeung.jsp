@@ -8,7 +8,6 @@
 <title>JejuBnB</title>
     <link rel="stylesheet" href="resources/css/bootstrap.min.css" >
     <link rel="stylesheet" href="resources/css/email_injeung.css" >
-    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="container-fluid">
@@ -19,8 +18,9 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-10 col-xl-7 mx-auto">
-                                  <strong><a onclick='history.back(-1);'>JejuBnB</a></strong>
-                                  <div style="padding: 50px 0px 0px 0px;"></div>
+                              <div class="logo">
+                                  <a onclick='history.back(-1);'><img src="resources/images/무제.png" ></a>
+                              </div>
                                <div class="em"> 인증 번호가 맞아야 다음 단계로 넘어 가실 수 있습니다 . </div>
                                 <form action="join_injeung.do" method="post">
                                     <div class="form-group mb-3">

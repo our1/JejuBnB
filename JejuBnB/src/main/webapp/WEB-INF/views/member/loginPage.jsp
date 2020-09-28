@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="resources/css/loginPage.css" >
     <link rel="stylesheet" href="resources/css/bootstrap.min.css" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap" rel="stylesheet">
 <script>
   function statusChangeCallback(response) {  
     console.log('statusChangeCallback');
@@ -51,6 +50,13 @@
 	});
   FB.logout(function(response) {
 	});
+  function click() {
+	  if (event.button==2) {
+	    location.href="javascript:history.back();";
+	  }
+	}
+
+	document.onmousedown=click
   </script>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v8.0&appId=341232443584667&autoLogAppEvents=1" nonce="4fmSTMsw"></script>
 </head>
@@ -63,8 +69,9 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-10 col-xl-7 mx-auto">
-                               <strong>JejuBnB</strong>
-                              	 <div style="padding: 50px 0px 0px 0px;"></div>
+                              <div class="logo">
+                                <img src="resources/images/무제.png" >
+                              </div>
                                 <form action="login.do" method="post">	
                                     <div class="form-group mb-3">
                                         <input id="inputEmail" type="text" placeholder="Email address" required="" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4" name="user_id">

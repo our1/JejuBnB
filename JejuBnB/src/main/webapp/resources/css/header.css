@@ -1,11 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+	body {
+      margin : 0;
+      padding : 0;
+	}
     .logo {
       font-family: 'Alex Brush', cursive;
       font-size: 35px;
       position: relative;
       left: 14%;
       top: 17%;
-      color: #fff;
+      color: #ffffff;
     }
     .form-inline {
         display: inline-block;
@@ -18,7 +22,7 @@
 		position: fixed;
     	width: 100%;
     	border : none;
-    	z-index: 10;
+    	z-index: 10000;
         transition: all 0.4s ease-in-out;
 	}
 	.nav img {
@@ -111,16 +115,13 @@
 			width: 100%;
 		}
 	}
-	.navbar-default .navbar-nav > li > a {
-	  color : #fff;
-	}
   .dropdown-menu li {
     margin-left: 7%;
     font-family: 'Roboto', sans-serif;
     font-size: 17px;
   }
   #na.active {
-    background-color : rgba(25, 25, 25, 0.97);
+    background-color : rgba(25, 25, 25, 0.85);
     -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
     -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);

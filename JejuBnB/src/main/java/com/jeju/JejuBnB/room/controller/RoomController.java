@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,6 +41,7 @@ import com.jeju.JejuBnB.review.model.vo.Review;
 import com.jeju.JejuBnB.room.model.service.RoomService;
 import com.jeju.JejuBnB.room.model.vo.CheckTime;
 import com.jeju.JejuBnB.room.model.vo.Room;
+import com.jeju.JejuBnB.room.model.vo.RoomLatLng;
 import com.jeju.JejuBnB.room.model.vo.Room_File;
 
 @Controller
@@ -63,8 +65,8 @@ public class RoomController {
 	public String SelectList(HttpServletRequest request, Model model, HttpSession session) {
 		int limit = 8;
 		int currentPage = 1;
-		int listCount = roomService.getListCount();
 		
+		//오늘 월 일 요일 인원 설정
 		Calendar cal = Calendar.getInstance();
 		String inMonth = "" + (cal.get(Calendar.MONTH) + 1);
 		String inday = "" + cal.get(Calendar.DAY_OF_MONTH);
@@ -73,13 +75,48 @@ public class RoomController {
 		int week = cal.get(Calendar.DAY_OF_WEEK);
 		int people = 1;
 		
-		if (request.getParameter("page") != null) {
-
-			currentPage = Integer.parseInt(request.getParameter("page"));
+		// 좌표값 입력 받았을 때
+		RoomLatLng seR = new RoomLatLng();
+		RoomLatLng neR = new RoomLatLng();
+		if(request.getParameter("swLat") != null) {
+			double swLat = Double.parseDouble(request.getParameter("swLat"));
+			double swLng = Double.parseDouble(request.getParameter("swLng"));
+			double neLat = Double.parseDouble(request.getParameter("neLat"));
+			double neLng = Double.parseDouble(request.getParameter("neLng"));
+			seR = new RoomLatLng();
+			neR = new RoomLatLng();
+			
+			seR.setRoom_lat(swLat);
+			seR.setRoom_lng(swLng);
+			neR.setRoom_lat(neLat);
+			neR.setRoom_lng(neLng);
 		}
 		
+		// 페이지 변경
+		if (request.getParameter("page") != null) {
+			currentPage = Integer.parseInt(request.getParameter("page"));
+		}
+		if(request.getParameter("center") != null) {
+			String center = request.getParameter("center");
+			String[] srr = center.split(",");
+			String centerLat = srr[0].substring(1);
+			String centerLng = srr[1].substring(1, srr[1].length()-1);
+			
+			String level = request.getParameter("level");
+			
+			model.addAttribute("level",level);
+			model.addAttribute("centerLat",centerLat);
+			model.addAttribute("centerLng",centerLng);
+
+		}
+		//룸 조회
 		ArrayList<Room> list = null;
-		if (request.getParameter("checkin") != null) {
+		// 룸번호 조회(예약된거)
+		ArrayList<Room> roomNo = null;
+		
+		// 체크인날짜가 전송된 경우
+		if (request.getParameter("checkin") != null && request.getParameter("checkin").length() > 1 && !request.getParameter("checkin").equals("null")) {
+			// 전송받은 날짜와 인원수 입력
 			
 			String checkin = request.getParameter("checkin");
 			String checkout = request.getParameter("checkout");
@@ -87,9 +124,24 @@ public class RoomController {
 			session.setAttribute("checkin", checkin);
 			session.setAttribute("checkout", checkout);
 			session.setAttribute("people",people);
+
+			// 전달받은 체크인 날짜에 예약된 숙소 번호 가져오기
+			roomNo = roomService.selectChkRNList(checkin, checkout);
 			
-			ArrayList<Room> roomNo = roomService.selectChkRNList(checkin, checkout);
-			list = roomService.selectChkList(roomNo, currentPage, limit, people);
+			// 좌표값에 따라 select 가 변경됨
+			if(request.getParameter("swLat") != null) {
+				
+				// 체크인 체크아웃 인원 검색에서 지도 움직여 검색
+				list = roomService.selectLatLng(roomNo, currentPage, limit, people, seR, neR);
+
+			}else {
+				// 체크인 체크아웃 인원 검색
+				list = roomService.selectChkList(roomNo, currentPage, limit, people);
+
+			}
+			
+			// 예약된 숙소번호를 제외한 숙소를 조회
+			// 체크인날짜 체크아웃날짜 설정
 			inMonth = checkin.substring(5, 7);
 			inday = checkin.substring(8);
 			outMonth = checkout.substring(5,7);
@@ -103,26 +155,44 @@ public class RoomController {
 			}
 			cal.setTime(chDate);
 			week = cal.get(Calendar.DAY_OF_WEEK);
-		} else {
-			list = roomService.selectList(currentPage, limit);
 			
+		} else {  // 체크인날짜가 전송되지 않아 오늘 날짜로 설정한 경우
+			
+			if(request.getParameter("swLat") != null) {
+				// 체크인 체크아웃 인원 업고 지도 움직여 검색
+				list = roomService.selectLatLngJustList(currentPage, limit, seR, neR);
+			}else {
+				// 체크인 체크아웃 인원 업고 기본 지도 상태
+				list = roomService.selectList(currentPage, limit);		
+			}
 		}
+		int listCount = roomService.getListCount(seR, neR, roomNo);
+
 		int maxPage = (int) (((double) listCount / limit) + 0.9);
 		int startPage = (((int) ((double) currentPage / limit + 0.9)) - 1) * limit + 1;
 		int endPage = startPage + limit - 1;
 		if (maxPage < endPage) {
 			endPage = maxPage;
 		}
+		
 		//회원이 좋아요 누른 룸 리스트 번호 가져오기
 		if(request.getParameter("userid") != null) {
 		ArrayList<MyRoom> mlist = myroomService.selectMyRoom(request.getParameter("userid"));
 		model.addAttribute("mlist", mlist);
 		}
 		
+		// 사진파일 가져오기
 		ArrayList<Room_File> rflist = roomService.selectRoomFileList(list);
 		model.addAttribute("rflist",rflist);
-		logger.info(rflist.toString());
-
+		
+		// 리뷰 평점 평균, 갯수 가져오기
+		ArrayList<Review> rvlist = reviewService.selectReviewList(list);		
+		model.addAttribute("rvlist", rvlist);
+		
+		// 숙소 위도경도 찾아오기
+		ArrayList<RoomLatLng> roomLL = roomService.selectRoomLatLng();
+		model.addAttribute("roomLL", roomLL);
+		
 		if (list != null) {
 			model.addAttribute("inMonth", inMonth);
 			model.addAttribute("inday", inday);
@@ -136,7 +206,7 @@ public class RoomController {
 			model.addAttribute("currentPage", currentPage);
 			model.addAttribute("listCount", listCount);
 			model.addAttribute("list", list);
-			return "room/roomListView";
+			return "citybook/listing";
 
 		} else {
 			model.addAttribute("message", "리스트 출력 실패");
@@ -146,14 +216,15 @@ public class RoomController {
 	}
 	
 	@RequestMapping(value = "roominsert.do", method = RequestMethod.POST)
-	public String insertRoom(Room room, Model model, CheckTime ct, MultipartHttpServletRequest mrequest,
+	public String insertRoom(Room room, RoomLatLng rll, Model model, CheckTime ct, MultipartHttpServletRequest mrequest,
 			HttpServletRequest request,	@RequestParam("address") String address) throws UnsupportedEncodingException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		
 		room.setCheckout_time(ct.getOuthour() + ct.getOutminute());
 		room.setCheckin_time(ct.getInhour() + ct.getInminute());
-		room.setRoom_address(room.getRoom_roadaddress() +" " + address);
-		int result = roomService.insertRoom(room);
+		if(address != null) {
+			room.setRoom_address(room.getRoom_roadaddress() +" " + address);
+		}		int result = roomService.insertRoom(room);
 
 		int roomno = roomService.selectRoomNo(room.getUser_id());
 		
@@ -183,8 +254,11 @@ public class RoomController {
 			rflist.add(rf);
 		}
 		
-			String encoderName = URLEncoder.encode(room.getRoom_name(), "utf-8");
+		String encoderName = URLEncoder.encode(room.getRoom_name(), "utf-8");
 		
+		rll.setRoom_no(roomno);
+		logger.info(rll.toString());
+		int result3 = roomService.insertRoomLatLnt(rll);
 		int result2 = roomService.insertRoomFile(rflist);
 		if (result > 0) {
 			return "redirect:/insertNotice.do?toUser=" + room.getUser_id()+"&fromUser=admin&room_name="+encoderName+"&returnPage=redirect:/moveDetailView.do?room_no="+roomno +"&choice=7";
@@ -205,7 +279,7 @@ public class RoomController {
 		model.addAttribute("Blist", Blist);
 		model.addAttribute("Flist", Flist);
 		model.addAttribute("Rlist", Rlist);
-		return "room/roomWriteForm";
+		return "citybook/roomWriteForm";
 	}
 	
 	@RequestMapping("moveMyRoom.do")
@@ -279,7 +353,9 @@ public class RoomController {
 			@RequestParam(name="address", required=false) String address) {
 		room.setCheckout_time("" + ct.getOuthour() + ct.getOutminute());
 		room.setCheckin_time(""+ct.getInhour() + ct.getInminute());
-		room.setRoom_address(room.getRoom_roadaddress() +" " + address);
+		if(address != null) {
+			room.setRoom_address(room.getRoom_roadaddress() +" " + address);
+		}
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		List<MultipartFile> fileList = mrequest.getFiles("files");
 		String fileName = fileList.get(0).getOriginalFilename();
@@ -338,14 +414,14 @@ public class RoomController {
 		}
 	}
 	
-	@RequestMapping(value = "SearchFilter.do", method = RequestMethod.POST)
+	@RequestMapping(value="SearchFilter.do", method = RequestMethod.POST)
 	public String SearchFilter(Room room, Model model, HttpServletRequest request) {
 		room.setBed(Integer.parseInt(request.getParameter("bedCount")));
 		room.setBedroom(Integer.parseInt(request.getParameter("bedroomCount")));
 		room.setBathroom(Integer.parseInt(request.getParameter("bathroomCount")));
 
 		ArrayList<Room> list = roomService.selectSearchFilter(room);
-
+		logger.info("필터 검색 : " + list.toString());
 		if (list.size() > 0) {
 			model.addAttribute("list", list);
 			return "room/roomListView";
@@ -405,7 +481,7 @@ public class RoomController {
 			e.printStackTrace();
 		}
 	}
-
+	
 	
 	
 }

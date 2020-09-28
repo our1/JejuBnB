@@ -1,4 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+	 @font-face {
+       font-family: 'Cafe24Oneprettynight';
+       src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff');
+       font-weight: normal;
+       font-style: normal;
+     }
     .login,
     .image {
     min-height: 100vh;
@@ -8,12 +13,9 @@
     background-size: cover;
     background-position: center center;
     }
-     strong {
-      color: #444141;
-	  font-family: 'Alex Brush', cursive;
-	  font-size: 50px;
-	  margin-left: 26%;
-	  text-decoration : none;
+    .logo img{
+      position: relative;
+      left : 16%;
     }
     .rounded-pill {
       border-radius: 8px;
@@ -49,7 +51,7 @@
       width: 45%;
     }
     #submitbutton input{
-    background: #9088b5;
+    background: #3f2b96;
     color: white;
     display: block;
     width: 20.5%;
@@ -60,7 +62,7 @@
     border: none;
     cursor: pointer;
     font-size: 14px;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Cafe24Oneprettynight';
     box-shadow: 0 15px 30px rgba(63, 43, 150, 0.36);
     -webkit-transition: .2s linear;
     transition: .2s linear;
@@ -69,7 +71,7 @@
     margin-bottom: 3%;
     }
     .check_btn {
-    background: #9088b5;
+    background: #3f2b96;
     color: white;
     display: block;
     width: 92.5%;
@@ -80,7 +82,7 @@
     border: none;
     cursor: pointer;
     font-size: 14px;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Cafe24Oneprettynight';
     box-shadow: 0 15px 30px rgba(63, 43, 150, 0.36);
     -webkit-transition: .2s linear;
     transition: .2s linear;
@@ -89,20 +91,20 @@
     .example {
       position: relative;
       left: 5%;
-      font-family: 'Roboto', sans-serif;
+      font-family: 'Montserrat', sans-serif;
     }
       .findpas {
       color: black;
       position: relative;
       left: 37%;
       text-decoration: underline;
-      font-family: 'Roboto', sans-serif;
+      font-family: 'Cafe24Oneprettynight';
     }
     .enroll {
       color: black;
       position: relative;
       left: 28%;
       text-decoration: underline;
-      font-family: 'Roboto', sans-serif;
+      font-family: 'Cafe24Oneprettynight';
       
     }

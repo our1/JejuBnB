@@ -134,36 +134,38 @@
       float: left;
       border: 1px solid #eee;
       background: #f9f9f9;
-      width: 50%;
+      width: 25%;
       padding: 15px 20px 15px 55px;
       border-radius: 6px;
       color: #666;
       font-size: 13px;
-      margin-left: -4%;
-      margin-top: 0.5%;
+      margin-left: -3.5%;
+      margin-top: 1.5%;
+      padding-left: 1.5%;
     }
     .tdate input {
       float: left;
       border: 1px solid #eee;
       background: #f9f9f9;
-      width: 50%;
+      width: 10%;
       padding: 15px 20px 15px 55px;
       border-radius: 6px;
       color: #666;
       font-size: 13px;
-      margin-left: -4%;
+      margin-left: -3.5%;
       margin-top: 0.5%;
+      padding-left: 1.5%;
     }
     .tdate2 input {
       float: left;
       border: 1px solid #eee;
       background: #f9f9f9;
-      width: 50%;
+      width: 10%;
       padding: 15px 20px 15px 55px;
       border-radius: 6px;
       color: #666;
       font-size: 13px;
-      margin-left: -4%;
+      margin-left: -3.5%;
       margin-top: 0.5%;
     }
     #PostNumber {
@@ -175,7 +177,7 @@
       border-radius: 6px;
       color: #666;
       font-size: 13px;
-      margin-left: -4%;
+      margin-left: -3.5%;
       margin-top: 0.5%;
     }
     .ti2 {
@@ -186,13 +188,16 @@
       width: 100%;
     }
     .tdate input {
-      margin-left : -5%;
+      margin-left : -4.5%;
+      padding-left: 1.5%;
     }
     .tdate2 input {
-      margin-left: -5.5%;
+      margin-left: -5.3%;
+      padding-left: 1.5%;
     }
     .tdate2 {
       margin-top: 4%;
+      
     }
     .ti3 {
       margin-top: 30px;
@@ -216,10 +221,9 @@
       width: 100%;
     }
     #PostNumber {
-      padding-left:5%;
       width:20%;
       margin-top: 1.5%;
-      margin-left: -3%;
+      margin-left: -2.5%;
     }
     .postsea {
       background-color: #4DB7FE;
@@ -248,7 +252,7 @@
       float: left;
       border: 1px solid #eee;
       background: #f9f9f9;
-      width: 28%;
+      width: 27.5%;
       padding: 15px 20px 15px 55px;
       border-radius: 6px;
       color: #666;
@@ -296,7 +300,7 @@
           color: #fff;
           line-height: 40px;
           font-size: 17px;
-          background: #292929;
+          background: #337ab7;
           z-index: 116;
           cursor: pointer;
           display: none;
@@ -373,7 +377,7 @@
       </select>
     </div> <br>
     <div class="tna">
-      <label>관광지 이름<i class="fa fa-plane" ></i></label> <br>
+      <label>관광지 이름</label> 
       <input type="text" placeholder="Name of Tour" name="tour_name"/>
     </div>
   </div>
@@ -382,12 +386,12 @@
     <h4>체험 날짜</h4>
     </div>
   <div class="tdate">
-    <label>체험 시작 날짜<i class="fa fa-calendar-o"></i></label> <br>
+    <label>체험 시작 날짜</label> <br>
     <input type="date" class="tds" name="tour_act_start_date" placeholder="체험 시작 날짜">
   </div>
   <br>
   <div class="tdate2">
-    <label>체험 끝나는 날짜<i class="fa fa-calendar-o"></i></label> <br>
+    <label>체험 끝나는 날짜</label> <br>
     <input type="date" class="tdd" name="tour_act_end_date" placeholder="체험 끝나는 날짜">
   </div>
 </div>
@@ -413,7 +417,7 @@
   <div class="tih1">
   <h4>위치</h4>
   </div>
-  <label>Address<i class="fa fa-map-marker"></i></label>
+  <label>Address</label>
   <input type="text" placeholder="Address of your business" id="PostNumber" placeholder="우편번호" required readonly>
   <button onclick="PostCall()" type="button" class="postsea">우편번호 검색</button><br>
   <input type="text" id="tour_roadaddress" name="tour_roadaddress" placeholder="도로명주소" readonly><br>

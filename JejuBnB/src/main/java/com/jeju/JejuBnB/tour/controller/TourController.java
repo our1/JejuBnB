@@ -28,18 +28,18 @@ public class TourController {
 	public String Tourlist(HttpServletRequest request, Model model) {
 		int limit = 15;
 		int currentPage = 1;
+		int tour_no = 0;
 		if ( request.getParameter("page") != null) {
 			currentPage = Integer.parseInt(request.getParameter("page"));
 		}
 		ArrayList<Tour> list = tourService.selectTour(currentPage, limit);
-		ArrayList<Tour_Category> tclist = tourService.selectTourCategoryName(list);
+		Tour thum = tourService.selectThumImage(tour_no);
 
 		
 		if(list != null) {
 			model.addAttribute("list", list);
-			model.addAttribute("tclist", tclist);
+			model.addAttribute("tour", thum);
 			logger.info(list.toString());
-			logger.info(tclist.toString());
 			return "tour/tourListView";
 		} else {
 			model.addAttribute("message", "조회 실패");

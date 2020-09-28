@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myroomMapper">
+
+	<resultMap id="resultList" type="MyRoom">
+		<result property="user_id" column="user_id" />
+		<result property="room_no" column="room_no" />
+	</resultMap>
+	
+	
+	<select id="selectMyRoom" parameterType="string" resultMap="resultList">
+		select * from my_room where user_id = #{userid}
+	</select>
+	
+	<insert id="insertMyRoom" parameterType="MyRoom">
+		insert into my_room values( #{user_id}, #{room_no})
+	</insert>
+
+	<delete id="deleteMyRoom" parameterType="int">
+		delete my_room where room_no = #{room_no}
+	</delete>
+</mapper>

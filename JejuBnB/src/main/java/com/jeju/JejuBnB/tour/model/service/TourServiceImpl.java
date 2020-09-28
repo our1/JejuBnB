@@ -92,4 +92,10 @@ public class TourServiceImpl implements TourService {
 		return tourDao.selectTourCategoryName(list);
 	}
 
+	@Override
+	public Tour selectThumImage(int tour_no) {
+		return tourDao.selectThumImage(tour_no);
+	}
+
+
 }

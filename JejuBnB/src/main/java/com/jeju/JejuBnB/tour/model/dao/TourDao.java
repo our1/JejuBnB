@@ -89,4 +89,9 @@ public class TourDao {
 		return (ArrayList<Tour_Category>) tclist;
 	}
 
+	public Tour selectThumImage(int tour_no) {
+		return session.selectOne("tourMapper.selectThumImage", tour_no);
+	}
+
+
 }

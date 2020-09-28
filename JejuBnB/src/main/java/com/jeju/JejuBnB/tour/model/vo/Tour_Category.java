@@ -5,13 +5,15 @@ public class Tour_Category implements java.io.Serializable{
 	
 	private int tour_category_no;
 	private String tour_category_name;
+	private int tour_no;
 	
 	public Tour_Category() {}
 
-	public Tour_Category(int tour_category_no, String tour_category_name) {
+	public Tour_Category(int tour_category_no, String tour_category_name, int tour_no) {
 		super();
 		this.tour_category_no = tour_category_no;
 		this.tour_category_name = tour_category_name;
+		this.tour_no = tour_no;
 	}
 
 	public int getTour_category_no() {
@@ -30,13 +32,22 @@ public class Tour_Category implements java.io.Serializable{
 		this.tour_category_name = tour_category_name;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public int getTour_no() {
+		return tour_no;
+	}
+
+	public void setTour_no(int tour_no) {
+		this.tour_no = tour_no;
 	}
 
 	@Override
 	public String toString() {
 		return "Tour_Category [tour_category_no=" + tour_category_no + ", tour_category_name=" + tour_category_name
-				+ "]";
+				+ ", tour_no=" + tour_no + "]";
 	}
+	
+
+	
+
+	
 }

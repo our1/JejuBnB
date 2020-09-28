@@ -19,8 +19,36 @@
         <!--=============== favicons ===============-->
         <link rel="shortcut icon" href="resources/images/favicon.ico">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+      <style type="text/css">
+      	.col-md-8 h2 {
+      	    font-size: 30px;
+      	}
+      	.list-single-main-item img {
+      		width : 100%;
+      	}
+      	.updatemove {
+      		width : 200px;
+      		height : 40px;
+      		background: #4DB7FE;
+      		border: none;
+            border-radius: 5px;
+            color : #fff;
+            font-weight: 600;
+            position: relative;
+            left: 66%;
+      	}
+      	.updatemove:hover {
+      		background: #2F3B59;
+      	}
+      </style>
+      <script type="text/javascript">
+  	function updatePage(){
+		location.href="movetupdate.do?tour_no=" + ${ tour.tour_no};
+	}
+      </script>
   </head>
   <body>
+  <c:import url="/WEB-INF/views/common/header.jsp" />
           <!--loader-->
         <div class="loader-wrap">
             <div class="pin"></div>
@@ -29,107 +57,6 @@
         <!--loader end-->
         <!-- Main  -->
         <div id="main">
-            <!-- header-->
-            <header class="main-header dark-header fs-header sticky">
-                <div class="header-inner">
-                    <div class="logo-holder">
-                        <a href="index.html"><img src="resources/images/logo.png" alt=""></a>
-                    </div>
-                    <div class="header-search vis-header-search">
-                        <div class="header-search-input-item">
-                            <input type="text" placeholder="Keywords" value=""/>
-                        </div>
-                        <div class="header-search-select-item">
-                            <select data-placeholder="All Categories" class="chosen-select" >
-                                <option>All Categories</option>
-                                <option>Shops</option>
-                                <option>Hotels</option>
-                                <option>Restaurants</option>
-                                <option>Fitness</option>
-                                <option>Events</option>
-                            </select>
-                        </div>
-                        <button class="header-search-button" onclick="window.location.href='listing.html'">Search</button>
-                    </div>
-                    <div class="show-search-button"><i class="fa fa-search"></i> <span>Search</span></div>
-                    <a href="dashboard-add-listing.html" class="add-list">Add Listing <span><i class="fa fa-plus"></i></span></a>
-                    <div class="show-reg-form modal-open"><i class="fa fa-sign-in"></i>Sign In</div>
-                    <!-- nav-button-wrap-->
-                    <div class="nav-button-wrap color-bg">
-                        <div class="nav-button">
-                            <span></span><span></span><span></span>
-                        </div>
-                    </div>
-                    <!-- nav-button-wrap end-->
-                    <!--  navigation -->
-                    <div class="nav-holder main-menu">
-                        <nav>
-                            <ul>
-                                <li>
-                                    <a href="#">Home <i class="fa fa-caret-down"></i></a>
-                                    <!--second level -->
-                                    <ul>
-                                        <li><a href="index.html">Parallax Image</a></li>
-                                        <li><a href="index2.html">Video</a></li>
-                                        <li><a href="index3.html">Map</a></li>
-                                        <li><a href="index4.html">Slideshow</a></li>
-                                        <li><a href="index5.html">Sider</a></li>
-                                    </ul>
-                                    <!--second level end-->
-                                </li>
-                                <li>
-                                    <a href="#" class="act-link">Listings <i class="fa fa-caret-down"></i></a>
-                                    <!--second level -->
-                                    <ul>
-                                        <li><a href="listing.html">Column map</a></li>
-                                        <li><a href="listing2.html">Column map 2</a></li>
-                                        <li><a href="listing3.html">Fullwidth Map</a></li>
-                                        <li><a href="listing4.html">Fullwidth Map 2</a></li>
-                                        <li><a href="listing5.html">Without Map</a></li>
-                                        <li><a href="listing6.html">Without Map 2</a></li>
-                                        <li>
-                                            <a href="#">Single <i class="fa fa-caret-down"></i></a>
-                                            <!--third  level  -->
-                                            <ul>
-                                                <li><a href="listing-single.html">Style 1</a></li>
-                                                <li><a href="listing-single2.html">Style 2</a></li>
-                                                <li><a href="listing-single3.html">Style 3</a></li>
-												<li><a href="listing-single4.html">Style 4</a></li>
-                                            </ul>
-                                            <!--third  level end-->
-                                        </li>
-                                    </ul>
-                                    <!--second level end-->
-                                </li>
-                                <li>
-                                    <a href="blog.html">News</a>
-                                </li>
-                                <li>
-                                    <a href="#">Pages <i class="fa fa-caret-down"></i></a>
-                                    <!--second level -->
-                                    <ul>
-                                        <li><a href="about.html">About</a></li>
-                                        <li><a href="contacts.html">Contacts</a></li>
-                                        <li><a href="author-single.html">User single</a></li>
-                                        <li><a href="how-itworks.html">How it Works</a></li>
-                                        <li><a href="pricing-tables.html">Pricing</a></li>
-                                        <li><a href="dashboard-myprofile.html">User Dasboard</a></li>
-                                        <li><a href="blog-single.html">Blog Single</a></li>
-                                        <li><a href="dashboard-add-listing.html">Add Listing</a></li>
-                                        <li><a href="404.html">404</a></li>
-                                        <li><a href="coming-soon.html">Coming Soon</a></li>
-                                        <li><a href="header2.html">Header 2</a></li>
-                                        <li><a href="footer-fixed.html">Footer Fixed</a></li>
-                                    </ul>
-                                    <!--second level end-->
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <!-- navigation  end -->
-                </div>
-            </header>
-            <!--  header end -->
             <!-- wrapper -->
             <div id="wrapper">
                 <!--  content-->
@@ -138,9 +65,9 @@
                         <div class="container">
                             <nav class="scroll-nav scroll-init">
                                 <ul>
-                                    <li><a class="act-scrlink" href="#sec1">Gallery</a></li>
-                                    <li><a href="#sec2">Details</a></li>
-                                    <li><a href="#sec3">Video </a></li>
+                                    <li><a class="act-scrlink" href="#sec1">Details</a></li>
+                                    <li><a href="#sec2">Gallery</a></li>
+                                    <li><a href="#sec3">More Info</a></li>
                                     <li><a href="#sec4">Reviews</a></li>
                                 </ul>
                             </nav>
@@ -154,19 +81,16 @@
                                 <div class="col-md-8">
                                     <!-- list-single-main-wrapper -->
                                     <div class="list-single-main-wrapper fl-wrap" id="sec2">
-                                        <div class="breadcrumbs gradient-bg  fl-wrap"><a href="#">Home</a><a href="#">Listings</a><span>Listing Single</span></div>
+                                        <div class="breadcrumbs gradient-bg  fl-wrap" style="width:1035px;"><a href="#">Home</a><a href="#">관광지</a><span>${ tour.tour_name }</span></div>
                                         <!-- list-single-header -->
-                                        <div class="list-single-header list-single-header-inside fl-wrap">
+                                        <div class="list-single-header list-single-header-inside fl-wrap" style="width:1035px;">
                                             <div class="container">
                                                 <div class="list-single-header-item">
                                                     <div class="row">
                                                         <div class="col-md-8">
-                                                            <div class="list-single-header-item-opt fl-wrap">
-                                                                <div class="list-single-header-cat fl-wrap">
-                                                                    <a href="#">Hotels</a>
-                                                                </div>
+                                                            <div class="list-single-header-item-opt fl-wrap" style="width : 1035px;">
                                                             </div>
-                                                            <h2>Luxury Hotel Spa <span> - Hosted By </span><a href="author-single.html">Alisa Noory</a> </h2>
+                                                            <h2>${ tour.tour_name }<br><span> - Hosted By </span><a href="author-single.html">${ tour.user_id }</a> </h2>
                                                             <span class="section-separator"></span>
                                                             <div class="listing-rating card-popup-rainingvis" data-starrating2="5">
                                                                 <span>(11 reviews)</span>
@@ -188,15 +112,20 @@
                                             </div>
                                         </div>
                                         <!-- list-single-header end -->
-                                        <div class="list-single-main-item fl-wrap">
+                                        <div class="list-single-main-item fl-wrap" style="width : 1035px;margin-top:2%;">
                                             <div class="list-single-main-item-title fl-wrap">
-                                                <h3>About Hotel </h3>
+                                                <h3>프로그램</h3>
                                             </div>
-                                            <p>Ut euismod ultricies sollicitudin. Curabitur sed dapibus nulla. Nulla eget iaculis lectus. Mauris ac maximus neque. Nam in mauris quis libero sodales eleifend. Morbi varius, nulla sit amet rutrum elementum, est elit finibus tellus, ut tristique elit risus at metus.</p>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla finibus lobortis pulvinar. Donec a consectetur nulla. Nulla posuere sapien vitae lectus suscipit, et pulvinar nisi tincidunt. Aliquam erat volutpat. Curabitur convallis fringilla diam sed aliquam. Sed tempor iaculis massa faucibus feugiat. In fermentum facilisis massa, a consequat purus viverra.</p>
+                                             ${ tour.tour_content }
+                                        </div>
+                                        <div class="list-single-main-item fl-wrap" id="sec3" style="width : 1035px;margin-top:2%;">
+                                            <div class="list-single-main-item-title fl-wrap">
+                                                <h3>알아 두어야 할 사항</h3>
+                                            </div>
+                                             <p>${ tour.tour_moreinfo }</p>
                                         </div>
                                         <!-- list-single-main-item -->
-                                        <div class="list-single-main-item fl-wrap" id="sec4">
+                                        <div class="list-single-main-item fl-wrap" id="sec4" style="width:1035px";>
                                             <div class="list-single-main-item-title fl-wrap">
                                                 <h3>Item Revies -  <span> 3 </span></h3>
                                             </div>
@@ -247,14 +176,14 @@
                                         </div>
                                         <!-- list-single-main-item end -->
                                         <!-- list-single-main-item -->
-                                        <div class="list-single-main-item fl-wrap" id="sec5">
+                                        <div class="list-single-main-item fl-wrap" id="sec5" style="width:1035px;">
                                             <div class="list-single-main-item-title fl-wrap">
-                                                <h3>Add Revies  & Rate iteam</h3>
+                                                <h3>리뷰</h3>
                                             </div>
                                             <!-- Add Review Box -->
                                             <div id="add-review" class="add-review-box">
                                                 <div class="leave-rating-wrap">
-                                                    <span class="leave-rating-title">Your rating  for this listing : </span>
+                                                    <span class="leave-rating-title">평점 : </span>
                                                     <div class="leave-rating">
                                                         <input type="radio" name="rating" id="rating-1" value="1"/>
                                                         <label for="rating-1" class="fa fa-star-o"></label>
@@ -288,6 +217,7 @@
                                             </div>
                                             <!-- Add Review Box / End -->
                                         </div>
+                                        <button class="updatemove" onclick="updatePage()">수정 하기</button>
                                         <!-- list-single-main-item end -->
                                     </div>
                                 </div>
@@ -295,7 +225,7 @@
                                 <div class="col-md-4">
                                     <div class="box-widget-wrap">
                                         <!--box-widget-item -->
-                                        <div class="box-widget-item fl-wrap">
+                                        <div class="box-widget-item fl-wrap" style="margin-left:57%;">
                                             <div class="box-widget-item-header">
                                                 <h3>Working Hours : </h3>
                                             </div>
@@ -315,7 +245,7 @@
                                             </div>
                                         </div>
                                         <!--box-widget-item -->
-                                        <div class="box-widget-item fl-wrap">
+                                        <div class="box-widget-item fl-wrap" style="margin-left:57%;">
                                             <div class="box-widget-item-header">
                                                 <h3>Weather in City : </h3>
                                             </div>
@@ -323,7 +253,7 @@
                                         </div>
                                         <!--box-widget-item end -->
                                         <!--box-widget-item -->
-                                        <div class="box-widget-item fl-wrap">
+                                        <div class="box-widget-item fl-wrap" style="margin-left:57%;">
                                             <div class="box-widget-item-header">
                                                 <h3>Location / Contacts : </h3>
                                             </div>
@@ -351,67 +281,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!--box-widget-item end -->
-                                        <!--box-widget-item -->
-                                        <div class="box-widget-item fl-wrap">
-                                            <div class="box-widget-item-header">
-                                                <h3>Hosted by : </h3>
-                                            </div>
-                                            <div class="box-widget list-author-widget">
-                                                <div class="list-author-widget-header shapes-bg-small  color-bg fl-wrap">
-                                                    <span class="list-author-widget-link"><a href="author-single.html">Alisa Noory</a></span>
-                                                    <img src="resources/images/avatar/1.jpg" alt="">
-                                                </div>
-                                                <div class="box-widget-content">
-                                                    <div class="list-author-widget-text">
-                                                        <div class="list-author-widget-contacts">
-                                                            <ul>
-                                                                <li><span><i class="fa fa-phone"></i> Phone :</span> <a href="#">+7(123)987654</a></li>
-                                                                <li><span><i class="fa fa-envelope-o"></i> Mail :</span> <a href="#">AlisaNoory@domain.com</a></li>
-                                                                <li><span><i class="fa fa-globe"></i> Website :</span> <a href="#">themeforest.net</a></li>
-                                                            </ul>
-                                                        </div>
-                                                        <a href="author-single.html" class="btn transparent-btn">View Profile <i class="fa fa-eye"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--box-widget-item end -->
-                                        <!--box-widget-item -->
-                                        <div class="box-widget-item fl-wrap">
-                                            <div class="box-widget-item-header">
-                                                <h3>More from this employer : </h3>
-                                            </div>
-                                            <div class="box-widget widget-posts">
-                                                <div class="box-widget-content">
-                                                    <ul>
-                                                        <li class="clearfix">
-                                                            <a href="#"  class="widget-posts-img"><img src="images/all/1.jpg"  alt=""></a>
-                                                            <div class="widget-posts-descr">
-                                                                <a href="#" title="">Cafe "Lollipop"</a>
-                                                                <span class="widget-posts-date"><i class="fa fa-calendar-check-o"></i> 21 Mar 2017 </span>
-                                                            </div>
-                                                        </li>
-                                                        <li class="clearfix">
-                                                            <a href="#"  class="widget-posts-img"><img src="resources/images/all/1.jpg"  alt=""></a>
-                                                            <div class="widget-posts-descr">
-                                                                <a href="#" title=""> Apartment in the Center</a>
-                                                                <span class="widget-posts-date"><i class="fa fa-calendar-check-o"></i> 7 Mar 2017 </span>
-                                                            </div>
-                                                        </li>
-                                                        <li class="clearfix">
-                                                            <a href="#"  class="widget-posts-img"><img src="resources/images/all/1.jpg"  alt=""></a>
-                                                            <div class="widget-posts-descr">
-                                                                <a href="#" title="">Event in City Mol</a>
-                                                                <span class="widget-posts-date"><i class="fa fa-calendar-check-o"></i> 7 Mar 2017 </span>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                    <a class="widget-posts-link" href="#">See All Listing<span><i class="fa fa-angle-right"></i></span></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--box-widget-item end -->
                                     </div>
                                 </div>
                                 <!--box-widget-wrap end -->
@@ -424,113 +293,7 @@
                 <!--  content  end-->
             </div>
             <!-- wrapper end -->
-            <!--footer -->
-            <footer class="main-footer dark-footer  ">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="footer-widget fl-wrap">
-                                <h3>About Us</h3>
-                                <div class="footer-contacts-widget fl-wrap">
-                                    <p>In ut odio libero, at vulputate urna. Nulla tristique mi a massa convallis cursus. Nulla eu mi magna. Etiam suscipit commodo gravida. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam. </p>
-                                    <ul  class="footer-contacts fl-wrap">
-                                        <li><span><i class="fa fa-envelope-o"></i> Mail :</span><a href="#" target="_blank">yourmail@domain.com</a></li>
-                                        <li> <span><i class="fa fa-map-marker"></i> Adress :</span><a href="#" target="_blank">USA 27TH Brooklyn NY</a></li>
-                                        <li><span><i class="fa fa-phone"></i> Phone :</span><a href="#">+7(111)123456789</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="footer-widget fl-wrap">
-                                <h3>Our Last News</h3>
-                                <div class="widget-posts fl-wrap">
-                                    <ul>
-                                        <li class="clearfix">
-                                            <a href="#"  class="widget-posts-img"><img src="images/all/1.jpg" class="respimg" alt=""></a>
-                                            <div class="widget-posts-descr">
-                                                <a href="#" title="">Vivamus dapibus rutrum</a>
-                                                <span class="widget-posts-date"><i class="fa fa-calendar-check-o"></i> 21 Mar 09.05 </span>
-                                            </div>
-                                        </li>
-                                        <li class="clearfix">
-                                            <a href="#"  class="widget-posts-img"><img src="images/all/1.jpg" class="respimg" alt=""></a>
-                                            <div class="widget-posts-descr">
-                                                <a href="#" title=""> In hac habitasse platea</a>
-                                                <span class="widget-posts-date"><i class="fa fa-calendar-check-o"></i> 7 Mar 18.21 </span>
-                                            </div>
-                                        </li>
-                                        <li class="clearfix">
-                                            <a href="#"  class="widget-posts-img"><img src="images/all/1.jpg" class="respimg" alt=""></a>
-                                            <div class="widget-posts-descr">
-                                                <a href="#" title="">Tortor tempor in porta</a>
-                                                <span class="widget-posts-date"><i class="fa fa-calendar-check-o"></i> 7 Mar 16.42 </span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="footer-widget fl-wrap">
-                                <h3>Our  Twitter</h3>
-                                <div id="footer-twiit"></div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="footer-widget fl-wrap">
-                                <h3>Subscribe</h3>
-                                <div class="subscribe-widget fl-wrap">
-                                    <p>Want to be notified when we launch a new template or an udpate. Just  send you a notification by email.</p>
-                                    <div class="subcribe-form">
-                                        <form id="subscribe">
-                                            <input class="enteremail" name="email" id="subscribe-email" placeholder="Email" spellcheck="false" type="text">
-                                            <button type="submit" id="subscribe-button" class="subscribe-button"><i class="fa fa-rss"></i> Subscribe</button>
-                                            <label for="subscribe-email" class="subscribe-message"></label>
-                                        </form>
-                                    </div>
-                                </div>
-                                <div class="footer-widget fl-wrap">
-                                    <div class="footer-menu fl-wrap">
-                                        <ul>
-                                            <li><a href="#">Home </a></li>
-                                            <li><a href="#">Blog</a></li>
-                                            <li><a href="#">Listing</a></li>
-                                            <li><a href="#">Contacts</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="sub-footer fl-wrap">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="about-widget">
-                                    <img src="images/logo.png" alt="">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="copyright"> &#169; CityBook 2018 .  All rights reserved.</div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="footer-social">
-                                    <ul>
-                                        <li><a href="#" target="_blank" ><i class="fa fa-facebook-official"></i></a></li>
-                                        <li><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
-                                        <li><a href="#" target="_blank" ><i class="fa fa-chrome"></i></a></li>
-                                        <li><a href="#" target="_blank" ><i class="fa fa-vk"></i></a></li>
-                                        <li><a href="#" target="_blank" ><i class="fa fa-whatsapp"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-            <!--footer end  -->
+           
             <!--booking-modal-wrap -->
             <div class="booking-modal-wrap">
                 <div class="booking-modal-container">
@@ -711,68 +474,6 @@
                 </div>
             </div>
             <div class="bmw-overlay"></div>
-            <!--booking-modal-wrap end -->
-            <!--register form -->
-            <div class="main-register-wrap modal">
-                <div class="main-overlay"></div>
-                <div class="main-register-holder">
-                    <div class="main-register fl-wrap">
-                        <div class="close-reg"><i class="fa fa-times"></i></div>
-                        <h3>Sign In <span>City<strong>Book</strong></span></h3>
-                        <div class="soc-log fl-wrap">
-                            <p>For faster login or register use your social account.</p>
-                            <a href="#" class="facebook-log"><i class="fa fa-facebook-official"></i>Log in with Facebook</a>
-                            <a href="#" class="twitter-log"><i class="fa fa-twitter"></i> Log in with Twitter</a>
-                        </div>
-                        <div class="log-separator fl-wrap"><span>or</span></div>
-                        <div id="tabs-container">
-                            <ul class="tabs-menu">
-                                <li class="current"><a href="#tab-1">Login</a></li>
-                                <li><a href="#tab-2">Register</a></li>
-                            </ul>
-                            <div class="tab">
-                                <div id="tab-1" class="tab-content">
-                                    <div class="custom-form">
-                                        <form method="post"  name="registerform">
-                                            <label>Username or Email Address * </label>
-                                            <input name="email" type="text"   onClick="this.select()" value="">
-                                            <label >Password * </label>
-                                            <input name="password" type="password"   onClick="this.select()" value="" >
-                                            <button type="submit"  class="log-submit-btn"><span>Log In</span></button>
-                                            <div class="clearfix"></div>
-                                            <div class="filter-tags">
-                                                <input id="check-a" type="checkbox" name="check">
-                                                <label for="check-a">Remember me</label>
-                                            </div>
-                                        </form>
-                                        <div class="lost_password">
-                                            <a href="#">Lost Your Password?</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab">
-                                    <div id="tab-2" class="tab-content">
-                                        <div class="custom-form">
-                                            <form method="post"   name="registerform" class="main-register-form" id="main-register-form2">
-                                                <label >First Name * </label>
-                                                <input name="name" type="text"   onClick="this.select()" value="">
-                                                <label>Second Name *</label>
-                                                <input name="name2" type="text"  onClick="this.select()" value="">
-                                                <label>Email Address *</label>
-                                                <input name="email" type="text"  onClick="this.select()" value="">
-                                                <label >Password *</label>
-                                                <input name="password" type="password"   onClick="this.select()" value="" >
-                                                <button type="submit"     class="log-submit-btn"  ><span>Register</span></button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--register form end -->
             <a class="to-top"><i class="fa fa-angle-up"></i></a>
             <!--chat-widget -->
             <div class="chat-widget-button"><i class="fa fa-comments-o"></i><span>Chat With Owner</span></div>
@@ -820,6 +521,7 @@
             </div>
             <!--chat-widget end -->
         </div>
+        
         <!-- Main end -->
         <!--=============== scripts  ===============-->
         <script type="text/javascript" src="resources/js/jquery.min.js"></script>

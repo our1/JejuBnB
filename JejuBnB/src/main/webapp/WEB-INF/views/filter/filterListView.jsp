@@ -8,6 +8,8 @@
 <meta charset="UTF-8">
 <title>JejuBnB</title>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
+<script src="https://kit.fontawesome.com/262e649fa4.js" crossorigin="anonymous"></script>
 <style type="text/css">
 	body {
 		text-align : center;
@@ -84,9 +86,9 @@
 	<div id="alist">
 		<c:forEach var="count1" begin="0" end="${fn:length(Alist)}" step="2">
 		<c:forEach items="${Alist }" var="alist" begin="${count1 }" end="${count1 + 1}">
-			<span class="Cbox">${ alist.amenity_name } 
-			<button onclick="javascript:location.href='Adelete.do?amenity_no=${alist.amenity_no }'">
-			<img src="${pageContext.servletContext.contextPath }/resources/images/x버튼.png">
+			<span class="Cbox">${ alist.amenity_name }
+			<button id="deleteBto" type="button" onclick="javascript:location.href='Adelete.do?amenity_no=${alist.amenity_no }'" style="border:none;background:none;">
+			<i class='fa fa-times'></i>
 			</button></span>
 		</c:forEach>
 		</c:forEach>
@@ -106,8 +108,9 @@
 	<div id="flist">
 		<c:forEach var="count2" begin="0" end="${fn:length(Flist) }" step="2">
 		<c:forEach items="${Flist }" var="flist" begin="${count2 }" end="${count2 + 1}">
-			<span class="Cbox">${ flist.facility_name } <button onclick="javascript:location.href='Fdelete.do?facility_no=${flist.facility_no }'">
-			<img src="${pageContext.servletContext.contextPath }/resources/images/x버튼.png">
+			<span class="Cbox">${ flist.facility_name }
+			<button id="deleteBto" type="button" onclick="javascript:location.href='Fdelete.do?facility_no=${flist.facility_no }'" style="border:none;background:none;">
+			<i class='fa fa-times'></i>
 			</button></span>
 		</c:forEach>
 		</c:forEach>
@@ -127,8 +130,9 @@
 	<div id="blist">
 		<c:forEach var="count3" begin="0" end="${fn:length(Blist) }" step="2">
 		<c:forEach items="${Blist }" var="blist" begin="${count3 }" end="${count3 + 1}">
-			<span class="Cbox">${ blist.bu_type_name } <button onclick="javascript:location.href='Bdelete.do?bu_type_no=${blist.bu_type_no }'">
-			<img src="${pageContext.servletContext.contextPath }/resources/images/x버튼.png">
+			<span class="Cbox">${ blist.bu_type_name }
+			<button id="deleteBto" type="button" onclick="javascript:location.href='Bdelete.do?bu_type_no=${blist.bu_type_no }'" style="border:none;background:none;">
+			<i class='fa fa-times'></i>
 			</button></span>
 		</c:forEach>
 		</c:forEach>
@@ -148,8 +152,9 @@
 	<div id="rlist">
 		<c:forEach var="count4" begin="0" end="${fn:length(Rlist) }" step="2">
 		<c:forEach items="${Rlist }" var="rlist" begin="${count4 }" end="${count4 + 1}">
-			<span class="Cbox">${rlist.rule_name } <button onclick="javascript:location.href='rdelete.do?rule_no=${rlist.rule_no }'">
-			<img src="${pageContext.servletContext.contextPath }/resources/images/x버튼.png">
+			<span class="Cbox">${rlist.rule_name }
+			<button id="deleteBto" type="button" onclick="javascript:location.href='rdelete.do?rule_no=${rlist.rule_no }'" style="border:none;background:none;">
+			<i class='fa fa-times'></i>
 			</button></span>
 		</c:forEach>
 		</c:forEach>

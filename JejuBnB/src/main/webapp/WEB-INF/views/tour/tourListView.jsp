@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE HTML>
-<html lang="en">
+<html>
     <head>
         <!--=============== basic  ===============-->
         <meta charset="UTF-8">
@@ -11,7 +11,7 @@
         <meta name="robots" content="index, follow"/>
         <meta name="keywords" content=""/>
         <meta name="description" content=""/>
-        <!--=============== css  ===============-->	
+        <!--=============== css  ===============-->   
         <link type="text/css" rel="stylesheet" href="resources/css/reset.css">
         <link type="text/css" rel="stylesheet" href="resources/css/plugins.css">
         <link type="text/css" rel="stylesheet" href="resources/css/style.css">
@@ -23,10 +23,23 @@
         
     </head>
     <style>
-    	 .logo {
+        .logo {
       font-family: 'Alex Brush', cursive;
       font-size: 35px;
       color: #ffffff;
+    }
+    .cat {
+      background-color : #4DB7FE;
+      float: left;
+      border: 1px solid #eee;
+      background: #4DB7FE;
+      width: 100%;
+      padding: 15px 20px 15px 20px;
+      border-radius: 6px;
+      -webkit-appearance: none;
+      width : 247px;
+      height : 48px;
+      color : #fff;
     }
     </style>
     <body>
@@ -39,7 +52,7 @@
         <!--loader end-->
         <!-- Main  -->
         <div id="main">  
-            <!-- wrapper -->	
+            <!-- wrapper -->   
             <div id="wrapper">
                 <div class="content">
                     <!-- Map -->
@@ -49,7 +62,7 @@
                             <li><a href="#" class="prevmap-nav">Prev</a></li>
                             <li><a href="#" class="nextmap-nav">Next</a></li>
                         </ul>
-						<div class="scrollContorl mapnavbtn" title="Enable Scrolling"><span><i class="fa fa-lock"></i></span></div>   						
+                  <div class="scrollContorl mapnavbtn" title="Enable Scrolling"><span><i class="fa fa-lock"></i></span></div>                     
                     </div>
                     <!-- Map end -->          
                     <!--col-list-wrap -->   
@@ -57,7 +70,7 @@
                         <div class="listsearch-options fl-wrap" id="lisfw" >
                             <div class="container">
                                 <div class="listsearch-header fl-wrap">
-                                    <h3>관광지 : <span>listcount 개</span></h3>
+                                    <h3>관광지 </h3>
                                     <div class="listing-view-layout">
                                         <ul>
                                             <li><a class="grid active" href="#"><i class="fa fa-th-large"></i></a></li>
@@ -68,58 +81,14 @@
                                 <!-- listsearch-input-wrap  -->  
                                 <div class="listsearch-input-wrap fl-wrap">
                                     <div class="listsearch-input-item">
-                                        <i class="mbri-key single-i"></i>
-                                        <input type="text" placeholder="Keywords?" value=""/>
+                                        <button class="cat">자 연</button>
                                     </div>
                                     <div class="listsearch-input-item">
-                                        <select data-placeholder="Location" class="chosen-select" >
-                                            <option>All Locations</option>
-                                            <option>Bronx</option>
-                                            <option>Brooklyn</option>
-                                            <option>Manhattan</option>
-                                            <option>Queens</option>
-                                            <option>Staten Island</option>
-                                        </select>
+                                       <button class="cat">음 식</button>
                                     </div>
                                     <div class="listsearch-input-item">
-                                        <select data-placeholder="All Categories" class="chosen-select" >
-                                            <option>All Categories</option>
-                                            <option>Shops</option>
-                                            <option>Hotels</option>
-                                            <option>Restaurants</option>
-                                            <option>Fitness</option>
-                                            <option>Events</option>
-                                        </select>
+                                       <button class="cat">체 험</button>
                                     </div>
-                                    <div class="listsearch-input-text" id="autocomplete-container">
-                                        <label><i class="mbri-map-pin"></i> Enter Addres </label>
-                                        <input type="text" placeholder="Destination , Area , Street" id="autocomplete-input" class="qodef-archive-places-search" value=""/>
-                                        <a  href="#"  class="loc-act qodef-archive-current-location"><i class="fa fa-dot-circle-o"></i></a>
-                                    </div>
-                                    <!-- hidden-listing-filter -->
-                                    <div class="hidden-listing-filter fl-wrap">
-                                        <div class="distance-input fl-wrap">
-                                            <div class="distance-title"> Radius around selected destination <span></span> km</div>
-                                            <div class="distance-radius-wrap fl-wrap">
-                                                <input class="distance-radius rangeslider--horizontal" type="range" min="1" max="100" step="1" value="1" data-title="Radius around selected destination">
-                                            </div>
-                                        </div>
-                                        <!-- Checkboxes -->
-                                        <div class=" fl-wrap filter-tags">
-                                            <h4>Filter by Tags</h4>
-                                            <input id="check-aa" type="checkbox" name="check">
-                                            <label for="check-aa">Elevator in building</label>
-                                            <input id="check-b" type="checkbox" name="check">
-                                            <label for="check-b">Friendly workspace</label>
-                                            <input id="check-c" type="checkbox" name="check">
-                                            <label for="check-c">Instant Book</label>
-                                            <input id="check-d" type="checkbox" name="check">
-                                            <label for="check-d">Wireless Internet</label>
-                                        </div>
-                                    </div>
-                                    <!-- hidden-listing-filter end -->
-                                    <button class="button fs-map-btn">Update</button>
-                                    <div class="more-filter-option">More Filters <span></span></div>
                                 </div>
                                 <!-- listsearch-input-wrap end -->
                             </div>
@@ -133,7 +102,7 @@
                                 <div class="listing-item">
                                     <article class="geodir-category-listing fl-wrap">
                                         <div class="geodir-category-img">
-                                            <img src="resources/images/all/1.jpg" alt="">
+                                            <img src="resources/images/21.jpg" alt="">
                                             <div class="overlay"></div>
                                             <div class="list-post-counter"><span>4</span><i class="fa fa-heart"></i></div>
                                         </div>
@@ -179,7 +148,7 @@
         <script type="text/javascript" src="resources/js/jquery.min.js"></script>
         <script type="text/javascript" src="resources/js/plugins.js"></script>
         <script type="text/javascript" src="resources/js/scripts.js"></script>
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC95dqGGKveZsk11F5F7irIrx0ExnBNfDk&libraries=places&callback=initAutocomplete"></script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC95dqGGKveZsk11F5F7irIrx0ExnBNfDk&libraries=places&callback=initAutocomplete"></script>
         <script type="text/javascript" src="resources/js/map_infobox.js"></script>
         <script type="text/javascript" src="resources/js/markerclusterer.js"></script>  
         <script type="text/javascript" src="resources/js/maps.js"></script>

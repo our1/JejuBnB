@@ -9,11 +9,11 @@
 		<result property="room_no" column="room_no" />
 	</resultMap>
 	
-	<resultMap id="roomdetailList" type="MyRoom">
+	<resultMap id="roomdetailList" type="com.jeju.JejuBnB.member.model.vo.HostMemberRoomDetail">
 		<result property="room_no" column="room_no" />
 		<result property="room_name" column="room_name" />
 		<result property="room_address" column="room_address" />
-		<result property="room_rename_file" column="room_rename_file" />
+		<result property="rename_file" column="rename_file" />
 	</resultMap>
 	
 	<select id="selectMyRoom" parameterType="string" resultMap="resultList">
@@ -28,8 +28,11 @@
 		delete my_room where room_no = #{room_no}
 	</delete>
 	
-	<select id="selectMyRoomList" parameterType="MyRoom" resultMap="roomdetailList">
-		select * from my_room a join room b using (room_no) where b.user_id = #{user_id}
+	<select id="selectMyRoomList" parameterType="com.jeju.JejuBnB.member.model.vo.HostMemberRoomDetail" resultMap="roomdetailList">
+		select * from my_room a 
+		join room b using (room_no)
+		join room_file using(room_no)
+		where a.user_id = #{user_id}
 	</select>
 	
 </mapper>

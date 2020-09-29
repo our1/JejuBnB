@@ -42,7 +42,7 @@
 	//&nbsp;만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
 
 		window.name = "ListView";
-    	window.open("moveFilterPage.do??checkin=${checkin }&checkout=${checkout}&people=${people}&week=${week}","알림","width=800,height=800, left="+ popupX + ", top="+ popupY);
+    	window.open("moveFilterPage.do?checkin=${checkin }&checkout=${checkout}&people=${people}&week=${week}","알림","width=800,height=800, left="+ popupX + ", top="+ popupY);
     	
 	}
     </script>
@@ -143,7 +143,7 @@
 	                                        </ul>
 	                                    </div>
 	                                </div>
-                                        <button class="button fs-map-btn" onclick="javascript:location.href='SearchFilter.do?room=${filterRoom}'" style="margin-left:">지도로 보기 &nbsp;<i class="fas fa-map"></i></button>
+                                        <button class="button fs-map-btn" onclick="javascript:location.href='roomlist.do?checkin=${checkin }&checkout=${checkout}&people=${people}&week=${week}'" style="margin-left:">지도로 보기 &nbsp;<i class="fas fa-map"></i></button>
                                    
                                     <!-- listsearch-input-wrap end -->   
                                 </div>

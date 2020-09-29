@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.jeju.JejuBnB.event.model.service.EventService;
 import com.jeju.JejuBnB.event.model.vo.Collection;
 import com.jeju.JejuBnB.event.model.vo.Event;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 @Controller
 public class EventController {
@@ -33,10 +34,14 @@ public class EventController {
 	private EventService eventService;
 	
 	@RequestMapping("eventPage.do")
-	public ModelAndView EventListMethod(ModelAndView mv) {
+	public ModelAndView EventListMethod(HttpServletRequest request ,ModelAndView mv) {
 		int limit = 9;
 		int currentPage = 1;
 		int listCount = eventService.getListCount();
+		
+		if(request.getParameter("page") != null) {
+			currentPage = Integer.parseInt(request.getParameter("page"));
+		}
 		
 		int maxPage = (int) (((double) listCount / limit) + 0.9);
 		int startPage = (((int) ((double) currentPage / limit + 0.9)) - 1) * limit + 1;
@@ -45,10 +50,16 @@ public class EventController {
 			endPage = maxPage;
 		}
 		
+		
 		ArrayList<Collection> event = eventService.selectList(currentPage, limit);
 		
 		if(event != null) {
 			mv.setViewName("event/eventListView");
+			mv.addObject("maxPage", maxPage);
+			mv.addObject("startPage", startPage);
+			mv.addObject("endPage", endPage);
+			mv.addObject("currentPage", currentPage);
+			mv.addObject("listCount", listCount);
 			mv.addObject("event", event);
 		}else {
 			mv.addObject("message", event + "이벤트조회 실패");
@@ -119,12 +130,64 @@ public class EventController {
 		}
 	}
 	
-	@RequestMapping("updateEvent.do")
-	public String UpdateEvent(Event event, Model model) {
+	@RequestMapping("moveUpdateEvent.do")
+	public String moveUpdateEvent(Model model,@RequestParam("event_no") int event_no) {
+		Collection event = eventService.selectEvent(event_no);
+		if(event != null) {
+			model.addAttribute("event", event);
+			return "event/eventUpdateView";
+		}else {
+			model.addAttribute("message", "이벤트 수정페이지 출력 실패");
+			return "common/error";
+		}
+	}
+	
+	
+	@RequestMapping(value="updateEvent.do", method=RequestMethod.POST)
+	public String UpdateEvent(Event event, Model model, MultipartHttpServletRequest mrequest,
+			HttpServletRequest request,@RequestParam(value="efile") MultipartFile efile,
+			@RequestParam(value="sfile")MultipartFile sfile) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		
-		if(eventService.updateEvent(event) > 0) {
+		if(efile != null) {
+			String orgname = efile.getOriginalFilename();
+			
+			String savePath = request.getSession().getServletContext().getRealPath("resources/eventimg");
+			event.setEvent_fimg(efile.getOriginalFilename());
+			String rename = sdf.format(new java.sql.Date(System.currentTimeMillis()));
+			rename += "." + efile.getOriginalFilename().substring(efile.getOriginalFilename().lastIndexOf(".") + 1);
+			
+			try {
+				efile.transferTo(new File(savePath + "\\" + rename));
+			}catch(IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+			event.setEvent_fimg(efile.getOriginalFilename());
+			event.setEvent_rimg(rename);
+		}
+		
+		if(sfile != null) {
+			String orgname1 = sfile.getOriginalFilename();
+			
+			String savePath1 = request.getSession().getServletContext().getRealPath("resources/eventsum");
+			event.setSum_fimg(sfile.getOriginalFilename());
+			String rename1 = sdf.format(new java.sql.Date(System.currentTimeMillis()));
+			rename1 += "." + sfile.getOriginalFilename().substring(sfile.getOriginalFilename().lastIndexOf(".") + 1);
+			
+			try {
+				sfile.transferTo(new File(savePath1 + "\\" + rename1));				
+			}catch(IllegalStateException | IOException e){
+				e.printStackTrace();
+			}
+			event.setSum_fimg(sfile.getOriginalFilename());
+			event.setSum_rimg(rename1);
+			
+		}
+		
+		int result = eventService.updateEvent(event);
+		if(result > 0) {
 			model.addAttribute("event_no", event.getEvent_no());
-			return "redirect:updateDetailView.do";
+			return "redirect:eventDetailView.do";
 		}else {
 			model.addAttribute("message", "수정 실패");
 			return "common/error";

@@ -38,4 +38,7 @@ public interface RoomService {
 	int deleteRoomFileList(int roomno);
 	int deleteReviewList(int roomno);
 	ArrayList<Room> selectTop();
+	int deleteroomLatLng(int roomno);
+	int deleteReservationRoom(int roomno);
+	ArrayList<Room_File> selectRFile(int room_no);
 }

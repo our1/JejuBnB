@@ -12,7 +12,7 @@
 	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
 	                document.getElementById("PostNumber").value = data.zonecode;
 	                document.getElementById("room_roadaddress").value = roadAddr;
-	                insertMarker(road);
+	                insertMarker(roadAddr);
 	          		}	            
 	       		}).open();
 	   		})

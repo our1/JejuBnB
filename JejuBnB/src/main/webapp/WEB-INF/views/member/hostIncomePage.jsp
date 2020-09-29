@@ -7,6 +7,50 @@
 	<meta charset="UTF-8">
 	 
 	<title>JejuBnB</title>
+	<style type="text/css">
+	.panel .panel-heading {
+    line-height: 34px;
+    padding: 0 15px;
+    min-height: 34px;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    position: relative;
+    box-shadow: inset 0 -2px 0 rgba(0,0,0,.05);
+    -moz-box-shadow: inset 0 -2px 0 rgba(0,0,0,.05);
+    -webkit-box-shadow: inset 0 -2px 0 rgba(0,0,0,.05);
+}
+.panel-heading, .modal-header {
+    background: #F7F7F7;
+    color: #688a7e;
+}
+.table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td {
+    padding: 8px;
+    line-height: 1.428571429;
+    vertical-align: top;
+    border-top: 1px solid #dddddd;
+    color: #688a7e;
+}
+#table{
+	
+    margin-left: -600px;
+    margin-right: -15px;
+
+}
+#table {
+    float: left;
+    left: -90px;
+    width: 100%;
+    position: relative;
+    padding: 80px 0;
+    overflow: hidden;
+    background: #fff;
+    z-index: 1;
+}
+	</style>
+	 <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
 	  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	  <script type="text/javascript">
 	    google.charts.load("current", {packages:['corechart']});
@@ -14,10 +58,10 @@
 	    function drawChart() {
 	      var data = google.visualization.arrayToDataTable([
 	        ["5월", "Density", { role: "style" } ],
-	        ["6월", 600000, "skyblue"],
-	        ["7월", $("#7income").val(), "skyblue"],
-	        ["8월", $("#8income").val(), "skyblue"],
-	        ["9월", $("#9income").val(), "skyblue"]
+	        ["6월", 600000, "#4DB7FE"],
+	        ["7월", $("#7income").val(), "#4DB7FE"],
+	        ["8월", $("#8income").val(), "#4DB7FE"],
+	        ["9월", $("#9income").val(), "#4DB7FE"]
 	      ]);
 	      var view = new google.visualization.DataView(data);
 	      view.setColumns([0, 1,
@@ -28,8 +72,8 @@
 	                       2]);
 	      var options = {
 	        title: "호스트 월 매출",
-	        width: 700,
-	        height: 800,
+	        width: 900,
+	        height: 300,
 	        bar: {groupWidth: "95%"},
 	        legend: { position: "none" },
 	      };
@@ -60,9 +104,18 @@
 <body>
 	<c:import url="/WEB-INF/views/common/header.jsp" />
 			<br>
-	<h1 align="center">host Income Page</h1>
-	  <div id="columnchart_values" style="width: 900px; height: 300px;"></div>
-			<table align = "right" width= "800" cellspacing = "5" cellpadding = "0">
+			<section id="s1">
+	<div class="row">
+          <div class="col-lg-12">
+              <header class="panel-heading">
+              		호스트 수입
+              </header>
+	  <div id="columnchart_values" style="width: 900px; height: 300px; align: center; "></div>
+	  <hr>
+	  <br>
+	  
+	  	<section id="table">
+			<table align = "right" width= "800" cellspacing = "5" cellpadding = "0" class="table table-striped table-advance table-hover">
 				<tr>
 					<td> Room Number </td>
 					<td> 숙소 이름 </td>
@@ -92,10 +145,26 @@
 				</c:forEach>
 				<tr>
 					<td colspan = "8" align="right">
-						<a href="main.do" > 시작페이지로 </a> &nbsp; <button onclick="return checkIncome();">결제 확인</button>
+						<button onclick="return checkIncome();" class="btn  big-btn  color-bg flat-btn">결제 확인</button>
 					</td>
 				</tr>
 			</table>
+                     </section>
+          </div>
+		</div>
+			</section>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		<c:set var="total6" value="0"/>
 		<c:set var="total7" value="0"/>
 		<c:set var="total8" value="0"/>
@@ -128,7 +197,8 @@
 		<input type="hidden" value="${total7 }" id="7income">
 		<input type="hidden" value="${total8 }" id="8income">
 		<input type="hidden" value="${total9 }" id="9income">
+		<c:import url="/WEB-INF/views/common/footer2.jsp" />
   </body>
-
+	
 </body>
 </html>

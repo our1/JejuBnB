@@ -45,9 +45,11 @@
 		//&nbsp;만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
 
 			window.name = "ListView";
-	    	window.open("moveFilterPage.do??checkin=${checkin }&checkout=${checkout}&people=${people}&week=${week}","알림","width=800,height=800, left="+ popupX + ", top="+ popupY);
+	    	window.open("moveFilterPage.do?checkin=${checkin }&checkout=${checkout}&people=${people}&week=${week}","알림","width=800,height=800, left="+ popupX + ", top="+ popupY);
 	    	
 		}
+    	
+    	
 
         </script>
         <style>
@@ -129,9 +131,9 @@
             <div id="wrapper">
                 <div class="content">
                     <!-- Map -->
-                    <div class="map-container column-map right-pos-map">
-                        <div id="map" style="width:100%;height:100%;"></div>
-                        </div>
+                     <div class="map-container column-map right-pos-map">
+                        <div id="map1"></div>         					
+                    </div>
                     <!-- Map end -->          
                     <!--col-list-wrap -->   
                     <div class="col-list-wrap left-list">
@@ -152,7 +154,7 @@
                         <!-- list-main-wrap-->
                         <div class="list-main-wrap fl-wrap card-listing">           
                      	   <button class="btn  big-btn  color-bg flat-btn" style="border:none;margin : 5px;margin-left:675px;margin-bottom:10px;" onclick="moveFilterPage()">필터 추가하기<i class="fas fa-filter"></i></button>
-                          <a class="custom-scroll-link back-to-filters btf-l" href="moveSearchBList.do?room=${filterRoom }"><i class="fas fa-times"></i><span>지도 없애기</span></a> 
+                          <a class="custom-scroll-link back-to-filters btf-l" href="moveRoomBList.do?checkin=${checkin }&checkout=${checkout}&people=${people}&week=${week}"><i class="fas fa-times"></i><span>지도 없애기</span></a> 
                             <div class="container">
                                 <!-- listing-item -->
                                 <c:forEach items="${list }" var="room">
@@ -237,27 +239,43 @@
                                 </div>
                                 </c:forEach>
                                         <div class="pagination">
-                                      		<c:if test="${currentPage eq startPage}">
-	                                      	  <a class="prevposts-link" onclick="javascript:alert('첫 페이지 입니다.')"><i class="fa fa-caret-left"></i></a>
-	                                        </c:if>
-	                                        <c:if test="${currentPage ne 1 }">
-	                                        	<a href="SearchFilter.do?page=${currentPage -1 }&room=${room}" class="prevposts-link"><i class="fa fa-caret-left"></i></a>                                        
-	                                        </c:if>
-	                                   		<c:forEach var="count" begin="1" end="5" step="1">
-		                                    	<c:if test="${currentPage eq count }">
-		                                    		<a href="#" class="blog-page current-page transition">${count }</a>
-		                                    	</c:if>
-		                                    	<c:if test="${currentPage ne count }">
-		                                    		 <a href="SearchFilter.do?page=${count}&room=${room}" class="blog-page transition">${count }</a>
-		                                    	</c:if>
-	                                  		</c:forEach>
-	                                  		<c:if test="${currentPage eq endPage }">
-	                                  			<a class="nextposts-link" onclick="javascript:alert('마지막 페이지 입니다.')"><i class="fa fa-caret-right"></i></a>
-	                                  		</c:if>
-	                                  		<c:if test="${currentPage ne endPage }">
-                                      			<a href="SearchFilter.do?page=${currentPage +1 }&room=${room}" class="nextposts-link"><i class="fa fa-caret-right"></i></a>	                                 	 		
-	                                  		</c:if>
-                                    </div>
+								<c:if test="${currentPage eq startPage}">
+									<a class="prevposts-link" onclick="javascript:alert('첫 페이지 입니다.')"><i class="fa fa-caret-left"></i></a>
+								</c:if>
+								<c:if test="${currentPage ne 1 }">
+									<a href="SearchFilter.do?page=${currentPage -1 }&checkin=${checkin }&checkout=${checkout}&people=${people}&week=${week}&bedCount=${filterRoom.bed}&bedroomCount=${filterRoom.bedroom}&bathroomCount=${filterRoom.bathroom}&amenity=${filterRoom.amenity }&facility=${filterRoom.facility }
+									$build_type=${filterRoom.build_type}&rule=${filterRoom.rule }" class="prevposts-link"><i class="fa fa-caret-left"></i></a>
+								</c:if>
+								<c:forEach var="count" begin="1" end="5" step="1">
+									<c:if test="${currentPage eq count }">
+										<a href="#" class="blog-page current-page transition">${count }</a>
+									</c:if>
+									<c:if test="${currentPage ne count }">
+										<c:if test="${count eq endPage }">
+											<a href="SearchFilter.do?page=${count}&checkin=${checkin }&checkout=${checkout}&people=${people}&week=${week}&bedCount=${filterRoom.bed}&bedroomCount=${filterRoom.bedroom}&bathroomCount=${filterRoom.bathroom}&amenity=${filterRoom.amenity }&facility=${filterRoom.facility }
+									$build_type=${filterRoom.build_type}&rule=${filterRoom.rule }"
+											class="blog-page transition">${count }</a>
+											<c:set var="count" value="5" />
+										</c:if>
+										<c:if test="${currentPage ne endPage }" >
+										<a href="SearchFilter.do?page=${count}&checkin=${checkin }&checkout=${checkout}&people=${people}&week=${week}&bedCount=${filterRoom.bed}&bedroomCount=${filterRoom.bedroom}&bathroomCount=${filterRoom.bathroom}&amenity=${filterRoom.amenity }&facility=${filterRoom.facility }
+									$build_type=${filterRoom.build_type}&rule=${filterRoom.rule }"
+											class="blog-page transition">${count }</a>
+										</c:if>										
+									</c:if>
+								</c:forEach>
+								<c:if test="${currentPage eq endPage }">
+									<a class="nextposts-link"
+										onclick="javascript:alert('마지막 페이지 입니다.')"><i
+										class="fa fa-caret-right"></i></a>
+								</c:if>
+								<c:if test="${currentPage ne endPage }">
+									<a href="SearchFilter.do?page=${currentPage +1 }&checkin=${checkin }&checkout=${checkout}&people=${people}&week=${week}
+									&bedCount=${filterRoom.bed}&bedroomCount=${filterRoom.bedroom}&bathroomCount=${filterRoom.bathroom}&amenity=${filterRoom.amenity }&facility=${filterRoom.facility }
+									$build_type=${filterRoom.build_type}&rule=${filterRoom.rule }
+										class="nextposts-link"><i class="fa fa-caret-right"></i></a>
+								</c:if>
+							</div>
                             </div>
                            
                         </div>
@@ -273,18 +291,13 @@
         <!-- Main end -->
         <!--=============== scripts  ===============-->
         <script type="text/javascript" src="resources/js/plugins.js"></script>
-        <script type="text/javascript" src="resources/js/scripts.js"></script>
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC95dqGGKveZsk11F5F7irIrx0ExnBNfDk&libraries=places&callback=initAutocomplete"></script>
-        <script type="text/javascript" src="resources/js/map_infobox.js"></script>
-        <script type="text/javascript" src="resources/js/markerclusterer.js"></script>  
-        <script type="text/javascript" src="resources/js/maps.js"></script>
+        <script type="text/javascript" src="resources/js/scripts.js"></script>		
         <script type="text/javascript" src="resources/js/roomList.js"></script>
         <script type="text/javascript">    	
     	$(function() {
     		var checkin = null;
     		var checkout = null;
     		var people = 1;
-			var filterRoom = ${filterRoom};
     		if(${!empty checkin}){
     		    checkin = '${checkin}';
     			checkout = '${checkout}';
@@ -317,15 +330,7 @@
     		})
     	}); 
     	
-    	// 지도를 움직였을때 실행되는 함수
-    	function moveCenter(swLat, swLng, neLat, neLng, checkin, checkout, people, center, level,filterRoom){	  
-    		var userid = null;
-    		if(${!empty loginMember}){
-    			userid = '${loginMember.user_id}';	
-    			}
-    		location.href="SearchFilter.do?swLat="+swLat+"&swLng="+swLng+"&neLat="+neLat+"&neLng="+neLng+"&checkin="+checkin+"&checkout="+checkout+"&people="+people+"&userid="+userid +"&center="+center + "&level="+level+ "$room="+filterRoom;	
-    	}
-		////////////////////////////////
+    	
 		
     	
     	// 지도 생성
@@ -338,7 +343,7 @@
     		 levelNum = '${level}';
     	}
     	
-    	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    	var mapContainer = document.getElementById('map1'), // 지도를 표시할 div 
     	mapOption = {
     	    center: new kakao.maps.LatLng(centerLat, centerLng), // 지도의 중심좌표
     	    level: levelNum // 지도의 확대 레벨
@@ -384,6 +389,16 @@
     			}   
     		});
     	}
+		
+		// 지도를 움직였을때 실행되는 함수
+    	function moveCenter(swLat, swLng, neLat, neLng, checkin, checkout, people, center, level,filterRoom){	  
+    		var userid = null;
+    		if(${!empty loginMember}){
+    			userid = '${loginMember.user_id}';	
+    			}
+    		location.href="SearchFilter.do?swLat="+swLat+"&swLng="+swLng+"&neLat="+neLat+"&neLng="+neLng+"&page=${currentPage}&checkin=${checkin }&checkout=${checkout}&people=${people}&week=${week}"+
+    		"&bedCount=${filterRoom.bed}&bedroomCount=${filterRoom.bedroom}&bathroomCount=${filterRoom.bathroom}&amenity=${filterRoom.amenity }&facility=${filterRoom.facility }$build_type=${filterRoom.build_type}&rule=${filterRoom.rule }";
+		////////////////////////////////
 		
 		function inMarker(room_no){
 			$("#markerInfo"+room_no).css('background-color','#2F3B59');

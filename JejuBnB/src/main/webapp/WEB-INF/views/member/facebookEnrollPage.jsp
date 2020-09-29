@@ -7,6 +7,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>JejuBnB</title>
+		 <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
 		<style type="text/css">
 		.input-form textarea,
 		.input-form input[type="tel"],
@@ -88,5 +89,6 @@
                    <a href="main.do"> 시작페이지로 </a>
                    </form>
                </div>
+               <c:import url="/WEB-INF/views/common/footer2.jsp" />
 	</body>
 </html>

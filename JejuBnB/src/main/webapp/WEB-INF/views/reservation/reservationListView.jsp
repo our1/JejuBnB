@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
 <title>JejuBnB</title>
@@ -19,12 +19,11 @@
 <link type="text/css" rel="stylesheet" href="resources/css/style.css">
 <link type="text/css" rel="stylesheet" href="resources/css/color.css">
 <!--=============== favicons ===============-->
-<link rel="shortcut icon" href="resources/images/favicon.png">
+<script src="https://kit.fontawesome.com/262e649fa4.js" crossorigin="anonymous"></script>
 <link rel="icon" type="image/png" href="resources/images/favicon.png">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="resources/css/header.css">
-<link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
+<!-- <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" /> -->
 
 <style>
 /*datepicker에서 사용한 이미지 버튼 style적용*/
@@ -33,20 +32,27 @@ img.ui-datepicker-trigger {
 	vertical-align: middle;
 	cursor: pointer;
 }
+.refo {
+    position: relative;
+    margin-top: 5%;
+}
 </style>
-<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <!-- datepicker 한국어로 -->
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/datepicker-ko.js"></script>
 <script>
-	$(function() {
+$(function(){
 		
 		//오늘 날짜를 출력
 		$("#today").text(new Date().toLocaleDateString());
 
 		//datepicker 한국어로 사용하기 위한 언어설정
-		$.datepicker.setDefaults($.datepicker.regional['ko']);
-
+		$.datepicker.setDefaults(
+				$.datepicker.regional['ko']
+			); 
+			
 		// 시작일(fromDate)은 종료일(toDate) 이후 날짜 선택 불가
 		// 종료일(toDate)은 시작일(fromDate) 이전 날짜 선택 불가
 
@@ -237,13 +243,18 @@ function moveReservPage(){
 <script>
 	window.name = "reservationListView";
 	$(document).ready(function(){	
-		$('#popupBtn').click(function(){			
+		
+		/* $('#popupBtn').click(function(){			
 			window.open("rewrite.do?room_no=${room.room_no}" ,"_blank","toolvar=yes,menubar=yes,width=550,height=500,left=430,top=70").focus();
-		});
+		}); */
 		$('.rpbtn').click(function(){         
 	        window.open("rewrite2.do?room_no=${room.room_no}&reply_no=" + $(this).data('repno') ,"_blank","toolvar=yes,menubar=yes,width=500,height=500,left=430,top=70").focus();
 	     });
 	});
+	
+	function reWrite(){
+		window.open("rewrite.do?room_no=${room.room_no}" ,"_blank","toolvar=yes,menubar=yes,width=550,height=500,left=430,top=70").focus();
+	}
 </script>
 <script>
 	$(document).ready(function(){
@@ -253,15 +264,14 @@ function moveReservPage(){
 		});
 	});
 </script>
-<!-- <script>
-	$(document).ready(function(){
-		$("input[name='check']").click(function(){
-			$("#numberUpDown").each(function(){
-				
-			});
-		});
-	});
-</script> -->
+<script type="text/javascript">
+	function moveUpdate() {
+		location.href="moveUpdatView.do?roomno=" + ${room.room_no};
+	}
+	function delbtMethod() {
+		location.href="deleteRoom.do?roomno=" + ${room.room_no};
+	}
+</script>
 <style type="text/css">
 ._1044tk8 {
 	display: flex !important;
@@ -494,77 +504,40 @@ function moveReservPage(){
 </head>
 <body>
 
-	<%-- <c:import url="/WEB-INF/views/citybook/header.jsp" /> --%>
-	<!-- wrapper -->
-	<div id="wrapper">
-		<!--  content-->
-		<div class="content">
-			<!--  carousel-->
-			<div class="list-single-carousel-wrap fl-wrap" id="sec1">
-				<div class="fw-carousel fl-wrap full-height lightgallery">
-					<!-- slick-slide-item -->
-					<div class="slick-slide-item">
-						<div class="box-item">
-							<img src="images/all/single/1.jpg" alt=""> <a
-								href="images/all/single/1.jpg" class="gal-link popup-image"><i
-								class="fa fa-search"></i></a>
-						</div>
-					</div>
-					<!-- slick-slide-item end -->
-					<!-- slick-slide-item -->
-					<div class="slick-slide-item">
-						<div class="box-item">
-							<img src="images/all/single/1.jpg" alt=""> <a href="images/all/single/1.jpg" class="gal-link popup-image">
-							<i class="fa fa-search"></i></a>
-						</div>
-					</div>
-					<!-- slick-slide-item end -->
-					<!-- slick-slide-item -->
-					<div class="slick-slide-item">
-						<div class="box-item">
-							<img src="images/all/single/1.jpg" alt=""> <a href="images/all/single/1.jpg" class="gal-link popup-image"> 
-							<i class="fa fa-search"></i></a>
-						</div>
-					</div>
-					<!-- slick-slide-item end -->
-					<!-- slick-slide-item -->
-					<div class="slick-slide-item">
-						<div class="box-item">
-							<img src="images/all/single/1.jpg" alt=""> <a href="images/all/single/1.jpg" class="gal-link popup-image">
-							<i class="fa fa-search"></i></a>
-						</div>
-					</div>
-					<!-- slick-slide-item end -->
-					<!-- slick-slide-item -->
-					<div class="slick-slide-item">
-						<div class="box-item">
-							<img src="images/all/single/1.jpg" alt=""> <a href="images/all/single/1.jpg" class="gal-link popup-image">
-							<i class="fa fa-search"></i></a>
-						</div>
-					</div>
-					<!-- slick-slide-item end -->
-				</div>
-				<div class="swiper-button-prev sw-btn">
-					<i class="fa fa-long-arrow-left"></i>
-				</div>
-				<div class="swiper-button-next sw-btn">
-					<i class="fa fa-long-arrow-right"></i>
-				</div>
-			</div>
-			<!--  carousel  end-->
-			<!-- <div class="scroll-nav-wrapper fl-wrap">
-                        <div class="container">
-                            <nav class="scroll-nav scroll-init">
-                                <ul>
-                                    <li><a class="act-scrlink" href="#sec1">Gallery</a></li>
-                                    <li><a href="#sec2">Details</a></li>
-                                    <li><a href="#sec3">Video </a></li>
-                                    <li><a href="#sec4">Reviews</a></li>
-                                </ul>
-                            </nav>
-                            <a href="#" class="save-btn"> <i class="fa fa-heart"></i> Save </a>
+       <!--loader-->
+        <div class="loader-wrap">
+            <div class="pin"></div>
+            <div class="pulse"></div>
+        </div>
+        <!--loader end-->
+        <!-- Main  -->
+        <div id="main">
+        
+		<%-- <c:import url="/WEB-INF/views/common/header.jsp" /> --%>
+	
+			<!-- wrapper -->	
+            <div id="wrapper">
+                <!--  content--> 
+                <div class="content">
+                    <!--  carousel--> 
+                    <div class="list-single-carousel-wrap fl-wrap" id="sec1">
+                        <div class="fw-carousel fl-wrap full-height lightgallery">
+                            <!-- slick-slide-item -->
+                            <c:forEach items="${rflist}" var="pr">
+                            <div class="slick-slide-item">
+                                <div class="box-item">
+                                    <img src="${ pageContext.servletContext.contextPath}/resources/roomFiles/${ pr.rename_file }">
+                                    <a href="${ pageContext.servletContext.contextPath}/resources/roomFiles/${ pr.rename_file }" class="gal-link popup-image"><i class="fa fa-search"></i></a>
+	                           </div>
+                            </div>
+                             </c:forEach>
                         </div>
-                    </div> -->
+                        <div class="swiper-button-prev sw-btn"><i class="fa fa-long-arrow-left"></i></div>
+                        <div class="swiper-button-next sw-btn"><i class="fa fa-long-arrow-right"></i></div>
+                    </div>
+                    
+                    <!--  carousel  end--> 
+
 			<!--  section   -->
 			<section class="gray-section no-top-padding">
 				<div class="container">
@@ -589,18 +562,18 @@ function moveReservPage(){
 													</div>
 													<h2>${room.room_name}</h2>
 													<span class="section-separator"></span>
-													<div class="listing-rating card-popup-rainingvis"
-														data-starrating2="5"></div>
+													<!-- <div class="listing-rating card-popup-rainingvis"
+														data-starrating2="5"></div> -->
 													<div class="list-post-counter single-list-post-counter">
-														청결도 : ${ review.clean_score } &nbsp;&nbsp;&nbsp; 가격 대비 만족도
-														: ${ review.value_score } &nbsp;&nbsp;&nbsp; 서비스 : ${ review.service_score }
+														청결도 : ${ review.clean_score } &nbsp;&nbsp;&nbsp; 
+														가격 대비 만족도 : ${ review.value_score } &nbsp;&nbsp;&nbsp; 
+														서비스 : ${ review.service_score } &nbsp;&nbsp;&nbsp;
 														<i class="fa fa-heart"></i>
 													</div>
 												</div>
 												<div class="col-md-4">
 													<div class="fl-wrap list-single-header-column">
-														<button type="button" class="custom-scroll-link"
-															id="popupBtn">
+														<button type="button" class="custom-scroll-link" id="popupBtn" onClick="reWrite()">
 															<i class="fa fa-hand-o-right"></i>리뷰 등록
 														</button>
 													</div>
@@ -619,68 +592,30 @@ function moveReservPage(){
 								<div class="list-single-main-item-title fl-wrap">
 									<h3>편의기능</h3>
 								</div>
+								
 								<div class="listing-features fl-wrap">
 									<ul>
-										<c:if test="${ amenity.amenity_no eq '1' }">
-											<li><i class="fa fa-cutlery"></i>주방</li>
-										</c:if>
-										<c:if test="${ amenity.amenity_no eq '2' }">
-											<li><i class="fa fa-shower"></i>샴푸</li>
-										</c:if>
-										<c:if test="${ amenity.amenity_no eq '3' }">
-											<li><i class="fa fa-thermometer-full"></i>난방</li>
-										</c:if>
-										<c:if test="${ amenity.amenity_no eq '4' }">
-											<li><i class="fa fa-snowflake-o"></i>에어컨</li>
-										</c:if>
-										<c:if test="${ amenity.amenity_no eq '5' }">
-										</c:if>
-										<li><i class="fa fa-renren"></i>세탁기</li>
-										<c:if test="${ amenity.amenity_no eq '6' }">
-										</c:if>
-										<li><i class="fa fa-paw"></i>건조기</li>
-										<c:if test="${ amenity.amenity_no eq '7' }">
-										</c:if>
-										<li><i class="fa fa-wifi"></i>무선인터넷</li>
-										<c:if test="${ amenity.amenity_no eq '8' }">
-											<li><i class="fa fa-spoon"></i>아침식사</li>
-										</c:if>
-										<c:if test="${ amenity.amenity_no eq '9' }">
-											<li><i class="fa fa-university"></i>실내벽난로</li>
-										</c:if>
-										<c:if test="${ amenity.amenity_no eq '10' }">
-											<li><i class="fa fa-caret-square-o-down"></i>옷걸이</li>
-										</c:if>
-										<c:if test="${ amenity.amenity_no eq '11' }">
-											<li><i class="fa fa-reddit-square"></i>다리미</li>
-										</c:if>
-										<c:if test="${ amenity.amenity_no eq '12' }">
-											<li><i class="fa fa-font-awesome"></i>헤어 드라이기</li>
-										</c:if>
-										<c:if test="${ amenity.amenity_no eq '13' }">
-											<li><i class="fa fa-television"></i>TV</li>
-										</c:if>
-										<c:if test="${ amenity.amenity_no eq '14' }">
-										</c:if>
-										<li><i class="fa fa-bed"></i>아기 침대</li>
-										<c:if test="${ amenity.amenity_no eq '15' }">
-											<li><i class="fa fa-universal-access"></i>유아용 식탁</li>
-										</c:if>
-										<c:if test="${ amenity.amenity_no eq '16' }">
-											<li><i class="fa fa-hand-paper-o"></i>셀프 체크인</li>
-										</c:if>
-										<c:if test="${ amenity.amenity_no eq '17' }">
-											<li><i class="fa fa-fire"></i>화재 경보기</li>
-										</c:if>
-										<c:if test="${ amenity.amenity_no eq '18' }">
-											<li><i class="fa fa-anchor"></i>해변과 인접</li>
-										</c:if>
-										<c:if test="${ amenity.amenity_no eq '19' }">
-											<li><i class="fa fa-bath"></i>욕실 단독 사용</li>
-										</c:if>
+										<ul>
+										<c:forTokens items="${ room.facility }" delims="," var="facility">
+											<li>${facility}</li>
+										</c:forTokens>
+									</ul>
 									</ul>
 								</div>
-
+								
+								<br><br><br><br><br><br><br><br><br><br><br>
+								<div class="list-single-main-item-title fl-wrap">
+									<h3>사용 가능한 시설</h3>
+								</div>
+								<div class="listing-features fl-wrap">
+									<ul>
+										<c:forTokens items="${ room.amenity }" delims="," var="amenity">
+											<li>${amenity}</li>
+										</c:forTokens>
+									</ul>
+								</div> 
+								
+								 
 								<!-- list-single-main-item -->
 								<div class="list-single-main-item fl-wrap" id="sec4">
 									<div class="list-single-main-item-title fl-wrap">
@@ -698,15 +633,14 @@ function moveReservPage(){
 												<form action="replydel.do" id="replyForm" method="post">
 													<input type="hidden" name="room_no" value="${room.room_no}">
 													<input type="hidden" name="reply_no" value="${review.reply_no}">
-													<%-- <c:forEach items="${ requestScope.list }" var="review"> --%>
-														<c:if test="${ loginMember.user_id ne review.user_id and loginMember.user_id ne room.user_id}">
+														<c:if test="${ loginMember.user_id ne review.user_id}">
 															<h4>${review.user_id}</h4>
 															<div class="clearfix"></div>
 															<p>${review.review_content}</p>
 															<span class="reviews-comments-item-date"><i class="fa fa-calendar-check-o"></i>
 															<fmt:formatDate value="${review.review_date}" pattern="yyyy-MM-dd" /></span>
-															${review.review_content}
 														</c:if>
+														
 														<c:if test="${ loginMember.user_id eq review.user_id}">
 															<h4>${review.user_id}</h4>
 															<div class="clearfix"></div>
@@ -716,22 +650,21 @@ function moveReservPage(){
 															<button type="button" class="rpbtn" id="popupBtn_rp" data-repno="${review.reply_no}">수정</button> 
 															<input type="submit" value="삭제">
 														</c:if>			
-													<%-- </c:forEach> --%>
+												
 												</form>
 												</c:forEach>
 											</div>
 										</div>
 									</div>					
-								</div> <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+								</div> <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 								<!--reviews-comments-item end-->
 								<!-- list-single-main-item end -->
-								
+								<div style = "padding: 50px 0px 0px 0px;"></div>
 								 <div id="add-review" class="add-review-box">
-                                   <form action="reserv.do" method="post" name="testForm" onsubmit="return formTest7()">
+                                   <form action="reserv.do" method="post" name="testForm" class="refo" onsubmit="return formTest7()">
 									<input type="hidden" id="cnt_val" name="cnt_val" value="0">
 									<input type="hidden" name="room_no" value="${ room.room_no }">
-									<input type="hidden" name="user_id"
-										value="${ loginMember.user_id }">
+									<input type="hidden" name="user_id" value="${ loginMember.user_id }">
 									<div class="main-form">
 										<h2 class="form-title1"><b>요금을 확인하려면 날짜를 입력하세요.</b></h2>
 										<div class="inline-block">
@@ -759,10 +692,8 @@ function moveReservPage(){
 													<input type="hidden" name="a_num" id="num" value="1">
 													<input type="hidden" name="c_num" id="num1" value="0">
 													<input type="hidden" name="i_num" id="num2" value="0">
-													<input type="hidden" name="room_weekday"
-														value="${ room.room_weekday }"> <input
-														type="hidden" name="room_weekend"
-														value="${ room.room_weekend }">
+													<input type="hidden" name="room_weekday" value="${ room.room_weekday }"> 
+													<input type="hidden" name="room_weekend" value="${ room.room_weekend }">
 													<h4>성인</h4>
 													<span><button id="decreaseQuantity" 
 															class="btn_increaseQuantity" data-type="1">&#8722;</button></span>
@@ -789,13 +720,13 @@ function moveReservPage(){
 								</form>            
                                  </div>
 								
-								
 								<!-- list-single-main-item -->
 							</div>
-							
-							
 						</div>
-					
+
+						
+							
+						
 						<!--box-widget-wrap -->
 						<div class="col-md-4">		
 							<div class="box-widget-wrap">
@@ -825,7 +756,7 @@ function moveReservPage(){
 								</div>
 								<!--box-widget-item end -->
 								<!--box-widget-item -->
-								<div class="box-widget-item fl-wrap">
+								<%-- <div class="box-widget-item fl-wrap">
 									<div class="box-widget-item-header">
 										<h3>Hosted by :</h3>
 									</div>
@@ -837,7 +768,7 @@ function moveReservPage(){
 										<div class="box-widget-content">
 											<div class="list-author-widget-text">
 												<div class="list-author-widget-contacts">
-													<c:if test="${member.user_id eq room.user_id }">
+													<c:if test="${room.user_id eq member.user_id}">
 													<ul>				
 														<li><span><i class="fa fa-user-circle-o"></i> Name : ${member.user_name }</span> </li>									
 														<li><span><i class="fa fa-phone"></i> Phone : ${member.phone}</span></li>
@@ -848,49 +779,47 @@ function moveReservPage(){
 											</div>
 										</div>
 									</div>
-								</div>
+								</div> --%>
 								<!--box-widget-item end -->
 							</div>
+						</div>
+						</div>
+					</div>	
+							
+						<%-- <c:if test="${loginMember.user_id  eq room.user_id}"> --%>	 --%>
+						<div class="list-single-main-item fl-wrap">
+							<button onClick="moveUpdate()" class="price-link">수정</button>
+							<button onClick="delbtMethod()" class="price-link">삭제</button>
+						</div>
+						<%-- </c:if> --%>
 						
-							</div>				
 					</section>
 			<!--  section  end-->
 			 </div>
                 <!--  content  end--> 
             </div>
             <!-- wrapper end -->
+            <%-- <c:import url="/WEB-INF/views/common/footer.jsp"/> --%>
+            </div>
 			<div class="limit-box fl-wrap"></div>
 
-			<%-- <table>	
-		<c:forEach items="${ requestScope.list }" var="review"> 
-		<form action="replydel.do" id="replyForm" method="post">
-		<input type="hidden" name="room_no" value="${room.room_no}">
-		<input type="hidden" name="reply_no" value="${review.reply_no}">
-			<c:if test="${ loginMember.user_id ne review.user_id and loginMember.user_id ne room.user_id}">
-			<tr>				
-				<td>${review.user_id} </td> 
-				<td><fmt:formatDate value="${review.review_date}" pattern="yyyy-MM-dd" /> </td>
-				<td>${review.review_content}</td>
-			</tr>
-			</c:if>
-			<c:if test="${ loginMember.user_id eq review.user_id}">
-			<tr>				
-				<td>${review.user_id} </td> 
-				<td><fmt:formatDate value="${review.review_date}" pattern="yyyy-MM-dd" /> </td>
-				<td>${review.review_content}</td>
-				<td>
-					<button type="button" class="rpbtn" id="popupBtn_rp" data-repno="${review.reply_no}">수정</button>
-					<input type="submit" value="삭제">
-				</td>
-			</tr>	
-			</c:if>
-			</form>
-		</c:forEach>
-	</table> --%>
+			
+				
 			
 
 
 
-			<%-- <c:import url="/WEB-INF/views/common/footer.jsp"/> --%>
+
+
+
+	<!-- <script type="text/javascript" src="resources/js/jquery.min.js"></script> -->
+        <script type="text/javascript" src="resources/js/plugins.js"></script>
+        <script type="text/javascript" src="resources/js/scripts.js"></script>   
+        <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOURAPIKEYHERE&libraries=places&callback=initAutocomplete"></script> -->
+        <!-- <script type="text/javascript" src="resources/js/map_infobox.js"></script>
+        <script type="text/javascript" src="resources/js/markerclusterer.js"></script>  
+        <script type="text/javascript" src="resources/js/maps.js"></script> -->
+        
+       
 </body>
 </html>

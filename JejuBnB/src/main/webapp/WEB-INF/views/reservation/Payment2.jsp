@@ -53,22 +53,6 @@
 			<div id="wrapper">
                 <!--  content -->	
                 <div class="content">
-                    <!--  section  --> 
-                    <!-- <section class="parallax-section" data-scrollax-parent="true" id="sec1">
-                        <div class="bg par-elem "  data-bg="images/bg/1.jpg" data-scrollax="properties: { translateY: '30%' }"></div>
-                        <div class="overlay"></div>
-                        <div class="container">
-                            <div class="section-title center-align">
-                                <h2><span>Our Tariff Plans</span></h2>
-                                <div class="breadcrumbs fl-wrap"><a href="#">Home</a><span>Pricing Tables</span></div>
-                                <span class="section-separator"></span>
-                            </div>
-                        </div>
-                        <div class="header-sec-link">
-                            <div class="container"><a href="#sec2" class="custom-scroll-link">Let's Start</a></div>
-                        </div>
-                    </section> -->
-                    <!--  section end --> 
                     <!--  section   --> 
                     <section  id="sec2">
                         <div class="container">
@@ -85,26 +69,32 @@
                                     </div>
                                     <div class="price-content fl-wrap">
                                         <div class="price-num fl-wrap">
-                                           <!--  <span class="curen">$</span> -->
                                             <span class="price-num-item">
-										<c:if test="${cald eq null }">
-											<c:if test="${checkin eq 1 || checkin eq 7}">
-												<fmt:formatNumber value="${room.room_weekend*date}"
-													type="currency" />
+                                          <c:if test="${pay == 0 && pay1 == 0}">  
+										<c:if test="${date != 0 && cald == 0}">
+											<c:if test="${checkin == 1 || checkin == 7}">
+												<fmt:formatNumber value="${room.room_weekend*date}" type="currency" />
 											</c:if>
-											<c:if test="${checkin ne 1 && checkin ne 7}">
-												<fmt:formatNumber value="${room.room_weekday*date}"
-													type="currency" />
+											<c:if test="${checkin != 1 && checkin != 7}">
+												<fmt:formatNumber value="${room.room_weekday*date}" type="currency" />
 											</c:if>
-										</c:if> <c:if test="${cald ne null}">
-											<c:if test="${checkin eq 1 || checkin eq 7}">
-												<fmt:formatNumber value="${room.room_weekend*cald}"
-													type="currency" />
+										</c:if>
+										 <c:if test="${cald != 0 && date == 0}">
+											<c:if test="${checkin == 1 || checkin == 7}">
+												<fmt:formatNumber value="${room.room_weekend*cald}" type="currency" />
 											</c:if>
-											<c:if test="${checkin ne 1 && checkin ne 7}">
-												<fmt:formatNumber value="${room.room_weekday*cald}"
-													type="currency" />
+											
+											<c:if test="${checkin != 1 && checkin != 7}">
+												<fmt:formatNumber value="${room.room_weekday*cald}" type="currency" />
 											</c:if>
+										</c:if>
+										</c:if>
+										
+										<c:if test="${pay > 0}">
+											<fmt:formatNumber value="${pay}" type="currency" />
+										</c:if>
+										<c:if test="${pay1 > 0}">
+											<fmt:formatNumber value="${pay1}" type="currency" />
 										</c:if>
 									</span> 
                                             <!-- <div class="price-num-desc">Per month</div> -->
@@ -116,8 +106,11 @@
                                                 <li>계좌번호 :${ account.account_num }</li>
                                             </ul>
 									<form action="reservST.do" name="muForm" method="post">
-										<input type="hidden" name="room_no" value="${room_no}">
+										<input type="hidden" name="room_no" value="${room.room_no}">
 										<input type="hidden" name="date" value="${date}"> 
+										<input type="hidden" name="cald" value="${cald}">
+										<input type="hidden" name="pay" value="${pay}">
+										<input type="hidden" name="pay1" value="${pay1}">
 										<input type="button" id="mupay" value="완료" class="price-link">
 										<input type="button" value="이전페이지" class="price-link" onclick="javascript:history.go(-1); return false;">
 									</form>
@@ -132,14 +125,5 @@
                 <!--  content end -->  
             </div>
             <!-- wrapper end -->
-
-
-<%-- <form action="reservST.do" name="muForm" method="post">
-<input type="hidden" name="room_no" value="${room_no}">
-<input type="hidden" name="date" value="${date}">
-<input type="button" id="mupay" value="완료">
-<input type="button" value="이전페이지" onclick="javascript:history.go(-1); return false;">
-</form> --%>
-
 </body>
 </html>

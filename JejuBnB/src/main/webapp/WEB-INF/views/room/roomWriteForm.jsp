@@ -139,7 +139,7 @@ input[type=checkbox] {
                                     <div class="breadcrumbs"><a href="main.do">Home</a><a href="roomlist.do">숙소</a><span>숙소 등록하기</span></div>
                                 </div>
                                 <form action="roominsert.do" method="post" enctype="multipart/form-data">
-                             	   <input type="hidden" value="admin" name="user_id">
+                             	   <input type="hidden" value="${loginMember.user_id }" name="user_id">
                                 <div id="roadAdd"></div>
                                 <div class="row">                                   
                                     <div class="col-md-9" style="margin-left:13%;">
@@ -150,33 +150,43 @@ input[type=checkbox] {
                                             </div>
                                              <div class="custom-form">
                                                 <label>숙소 이름 <i class="fa fa-home"></i></label>
-                                                <input type="text" placeholder="숙소 이름을 입력해 주세요." name="room_name" style="padding-left : 40px;"/>                                               
+                                                <input type="text" placeholder="숙소 이름을 입력해 주세요." name="room_name" style="padding-left : 40px;" required/>                                               
                                             </div>
                                             <div class="custom-form">
                                                 <label>숙소 소개</label>
-                                                <textarea cols="40" rows="3" placeholder="숙소 소개" name="room_content"></textarea>
+                                                <textarea cols="40" rows="3" placeholder="숙소 소개" name="room_content"required></textarea>
                                                 <div class="row">
                                                 	<div class="col-md-6">
                                                         <label>기준 인원 :<i class="fas fa-user"></i></label>
-                                                        <input type="text" id="lat" placeholder="기준 인원" required name="st_num_people" style="padding-left : 40px;"/>                                                    
+                                                        <input type="text" id="lat" placeholder="기준 인원" required name="st_num_people" style="padding-left : 40px;" required/>                                                    
                                                     </div>
                                                 	<div class="col-md-6">
                                                         <label>최대 인원 :<i class="fas fa-user"></i></label>
-                                                        <input type="text" id="long" name="max_people" placeholder="최대 인원" required style="padding-left : 40px;" />                                                    
+                                                        <input type="text" id="long" name="max_people" placeholder="최대 인원" required style="padding-left : 40px;" required/>                                                    
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                 	<div class="col-md-6">
                                                         <label>평일 금액 :<i class="fas fa-won-sign"></i></label>
-                                                        <input type="text" id="lat" name="room_weekday" placeholder="평일 가격" required  style="padding-left : 40px;"/>                                                    
+                                                        <input type="text" id="lat" name="room_weekday" placeholder="평일 가격"   style="padding-left : 40px;" required/>                                                    
                                                     </div>
                                                 	<div class="col-md-6">
                                                         <label>주말 금액 :<i class="fas fa-won-sign"></i></label>
-                                                        <input type="text" id="long" name="room_weekend" placeholder="주말 가격" style="padding-left : 40px;" />                                                    
+                                                        <input type="text" id="long" name="room_weekend" placeholder="주말 가격" style="padding-left : 40px;" required/>                                                    
                                                     </div>
                                                 </div>
                                                 <label>인원 추가 금액 :<i class="fas fa-users"></i></label>
-                                                <input type="text" placeholder="인원 추가 금액" name="plus_charge" required style="padding-left : 40px;"/>
+                                                <input type="text" placeholder="인원 추가 금액" name="plus_charge"  style="padding-left : 40px;" required/>
+                                              <div class="row">
+                                                	<div class="col-md-6">
+                                                        <label>계좌</label>
+                                               			 <input type="text" placeholder="계좌" name="account_num"  style="padding-left : 40px;" required/>  
+                                                    </div>
+                                                	<div class="col-md-6">
+                                                        <label>은행</label>
+                                                        <input type="text" id="long" name="bank_name" placeholder="은행" style="padding-left : 40px;" required/>                                                    
+                                                    </div>
+                                                </div>
                                               
                                             </div>
                                         </div>
@@ -188,7 +198,7 @@ input[type=checkbox] {
                                             </div>
                                             <div class="custom-form">
                                                 <label>숙소 주소<i class="fa fa-map-marker"></i></label>
-                                                <input type="text" placeholder="주소" id="room_roadaddress" name="room_roadaddress" required readonly style="padding-left : 40px;"/>
+                                                <input type="text" placeholder="주소" id="room_roadaddress" name="room_roadaddress" required readonly style="padding-left : 40px;" />
                                                 <div class="row">
                                                 	<div class="col-md-6">
                                                         <label>우편 번호:<i class="fa fa-map-marker"></i></label>
@@ -216,7 +226,6 @@ input[type=checkbox] {
 		                                        	<div class="col-md-6">
 		                                            	<label>체크인 시간</label>
 		                                                <select name="inhour"  class="checkTime">
-		                                                	<option>시</option>
 			                                                <option value="12">12</option>
 															<option value="13">13</option>
 															<option value="14">14</option>
@@ -228,7 +237,6 @@ input[type=checkbox] {
 		                                            <div class="col-md-6">
 		                                            	<label>체크인 시간</label>
 		                                                <select name="inminute" class="checkTime">
-		                                                	<option>분</option>
 														    <option value="00">00</option>
 															<option value="10">10</option>
 															<option value="20">20</option>
@@ -240,7 +248,6 @@ input[type=checkbox] {
 		                                            <div class="col-md-6">
 		                                            	<label>체크아웃 시간</label>
 		                                                <select name="outhour" class="checkTime">
-		                                                	<option>시</option>
 															<option value="09">09</option>
 															<option value="10">10</option>
 															<option value="11">11</option>
@@ -250,7 +257,6 @@ input[type=checkbox] {
 		                                            <div class="col-md-6">
 		                                            	<label>체크아웃 시간</label>
 		                                                <select name="outminute" class="checkTime">
-		                                                	<option>분</option>
 															<option value="00">00</option>
 															<option value="10">10</option>
 															<option value="20">20</option>

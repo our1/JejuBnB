@@ -12,26 +12,33 @@
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-<script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
+<script   src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script   src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
 
 </head>
 <body>
 <script>
+   var weekday = '${room.room_weekday*date}'; 
+   var weekend = '${room.room_weekend*date}'; 
+   var pay = '${pay}'; 
+   var pay1 = '${pay1}';
+    var date = '${date}';
+    var cald = '${cald}';
+    var chin = '${chin}';
+   
     $(function(){
-    	var id = '${loginMember.user_id}';
-    	var phone = '${loginMember.phone}';
-    	var pay = '${room.room_weekday*date}';
-        var IMP = window.IMP; // 생략가능
+       var id = '${loginMember.user_id}';
+       var phone = '${loginMember.phone}';
+       var IMP = window.IMP; // 생략가능
         IMP.init('imp26223635'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
         var msg;
-        
+       
         IMP.request_pay({
             pg : 'kakaopay',
             pay_method : 'card',
             merchant_uid : 'merchant_' + new Date().getTime(),
             name : 'JejuBnB 숙소 결제',
-            amount : pay,
+            amount : weekday,
             //buyer_email: 'iamport@siot.do',
             buyer_name: id,
             buyer_tel: phone,
@@ -66,17 +73,17 @@
                     }
                 });
                 //성공시 이동할 페이지     
-                location.href='success.do?room_no=${room.room_no}&date=${date}&re_num=${reserv.re_num}';
-			} else {
-				msg = '결제에 실패하였습니다.';
-				msg += '에러내용 : ' + rsp.error_msg;
-				//실패시 이동할 페이지
-				alert(msg);
-				window.close();
-			}
-		});
+                location.href='success.do?room_no=${room.room_no}&date=${date}&re_num=${reserv.re_num}&date=${date}&cald=${cald}';
+         } else {
+            msg = '결제에 실패하였습니다.';
+            msg += '에러내용 : ' + rsp.error_msg;
+            //실패시 이동할 페이지
+            alert(msg);
+            window.close();
+         }
+      });
 
-	});
+   });
 </script>
     
 </body>

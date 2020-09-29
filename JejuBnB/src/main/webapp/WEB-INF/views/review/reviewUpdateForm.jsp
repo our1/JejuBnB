@@ -151,9 +151,10 @@
 			<h3>별점을 다시 체크해주세요.</h3>
 		</div>
 		<!-- Add Review Box -->
-		<form action="reinsert.do" name="replyForm" method="post" class="add-comment custom-form">
+		<form action="reup.do" name="replyForm" method="post" class="add-comment custom-form">
 		<input type="hidden" name="room_no" value="${ room_no }"> 
 		<input type="hidden" name="user_id" value="${ loginMember.user_id }">
+		<input type="hidden" name="reply_no" value="${ review.reply_no }">
 		<div class="make_star">
 			<div class="_cvx08b">
 				<div class="_a3qxec">
@@ -225,7 +226,7 @@
 				<fieldset>
 					<textarea cols="40" rows="3" placeholder="Review:" name="review_content">${review.review_content}</textarea>
 				</fieldset>
-				<button class="btn  big-btn  color-bg flat-btn" id="popbtn">리뷰 등록</button>			
+				<button class="btn  big-btn  color-bg flat-btn" id="popbtn">리뷰 수정</button>			
 		</div>
 		</form>
 		<!-- Add Review Box / End -->

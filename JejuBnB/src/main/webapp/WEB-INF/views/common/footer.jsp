@@ -47,7 +47,7 @@
                                 <div class="widget-posts fl-wrap">
                                     <ul>
                                         <li class="clearfix">
-                                            <a href="#"  class="widget-posts-img"><img src="resources/images/all/1.jpg" class="respimg" alt=""></a>
+                                            <a href="myinfo.do?user_id=jbk3148@naver.com"  class="widget-posts-img"><img src="resources/images/범관.jpg" class="respimg" alt=""></a>
                                             <div class="widget-posts-descr">
                                                 <a href="#" title="">전 범관</a>
                                                 <span class="widget-posts-date"> 010 7151 3148 </span> 
@@ -66,14 +66,14 @@
                                         <li class="clearfix">
                                             <a href="#"  class="widget-posts-img"><img src="resources/images/뚱이.jpg" class="respimg" alt=""></a>
                                             <div class="widget-posts-descr">
-                                                <a href="#" title="">이 동훈</a>
+                                                <a href="myinfo.do?user_id=leedh2752@naver.com" title="">이 동훈</a>
                                                 <span class="widget-posts-date"> 010 8713 6648 </span> 
                                             </div>
                                         </li>
                                         <li class="clearfix">
                                             <a href="#"  class="widget-posts-img"><img src="resources/images/오승석.png" class="respimg" alt=""></a>
                                             <div class="widget-posts-descr">
-                                                <a href="#" title=""> 오 승석</a>
+                                                <a href="myinfo.do?user_id=oss7900@gmail.com" title=""> 오 승석</a>
                                                 <span class="widget-posts-date"> 010 5365 7917</span> 
                                             </div>
                                         </li>                                       
@@ -89,14 +89,14 @@
                                         <li class="clearfix">
                                             <a href="#"  class="widget-posts-img"><img src="resources/images/전재우.png" class="respimg" alt=""></a>
                                             <div class="widget-posts-descr">
-                                                <a href="#" title="">전 재우</a>
+                                                <a href="myinfo.do?user_id=" title="">전 재우</a>
                                                 <span class="widget-posts-date"> 010 3728 6657 </span> 
                                             </div>
                                         </li>  
 										<li class="clearfix">
                                             <a href="#"  class="widget-posts-img"><img src="resources/images/변근영.jpg" class="respimg" alt=""></a>
                                             <div class="widget-posts-descr">
-                                                <a href="#" title=""> 변 근영</a>
+                                                <a href="myinfo.do?user_id=bgy8135@naver.com" title=""> 변 근영</a>
                                                 <span class="widget-posts-date"> 010 3364 0602 </span> 
                                             </div>
                                         </li>                                                                          

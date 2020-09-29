@@ -165,4 +165,19 @@ public class RoomServiceImpl implements RoomService{
 		return roomDao.selectTop();
 	}
 
+	@Override
+	public int deleteroomLatLng(int roomno) {
+		return roomDao.deleteroomLatLng(roomno);
+	}
+
+	@Override
+	public int deleteReservationRoom(int roomno) {
+		return roomDao.deleteReservationRoom(roomno);
+	}
+	
+	@Override
+	public ArrayList<Room_File> selectRFile(int room_no) {
+		return roomDao.selectRFile(room_no);
+	}
+
 }

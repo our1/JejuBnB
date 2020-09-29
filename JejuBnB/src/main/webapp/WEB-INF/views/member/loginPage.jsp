@@ -7,6 +7,7 @@
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>JejuBnB</title>
+   <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
     <link rel="stylesheet" href="resources/css/loginPage.css" >
     <link rel="stylesheet" href="resources/css/bootstrap.min.css" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">

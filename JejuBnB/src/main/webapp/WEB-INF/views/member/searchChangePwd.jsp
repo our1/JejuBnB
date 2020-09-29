@@ -7,6 +7,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>JejuBnB</title>
+		 <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
 		<script type="text/javascript" src="resources/js/jquery-3.5.1.min.js"></script>
 		<script>
 			function validate(){

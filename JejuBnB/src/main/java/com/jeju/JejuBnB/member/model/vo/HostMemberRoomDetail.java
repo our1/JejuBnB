@@ -8,11 +8,13 @@ public class HostMemberRoomDetail {
 	private String room_address;
 	private String phone;
 	private String host_check;
+	private String rename_file;
 	public HostMemberRoomDetail() {
 		super();
 	}
+	
 	public HostMemberRoomDetail(int room_no, String user_id, String user_name, String room_name, String room_address,
-			String phone, String host_check) {
+			String phone, String host_check, String rename_file) {
 		super();
 		this.room_no = room_no;
 		this.user_id = user_id;
@@ -21,7 +23,17 @@ public class HostMemberRoomDetail {
 		this.room_address = room_address;
 		this.phone = phone;
 		this.host_check = host_check;
+		this.rename_file = rename_file;
 	}
+
+	public String getRename_file() {
+		return rename_file;
+	}
+
+	public void setRename_file(String rename_file) {
+		this.rename_file = rename_file;
+	}
+
 	public int getRoom_no() {
 		return room_no;
 	}
@@ -64,11 +76,12 @@ public class HostMemberRoomDetail {
 	public void setHost_check(String host_check) {
 		this.host_check = host_check;
 	}
+
 	@Override
 	public String toString() {
 		return "HostMemberRoomDetail [room_no=" + room_no + ", user_id=" + user_id + ", user_name=" + user_name
 				+ ", room_name=" + room_name + ", room_address=" + room_address + ", phone=" + phone + ", host_check="
-				+ host_check + "]";
+				+ host_check + ", rename_file=" + rename_file + "]";
 	}
 	
 	

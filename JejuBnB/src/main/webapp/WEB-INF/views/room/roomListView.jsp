@@ -34,7 +34,7 @@
 				showSlides(slideIndex,${room.room_no});
 			</c:forEach>
 		});
- 
+ 	
     	function moveFilterPage()
 		{	
 		var popupX = (document.body.offsetWidth / 2) - (800 / 2);
@@ -285,8 +285,15 @@
 										<a href="#" class="blog-page current-page transition">${count }</a>
 									</c:if>
 									<c:if test="${currentPage ne count }">
+										<c:if test="${count eq endPage }">
+											<a href="roomlist.do?page=${count}&checkin=${checkin }&checkout=${checkout}&people=${people}&week=${week}"
+											class="blog-page transition">${count }</a>
+											<c:set var="count" value="5" />
+										</c:if>
+										<c:if test="${currentPage ne endPage }" >
 										<a href="roomlist.do?page=${count}&checkin=${checkin }&checkout=${checkout}&people=${people}&week=${week}"
 											class="blog-page transition">${count }</a>
+										</c:if>										
 									</c:if>
 								</c:forEach>
 								<c:if test="${currentPage eq endPage }">

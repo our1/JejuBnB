@@ -76,7 +76,7 @@
 	
 	<!-- 전체 게시글 갯수 조회 -->
 	<select id="getListCount" parameterType="java.util.HashMap" resultType="int">
-		select count(room_no) from room join room_latlng using(room_no) where room_no != 0
+		select count(room_no) from room join room_latlng using(room_no) where pass_or_not != 'N'
 		<if test="seR != null">
 		<![CDATA[
 			and  room_lat >= #{seR.room_lat} and room_lat <= #{neR.room_lat} and room_lng >= #{seR.room_lng} and room_lng <= #{neR.room_lng} 
@@ -91,7 +91,7 @@
 	
 	<!-- 서치에서 게시글 수 조회(좌표미지정) -->
 	<select id="selectSearchListCount" parameterType="java.util.HashMap" resultType="int">
-		select count(room_no) from ( select room_no from room where room_no != 0
+		select count(room_no) from ( select room_no from room where pass_or_not != 'N'
 			<foreach collection="list" item="room">
 				and room_no != #{room.room_no}
 			</foreach>
@@ -135,7 +135,7 @@
 	
 	<!-- 서치에서 게시글 수 조회(좌표지정) -->
 	<select id="selectSearchListCountLatLng" parameterType="java.util.HashMap" resultType="int">
-		select count(room_no) from ( select room_no from room where room_no != 0
+		select count(room_no) from ( select room_no from room where pass_or_not != 'N'
 			<foreach collection="list" item="room">
 				and room_no != #{room.room_no}
 			</foreach>
@@ -184,7 +184,7 @@
 	
 	<!-- 일반 게시판에서 게시글 수 조회(좌표 미지정) -->
 	<select id="getListCountOnlyRoom" parameterType="java.util.List" resultType="int">
-		select count(room_no) from room join room_latlng using(room_no) where room_no != 0
+		select count(room_no) from room join room_latlng using(room_no) where pass_or_not != 'N'
 		<if test="list != null">
 			<foreach collection="list" item="room">
 				and room_no != #{room.room_no}
@@ -200,7 +200,7 @@
 	<!-- 예약된 게시글 번호 조회애 와서 값을 넣어서 예약되지 않은 게시글 조회 -->
 	<select id="selectChkList" parameterType="java.util.HashMap" resultMap="resultList">
 		select * from (select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
-		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from room where room_no != 0
+		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from room where pass_or_not != 'N'
 		<foreach collection="list" item="room">
 			and room_no != #{room.room_no}
 		</foreach>
@@ -219,7 +219,7 @@
 		checkout_date = to_date(#{checkout}, 'YY/MM/DD')
 		<![CDATA[
 		and st_num_people <= #{people}
-		or max_people >= #{people}
+		and max_people >= #{people}
 		]]>
 	</select>
 	
@@ -228,7 +228,7 @@
 	<![CDATA[
 		select * from(select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
 		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from room order by room_no desc)
-		where rnum >= #{startRow} and rnum <= #{endRow}
+		where rnum >= #{startRow} and rnum <= #{endRow} and pass_or_not != 'N'
 		]]>
 	</select>
 	
@@ -237,7 +237,7 @@
 	<![CDATA[
 		select * from(select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
 		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from room order by room_no desc)
-		where rnum >= #{startRow} and rnum <= #{endRow}
+		where rnum >= #{startRow} and rnum <= #{endRow} and pass_or_not != 'N'
 		]]>
 	</select>
 	
@@ -267,6 +267,10 @@
 		select * from room where user_id = #{uid}
 	</select>
 	
+	<select id="selectRFile" parameterType="int" resultMap="resultRfList">
+      select * from room_file where room_no = #{room_no}
+   </select>
+   
 	<!-- 업데이트용 룸 하나 조회 -->
 	<select id="selectRoom" parameterType="int" resultMap="resultRoom">
 		select * from room where room_no = #{roomno}
@@ -295,6 +299,7 @@
 				and room_no != #{room.room_no}
 			</foreach>
 		</if>
+		and pass_or_not != 'N'
 		<![CDATA[		
 		order by room_no)
 		where rnum >= #{startRow} and rnum <= #{endRow}
@@ -308,7 +313,7 @@
 		bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from room
 		join room_latlng using(room_no)
 		where room_lat >= #{seR.room_lat} and room_lat <= #{neR.room_lat} and room_lng >= #{seR.room_lng} and room_lng <= #{neR.room_lng} 
-		
+		and pass_or_not != 'N'
 		order by room_no desc)
 		where rnum >= #{startRow} and rnum <= #{endRow} 
 		]]>
@@ -321,7 +326,7 @@
 			bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from   
  				(select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
 				bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend
-     		    from room where room_no != 0	    
+     		    from room where pass_or_not != 'N'
      		    <foreach collection="roomNo" item="room">
      		    	and	room_no != #{room.room_no}
      		    </foreach>
@@ -380,7 +385,7 @@
 			bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from   
  				(select room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
 				bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend
-     		    from room where room_no != 0 		    
+     		    from room where pass_or_not != 'N'		    
      		    <foreach collection="roomNo" item="room">
      		    	and room_no != #{room.room_no}
      		    </foreach>
@@ -441,10 +446,10 @@
 	<select id="selectTop" resultMap="resultList">
 		select * from(
 			select rownum rnum, room_no, user_id, room_name, room_content, room_address, room_roadaddress, max_people, checkin_time, checkout_time, bed, bedroom, 
-					bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from room
-			join (select count(room_no) count, room_no  from review group by room_no order by count desc) using (room_no))
+					bathroom, amenity, facility, build_type, rule, pass_or_not, st_num_people, plus_charge, room_weekday, room_weekend from room order by room_no)
+			
 			<![CDATA[
-			where rnum >= 1 and rnum <= 10
+			where rnum >= 1 and rnum <= 15 and pass_or_not != 'N'
 			]]>
 	</select>
 	
@@ -558,5 +563,13 @@
 	<!-- 룸에 등록된 리뷰들 삭제 -->
 	<delete id="deleteReviewList" parameterType="int">
 		delete from review where room_no = #{ room_no}
+	</delete>
+	
+	<delete id="deleteReservationRoom" parameterType="int">
+		delete from reservation where room_no = #{room_no}
+	</delete>
+	
+	<delete id="deleteroomLatLng" parameterType="int">
+		delete from room_latlng where room_no = #{room_no}
 	</delete>
 </mapper>

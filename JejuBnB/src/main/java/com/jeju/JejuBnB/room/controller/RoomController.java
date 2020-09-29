@@ -26,10 +26,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.jeju.JejuBnB.account.model.service.AccountService;
+import com.jeju.JejuBnB.account.model.vo.Account;
 import com.jeju.JejuBnB.filter.model.service.FilterService;
 import com.jeju.JejuBnB.filter.model.vo.Amenity;
 import com.jeju.JejuBnB.filter.model.vo.Build_type;
@@ -62,6 +65,9 @@ public class RoomController {
 	@Autowired
 	private MyRoomService myroomService;
 	
+	@Autowired
+	private AccountService accountService;
+	// 게시글 조회
 	@RequestMapping("roomlist.do")
 	public String SelectList(HttpServletRequest request, Model model, HttpSession session) {
 		int limit = 8;
@@ -69,7 +75,7 @@ public class RoomController {
 		
 		//오늘 월 일 요일 인원 설정
 		Calendar cal = Calendar.getInstance();
-		String year = (""+(cal.get(Calendar.YEAR))).substring(2,4);
+		String year = (""+(cal.get(Calendar.YEAR)));
 		String inMonth = "" + (cal.get(Calendar.MONTH) + 1);
 		String inday = "" + cal.get(Calendar.DAY_OF_MONTH);		
 		String outday = "" + (cal.get(Calendar.DAY_OF_MONTH) + 1);
@@ -145,7 +151,6 @@ public class RoomController {
 				inday = checkin.substring(8);
 				outMonth = checkout.substring(5,7);
 				outday = checkout.substring(8);
-				logger.info("0000-00-00" + checkin);
 				try {
 					chDate = sdf.parse(checkin);
 				} catch (ParseException e) {
@@ -158,14 +163,13 @@ public class RoomController {
 				
 				String [] chou = checkout.split("-");
 				checkout = chou[0] +  chou[1] + chou[2];
-				model.addAttribute("checkin", checkin);
-				model.addAttribute("checkout", checkout);
+				
 
 			}else {
-				inMonth = checkin.substring(2, 4);
-				inday = checkin.substring(4);
-				outMonth = checkout.substring(2, 4);
-				outday = checkout.substring(4);
+				inMonth = checkin.substring(4, 6);
+				inday = checkin.substring(6);
+				outMonth = checkout.substring(4, 6);
+				outday = checkout.substring(6);
 				try {
 					chDate = sdf.parse(checkin);
 				} catch (ParseException e) {
@@ -173,10 +177,10 @@ public class RoomController {
 				}
 				cal.setTime(chDate);
 				week = cal.get(Calendar.DAY_OF_WEEK);
-				model.addAttribute("checkin", checkin);
-				model.addAttribute("checkout", checkout);
+				
 			}
 			// 전달받은 체크인 날짜에 예약된 숙소 번호 가져오기
+			logger.info(people + "");
 			roomNo = roomService.selectChkRNList(checkin, checkout,people);
 			
 			// 좌표값에 따라 select 가 변경됨
@@ -213,7 +217,7 @@ public class RoomController {
 		if (maxPage < endPage) {
 			endPage = maxPage;
 		}
-		
+		logger.info("" + endPage);
 		//회원이 좋아요 누른 룸 리스트 번호 가져오기
 		if(request.getParameter("userid") != null) {
 		ArrayList<MyRoom> mlist = myroomService.selectMyRoom(request.getParameter("userid"));
@@ -231,7 +235,10 @@ public class RoomController {
 		 * // 숙소 위도경도 찾아오기 ArrayList<RoomLatLng> roomLL =
 		 * roomService.selectRoomLatLng(); model.addAttribute("roomLL", roomLL);
 		 */
-		
+		model.addAttribute("checkin", checkin);
+		model.addAttribute("checkout", checkout);
+		logger.info("aaaaaaa"+checkin);
+
 		if (list != null) {
 			model.addAttribute("people", people);
 			model.addAttribute("inMonth", inMonth);
@@ -253,20 +260,24 @@ public class RoomController {
 		}
 	
 	}
-	
+	// 숙소 등록
 	@RequestMapping(value = "roominsert.do", method = RequestMethod.POST)
-	public String insertRoom(Room room, RoomLatLng rll, Model model, CheckTime ct, MultipartHttpServletRequest mrequest,
+	public String insertRoom(Room room, RoomLatLng rll, Account acc, Model model, CheckTime ct, MultipartHttpServletRequest mrequest,
 			HttpServletRequest request,	@RequestParam("address") String address) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
 		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmss");
 		room.setCheckout_time(ct.getOuthour() + ct.getOutminute());
 		room.setCheckin_time(ct.getInhour() + ct.getInminute());
 		if(address != null) {
 			room.setRoom_address(room.getRoom_roadaddress() +" " + address);
-		}		int result = roomService.insertRoom(room);
-
+		}		
+		int result = roomService.insertRoom(room);
 		int roomno = roomService.selectRoomNo(room.getUser_id());
 		
+		acc.setRoom_no(roomno);
+		int account = accountService.insertAccount(acc);
+		logger.info(acc.toString());
+		logger.info(room.toString());
 		List<MultipartFile> fileList = mrequest.getFiles("file");
 		ArrayList<Room_File> rflist = new ArrayList<Room_File>();
 		String savePath1 = request.getSession().getServletContext().getRealPath("resources/roomFiles");
@@ -293,26 +304,20 @@ public class RoomController {
 			rflist.add(rf);
 		}
 		
-		String encoderName = null;
-		try {
-			encoderName = URLEncoder.encode(room.getRoom_name(), "utf-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
 		
 		rll.setRoom_no(roomno);
 		logger.info(rll.toString());
 		int result3 = roomService.insertRoomLatLnt(rll);
 		int result2 = roomService.insertRoomFile(rflist);
 		if (result > 0) {
-			return "redirect:/insertNotice.do?toUser=" + room.getUser_id()+"&fromUser=admin&room_name="+encoderName+"&returnPage=redirect:/moveDetailView.do?room_no="+roomno +"&choice=7";
+			return "redirect:/moveDetailView.do?room_no="+roomno;
 		} else {
 			model.addAttribute("message", "글 등록 실패");
 			return "common/error";
 		}
 
 	}
-	
+	// 숙소 등록창으로 이동
 	@RequestMapping("moveRoomWrite.do")
 	public String moveRoomWrite(Model model) {
 		ArrayList<Amenity> Alist = filterService.selectAmenity();
@@ -325,7 +330,7 @@ public class RoomController {
 		model.addAttribute("Rlist", Rlist);
 		return "room/roomWriteForm";
 	}
-	
+	// 사장님 등록한 숙소 조회
 	@RequestMapping("moveMyRoom.do")
 	public String moveMyRoom(@RequestParam("userid") String userid, Model model) {
 		ArrayList<Room> list = roomService.selectUserRoom(userid);
@@ -343,13 +348,18 @@ public class RoomController {
 	@RequestMapping("moveDetailView.do")
 	public ModelAndView moveDetail(ModelAndView mv, @RequestParam("room_no") int room_no) {
 		Room room = roomService.selectRoom(room_no);
+		Review review = reviewService.selectReviewAvg(room_no);
 		ArrayList<Review> list = reviewService.selectReply(room_no);
-		
+		ArrayList<Room_File> rflist = roomService.selectRFile(room_no);
+		logger.info(rflist.toString());
 		if(room != null) {
 			mv.setViewName("reservation/reservationListView");
 			mv.addObject("room", room);
 			mv.addObject("list", list);
-			
+			mv.addObject("review", review);
+			mv.addObject("rflist", rflist);
+			logger.info("room:" + room);
+			logger.info("rflist:" + rflist);
 		}else {
 			mv.setViewName("common/error");
 			mv.addObject("message", "게시글 조회 실패");
@@ -357,9 +367,9 @@ public class RoomController {
 		return mv;
 	}
 	
-	
+	// 숙소 수정페이지로 이동
 	@RequestMapping("moveUpdatView.do")
-	public String moveUPdate(Model model, @RequestParam("roomno") int roomno) {
+	public String moveUpdate(Model model, @RequestParam("roomno") int roomno) {
 		Room room = roomService.selectRoom(roomno);
 		ArrayList<Room_File> rflist = roomService.selectRoomFile(roomno);
 		ArrayList<Amenity> Alist = filterService.selectAmenity();
@@ -380,10 +390,10 @@ public class RoomController {
 			return "common/error";
 		}
 	}
-	
-	
+	// 숙소 삭제
 	@RequestMapping("deleteRoom.do")
-	public String deletrRoom(@RequestParam("roomno") int roomno, Model model) {
+	public String deleteRoom(@RequestParam("roomno") int roomno, Model model) {
+		int resuult4 = roomService.deleteroomLatLng(roomno);
 		int result2 = roomService.deleteRoomFileList(roomno);
 		int result3 = roomService.deleteReviewList(roomno);
 		int result = roomService.deleteRoom(roomno);
@@ -394,9 +404,10 @@ public class RoomController {
 			return "common/error";
 		}
 	}
-	
+	// 숙소 수정
 	@RequestMapping(value="roomUpdate.do", method=RequestMethod.POST)
 	public String roomUpdate(Room room, CheckTime ct, Model model, MultipartHttpServletRequest mrequest, HttpServletRequest request) {
+		logger.info(room.toString());
 		room.setCheckout_time("" + ct.getOuthour() + ct.getOutminute());
 		room.setCheckin_time(""+ct.getInhour() + ct.getInminute());
 		if(request.getParameter("address") != null) {
@@ -441,7 +452,7 @@ public class RoomController {
 		}
 
 	}
-	
+	// 게시판형태 숙소 조회
 	@RequestMapping("moveRoomBList.do")
 	public String moveRoomBList(Model model, HttpServletRequest request, HttpSession session) {
 		int limit = 9;
@@ -513,10 +524,10 @@ public class RoomController {
 			// 예약된 숙소번호를 제외한 숙소를 조회
 			// 체크인날짜 체크아웃날짜 설정
 			logger.info(checkin+ ", " + checkout);
-			String inMonth = checkin.substring(2, 4);
-			String inday = checkin.substring(4);
-			String outMonth = checkout.substring(2, 4);
-			String outday = checkout.substring(4);			
+			String inMonth = checkin.substring(4, 6);
+			String inday = checkin.substring(6);
+			String outMonth = checkout.substring(4, 6);
+			String outday = checkout.substring(6);		
 			model.addAttribute("people", people);
 			model.addAttribute("inMonth", inMonth);
 			model.addAttribute("inday", inday);
@@ -581,8 +592,9 @@ public class RoomController {
 			return "common/error";
 		}
 	}
+	// 검색후 게시판형태로 이동
 		@RequestMapping("moveSearchBList.do")
-		public String moveSearchBList(Model model, HttpServletRequest request, HttpSession session, Room room) {
+	public String moveSearchBList(Model model, HttpServletRequest request, HttpSession session, Room room) {
 			int limit = 9;
 			int currentPage = 1;
 			room.setBed(Integer.parseInt(request.getParameter("bedCount")));
@@ -627,10 +639,10 @@ public class RoomController {
 			int people = Integer.parseInt(request.getParameter("people"));
 			int week = Integer.parseInt(request.getParameter("week"));
 
-			String inMonth = checkin.substring(2,4);
-			String inday = checkin.substring(4);
-			String outMonth = checkout.substring(2,4);
-			String outday = checkout.substring(4);
+			String inMonth = checkin.substring(4, 6);
+			String inday = checkin.substring(6);
+			String outMonth = checkout.substring(4, 6);
+			String outday = checkout.substring(6);	
 			model.addAttribute("people", people);
 			model.addAttribute("inMonth", inMonth);
 			model.addAttribute("inday", inday);
@@ -693,8 +705,7 @@ public class RoomController {
 				return "common/error";
 			}
 		}
-	
-	
+	// 필터로 검색
 	@RequestMapping(value = "SearchFilter.do", method = RequestMethod.POST)
 	public String SearchFilter(Room room, Model model, HttpServletRequest request, HttpSession session) {
 		int limit = 8;
@@ -740,11 +751,10 @@ public class RoomController {
 		String checkout = request.getParameter("checkout");
 		int people = Integer.parseInt(request.getParameter("people"));
 		int week = Integer.parseInt(request.getParameter("week"));
-
-		String inMonth = checkin.substring(2, 4);
-		String inday = checkin.substring(4);
-		String outMonth = checkout.substring(2, 4);
-		String outday = checkout.substring(4);
+		String inMonth = checkin.substring(4, 6);
+		String inday = checkin.substring(6);
+		String outMonth = checkout.substring(4, 6);
+		String outday = checkout.substring(6);	
 		model.addAttribute("people", people);
 		model.addAttribute("inMonth", inMonth);
 		model.addAttribute("inday", inday);
@@ -760,6 +770,7 @@ public class RoomController {
 		// 좌표값에 따라 select 가 변경됨
 		if (request.getParameter("swLat") != null) {
 			// 체크인 체크아웃 인원 검색에서 지도 움직여 검색
+			logger.info("" + people + ", " + roomNo.toString());
 			list = roomService.selectSearchLatLng(room, roomNo, currentPage, limit, seR, neR);
 
 		} else {
@@ -812,7 +823,7 @@ public class RoomController {
 			return "common/error";
 		}
 	}
-
+	// 필터페이지 이동
 	@RequestMapping("moveFilterPage.do")
 	public String moveFilterPage(Model model,HttpServletRequest request) {
 		String checkin = request.getParameter("checkin");
@@ -834,7 +845,7 @@ public class RoomController {
 		model.addAttribute("week", week);
 		return "room/roomFilterView";
 	}
-	
+	// 게시판형태에서 필터페이지 이동
 	@RequestMapping("moveBFilterPage.do")
 	public String moveBFilterPage(Model model, HttpServletRequest request) {
 		String checkin = request.getParameter("checkin");
@@ -855,7 +866,7 @@ public class RoomController {
 		model.addAttribute("week", week);
 		return "room/roomBFilterView";
 	}
-
+	// 사장님 통과여부 확인
 	@RequestMapping("roomChangePass.do") 
 	public String roomChangePass(@RequestParam("user_id") String user_id, Model model) {
 		if(roomService.updateRoomChangePass(user_id)> 0) { 
@@ -865,7 +876,7 @@ public class RoomController {
 			return "common/error"; 
 			} 
 	}
-	
+	// 숙소 사진 삭제
 	@RequestMapping(value="deleteFile.do", method=RequestMethod.POST)
 	public void deleteFile(Model model, Room_File rfile, HttpServletResponse response) {
 		logger.info(rfile.toString());
@@ -887,8 +898,9 @@ public class RoomController {
 			e.printStackTrace();
 		}
 	}
-	
+	// 숙소 top 15? 조회(메인페이지)
 	@RequestMapping(value="roomTop.do", method=RequestMethod.POST)
+	@ResponseBody
 	public String roomTop(HttpServletResponse response) {
 		ArrayList<Room> list = roomService.selectTop();
 		ArrayList<Room_File> rflist = roomService.selectRoomFileList(list);		
@@ -900,13 +912,24 @@ public class RoomController {
 		
 		for(Room room : list) {
 			JSONObject job = new JSONObject();
-			job.put("room_name", room.getRoom_name());
+			try {
+				job.put("room_name", URLEncoder.encode(room.getRoom_name(), "utf-8"));
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			job.put("room_no", room.getRoom_no());
 			job.put("st_num_people", room.getSt_num_people());
 			job.put("checkin_time", room.getCheckin_time());
 			job.put("checkout_time", room.getCheckout_time());
 			job.put("room_weekday", room.getRoom_weekday());
 			job.put("room_weekend", room.getRoom_weekend());
-			job.put("room_address", room.getRoom_address());
+			try {
+				job.put("room_address", URLEncoder.encode(room.getRoom_address(), "utf-8"));
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 				for(Review re : rvlist) {
 					if(re.getRoom_no() == room.getRoom_no()) {
 						job.put("clean_score",re.getClean_score());
@@ -924,11 +947,10 @@ public class RoomController {
 			jrr.add(job);
 		}
 		sendJSON.put("list",jrr);
-		
+		logger.info(sendJSON.toJSONString());
 		return sendJSON.toJSONString(); //jsonView 롤 리턴된다.
 		
 	}
-	
 	
 }
 

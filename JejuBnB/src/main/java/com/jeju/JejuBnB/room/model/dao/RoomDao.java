@@ -128,8 +128,8 @@ public class RoomDao {
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;		
 		hm.put("list", room);
-		hm.put("startRow", 1);
-		hm.put("endRow", 8);
+		hm.put("startRow", startRow);
+		hm.put("endRow", endRow);
 		List<Room> list = session.selectList("roomMapper.selectChkList", hm);
 		return (ArrayList<Room>) list;
 	}
@@ -184,8 +184,8 @@ public class RoomDao {
 		int endRow = startRow + limit - 1;
 		
 		hm.put("list", room);
-		hm.put("startRow", 1);
-		hm.put("endRow", 8);
+		hm.put("startRow", startRow);
+		hm.put("endRow", endRow);
 		hm.put("seR", seR);
 		hm.put("neR", neR);
 		List<Room> list = session.selectList("roomMapper.selectLatLng", hm);
@@ -414,5 +414,18 @@ public class RoomDao {
 	public ArrayList<Room> selectTop() {
 		List<Room> list = session.selectList("roomMapper.selectTop");
 		return (ArrayList<Room>)list;
+	}
+
+	public int deleteroomLatLng(int roomno) {
+		return session.delete("roomMapper.deleteroomLatLng", roomno);
+	}
+
+	public int deleteReservationRoom(int roomno) {
+		return session.delete("roomMapper.deleteReservationRoom", roomno);
+	}
+	
+	public ArrayList<Room_File> selectRFile(int room_no) {
+		List<Room_File> list = session.selectList("roomMapper.selectRFile", room_no);
+		return (ArrayList<Room_File>)list;
 	}
 }

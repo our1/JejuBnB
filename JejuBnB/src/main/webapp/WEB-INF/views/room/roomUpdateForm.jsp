@@ -467,7 +467,7 @@ input[type=checkbox] {
 													</c:forEach>
 												</div>
 												<div class="write">
-													<div class="filebox"><label for="files">숙소 사진 추가</label><input multiple="multiple" type="file" id="files" name="files" style="display:none;" required/></div>
+													<div class="filebox"><label for="files">숙소 사진 추가</label><input multiple="multiple" type="file" id="files" name="files" style="display:none;"/></div>
 													<div class="dropBox" id="dropBox"><i class="fas fa-images"></i> 사진 업로드</div>
 													<div id="imgContainer">
 														

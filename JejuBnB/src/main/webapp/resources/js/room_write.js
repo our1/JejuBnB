@@ -1,23 +1,38 @@
-  function PostCall() {
-	    	var roadAddr = "";
-	    	daum.postcode.load(function(){
-	            new daum.Postcode({
-	            	 oncomplete: function(data) {
-	                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-	 				roadAddr = data.roadAddress; // 도로명 주소 변수
+ function PostCall() {
+    	var roadAddr = "";
+    	daum.postcode.load(function(){
+            new daum.Postcode({
+            	 oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+ 				roadAddr = data.roadAddress; // 도로명 주소 변수
 
-	                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-	               
-	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-	                document.getElementById("PostNumber").value = data.zonecode;
-	                document.getElementById("room_roadaddress").value = roadAddr;
-	                insertMarker(roadAddr);
-	          		}
-	       		}).open();
-	   		})
-	    }
-	  
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+               
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById("PostNumber").value = data.zonecode;
+                document.getElementById("room_roadaddress").value = roadAddr;
+              	updateLatLng(roadAddr);
+              	insertMarker(roadAddr);
+          		}
+       		}).open();
+   		})
+    }
+    
+    function updateLatLng(roadAddr){    	
+    	 var geocoder = new kakao.maps.services.Geocoder();
+	 	 geocoder.addressSearch(roadAddr, function(result, status) {
+	 		if (status === kakao.maps.services.Status.OK) {
+		  		coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+			  	var html = "";
+			  	html += '<input type="hidden" name="room_lat" value="'+ result[0].y +'" >';
+			  	html += '<input type="hidden" name="room_lng" value="'+ result[0].x +'" >'
+			  	$("#roadAdd").html(html);
+			 }
+		});
+   	 
+   	 
+    }
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		mapOption = {
 		    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표

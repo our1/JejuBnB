@@ -14,12 +14,7 @@
 		<result property="sum_rimg" column="sum_rimg" />	
 	</resultMap>
 	
-	<resultMap type="Coupon" id="resultCoupon">
-		<id property="coupon_no" column="coupon_no" />
-		<result property="coupon_money" column="coupon_money" />	
-		<result property="coupon_begin" column="coupon_begin" />	
-		<result property="coupon_end" column="coupon_end" />	
-	</resultMap>
+	
 	
 	<resultMap type="Event" id="resultList">
 		<id property="event_no" column="event_no" />
@@ -75,20 +70,30 @@
 		<if test="event_fimg != null">
 		#{event_fimg},#{event_rimg},
 		</if>
-				
+		#{coupon_no},		
 		<if test="sum_fimg == null">
 		null, null,
 		</if>
 		<if test="sum_fimg != null">
-		#{sum_fimg}, #{sum_rimg},
+		#{sum_fimg}, #{sum_rimg}
 		</if>
+		)
 		
-		#{coupon_no})
 	</insert>
 	
 	<update id="updateEvent" parameterType="Event">
-		update event set event_name = #{evnet_name}, event_content = #{event_content},
-		 event_fimg = #{event_fimg}, coupon_no = #{coupon_no}, sum_fimg = #{sum_fimg} where event_no = #{event_no}
+		update event set event_name = #{event_name}, event_content = #{event_content},
+		
+		<if test="event_fimg != null">
+		event_fimg = #{event_fimg}, event_rimg = #{event_rimg},
+		</if>
+				
+		<if test="sum_fimg != null">
+		sum_fimg = #{sum_fimg}, sum_rimg = #{sum_rimg},
+		</if>
+		
+		coupon_no = #{coupon_no}
+		where event_no = #{event_no}
 	</update>
 	
 	<delete id="deleteEvent" parameterType="string">

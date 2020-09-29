@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="resources/css/bootstrap.min.css" >
     <link rel="stylesheet" href="resources/css/email.css" >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+     <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
   </head>
   <body>
     <div class="container-fluid">

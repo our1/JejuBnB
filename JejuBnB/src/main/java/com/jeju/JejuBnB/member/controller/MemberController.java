@@ -139,7 +139,7 @@ public class MemberController {
 		public ModelAndView updatePwd(Member member, ModelAndView mv) throws IOException {
 			member.setUser_pwd(bcryptPasswordEncoder.encode(member.getUser_pwd()));
 			if (memberService.updatPwdMember(member) > 0) {
-				mv.setViewName("member/myinfoPage");
+				mv.setViewName("member/myPage");
 				return mv;
 			} else {
 				mv.setViewName("common/error");

@@ -11,6 +11,7 @@
   <meta name="author" content="">
 
   <title>JejuBnB</title>
+   <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
 
   <!-- Custom fonts for this template-->
   <link href="resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">

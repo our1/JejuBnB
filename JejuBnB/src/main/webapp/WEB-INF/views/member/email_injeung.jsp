@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>JejuBnB</title>
+ <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
     <link rel="stylesheet" href="resources/css/bootstrap.min.css" >
     <link rel="stylesheet" href="resources/css/email_injeung.css" >
 </head>

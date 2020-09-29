@@ -279,6 +279,7 @@
       padding: 15px 40px;
       border: none;
       border-radius: 5px;
+      margin-left : 30%;
     }
     .co:hover {
       background: #2F3B59;
@@ -323,6 +324,7 @@
     padding: 15px 40px;
     border: none;
     border-radius: 5px;
+    margin-left : 3%;
 }
 </style>
 </head>
@@ -346,19 +348,6 @@
         }).open();
     })
 }
-</script>
-<script type="text/javascript">
-		$(document).ready(function() {
-			  $('#summernote').summernote({
-				    height : 300, 
-					width : 1000,
-					lang : 'ko-KR',
-					placeholder : '관광지 내용 을 입력 하세요',
-			        focus: true, 
-			  });
-			  // Summernote에 글 내용 추가하는 코드
-			  $("#summernote").summernote('code',  '${ tour.tour_content }');
-			});
 </script>
 <script type="text/javascript">
 	function deleteTour(){
@@ -411,7 +400,19 @@
   <div class="tih1">
   <h4>관광지 정보</h4>
     </div>
-    <textarea name="tour_content" id="summernote" class="summernote" ></textarea>
+    <textarea name="tour_content" id="summernote" class="summernote" >${ tour.tour_content }</textarea>
+  <script>
+  $(document).ready(function() { $('#summernote').summernote();
+  });
+  $('.summernote').summernote({
+    height : 1000,
+    width : 1000,
+    lang : 'ko-KR',
+    placeholder : '관광지 내용 을 입력해 주세요',
+    onImageUpload: function(files, editor, welEditable) { sendFile(files[0], editor, welEditable);
+    }
+  });
+</script>
     </div>
     <div class="ti4">
     <div class="tih1">
@@ -432,7 +433,6 @@
   <div class="imagePreview"></div>
 <input id="uploadFile" type="file" name="tour_thum_image" value="${ tour.tour_thum_image }"class="img" />
 <script type="text/javascript">
-
 $(function() {
     $("#uploadFile").on("change", function(){
         var files = !!this.files ? this.files : [];
@@ -450,16 +450,15 @@ $(function() {
 <input type="hidden" name="user_id" value="${ loginMember.user_id }" >
 <div class="ti6">
 <input type="submit" value="수정 완료" class="co">
-<button class="tdelete" onclick="deleteTour()">삭제 하기</button>
 </div>
 </form>
+<button class="tdelete" onclick="deleteTour()">삭제 하기</button>
             <a class="to-top"><i class="fa fa-angle-up"></i></a>
 </body>
         <!--=============== scripts  ===============-->
         <script type="text/javascript" src="resources/js/jquery.min.js"></script>
         <script type="text/javascript" src="resources/js/plugins.js"></script>
         <script type="text/javascript" src="resources/js/scripts.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=YOURAPIKEYHERE&libraries=places&callback=initAutocomplete"></script>
         <script type="text/javascript" src="resources/js/map_infobox.js"></script>
         <script type="text/javascript" src="resources/js/markerclusterer.js"></script>
         <script type="text/javascript" src="resources/js/maps.js"></script>

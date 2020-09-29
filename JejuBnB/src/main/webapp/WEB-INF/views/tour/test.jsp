@@ -21,7 +21,7 @@
 <script src="resources/summernote/lang/summernote-ko-KR.js"></script>
 
         <!--=============== favicons ===============-->
-        <link rel="shortcut icon" href="resources/images/favicon.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
 
 <style type="text/css">
 .tihead {

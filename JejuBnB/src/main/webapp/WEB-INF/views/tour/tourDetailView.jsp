@@ -17,7 +17,7 @@
         <link type="text/css" rel="stylesheet" href="resources/css/style.css">
         <link type="text/css" rel="stylesheet" href="resources/css/color.css">
         <!--=============== favicons ===============-->
-        <link rel="shortcut icon" href="resources/images/favicon.ico">
+        <link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon.png">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
       <style type="text/css">
       	.col-md-8 h2 {
@@ -146,9 +146,6 @@
                                                 <!--reviews-comments-item end-->
                                                 <!-- reviews-comments-item -->
                                                 <div class="reviews-comments-item">
-                                                    <div class="review-comments-avatar">
-                                                        <img src="resources/images/avatar/1.jpg" alt="">
-                                                    </div>
                                                     <div class="reviews-comments-item-text">
                                                         <h4><a href="#">Mark Rose</a></h4>
                                                         <div class="listing-rating card-popup-rainingvis" data-starrating2="4"> </div>
@@ -157,21 +154,6 @@
                                                         <span class="reviews-comments-item-date"><i class="fa fa-calendar-check-o"></i>12 April 2018</span>
                                                     </div>
                                                 </div>
-                                                <!--reviews-comments-item end-->
-                                                <!-- reviews-comments-item -->
-                                                <div class="reviews-comments-item">
-                                                    <div class="review-comments-avatar">
-                                                        <img src="resources/images/avatar/1.jpg" alt="">
-                                                    </div>
-                                                    <div class="reviews-comments-item-text">
-                                                        <h4><a href="#">Adam Koncy</a></h4>
-                                                        <div class="listing-rating card-popup-rainingvis" data-starrating2="5"> </div>
-                                                        <div class="clearfix"></div>
-                                                        <p>" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc posuere convallis purus non cursus. Cras metus neque, gravida sodales massa ut. "</p>
-                                                        <span class="reviews-comments-item-date"><i class="fa fa-calendar-check-o"></i>03 December 2017</span>
-                                                    </div>
-                                                </div>
-                                                <!--reviews-comments-item end-->
                                             </div>
                                         </div>
                                         <!-- list-single-main-item end -->
@@ -217,7 +199,9 @@
                                             </div>
                                             <!-- Add Review Box / End -->
                                         </div>
+                                        <c:if test="${ loginMember.user_id eq tour.user_id }">
                                         <button class="updatemove" onclick="updatePage()">수정 하기</button>
+                                        </c:if>
                                         <!-- list-single-main-item end -->
                                     </div>
                                 </div>
@@ -245,12 +229,6 @@
                                             </div>
                                         </div>
                                         <!--box-widget-item -->
-                                        <div class="box-widget-item fl-wrap" style="margin-left:57%;">
-                                            <div class="box-widget-item-header">
-                                                <h3>Weather in City : </h3>
-                                            </div>
-											<div id="weather-widget" class="gradient-bg ideaboxWeather" data-city="New York"></div>
-                                        </div>
                                         <!--box-widget-item end -->
                                         <!--box-widget-item -->
                                         <div class="box-widget-item fl-wrap" style="margin-left:57%;">
@@ -262,14 +240,6 @@
                                                     <div id="singleMap" data-latitude="40.7427837" data-longitude="-73.11445617675781" data-mapTitle="Our Location"></div>
                                                 </div>
                                                 <div class="box-widget-content">
-                                                    <div class="list-author-widget-contacts list-item-widget-contacts">
-                                                        <ul>
-                                                            <li><span><i class="fa fa-map-marker"></i> Adress :</span> <a href="#">USA 27TH Brooklyn NY</a></li>
-                                                            <li><span><i class="fa fa-phone"></i> Phone :</span> <a href="#">+7(123)987654</a></li>
-                                                            <li><span><i class="fa fa-envelope-o"></i> Mail :</span> <a href="#">AlisaNoory@domain.com</a></li>
-                                                            <li><span><i class="fa fa-globe"></i> Website :</span> <a href="#">themeforest.net</a></li>
-                                                        </ul>
-                                                    </div>
                                                     <div class="list-widget-social">
                                                         <ul>
                                                             <li><a href="#" target="_blank" ><i class="fa fa-facebook"></i></a></li>

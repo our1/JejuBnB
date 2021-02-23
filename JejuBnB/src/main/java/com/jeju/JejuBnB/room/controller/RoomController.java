@@ -486,16 +486,3 @@ public class RoomController {
 	
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
- 
